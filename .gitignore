@@ -1,0 +1,7 @@
+dist
+node_modules
+.output
+.tanstack
+.sisyphus
+.DS_Store
+.env

@@ -1,0 +1,20 @@
+{
+  "name": "monorepo",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "bun run --filter '*' dev",
+    "dev:api": "bun run --filter @app/api dev",
+    "dev:web": "bun run --filter @app/web dev",
+    "xbuild": "bun run --filter '*' build",
+    "lint": "biome check .",
+    "lint:fix": "biome check . --write --unsafe"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.4",
+    "nitro": "npm:nitro-nightly@latest"
+  }
+}
