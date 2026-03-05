@@ -10,7 +10,12 @@ function RouteComponent() {
     <main className="page-wrap px-4 py-12">
       <section className="island-shell rounded-2xl p-6 sm:p-8">
         <h1 className="display-title">Dashboard</h1>
-        <p className="my-3">Hello "/dashboard"!</p>
+        <p className="my-3">
+          Hello "/dashboard"! -{" "}
+          <a href="http://localhost:3001/api/auth/reference" target="_blank" rel="noopener">
+            Better Auth Swagger
+          </a>
+        </p>
         <Profile />
       </section>
     </main>

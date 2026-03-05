@@ -1,4 +1,5 @@
 import { betterAuth } from "better-auth"
+import { openAPI } from "better-auth/plugins"
 import { Pool } from "pg"
 
 export const auth = betterAuth({
@@ -6,6 +7,7 @@ export const auth = betterAuth({
   database: new Pool({
     connectionString: process.env.POSTGRES_URL
   }),
+  plugins: [openAPI()],
   experimental: {
     joins: true
   },

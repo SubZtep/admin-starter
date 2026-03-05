@@ -14,3 +14,7 @@ BETTER_AUTH_URL=http://localhost:3001
 POSTGRES_URL=postgresql://testuser:testpass@localhost:5433/test
 CORS_ORIGIN=http://localhost:3000
 ```
+
+## OpenAPI
+
+Better Auth endpoint reference: http://localhost:3001/api/auth/reference
