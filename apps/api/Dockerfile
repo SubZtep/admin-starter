@@ -2,9 +2,10 @@ FROM oven/bun:1-alpine AS base
 WORKDIR /app
 
 FROM base AS deps
-COPY package.json ./
-COPY apps/api/package.json ./apps/api/
-COPY packages/shared/package.json ./packages/shared/
+# COPY package.json bun.lock ./
+# COPY apps/api/package.json ./apps/api/
+# COPY packages/shared/package.json ./packages/shared/
+COPY . .
 RUN bun install
 
 FROM deps AS build

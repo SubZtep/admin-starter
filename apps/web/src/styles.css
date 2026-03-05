@@ -125,6 +125,46 @@ body::after {
   mask-image: radial-gradient(circle at 50% 30%, black, transparent 78%);
 }
 
+main {
+  @apply px-4 py-12;
+}
+
+h1 {
+  @apply text-2xl font-extrabold;
+}
+
+label {
+  display: flex;
+  width: 400px;
+  align-content: space-between;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+label > :first-child {
+  flex-grow: 1;
+}
+
+input {
+  border: 2px inset black;
+  background-color: #333;
+  color: #fff;
+  padding: 2px 4px;
+  @apply rounded-xs;
+}
+
+button {
+  border: 4px outset gray;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  @apply rounded-md;
+
+  &:active {
+    border-style: double;
+    border-color: #5c5c5c;
+  }
+}
+
 a {
   color: var(--lagoon-deep);
   text-decoration-color: rgba(50, 143, 151, 0.4);
@@ -185,7 +225,7 @@ pre code {
   border-color: color-mix(in oklab, var(--lagoon-deep) 35%, var(--line));
 }
 
-button,
+/* button, */
 .island-shell,
 a {
   transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease,

@@ -1,20 +1,41 @@
 services:
+  db:
+    image: postgres:18-alpine
+    ports:
+      - "5433:5432"
+    restart: unless-stopped
+    shm_size: 128mb
+    environment:
+      POSTGRES_USER: testuser
+      POSTGRES_PASSWORD: testpass
+      POSTGRES_DB: test
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "testuser", "-d", "postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
   api:
     build:
       context: .
       dockerfile: apps/api/Dockerfile
     ports:
       - "3001:3001"
+    depends_on:
+      db:
+        condition: service_healthy
     environment:
       - PORT=3001
       - CORS_ORIGIN=http://localhost:3000
+      - POSTGRES_URL=postgresql://testuser:testpass@db:5432/test
+      - BETTER_AUTH_SECRET=uECOarRCMYJfTylXt2jo92JVTV6GbPjP
+      - BETTER_AUTH_URL=http://localhost:3001
 
   web:
     build:
-      context: ./apps/web
+      context: .
+      dockerfile: apps/web/Dockerfile
     ports:
       - "3000:3000"
     depends_on:
       - api
-
-# TODO: fix the context mismach after finalised the packages build method

@@ -31,7 +31,8 @@
       "correctness": {
         "noUnreachable": "warn",
         "noUnusedImports": "warn",
-        "noUnusedVariables": "warn"
+        "noUnusedVariables": "warn",
+        "noChildrenProp": "off"
       },
       "suspicious": {
         "noExplicitAny": "off",
