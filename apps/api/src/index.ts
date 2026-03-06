@@ -2,7 +2,7 @@ import { Hono } from "hono"
 import { cors } from "hono/cors"
 import { logger } from "hono/logger"
 import { auth } from "./lib/auth"
-import loginRoutes from "./routes/login"
+import usersRoutes from "./routes/users"
 
 const app = new Hono()
 
@@ -18,9 +18,9 @@ app.use(
 )
 
 app.on(["POST", "GET"], "/api/auth/*", c => auth.handler(c.req.raw))
-app.route("/auth", loginRoutes)
 app.get("/health", c => c.json({ status: "ok" }))
 app.get("/api/hello", c => c.json({ message: "Hello from Hono!" }))
+app.route("/users", usersRoutes)
 
 export default {
   port: process.env.PORT ?? 3001,

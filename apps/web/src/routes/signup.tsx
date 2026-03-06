@@ -51,7 +51,7 @@ function SignUp() {
   return (
     <main className="page-wrap px-4 py-12">
       <section className="island-shell rounded-2xl p-6 sm:p-8">
-        <h1 className="display-title">Sign Up</h1>
+        <h1>Sign Up</h1>
         <p className="my-4">Enter your details:</p>
         <form
           onSubmit={e => {

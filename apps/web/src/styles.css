@@ -131,6 +131,12 @@ main {
 
 h1 {
   @apply text-2xl font-extrabold;
+  font-family: "Fraunces", Georgia, serif;
+}
+
+h2 {
+  @apply text-xl font-bold my-4;
+  font-family: "Fraunces", Georgia, serif;
 }
 
 label {
