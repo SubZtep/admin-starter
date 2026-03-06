@@ -1,7 +1,9 @@
 dist
 node_modules
+.agents
 .output
 .tanstack
 .sisyphus
 .DS_Store
 .env
+skills-lock.json

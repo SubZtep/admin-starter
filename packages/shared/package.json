@@ -1,5 +1,7 @@
 {
   "name": "@app/shared",
+  "description": "Shared types and utilities",
   "version": "0.0.1",
-  "private": true
+  "private": true,
+  "main": "src/index.ts"
 }
