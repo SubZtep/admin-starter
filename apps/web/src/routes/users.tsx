@@ -1,20 +1,18 @@
 import { getTimeAgo } from "@app/shared"
+import { createFileRoute } from "@tanstack/react-router"
 import { createColumnHelper } from "@tanstack/react-table"
+import type { UserWithRole } from "better-auth/client/plugins"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
+import Loader from "#/components/Loader"
+import Table from "#/components/Table"
 import { authClient } from "#/lib/auth"
-import Table from "./Table"
 
-type UserRow = {
-  id: string
-  name: string
-  email: string
-  image: string
-  role: string | null
-  createdAt: string
-}
+export const Route = createFileRoute("/users")({
+  component: UserList
+})
 
-const columnHelper = createColumnHelper<UserRow>()
+const columnHelper = createColumnHelper<Pick<UserWithRole, "id" | "name" | "email" | "image" | "role" | "createdAt">>()
 const columns = [
   columnHelper.accessor("name", {
     header: () => "Name",
@@ -39,13 +37,16 @@ const columns = [
 ]
 
 export function UserList() {
-  const [users, setUsers] = useState<any[]>([])
+  const [users, setUsers] = useState<UserWithRole[]>([])
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     ;(async () => {
+      setLoading(true)
       const { data, error } = await authClient.admin.listUsers({
         query: {}
       })
+      setLoading(false)
       if (error) {
         toast.error(error.message)
       }
@@ -55,15 +56,21 @@ export function UserList() {
     })()
   }, [])
 
+  if (loading) {
+    return <Loader />
+  }
+
   if (!users || users.length === 0) {
     return null
   }
 
   return (
-    <div>
-      <h2>Users</h2>
-      <Table rows={users} columns={columns} />
-      {/* <pre>{JSON.stringify(users, null, 2)}</pre> */}
-    </div>
+    <main className="page-wrap px-4 py-12">
+      <section className="island-shell rounded-2xl p-6 sm:p-8">
+        <h1>Users</h1>
+        <Table rows={users} columns={columns} />
+        {/* <pre>{JSON.stringify(users, null, 2)}</pre> */}
+      </section>
+    </main>
   )
 }

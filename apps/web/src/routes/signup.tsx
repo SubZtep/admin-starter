@@ -92,7 +92,6 @@ function SignUp() {
                     value={field.state.value}
                     onBlur={field.handleBlur}
                     onChange={e => field.handleChange(e.target.value)}
-                    autoComplete="off"
                   />
                 </label>
                 {!field.state.meta.isValid && (
@@ -114,7 +113,7 @@ function SignUp() {
                     value={field.state.value}
                     onBlur={field.handleBlur}
                     onChange={e => field.handleChange(e.target.value)}
-                    autoComplete="off"
+                    autoComplete="new-password"
                   />
                 </label>
                 {!field.state.meta.isValid && (
