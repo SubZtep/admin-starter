@@ -34,7 +34,6 @@ function LogIn() {
             console.log("Loading", ctx)
           },
           onSuccess: ctx => {
-            //redirect to the dashboard or sign in page
             console.log("SUCCESS", JSON.stringify(ctx.data, null, 2))
           },
           onError: ctx => {
@@ -68,7 +67,6 @@ function LogIn() {
                     value={field.state.value}
                     onBlur={field.handleBlur}
                     onChange={e => field.handleChange(e.target.value)}
-                    autoComplete="off"
                   />
                 </label>
                 {!field.state.meta.isValid && (
@@ -90,7 +88,6 @@ function LogIn() {
                     value={field.state.value}
                     onBlur={field.handleBlur}
                     onChange={e => field.handleChange(e.target.value)}
-                    autoComplete="off"
                   />
                 </label>
                 {!field.state.meta.isValid && (

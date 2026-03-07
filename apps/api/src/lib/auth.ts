@@ -1,6 +1,5 @@
 import { betterAuth } from "better-auth"
 import { admin, openAPI } from "better-auth/plugins"
-// import { admin } from "better-auth/plugins/admin"
 import { Pool } from "pg"
 
 export const auth = betterAuth({

@@ -160,8 +160,8 @@ input {
 }
 
 button {
-  border: 3px outset gray;
-  padding: 0.25rem 0.5rem;
+  border: 2px outset gray;
+  padding: 0.25rem 0.75rem;
   cursor: pointer;
   @apply rounded-md;
 
