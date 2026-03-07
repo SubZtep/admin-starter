@@ -14,7 +14,7 @@ on:
 
 jobs:
   api-docker:
-    name: API Build and Push Docker image
+    name: API Build and Push
     if: ${{ inputs.release_api }}
     runs-on: ubuntu-latest
     permissions:
@@ -52,7 +52,7 @@ jobs:
             ${{ vars.DOCKER_IMAGE_API }}:${{ steps.version.outputs.version }}
 
   web-docker:
-    name: Web Build and Push to Docker Hub
+    name: Web Build and Push
     if: ${{ inputs.release_web }}
     runs-on: ubuntu-latest
     permissions:
