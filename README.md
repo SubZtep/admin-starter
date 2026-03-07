@@ -1,30 +1,33 @@
 # Admin Starter
 
-TypeScript monorepo, a Better Auth implementation with [API](./apps/api/) and [web](./apps/web/) apps.
+TypeScript monorepo implementing Better Auth with [API](./apps/api/) and [web](./apps/web/) apps.
 
 ## Features
 
-- Registration / login
+- Registration / Login
 - Admin list users
 
 ## Run
 
 ```sh
 docker compose up -d
-cd apps/api
-bunx auth@latest migrate
 ```
 
-Open http://localhost:3000.
+Database files are stored in the `./data` folder. Open http://localhost:3000 to access the UI.
 
 ## Stack
 
 - Better Auth
+- Biome
 - Bun
 - Hono
+- Lucide
 - PostgreSQL
 - React
 - Tailwind
+- TanStack Form
+- TanStack Query
 - TanStack Start
+- TanStack Table
 - Vite
 - Zod

@@ -1,15 +1,8 @@
 import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table"
-import { useEffect, useState } from "react"
 
 export default function Table({ columns, rows }: { columns: any[]; rows: any[] }) {
-  const [data, _setData] = useState(() => [...rows])
-
-  useEffect(() => {
-    _setData(rows)
-  }, [rows])
-
   const table = useReactTable({
-    data,
+    data: rows,
     columns,
     getCoreRowModel: getCoreRowModel()
   })

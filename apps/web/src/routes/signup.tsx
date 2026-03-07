@@ -1,14 +1,16 @@
 import { registerSchema } from "@app/schemas"
 import { useForm } from "@tanstack/react-form"
-import { createFileRoute } from "@tanstack/react-router"
+import { createFileRoute, useNavigate } from "@tanstack/react-router"
 import { toast } from "react-toastify"
-import { authClient } from "../lib/auth" //import the auth client
+import { authClient } from "../lib/auth"
 
 export const Route = createFileRoute("/signup")({
   component: SignUp
 })
 
 function SignUp() {
+  const navigate = useNavigate()
+
   const form = useForm({
     defaultValues: {
       name: "",
@@ -25,26 +27,19 @@ function SignUp() {
         return alert("Data error")
       }
 
-      await authClient.signUp.email(
-        {
-          ...data,
-          callbackURL: "/dashboard"
+      await authClient.signUp.email(data, {
+        onRequest: ctx => {
+          //show loading
+          console.log("Loading", ctx)
         },
-        {
-          onRequest: ctx => {
-            //show loading
-            console.log("Loading", ctx)
-          },
-          onSuccess: ctx => {
-            //redirect to the dashboard or sign in page
-            toast.success("User registered")
-            console.log("SUCCESS", ctx)
-          },
-          onError: ctx => {
-            toast.error(ctx.error.message)
-          }
+        onSuccess: _ctx => {
+          toast.success("User registered")
+          navigate({ to: "/dashboard" })
+        },
+        onError: ctx => {
+          toast.error(ctx.error.message)
         }
-      )
+      })
     }
   })
 

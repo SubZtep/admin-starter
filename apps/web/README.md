@@ -1,5 +1,13 @@
 Welcome to your new TanStack Start app! 
 
+## Install
+
+Create `.env` file:
+
+```ini
+VITE_API_URL=http://localhost:3001
+```
+
 # Getting Started
 
 To run this application:
