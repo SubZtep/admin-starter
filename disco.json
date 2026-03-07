@@ -1,0 +1,13 @@
+{
+  "version": "1.0",
+  "services": {
+    "api": {
+      "image": "subztep/admin-starter-api",
+      "port": 3001
+    },
+    "web": {
+      "image": "subztep/admin-starter-web",
+      "port": 3000
+    }
+  }
+}
