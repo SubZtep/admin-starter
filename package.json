@@ -1,6 +1,6 @@
 {
   "name": "admin-starter",
-  "version": "0.0.1",
+  "description": "monorepo",
   "private": true,
   "workspaces": [
     "apps/*",
