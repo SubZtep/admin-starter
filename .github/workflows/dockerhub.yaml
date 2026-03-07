@@ -1,4 +1,4 @@
-name: Release
+name: Release to Docker Hub
 
 on:
   workflow_dispatch:
@@ -14,7 +14,7 @@ on:
 
 jobs:
   api-docker:
-    name: API Build and Push to Docker Hub
+    name: API Build and Push Docker image
     if: ${{ inputs.release_api }}
     runs-on: ubuntu-latest
     permissions:
