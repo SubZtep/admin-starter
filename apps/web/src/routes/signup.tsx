@@ -2,7 +2,7 @@ import { registerSchema } from "@app/schemas"
 import { useForm } from "@tanstack/react-form"
 import { createFileRoute, useNavigate } from "@tanstack/react-router"
 import { toast } from "react-toastify"
-import { authClient } from "../lib/auth"
+import { useAuthClient } from "#/hooks/auth-client"
 
 export const Route = createFileRoute("/signup")({
   component: SignUp
@@ -10,6 +10,7 @@ export const Route = createFileRoute("/signup")({
 
 function SignUp() {
   const navigate = useNavigate()
+  const { signUp } = useAuthClient()
 
   const form = useForm({
     defaultValues: {
@@ -27,7 +28,7 @@ function SignUp() {
         return alert("Data error")
       }
 
-      await authClient.signUp.email(data, {
+      await signUp.email(data, {
         onRequest: ctx => {
           //show loading
           console.log("Loading", ctx)

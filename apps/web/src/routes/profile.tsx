@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router"
 import Loader from "#/components/Loader"
-import { useUser } from "#/hooks/use-user"
+import { useUser } from "#/hooks/user"
 
 export const Route = createFileRoute("/profile")({
   component: Profile

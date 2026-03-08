@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router"
-import { useUser } from "#/hooks/use-user"
+import { useUser } from "#/hooks/user"
 import Loader from "./Loader"
 import LogoutButton from "./LogoutButton"
 

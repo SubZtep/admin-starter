@@ -1,8 +1,8 @@
-import { authClient } from "#/lib/auth"
+import { useAuthClient } from "./auth-client"
 
 /** Currently signed in user. */
 export function useUser() {
-  const { data, isPending } = authClient.useSession()
+  const { data, isPending } = useAuthClient().useSession()
 
   return {
     user: data?.user ?? null,

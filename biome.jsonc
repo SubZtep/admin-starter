@@ -32,7 +32,8 @@
         "noUnreachable": "warn",
         "noUnusedImports": "warn",
         "noUnusedVariables": "warn",
-        "noChildrenProp": "off"
+        "noChildrenProp": "off",
+        "useExhaustiveDependencies": "off"
       },
       "suspicious": {
         "noExplicitAny": "off",

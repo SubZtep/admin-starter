@@ -1,15 +1,16 @@
 import { useNavigate } from "@tanstack/react-router"
 import { toast } from "react-toastify"
-import { authClient } from "#/lib/auth"
+import { useAuthClient } from "#/hooks/auth-client"
 
 export default function LogoutButton() {
   const navigate = useNavigate()
+  const { signOut } = useAuthClient()
 
   return (
     <button
       type="button"
       onClick={async () => {
-        const { error, data } = await authClient.signOut()
+        const { error, data } = await signOut()
         if (error) {
           toast.error(error.message ?? error.statusText)
         }

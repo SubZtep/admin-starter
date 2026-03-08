@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import Loader from "#/components/Loader"
 import Table from "#/components/Table"
-import { authClient } from "#/lib/auth"
+import { useAuthClient } from "#/hooks/auth-client"
 
 export const Route = createFileRoute("/users")({
   component: UserList
@@ -39,11 +39,12 @@ const columns = [
 export function UserList() {
   const [users, setUsers] = useState<UserWithRole[]>([])
   const [loading, setLoading] = useState(false)
+  const { admin } = useAuthClient()
 
   useEffect(() => {
     ;(async () => {
       setLoading(true)
-      const { data, error } = await authClient.admin.listUsers({
+      const { data, error } = await admin.listUsers({
         query: {}
       })
       setLoading(false)

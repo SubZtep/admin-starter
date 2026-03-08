@@ -1,9 +1,6 @@
 FROM oven/bun:1-alpine AS builder
 WORKDIR /app
 
-ARG VITE_API_URL
-ENV VITE_API_URL=${VITE_API_URL}
-
 # Install dependencies for the web app from the monorepo root
 COPY package.json bun.lock ./
 COPY apps/web/package.json apps/web/package.json

@@ -2,13 +2,15 @@ import { loginSchema } from "@app/schemas"
 import { useForm } from "@tanstack/react-form"
 import { createFileRoute } from "@tanstack/react-router"
 import { toast } from "react-toastify"
-import { authClient } from "../lib/auth" //import the auth client
+import { useAuthClient } from "#/hooks/auth-client"
 
 export const Route = createFileRoute("/signin")({
   component: LogIn
 })
 
 function LogIn() {
+  const { signIn } = useAuthClient()
+
   const form = useForm({
     defaultValues: {
       email: "",
@@ -23,7 +25,7 @@ function LogIn() {
         return alert("Data error")
       }
 
-      await authClient.signIn.email(
+      await signIn.email(
         {
           ...data,
           callbackURL: "/dashboard"

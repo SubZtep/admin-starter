@@ -14,6 +14,11 @@ interface MyRouterContext {
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
+  loader: () => {
+    return {
+      apiUrl: process.env.API_URL
+    }
+  },
   head: () => ({
     meta: [
       {

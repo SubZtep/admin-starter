@@ -5,7 +5,7 @@ Welcome to your new TanStack Start app!
 Create `.env` file:
 
 ```ini
-VITE_API_URL=http://localhost:3001
+API_URL=http://localhost:3001
 ```
 
 # Getting Started
