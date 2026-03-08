@@ -5,8 +5,7 @@
   },
   "images": {
     "frontend": {
-      "dockerfile": "apps/web/Dockerfile",
-      "context": "."
+      "context": "../.."
     }
   }
 }
