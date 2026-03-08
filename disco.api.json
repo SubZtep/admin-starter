@@ -5,7 +5,8 @@
   },
   "images": {
     "backend": {
-      "context": "../.."
+      "dockerfile": "apps/api/Dockerfile",
+      "context": "."
     }
   }
 }
