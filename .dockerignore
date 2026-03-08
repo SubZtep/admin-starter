@@ -1,7 +1,11 @@
+.dockerignore
 .git
-.output
+.gitignore
 data
-dist
-node_modules
-*.md
-.env
+**/.output
+**/.tanstack
+**/dist
+**/node_modules
+**/.env
+**/Dockerfile
+**/README.md

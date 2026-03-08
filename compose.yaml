@@ -38,9 +38,9 @@ services:
     build:
       context: .
       dockerfile: apps/web/Dockerfile
+      args:
+        - VITE_API_URL=http://localhost:3001
     ports:
       - "3000:3000"
     depends_on:
       - api
-    environment:
-      - VITE_API_URL=http://api:3003
