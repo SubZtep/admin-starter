@@ -30,7 +30,7 @@ services:
     environment:
       - PORT=3001
       - CORS_ORIGIN=http://localhost:3000
-      - POSTGRES_URL=postgresql://testuser:testpass@db:5432/test
+      - DATABASE_URL=postgresql://testuser:testpass@db:5432/test
       - BETTER_AUTH_SECRET=uECOarRCMYJfTylXt2jo92JVTV6GbPjP
       - BETTER_AUTH_URL=http://localhost:3001
 

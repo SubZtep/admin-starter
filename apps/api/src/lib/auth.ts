@@ -5,7 +5,7 @@ import { Pool } from "pg"
 export const auth = betterAuth({
   trustedOrigins: [process.env.CORS_ORIGIN!],
   database: new Pool({
-    connectionString: process.env.POSTGRES_URL
+    connectionString: process.env.DATABASE_URL
   }),
   plugins: [
     // jwt(),
