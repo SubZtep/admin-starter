@@ -1,10 +1,9 @@
 import { registerSchema } from "@app/schemas"
 import { useProgress } from "@bprogress/react"
-import { useForm } from "@tanstack/react-form"
 import { createFileRoute, useNavigate } from "@tanstack/react-router"
 import { toast } from "react-toastify"
-import { FieldErrors } from "#/components/form/FieldErrors"
 import { useAuthClient } from "#/hooks/auth-client"
+import { useAppForm } from "#/lib/form"
 
 export const Route = createFileRoute("/signup")({
   component: SignUp
@@ -15,7 +14,7 @@ function SignUp() {
   const navigate = useNavigate()
   const { signUp } = useAuthClient()
 
-  const form = useForm({
+  const form = useAppForm({
     defaultValues: {
       name: "",
       email: "",
@@ -26,27 +25,21 @@ function SignUp() {
       onChange: registerSchema
     },
     onSubmit: async ({ value }) => {
+      progress.start()
       const parsed = registerSchema.parse(value)
-      await signUp.email(parsed, {
-        onRequest() {
-          progress.start()
-        },
-        onSuccess() {
-          progress.stop()
-          toast.success("User registered")
-          navigate({ to: "/dashboard" })
-        },
-        onError: ctx => {
-          progress.stop()
-          toast.error(ctx.error.message)
-        }
-      })
+      const { error, data } = await signUp.email(parsed)
+      progress.stop()
+      if (error) toast.error(error.message)
+      if (data?.user) {
+        toast.success("User registered")
+        navigate({ to: "/dashboard" })
+      }
     }
   })
 
   return (
     <main className="page-wrap px-4 py-12">
-      <section className="island-shell rounded-2xl p-6 sm:p-8">
+      <section className="island-shell rounded-2xl p-6 sm:p-8 max-w-lg mx-auto">
         <h1>Sign Up</h1>
         <p className="my-4">Enter your details:</p>
         <form
@@ -54,85 +47,15 @@ function SignUp() {
             e.preventDefault()
             form.handleSubmit()
           }}
+          className="flex flex-col gap-1"
         >
-          <form.Field
-            name="name"
-            children={field => (
-              <>
-                <label>
-                  Name:
-                  <input
-                    type="text"
-                    name={field.name}
-                    value={field.state.value}
-                    onBlur={field.handleBlur}
-                    onChange={e => field.handleChange(e.target.value)}
-                  />
-                </label>
-                <FieldErrors field={field} />
-              </>
-            )}
-          />
-
-          <form.Field
-            name="email"
-            children={field => (
-              <>
-                <label>
-                  Email:
-                  <input
-                    type="email"
-                    name={field.name}
-                    value={field.state.value}
-                    onBlur={field.handleBlur}
-                    onChange={e => field.handleChange(e.target.value)}
-                  />
-                </label>
-                <FieldErrors field={field} />
-              </>
-            )}
-          />
-
-          <form.Field
+          <form.AppField name="name" children={field => <field.TextField label="Nane" />} />
+          <form.AppField name="email" children={field => <field.EmailField label="Email" />} />
+          <form.AppField
             name="password"
-            children={field => (
-              <>
-                <label>
-                  Password:
-                  <input
-                    type="password"
-                    name={field.name}
-                    value={field.state.value}
-                    onBlur={field.handleBlur}
-                    onChange={e => field.handleChange(e.target.value)}
-                    autoComplete="new-password"
-                  />
-                </label>
-                <FieldErrors field={field} />
-              </>
-            )}
+            children={field => <field.PasswordField label="Password" autoComplete="new-password" />}
           />
-
-          <form.Field
-            name="image"
-            children={field => (
-              <>
-                <label>
-                  Image:
-                  <input
-                    name={field.name}
-                    value={field.state.value}
-                    onBlur={field.handleBlur}
-                    type="text"
-                    onChange={e => field.handleChange(e.target.value)}
-                  />
-                </label>
-                <FieldErrors field={field} />
-              </>
-            )}
-          />
-
-          <br />
+          <form.AppField name="image" children={field => <field.TextField label="Image" />} />
           <button type="submit">Submit</button>
         </form>
       </section>

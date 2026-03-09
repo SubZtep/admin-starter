@@ -3,7 +3,7 @@ import { useNavigate } from "@tanstack/react-router"
 import { toast } from "react-toastify"
 import { useAuthClient } from "#/hooks/auth-client"
 
-export default function LogoutButton() {
+export default function LogoutButton({ className }: { className?: string }) {
   const navigate = useNavigate()
   const { signOut } = useAuthClient()
   const progress = useProgress()
@@ -22,6 +22,7 @@ export default function LogoutButton() {
           navigate({ to: "/signin" })
         }
       }}
+      className={className}
     >
       Sign Out
     </button>

@@ -1,3 +1,6 @@
+import clsx, { type ClassValue } from "clsx"
+import { twMerge } from "tailwind-merge"
+
 /** Calculates the relative time interval. */
 export function getTimeAgo(time: Date, now = new Date(), locale = "en") {
   function monthDiff(dateFrom: Date, dateTo: Date) {
@@ -33,4 +36,9 @@ export function getTimeAgo(time: Date, now = new Date(), locale = "en") {
 /** Extracts the first part of a name. */
 export function getFirstName(fullName?: string, prefix = " ") {
   return fullName ? `${prefix}${fullName.split(" ")[0]}` : ""
+}
+
+/** Merge CSS class names. */
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
 }

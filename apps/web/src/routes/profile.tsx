@@ -3,7 +3,7 @@ import { useProgress } from "@bprogress/react"
 import { createFileRoute } from "@tanstack/react-router"
 import type { User } from "better-auth"
 import { toast } from "react-toastify"
-import Loader from "#/components/Loader"
+import Loader from "#/components/ui/Loader"
 import { useAuthClient } from "#/hooks/auth-client"
 import { useUser } from "#/hooks/user"
 import { useAppForm } from "#/lib/form"
@@ -14,18 +14,12 @@ export const Route = createFileRoute("/profile")({
 
 function Profile() {
   const { user, isLoading } = useUser()
-
-  if (isLoading) {
-    return <Loader />
-  }
-
-  if (!user) {
-    throw new Error("Not logged in")
-  }
+  if (isLoading) return <Loader />
+  if (!user) throw new Error("Not logged in")
 
   return (
     <main className="page-wrap px-4 py-12">
-      <section className="island-shell rounded-2xl p-6 sm:p-8">
+      <section className="island-shell rounded-2xl p-6 sm:p-8 max-w-lg mx-auto">
         <h1>Profile</h1>
         <p>
           Logged in with the {user.emailVerified ? "verified" : "unverified"} <strong>{user.email}</strong> as{" "}
@@ -69,6 +63,7 @@ function EditUser({ user }: { user: User }) {
           e.preventDefault()
           form.handleSubmit()
         }}
+        className="flex flex-col gap-1"
       >
         <form.AppField name="name" children={field => <field.TextField label="Name" />} />
         <form.AppField name="image" children={field => <field.TextField label="Image" />} />
@@ -90,23 +85,24 @@ function EditEmail({ user }: { user: User }) {
       onChange: editEmailSchema
     },
     onSubmit: async ({ value }) => {
-      const parsed = editEmailSchema.parse(value)
       progress.start()
+      const parsed = editEmailSchema.parse(value)
       const { error, data } = await changeEmail(parsed)
-      progress.stop()
       if (error) toast.error(error.message)
       if (data?.status) toast.success("User email updated")
+      progress.stop()
     }
   })
 
   return (
     <>
-      <h2>Edit Email</h2>
+      <h2>Change Email</h2>
       <form
         onSubmit={e => {
           e.preventDefault()
           form.handleSubmit()
         }}
+        className="flex flex-col gap-1"
       >
         <form.AppField name="newEmail" children={field => <field.EmailField label="Email" />} />
         <button type="submit">Submit</button>

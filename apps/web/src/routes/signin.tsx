@@ -1,10 +1,9 @@
 import { loginSchema } from "@app/schemas"
 import { useProgress } from "@bprogress/react"
-import { useForm } from "@tanstack/react-form"
 import { createFileRoute } from "@tanstack/react-router"
 import { toast } from "react-toastify"
-import { FieldErrors } from "#/components/form/FieldErrors"
 import { useAuthClient } from "#/hooks/auth-client"
+import { useAppForm } from "#/lib/form"
 
 export const Route = createFileRoute("/signin")({
   component: LogIn
@@ -14,7 +13,7 @@ function LogIn() {
   const { signIn } = useAuthClient()
   const progress = useProgress()
 
-  const form = useForm({
+  const form = useAppForm({
     defaultValues: {
       email: "",
       password: ""
@@ -23,31 +22,20 @@ function LogIn() {
       onChange: loginSchema
     },
     onSubmit: async ({ value }) => {
+      progress.start()
       const parsed = loginSchema.parse(value)
-      await signIn.email(
-        {
-          ...parsed,
-          callbackURL: "/dashboard"
-        },
-        {
-          onRequest() {
-            progress.start()
-          },
-          onSuccess() {
-            progress.stop()
-          },
-          onError(ctx) {
-            progress.stop()
-            toast.error(ctx.error.message)
-          }
-        }
-      )
+      const { error } = await signIn.email({
+        ...parsed,
+        callbackURL: "/dashboard"
+      })
+      if (error) toast.error(error.message)
+      progress.stop()
     }
   })
 
   return (
     <main className="page-wrap px-4 py-12">
-      <section className="island-shell rounded-2xl p-6 sm:p-8">
+      <section className="island-shell rounded-2xl p-6 sm:p-8 mx-auto max-w-lg">
         <h1 className="mb-4">Sign In</h1>
 
         <form
@@ -55,46 +43,10 @@ function LogIn() {
             e.preventDefault()
             form.handleSubmit()
           }}
+          className="flex flex-col gap-1"
         >
-          <form.Field
-            name="email"
-            children={field => (
-              <>
-                <label>
-                  Email:
-                  <input
-                    type="email"
-                    name={field.name}
-                    value={field.state.value}
-                    onBlur={field.handleBlur}
-                    onChange={e => field.handleChange(e.target.value)}
-                  />
-                </label>
-                <FieldErrors field={field} />
-              </>
-            )}
-          />
-
-          <form.Field
-            name="password"
-            children={field => (
-              <>
-                <label>
-                  Password:
-                  <input
-                    type="password"
-                    name={field.name}
-                    value={field.state.value}
-                    onBlur={field.handleBlur}
-                    onChange={e => field.handleChange(e.target.value)}
-                  />
-                </label>
-                <FieldErrors field={field} />
-              </>
-            )}
-          />
-
-          <br />
+          <form.AppField name="email" children={field => <field.EmailField label="Email" />} />
+          <form.AppField name="password" children={field => <field.PasswordField label="Password" />} />
           <button type="submit">Submit</button>
         </form>
       </section>

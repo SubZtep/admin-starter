@@ -2,8 +2,8 @@ import progressCss from "@bprogress/core/css?url"
 import type { QueryClient } from "@tanstack/react-query"
 import { createRootRouteWithContext, ErrorComponent, HeadContent, Scripts } from "@tanstack/react-router"
 import { Providers } from "#/components/Providers"
-import Footer from "../components/Footer"
-import Header from "../components/Header"
+import Footer from "../components/layout/Footer"
+import Header from "../components/layout/Header"
 import appCss from "../styles.css?url"
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
@@ -47,10 +47,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body
-        className="font-sans antialiased wrap-anywhere selection:bg-[rgba(79,184,178,0.24)]"
-        style={{ "--bprogress-height": "3px" } as React.CSSProperties}
-      >
+      <body className="font-sans antialiased wrap-anywhere selection:bg-[rgba(79,184,178,0.24)]">
         <Providers>
           <Header />
           {children}

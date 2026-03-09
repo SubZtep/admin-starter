@@ -4,8 +4,8 @@ import { createColumnHelper } from "@tanstack/react-table"
 import type { UserWithRole } from "better-auth/client/plugins"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
-import Loader from "#/components/Loader"
 import Table from "#/components/Table"
+import Loader from "#/components/ui/Loader"
 import { useAuthClient } from "#/hooks/auth-client"
 
 export const Route = createFileRoute("/users")({
@@ -62,13 +62,8 @@ export function UserList() {
     })()
   }, [])
 
-  if (loading) {
-    return <Loader />
-  }
-
-  if (!users || users.length === 0) {
-    return null
-  }
+  if (loading) return <Loader />
+  if (!users || users.length === 0) return null
 
   return (
     <main className="page-wrap px-4 py-12">
