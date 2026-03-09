@@ -37,6 +37,7 @@
       "dependencies": {
         "@app/schemas": "workspace:*",
         "@app/shared": "workspace:*",
+        "@bprogress/core": "^1.3.4",
         "@bprogress/react": "^1.2.7",
         "@tailwindcss/vite": "^4.2.1",
         "@tanstack/react-devtools": "^0.9.10",
