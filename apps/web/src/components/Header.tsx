@@ -3,7 +3,6 @@ import { PawPrint } from "lucide-react"
 import { useUser } from "#/hooks/user"
 import Loader from "./Loader"
 import LogoutButton from "./LogoutButton"
-import "@bprogress/core/css"
 
 export default function Header() {
   const { user, isAdmin, isLoading } = useUser()

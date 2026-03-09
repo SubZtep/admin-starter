@@ -1,10 +1,9 @@
+import progressCss from "@bprogress/core/css?url"
 import type { QueryClient } from "@tanstack/react-query"
 import { createRootRouteWithContext, ErrorComponent, HeadContent, Scripts } from "@tanstack/react-router"
 import { Providers } from "#/components/Providers"
 import Footer from "../components/Footer"
 import Header from "../components/Header"
-// import TanStackQueryDevtools from "../integrations/tanstack-query/devtools"
-// import TanStackQueryProvider from "../integrations/tanstack-query/root-provider"
 import appCss from "../styles.css?url"
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
@@ -30,6 +29,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         rel: "stylesheet",
         href: appCss
+      },
+      {
+        rel: "stylesheet",
+        href: progressCss
       }
     ]
   }),
@@ -44,14 +47,15 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body className="font-sans antialiased wrap-anywhere selection:bg-[rgba(79,184,178,0.24)]">
-        {/* <TanStackQueryProvider> */}
+      <body
+        className="font-sans antialiased wrap-anywhere selection:bg-[rgba(79,184,178,0.24)]"
+        style={{ "--bprogress-height": "3px" } as React.CSSProperties}
+      >
         <Providers>
           <Header />
           {children}
           <Footer />
         </Providers>
-        {/* </TanStackQueryProvider> */}
         <Scripts />
       </body>
     </html>
