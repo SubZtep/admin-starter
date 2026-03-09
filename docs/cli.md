@@ -1,4 +1,4 @@
-# Useful CLI commands
+# Useful CLI Commands
 
 Check for dependency updates:
 

@@ -1,5 +1,1 @@
-Hello World
-
-## Index
-
-- [Useful CLI commands](./cli.md)
+A starter boilerplate for projects with user and admin features.

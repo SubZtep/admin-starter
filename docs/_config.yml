@@ -1,5 +1,4 @@
 title: Admin Starter
-description: A starter boilerplate for projects with user and admin features.
 remote_theme: jekyll/minima
 plugins:
   - jekyll-remote-theme
