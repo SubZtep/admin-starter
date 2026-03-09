@@ -1,6 +1,14 @@
 title: Admin Starter
+description: Starter template for projects with user authentication and admin features.
+
 remote_theme: jekyll/minima
 plugins:
   - jekyll-remote-theme
+
 minima:
   skin: solarized-dark
+
+github_username: SubZtep
+repository: SubZtep/admin-starter
+
+header_pages:
