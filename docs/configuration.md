@@ -1,3 +1,8 @@
+---
+layout: page
+title: Configuration
+---
+
 ## Split Configuration Responsibilities
 
 ### `.env`

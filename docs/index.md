@@ -1,6 +1,6 @@
 ---
 layout: home
-title: Index
+title: Documentation
 ---
 
 Welcome to the **Admin Starter** documentation.

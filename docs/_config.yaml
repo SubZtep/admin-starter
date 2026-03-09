@@ -11,7 +11,7 @@ minima:
     name: Andras Serfozo
     email: subztep@gmail.com
   nav_pages:
-    - index.md
+    - demo.md
   social_links:
     - title: Admin Starter repository at GitHub
       icon: github-alt

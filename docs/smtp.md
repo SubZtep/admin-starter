@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Demo Playground
+title: Gmail as free SMTP server
 ---
 
 ## Use App Password
