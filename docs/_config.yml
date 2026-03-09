@@ -7,8 +7,8 @@ plugins:
 
 minima:
   skin: solarized-dark
+  nav_pages:
+    - index.md
 
 github_username: SubZtep
 repository: SubZtep/admin-starter
-
-header_pages:

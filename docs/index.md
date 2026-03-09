@@ -1,11 +1,11 @@
 ---
 layout: home
-title: Documentation
+title: Index
 ---
 
 Welcome to the **Admin Starter** documentation.
 
-## Index
+## Pages
 
 - [Demo Playground](./demo.md)
 - [Useful CLI commands](./cli.md)

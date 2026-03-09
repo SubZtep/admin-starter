@@ -3,9 +3,6 @@ layout: page
 title: Useful CLI Commands
 ---
 
-* TOC
-{:toc}
-
 Check for dependency updates:
 
 ```sh
