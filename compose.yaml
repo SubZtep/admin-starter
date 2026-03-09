@@ -14,9 +14,24 @@ services:
       - ./apps/api/better-auth_migrations:/docker-entrypoint-initdb.d
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "testuser", "-d", "postgres"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
+      interval: 3s
+
+  mail:
+    image: maildev/maildev
+    restart: unless-stopped
+    ports:
+      - "1080:1080"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--quiet",
+          "--tries=1",
+          "--spider",
+          "http://localhost:1080",
+        ]
+      interval: 3s
 
   api:
     build:
@@ -27,12 +42,16 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      mail:
+        condition: service_healthy
     environment:
       - PORT=3001
       - CORS_ORIGIN=http://localhost:3000
       - DATABASE_URL=postgresql://testuser:testpass@db:5432/test
       - BETTER_AUTH_SECRET=uECOarRCMYJfTylXt2jo92JVTV6GbPjP
       - BETTER_AUTH_URL=http://localhost:3001
+      - SMTP_HOST=mail
+      - SMTP_PORT=1025
 
   web:
     build:

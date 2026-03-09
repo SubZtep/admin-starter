@@ -14,7 +14,7 @@ TypeScript monorepo implementing Better Auth with [API](./apps/api/) and [web](.
 
 A test instance is available at [https://kind-catmint-56983.ondis.co/](https://kind-catmint-56983.ondis.co/).
 
-See the [demo playground documentation](https://subztep.github.io/admin-starter/demo.html) for details.
+See the [demo page documentation](https://subztep.github.io/admin-starter/demo.html) for details.
 
 ## Quick Start
 

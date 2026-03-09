@@ -5,7 +5,14 @@ title: Index
 
 Welcome to the **Admin Starter** documentation.
 
-## Pages
+## Start Your Project
 
-- [Demo Playground](./demo.md)
+1. [Configuration](./configuration.md)
+2. ???
+3. Profit
+
+## Miscellaneous
+
+- [Demo Page](./demo.md)
 - [Useful CLI commands](./cli.md)
+- [Gmail as free SMTP server](./smtp.md)

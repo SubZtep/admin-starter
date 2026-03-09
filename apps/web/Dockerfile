@@ -1,20 +1,17 @@
 FROM oven/bun:1-alpine AS builder
 WORKDIR /app
 
-# Install dependencies for the web app from the monorepo root
-COPY package.json bun.lock ./
+COPY package.json bun.lock tsconfig.json settings.toml ./
 COPY apps/web/package.json apps/web/package.json
 COPY packages ./packages
-# RUN bun install --frozen-lockfile
-# COPY . .
 RUN bun install
 
-# Copy source code needed for the web build
 COPY apps/web ./apps/web
 COPY packages ./packages
+RUN bun run --filter @app/web build
 
-WORKDIR /app/apps/web
-RUN bun run build
+# WORKDIR /app/apps/web
+# RUN bun run build
 
 FROM oven/bun:1-alpine AS runner
 WORKDIR /app

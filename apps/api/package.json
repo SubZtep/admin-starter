@@ -10,13 +10,19 @@
   "dependencies": {
     "@app/schemas": "workspace:*",
     "@app/shared": "workspace:*",
+    "@react-email/components": "^1.0.8",
+    "@react-email/render": "^2.0.4",
     "better-auth": "^1.5.4",
     "hono": "^4.12.5",
+    "nodemailer": "^8.0.1",
     "pg": "^8.20.0",
+    "react": "^19.2.4",
     "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/bun": "latest",
-    "@types/pg": "^8.18.0"
+    "@types/nodemailer": "^7.0.11",
+    "@types/pg": "^8.18.0",
+    "@types/react": "^19.2.14"
   }
 }

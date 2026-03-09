@@ -1,5 +1,12 @@
 import { z } from "zod"
 
+export const loginSchema = z.object({
+  email: z.email("Invalid email address").trim().toLowerCase(),
+  password: z.string()
+})
+
+export type LoginInput = z.infer<typeof loginSchema>
+
 /**
  * Password rules:
  * - 8–72 chars (bcrypt safe range)
@@ -35,3 +42,16 @@ export const registerSchema = z.object({
 // })
 
 export type RegisterInput = z.infer<typeof registerSchema>
+
+export const editSchema = z.object({
+  name: z.string().trim().min(2, "Name must be at least 2 characters").max(100),
+  image: z.string()
+})
+
+export type EditInput = z.infer<typeof editSchema>
+
+export const editEmailSchema = z.object({
+  newEmail: z.email("Invalid email address").trim().toLowerCase()
+})
+
+export type EditEmailInput = z.infer<typeof editEmailSchema>

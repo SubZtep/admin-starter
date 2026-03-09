@@ -1,11 +1,11 @@
 {
   "name": "admin-starter",
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.6",
+    "nitro": "npm:nitro-nightly@latest"
+  },
   "description": "monorepo",
   "private": true,
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
   "scripts": {
     "dev": "bun run --filter '*' dev",
     "dev:api": "bun run --filter @app/api dev",
@@ -14,8 +14,8 @@
     "lint": "biome check .",
     "lint:fix": "biome check . --write --unsafe"
   },
-  "devDependencies": {
-    "@biomejs/biome": "^2.4.6",
-    "nitro": "npm:nitro-nightly@latest"
-  }
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
 }

@@ -4,7 +4,7 @@
     "ignoreUnknown": true,
     "includes": [
       "apps/**/*.ts",
-      "apps/web/**/*.tsx",
+      "apps/**/*.tsx",
       "!apps/web/**/routeTree.gen.ts",
       "packages/**/*.ts",
       "*.json",
