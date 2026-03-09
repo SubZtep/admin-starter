@@ -1,0 +1,25 @@
+title: Admin Starter
+description: Starter template for projects with user authentication and admin features.
+
+remote_theme: jekyll/minima
+plugins:
+  - jekyll-remote-theme
+
+minima:
+  skin: solarized-dark
+  author:
+    name: Andras Serfozo
+    email: subztep@gmail.com
+  nav_pages:
+    - index.md
+  social_links:
+    - title: Admin Starter repository at GitHub
+      icon: github-alt
+      url: "https://github.com/SubZtep/admin-starter"
+    - title: Please find API and Web images at Docker Hub
+      icon: docker
+      url: "https://hub.docker.com/repositories/subztep?search=admin-starter"
+    - title: Author on X
+      icon: x-twitter
+      url: "https://x.com/SubZtep"
+  hide_site_feed_link: true
