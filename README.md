@@ -12,7 +12,7 @@ TypeScript monorepo implementing Better Auth with [API](./apps/api/) and [web](.
 
 ## Demo
 
-A playground instance is deployed at [https://kind-catmint-56983.ondis.co/](https://kind-catmint-56983.ondis.co/).  
+You can access a playground instance at [https://kind-catmint-56983.ondis.co/](https://kind-catmint-56983.ondis.co/). It is configured using `disco.*.json` files with the `DISCO_JSON_PATH` environment variable on a [Disco](https://disco.cloud/) instance running on a [Hetzner](https://www.hetzner.com/) server.
 
 Feel free to register, or use one of the test accounts below:
 
