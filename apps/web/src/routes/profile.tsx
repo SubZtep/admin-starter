@@ -14,7 +14,7 @@ function Profile() {
   }
 
   if (!user) {
-    return <div>Not logged in</div>
+    throw new Error("Not logged in")
   }
 
   return (

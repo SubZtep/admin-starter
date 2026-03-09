@@ -1,6 +1,6 @@
 import { TanStackDevtools } from "@tanstack/react-devtools"
 import type { QueryClient } from "@tanstack/react-query"
-import { createRootRouteWithContext, HeadContent, Scripts } from "@tanstack/react-router"
+import { createRootRouteWithContext, ErrorComponent, HeadContent, Scripts } from "@tanstack/react-router"
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
 import { ToastContainer } from "react-toastify"
 import Footer from "../components/Footer"
@@ -9,11 +9,7 @@ import TanStackQueryDevtools from "../integrations/tanstack-query/devtools"
 import TanStackQueryProvider from "../integrations/tanstack-query/root-provider"
 import appCss from "../styles.css?url"
 
-interface MyRouterContext {
-  queryClient: QueryClient
-}
-
-export const Route = createRootRouteWithContext<MyRouterContext>()({
+export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   loader: () => {
     return {
       apiUrl: process.env.API_URL
@@ -40,7 +36,8 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     ]
   }),
   shellComponent: RootDocument,
-  notFoundComponent: NotFound
+  notFoundComponent: NotFound,
+  errorComponent: DefaultError
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
@@ -79,5 +76,13 @@ function NotFound() {
     <p className="text-center my-28 text-red-500 text-xl font-bold text-shadow-sm text-shadow-green-700">
       Sorry, this page doesn’t exist.
     </p>
+  )
+}
+
+function DefaultError({ error }: { error: Error }) {
+  return (
+    <div className="flex flex-col items-center py-24">
+      <ErrorComponent error={error} />
+    </div>
   )
 }
