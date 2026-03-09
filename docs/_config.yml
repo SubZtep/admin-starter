@@ -9,6 +9,13 @@ minima:
   skin: solarized-dark
   nav_pages:
     - index.md
+  social_links:
+    - title: Admin Starter repository at GitHub
+      icon: github-alt
+      url: "https://github.com/jekyll/jekyll"
+    - title: Please find API and Web at Docker Hub
+      icon: docker
+      url: "https://hub.docker.com/repository/docker/subztep/admin-starter-web/general"
 
 github_username: SubZtep
 repository: SubZtep/admin-starter
