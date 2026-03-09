@@ -1,4 +1,5 @@
 import { editEmailSchema, editSchema } from "@app/schemas"
+import { useProgress } from "@bprogress/react"
 import { createFileRoute } from "@tanstack/react-router"
 import type { User } from "better-auth"
 import { toast } from "react-toastify"
@@ -40,6 +41,7 @@ function Profile() {
 
 function EditUser({ user }: { user: User }) {
   const { updateUser } = useAuthClient()
+  const progress = useProgress()
 
   const form = useAppForm({
     defaultValues: {
@@ -51,7 +53,9 @@ function EditUser({ user }: { user: User }) {
     },
     onSubmit: async ({ value }) => {
       const parsed = editSchema.parse(value)
+      progress.start()
       const { error, data } = await updateUser(parsed)
+      progress.stop()
       if (error) toast.error(error.message)
       if (data?.status) toast.success("User updated")
     }
@@ -76,6 +80,7 @@ function EditUser({ user }: { user: User }) {
 
 function EditEmail({ user }: { user: User }) {
   const { changeEmail } = useAuthClient()
+  const progress = useProgress()
 
   const form = useAppForm({
     defaultValues: {
@@ -86,7 +91,9 @@ function EditEmail({ user }: { user: User }) {
     },
     onSubmit: async ({ value }) => {
       const parsed = editEmailSchema.parse(value)
+      progress.start()
       const { error, data } = await changeEmail(parsed)
+      progress.stop()
       if (error) toast.error(error.message)
       if (data?.status) toast.success("User email updated")
     }

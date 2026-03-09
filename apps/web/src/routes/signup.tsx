@@ -1,7 +1,9 @@
 import { registerSchema } from "@app/schemas"
+import { useProgress } from "@bprogress/react"
 import { useForm } from "@tanstack/react-form"
 import { createFileRoute, useNavigate } from "@tanstack/react-router"
 import { toast } from "react-toastify"
+import { FieldErrors } from "#/components/form/FieldErrors"
 import { useAuthClient } from "#/hooks/auth-client"
 
 export const Route = createFileRoute("/signup")({
@@ -9,6 +11,7 @@ export const Route = createFileRoute("/signup")({
 })
 
 function SignUp() {
+  const progress = useProgress()
   const navigate = useNavigate()
   const { signUp } = useAuthClient()
 
@@ -23,21 +26,18 @@ function SignUp() {
       onChange: registerSchema
     },
     onSubmit: async ({ value }) => {
-      const { success, data } = registerSchema.safeParse(value)
-      if (!success) {
-        return alert("Data error")
-      }
-
-      await signUp.email(data, {
-        onRequest: ctx => {
-          //show loading
-          console.log("Loading", ctx)
+      const parsed = registerSchema.parse(value)
+      await signUp.email(parsed, {
+        onRequest() {
+          progress.start()
         },
-        onSuccess: _ctx => {
+        onSuccess() {
+          progress.stop()
           toast.success("User registered")
           navigate({ to: "/dashboard" })
         },
         onError: ctx => {
+          progress.stop()
           toast.error(ctx.error.message)
         }
       })
@@ -69,9 +69,7 @@ function SignUp() {
                     onChange={e => field.handleChange(e.target.value)}
                   />
                 </label>
-                {!field.state.meta.isValid && (
-                  <em>{field.state.meta.errors.map(error => error?.message).join(", ")}</em>
-                )}
+                <FieldErrors field={field} />
               </>
             )}
           />
@@ -90,9 +88,7 @@ function SignUp() {
                     onChange={e => field.handleChange(e.target.value)}
                   />
                 </label>
-                {!field.state.meta.isValid && (
-                  <em>{field.state.meta.errors.map(error => error?.message).join(", ")}</em>
-                )}
+                <FieldErrors field={field} />
               </>
             )}
           />
@@ -112,9 +108,7 @@ function SignUp() {
                     autoComplete="new-password"
                   />
                 </label>
-                {!field.state.meta.isValid && (
-                  <em>{field.state.meta.errors.map(error => error?.message).join(", ")}</em>
-                )}
+                <FieldErrors field={field} />
               </>
             )}
           />
@@ -133,9 +127,7 @@ function SignUp() {
                     onChange={e => field.handleChange(e.target.value)}
                   />
                 </label>
-                {!field.state.meta.isValid && (
-                  <em>{field.state.meta.errors.map(error => error?.message).join(", ")}</em>
-                )}
+                <FieldErrors field={field} />
               </>
             )}
           />

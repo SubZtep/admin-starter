@@ -1,7 +1,9 @@
 import { loginSchema } from "@app/schemas"
+import { useProgress } from "@bprogress/react"
 import { useForm } from "@tanstack/react-form"
 import { createFileRoute } from "@tanstack/react-router"
 import { toast } from "react-toastify"
+import { FieldErrors } from "#/components/form/FieldErrors"
 import { useAuthClient } from "#/hooks/auth-client"
 
 export const Route = createFileRoute("/signin")({
@@ -10,6 +12,7 @@ export const Route = createFileRoute("/signin")({
 
 function LogIn() {
   const { signIn } = useAuthClient()
+  const progress = useProgress()
 
   const form = useForm({
     defaultValues: {
@@ -20,25 +23,21 @@ function LogIn() {
       onChange: loginSchema
     },
     onSubmit: async ({ value }) => {
-      const { success, data } = loginSchema.safeParse(value)
-      if (!success) {
-        return alert("Data error")
-      }
-
+      const parsed = loginSchema.parse(value)
       await signIn.email(
         {
-          ...data,
+          ...parsed,
           callbackURL: "/dashboard"
         },
         {
-          onRequest: ctx => {
-            //show loading
-            console.log("Loading", ctx)
+          onRequest() {
+            progress.start()
           },
-          onSuccess: ctx => {
-            console.log("SUCCESS", JSON.stringify(ctx.data, null, 2))
+          onSuccess() {
+            progress.stop()
           },
-          onError: ctx => {
+          onError(ctx) {
+            progress.stop()
             toast.error(ctx.error.message)
           }
         }
@@ -71,9 +70,7 @@ function LogIn() {
                     onChange={e => field.handleChange(e.target.value)}
                   />
                 </label>
-                {!field.state.meta.isValid && (
-                  <em>{field.state.meta.errors.map(error => error?.message).join(", ")}</em>
-                )}
+                <FieldErrors field={field} />
               </>
             )}
           />
@@ -92,9 +89,7 @@ function LogIn() {
                     onChange={e => field.handleChange(e.target.value)}
                   />
                 </label>
-                {!field.state.meta.isValid && (
-                  <em>{field.state.meta.errors.map(error => error?.message).join(", ")}</em>
-                )}
+                <FieldErrors field={field} />
               </>
             )}
           />

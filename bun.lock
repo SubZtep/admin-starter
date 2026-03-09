@@ -37,6 +37,7 @@
       "dependencies": {
         "@app/schemas": "workspace:*",
         "@app/shared": "workspace:*",
+        "@bprogress/react": "^1.2.7",
         "@tailwindcss/vite": "^4.2.1",
         "@tanstack/react-devtools": "^0.9.10",
         "@tanstack/react-form": "^1.28.4",
@@ -163,6 +164,10 @@
     "@biomejs/cli-win32-arm64": ["@biomejs/cli-win32-arm64@2.4.6", "", { "os": "win32", "cpu": "arm64" }, "sha512-xzThn87Pf3YrOGTEODFGONmqXpTwUNxovQb72iaUOdcw8sBSY3+3WD8Hm9IhMYLnPi0n32s3L3NWU6+eSjfqFg=="],
 
     "@biomejs/cli-win32-x64": ["@biomejs/cli-win32-x64@2.4.6", "", { "os": "win32", "cpu": "x64" }, "sha512-7++XhnsPlr1HDbor5amovPjOH6vsrFOCdp93iKXhFn6bcMUI6soodj3WWKfgEO6JosKU1W5n3uky3WW9RlRjTg=="],
+
+    "@bprogress/core": ["@bprogress/core@1.3.4", "", {}, "sha512-q/AqpurI/1uJzOrQROuZWixn/+ARekh+uvJGwLCP6HQ/EqAX4SkvNf618tSBxL4NysC0MwqAppb/mRw6Tzi61w=="],
+
+    "@bprogress/react": ["@bprogress/react@1.2.7", "", { "dependencies": { "@bprogress/core": "^1.3.4" }, "peerDependencies": { "react": ">=18.0.0", "react-dom": ">=18.0.0" } }, "sha512-MqJfHW+R5CQeWqyqrLxUjdBRHk24Xl63OkBLo5DMWqUqocUikRTfCIc/jtQQbPk7BRfdr5OP3Lx7YlfQ9QOZMQ=="],
 
     "@chevrotain/cst-dts-gen": ["@chevrotain/cst-dts-gen@10.5.0", "", { "dependencies": { "@chevrotain/gast": "10.5.0", "@chevrotain/types": "10.5.0", "lodash": "4.17.21" } }, "sha512-lhmC/FyqQ2o7pGK4Om+hzuDrm9rhFYIJ/AXoQBeongmn870Xeb0L6oGEiuR8nohFNL5sMaQEJWCxr1oIVIVXrw=="],
 
@@ -1041,6 +1046,8 @@
     "zeptomatch": ["zeptomatch@2.1.0", "", { "dependencies": { "grammex": "^3.1.11", "graphmatch": "^1.1.0" } }, "sha512-KiGErG2J0G82LSpniV0CtIzjlJ10E04j02VOudJsPyPwNZgGnRKQy7I1R7GMyg/QswnE4l7ohSGrQbQbjXPPDA=="],
 
     "zod": ["zod@4.3.6", "", {}, "sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg=="],
+
+    "@app/web/nitro": ["nitro-nightly@3.0.1-20260309-141311-a2ee33b1", "", { "dependencies": { "consola": "^3.4.2", "crossws": "^0.4.4", "db0": "^0.3.4", "h3": "^2.0.1-rc.16", "hookable": "^6.0.1", "nf3": "^0.3.11", "ofetch": "^2.0.0-alpha.3", "ohash": "^2.0.11", "rolldown": "^1.0.0-rc.8", "srvx": "^0.11.9", "unenv": "^2.0.0-rc.24", "unstorage": "^2.0.0-alpha.6" }, "peerDependencies": { "dotenv": "*", "giget": "*", "jiti": "^2.6.1", "rollup": "^4.59.0", "vite": "^7 || ^8 || >=8.0.0-0", "xml2js": "^0.6.2", "zephyr-agent": "^0.1.14" }, "optionalPeers": ["dotenv", "giget", "jiti", "rollup", "vite", "xml2js", "zephyr-agent"], "bin": { "nitro": "dist/cli/index.mjs" } }, "sha512-Mr9ZKplbxxP3vpY0lzCVxFARH0m9aTGqjIILuq115n+0GnNtbyFjqlPtFgZ3i5Inlwy3ZZpGCwNntT9iQBbzUw=="],
 
     "@prisma/dev/hono": ["hono@4.11.4", "", {}, "sha512-U7tt8JsyrxSRKspfhtLET79pU8K+tInj5QZXs1jSugO1Vq5dFj3kmZsRldo29mTBfcjDRVRXrEZ6LS63Cog9ZA=="],
 

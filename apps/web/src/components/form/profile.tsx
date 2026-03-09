@@ -1,4 +1,5 @@
 import { useFieldContext } from "#/lib/form"
+import { FieldErrors } from "./FieldErrors"
 
 export function TextField({ label }: { label: string }) {
   const field = useFieldContext<string>()
@@ -14,7 +15,7 @@ export function TextField({ label }: { label: string }) {
           onChange={e => field.handleChange(e.target.value)}
         />
       </label>
-      {!field.state.meta.isValid && <em>{field.state.meta.errors.map(error => error?.message).join(", ")}</em>}
+      <FieldErrors field={field} />
     </>
   )
 }
@@ -22,9 +23,12 @@ export function TextField({ label }: { label: string }) {
 export function EmailField({ label }: { label: string }) {
   const field = useFieldContext<string>()
   return (
-    <label>
-      <span>{label}</span>
-      <input type="email" value={field.state.value} onChange={e => field.handleChange(e.target.value)} />
-    </label>
+    <>
+      <label>
+        <span>{label}</span>
+        <input type="email" value={field.state.value} onChange={e => field.handleChange(e.target.value)} />
+      </label>
+      <FieldErrors field={field} />
+    </>
   )
 }
