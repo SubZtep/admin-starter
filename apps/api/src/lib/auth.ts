@@ -1,6 +1,7 @@
-import { betterAuth } from "better-auth"
+import { betterAuth, type User } from "better-auth"
 import { admin, openAPI } from "better-auth/plugins"
 import { Pool } from "pg"
+import { sendVerificationEmail } from "./email"
 
 export const auth = betterAuth({
   trustedOrigins: [process.env.CORS_ORIGIN!],
@@ -17,6 +18,17 @@ export const auth = betterAuth({
   },
   emailAndPassword: {
     enabled: true
+  },
+  emailVerification: {
+    sendVerificationEmail: async ({ user, url }: { user: User; url: string }) => {
+      const urlObj = new URL(url)
+      urlObj.searchParams.set("callbackURL", new URL("/dashboard", process.env.CORS_ORIGIN!).toString())
+      sendVerificationEmail(user.email, urlObj.toString())
+    },
+    sendOnSignUp: true,
+    sendOnSignIn: true,
+    autoSignInAfterVerification: true,
+    expiresIn: 3600 // 1 hour
   },
   user: {
     changeEmail: {

@@ -1,1 +1,1 @@
-export * from "./src/auth"
+export * from "./forms/auth"

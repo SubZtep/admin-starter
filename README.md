@@ -1,6 +1,6 @@
 # Admin Starter
 
-TypeScript monorepo implementing Better Auth with [API](./apps/api/) and [web](./apps/web/) apps. It’s a starter project, so grab the files and use them as a foundation for your own app.
+TypeScript monorepo implementing Better Auth with [API](./apps/api/) and [web](./apps/web/) apps. It’s a starter template project, so grab the files and use them as a foundation for your own app.
 
 > [!CAUTION]
 > Work in progress.
@@ -12,9 +12,7 @@ TypeScript monorepo implementing Better Auth with [API](./apps/api/) and [web](.
 
 ## Demo
 
-A test instance is available at [https://kind-catmint-56983.ondis.co/](https://kind-catmint-56983.ondis.co/).
-
-See the [demo page documentation](https://subztep.github.io/admin-starter/demo.html) for details.
+A [demo page](https://subztep.github.io/admin-starter/demo.html) with default settings is available at [**https://kind-catmint-56983.ondis.co/**](https://kind-catmint-56983.ondis.co/) for a quick overview.
 
 ## Quick Start
 

@@ -12,7 +12,8 @@ export const Route = createFileRoute("/users")({
   component: UserList
 })
 
-const columnHelper = createColumnHelper<Pick<UserWithRole, "id" | "name" | "email" | "image" | "role" | "createdAt">>()
+const columnHelper =
+  createColumnHelper<Pick<UserWithRole, "id" | "name" | "email" | "emailVerified" | "image" | "role" | "createdAt">>()
 const columns = [
   columnHelper.accessor("name", {
     header: () => "Name",
@@ -21,6 +22,10 @@ const columns = [
   columnHelper.accessor("email", {
     header: () => "Email",
     cell: info => info.getValue()
+  }),
+  columnHelper.accessor("emailVerified", {
+    header: () => "Verified",
+    cell: info => (info.getValue() ? "Yes" : "No")
   }),
   columnHelper.accessor("image", {
     header: () => "Image",
@@ -70,7 +75,6 @@ export function UserList() {
       <section className="island-shell rounded-2xl p-6 sm:p-8">
         <h1>Users</h1>
         <Table rows={users} columns={columns} />
-        {/* <pre>{JSON.stringify(users, null, 2)}</pre> */}
       </section>
     </main>
   )

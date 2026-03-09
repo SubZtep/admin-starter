@@ -1,12 +1,5 @@
 import { z } from "zod"
 
-export const loginSchema = z.object({
-  email: z.email("Invalid email address").trim().toLowerCase(),
-  password: z.string()
-})
-
-export type LoginInput = z.infer<typeof loginSchema>
-
 /**
  * Password rules:
  * - 8–72 chars (bcrypt safe range)
@@ -24,34 +17,28 @@ const passwordSchema = z
   .regex(/[0-9]/, "Must include a number")
   .regex(/[^a-zA-Z0-9]/, "Must include a special character")
 
+export const loginSchema = z.object({
+  email: z.email("Invalid email address").trim().toLowerCase(),
+  password: z.string()
+})
+
 export const registerSchema = z.object({
   name: z.string().trim().min(2, "Name must be at least 2 characters").max(100),
   email: z.email("Invalid email address").trim().toLowerCase(),
   password: passwordSchema,
   image: z.string()
-  // confirmPassword: z.string()
 })
-// .superRefine((data, ctx) => {
-//   if (data.password !== data.confirmPassword) {
-//     ctx.addIssue({
-//       path: ["confirmPassword"],
-//       code: z.ZodIssueCode.custom,
-//       message: "Passwords do not match"
-//     })
-//   }
-// })
-
-export type RegisterInput = z.infer<typeof registerSchema>
 
 export const editSchema = z.object({
   name: z.string().trim().min(2, "Name must be at least 2 characters").max(100),
   image: z.string()
 })
 
-export type EditInput = z.infer<typeof editSchema>
-
 export const editEmailSchema = z.object({
   newEmail: z.email("Invalid email address").trim().toLowerCase()
 })
 
+export type LoginInput = z.infer<typeof loginSchema>
+export type RegisterInput = z.infer<typeof registerSchema>
+export type EditInput = z.infer<typeof editSchema>
 export type EditEmailInput = z.infer<typeof editEmailSchema>

@@ -9,6 +9,7 @@ bun x auth@latest migrate
 Create `.env` file:
 
 ```ini
+PORT=3001
 BETTER_AUTH_SECRET=uECOarRCMYJfTylXt2jo92JVTV6GbPjP
 BETTER_AUTH_URL=http://localhost:3001
 CORS_ORIGIN=http://localhost:3000

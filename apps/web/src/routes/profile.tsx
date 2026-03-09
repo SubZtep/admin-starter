@@ -30,7 +30,6 @@ function Profile() {
           Logged in with the {user.emailVerified ? "verified" : "unverified"} <strong>{user.email}</strong> as{" "}
           <strong>{user.role}</strong>.
         </p>
-        {/* <pre className="my-3">{JSON.stringify(user, null, 2)}</pre> */}
 
         <EditUser user={user} />
         <EditEmail user={user} />
@@ -102,7 +101,7 @@ function EditEmail({ user }: { user: User }) {
           form.handleSubmit()
         }}
       >
-        <form.AppField name="newEmail" children={field => <field.TextField label="Name" />} />
+        <form.AppField name="newEmail" children={field => <field.EmailField label="Email" />} />
         <button type="submit">Submit</button>
       </form>
     </>

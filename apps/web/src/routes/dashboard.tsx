@@ -1,4 +1,6 @@
+import { getFirstName } from "@app/shared"
 import { createFileRoute } from "@tanstack/react-router"
+import { useUser } from "#/hooks/user"
 import { getApiUrl } from "#/lib/vars"
 
 export const Route = createFileRoute("/dashboard")({
@@ -8,18 +10,15 @@ export const Route = createFileRoute("/dashboard")({
 const apiUrl = await getApiUrl()
 
 function RouteComponent() {
+  const { user } = useUser()
+
   return (
     <main className="page-wrap px-4 py-12">
       <section className="island-shell rounded-2xl p-6 sm:p-8">
         <h1>Dashboard</h1>
         <p className="my-3">
-          Hello "/dashboard"!
-          <br />
-          API: {apiUrl}
+          Hey{getFirstName(user?.name)}, the API base URL is <strong>{apiUrl}</strong>.
         </p>
-        <a href="http://localhost:3001/api/auth/reference" target="_blank" rel="noopener">
-          Better Auth Swagger
-        </a>
       </section>
     </main>
   )

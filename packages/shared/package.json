@@ -3,5 +3,5 @@
   "description": "Shared types and utilities",
   "version": "0.0.1",
   "private": true,
-  "main": "src/index.ts"
+  "main": "index.ts"
 }

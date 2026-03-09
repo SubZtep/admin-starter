@@ -9,6 +9,12 @@ Check for dependency updates:
 bun outdated -r
 ```
 
+Print full output with errors into a file:
+
+```sh
+bun dev > output.txt 2>&1
+```
+
 ## Docker
 
 Start database only:
