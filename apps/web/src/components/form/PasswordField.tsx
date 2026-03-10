@@ -1,7 +1,7 @@
 import { useFieldContext } from "#/lib/form"
 import { FieldErrors } from "./FieldErrors"
 
-export function PasswordField({ label, ...props }: { label: string } & React.ComponentPropsWithoutRef<"input">) {
+export function PasswordField({ label, ...props }: { label: string } & React.ComponentProps<"input">) {
   const id = props.id ?? label
   const field = useFieldContext<string>()
 

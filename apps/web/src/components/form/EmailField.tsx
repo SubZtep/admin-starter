@@ -5,7 +5,7 @@ export function EmailField({
   label,
   autoComplete = "off",
   ...props
-}: { label: string; autoComplete?: string } & React.ComponentPropsWithoutRef<"input">) {
+}: { label: string; autoComplete?: string } & React.ComponentProps<"input">) {
   const id = props.id ?? label
   const field = useFieldContext<string>()
 

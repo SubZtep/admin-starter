@@ -24,7 +24,8 @@ export function Button({
   className,
   onClick,
   loading,
-  children
+  children,
+  ...props
 }: {
   variant?: keyof typeof VARIANTS
   size?: keyof typeof SIZES
@@ -33,7 +34,7 @@ export function Button({
   onClick?: () => void
   loading?: boolean
   children?: React.ReactNode
-}) {
+} & React.ComponentProps<"button">) {
   return (
     <BaseButton
       type={type}
@@ -41,6 +42,7 @@ export function Button({
       disabled={loading}
       focusableWhenDisabled
       onClick={onClick}
+      {...props}
     >
       {loading ? "Submitting" : children || "Submit"}
     </BaseButton>

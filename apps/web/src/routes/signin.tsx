@@ -1,6 +1,6 @@
 import { loginSchema } from "@app/schemas"
 import { useProgress } from "@bprogress/react"
-import { createFileRoute } from "@tanstack/react-router"
+import { createFileRoute, useNavigate } from "@tanstack/react-router"
 import { toast } from "react-toastify"
 import { Button } from "#/components/form/primitives/Button"
 import { Main } from "#/components/ui/Main"
@@ -15,6 +15,7 @@ export const Route = createFileRoute("/signin")({
 function LogIn() {
   const { signIn } = useAuthClient()
   const progress = useProgress()
+  const navigate = useNavigate()
 
   const form = useAppForm({
     defaultValues: {
@@ -27,12 +28,10 @@ function LogIn() {
     onSubmit: async ({ value }) => {
       progress.start()
       const parsed = loginSchema.parse(value)
-      const { error } = await signIn.email({
-        ...parsed,
-        callbackURL: "/dashboard"
-      })
+      const { error } = await signIn.email(parsed)
       if (error) toast.error(error.message)
       progress.stop()
+      navigate({ to: "/dashboard" })
     }
   })
 
