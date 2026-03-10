@@ -3,16 +3,18 @@
 TypeScript monorepo implementing Better Auth with [API](./apps/api/) and [web](./apps/web/) apps. It’s a starter template project, so grab the files and use them as a foundation for your own app.
 
 > [!CAUTION]
-> Work In Progress
+> Work In Progress 🚀...🪐
 
 ## Features
 
-- User registration and login
-- Admin can list users
+| User                                          | Admin        | Misc.                                                 |
+| --------------------------------------------- | ------------ | ----------------------------------------------------- |
+| 🔹 Registration<br>🔹 Login<br>🔹 Update details | 🔹 List users | 🔹 Email validations<br>🔹 Preconfigured Docker Compose |
 
 ## Demo
 
-A **demo page** with default settings is available at [**https://kind-catmint-56983.ondis.co/**](https://kind-catmint-56983.ondis.co/) for a quick overview. The database is disposable, but you can find [test user credentials](https://subztep.github.io/admin-starter/demo.html) in the [documentation](https://subztep.github.io/admin-starter/) .
+A **demo page** with default settings is available at [**https://kind-catmint-56983.ondis.co/**](https://kind-catmint-56983.ondis.co/) for a quick overview.\
+The database is disposable, but you can find [test user credentials](https://subztep.github.io/admin-starter/demo.html) in the [documentation](https://subztep.github.io/admin-starter/) .
 
 ## Quick Start
 

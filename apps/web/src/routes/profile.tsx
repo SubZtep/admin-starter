@@ -1,4 +1,4 @@
-import { editEmailSchema, editSchema } from "@app/schemas"
+import { changePasswordSchema, type EditEmailInput, editEmailSchema, editSchema } from "@app/schemas"
 import { useProgress } from "@bprogress/react"
 import { createFileRoute } from "@tanstack/react-router"
 import type { User } from "better-auth"
@@ -22,13 +22,16 @@ function Profile() {
 
   return (
     <Main
-      style={{
-        backgroundImage:
-          "linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://assets.4cdn.hu/kraken/8JYrNPx4a8SdJ1Ahs.jpeg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat"
-      }}
+      style={
+        user.image
+          ? {
+              backgroundImage: `linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('${user.image}')`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat"
+            }
+          : undefined
+      }
     >
       <MainSection className="max-w-lg">
         <h1>Profile</h1>
@@ -37,7 +40,8 @@ function Profile() {
           <strong>{user.role}</strong>.
         </p>
         <EditUser user={user} />
-        <EditEmail user={user} />
+        <ChangeEmail />
+        <ChangePassword />
       </MainSection>
     </Main>
   )
@@ -83,13 +87,13 @@ function EditUser({ user }: { user: User }) {
   )
 }
 
-function EditEmail({ user }: { user: User }) {
+function ChangeEmail() {
   const { changeEmail } = useAuthClient()
   const progress = useProgress()
 
   const form = useAppForm({
     defaultValues: {
-      newEmail: user?.email
+      newEmail: "" as EditEmailInput["newEmail"]
     },
     validators: {
       onSubmit: editEmailSchema
@@ -118,7 +122,68 @@ function EditEmail({ user }: { user: User }) {
         }}
         className="flex flex-col gap-1"
       >
-        <form.AppField name="newEmail" children={field => <field.TextField label="Email" type="email" />} />
+        <form.AppField name="newEmail" children={field => <field.TextField label="New email" type="email" />} />
+        <Button type="submit">Submit</Button>
+      </form>
+    </>
+  )
+}
+
+function ChangePassword() {
+  const { changePassword } = useAuthClient()
+  const progress = useProgress()
+
+  const form = useAppForm({
+    defaultValues: {
+      newPassword: "",
+      currentPassword: "",
+      revokeOtherSessions: true
+    },
+    validators: {
+      onSubmit: changePasswordSchema
+    },
+    onSubmit: async ({ value }) => {
+      const parsed = changePasswordSchema.safeParse(value)
+      if (!parsed.success) {
+        toast.error(parsed.error?.message ?? "Invalid data")
+        return
+      }
+      progress.start()
+      const { error, data } = await changePassword({
+        newPassword: parsed.data.newPassword,
+        currentPassword: parsed.data.currentPassword,
+        revokeOtherSessions: parsed.data.revokeOtherSessions
+      })
+      progress.stop()
+      if (error) toast.error(error.message)
+      if (data?.user) toast.success("Password changed")
+    }
+  })
+
+  return (
+    <>
+      <h2>Change Password</h2>
+      <form
+        className="flex flex-col gap-1"
+        onSubmit={e => {
+          e.preventDefault()
+          form.handleSubmit()
+        }}
+      >
+        <form.AppField
+          name="newPassword"
+          children={field => <field.TextField label="New password" type="password" autoComplete="new-password" />}
+        />
+        <form.AppField
+          name="currentPassword"
+          children={field => <field.TextField label="Current password" type="password" autoComplete="new-password" />}
+        />
+        <form.AppField
+          name="revokeOtherSessions"
+          children={field => (
+            <field.CheckboxField label="Revoke other sessions" className="flex justify-end [&>label]:w-auto! mt-1" />
+          )}
+        />
         <Button type="submit">Submit</Button>
       </form>
     </>

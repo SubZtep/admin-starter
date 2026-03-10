@@ -1,6 +1,6 @@
 import { Email } from "./template"
 
-export function WelcomeEmail({ name, app }: { name: string; app: string }) {
+export function Welcome({ name, app }: { name: string; app: string }) {
   return (
     <Email title={`Again, welcome to ${app}!`}>
       <div>

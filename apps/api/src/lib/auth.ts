@@ -1,7 +1,7 @@
 import { betterAuth, type User } from "better-auth"
 import { admin, openAPI } from "better-auth/plugins"
 import { Pool } from "pg"
-import { sendVerificationEmail } from "./email"
+import { sendChangeEmailEmail, sendVerificationEmail } from "./email"
 
 export const auth = betterAuth({
   trustedOrigins: [process.env.CORS_ORIGIN!],
@@ -28,11 +28,14 @@ export const auth = betterAuth({
     sendOnSignUp: true,
     sendOnSignIn: true,
     autoSignInAfterVerification: true,
-    expiresIn: 3600 // 1 hour
+    expiresIn: 3600 * 24 // 1 day
   },
   user: {
     changeEmail: {
-      enabled: true
+      enabled: true,
+      sendChangeEmailConfirmation: async ({ newEmail, url }) => {
+        void sendChangeEmailEmail(newEmail, url)
+      }
     }
   }
 })

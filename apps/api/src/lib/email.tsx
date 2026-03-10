@@ -1,8 +1,9 @@
 import { render } from "@react-email/render"
 import nodemailer from "nodemailer"
-import { VerificationEmail } from "#/emails/VerificationEmail"
+import { ChangeEmail } from "#/emails/ChangeEmail"
+import { Verification } from "#/emails/Verification"
 import settings from "../../../../settings.toml"
-import { WelcomeEmail } from "../emails/WelcomeEmail"
+import { Welcome } from "../emails/Welcome"
 
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
@@ -14,24 +15,22 @@ const transporter = nodemailer.createTransport({
   }
 })
 
-export async function sendWelcomeEmail(to: string, name: string) {
-  const html = await render(<WelcomeEmail name={name} app={settings.app.name} />)
+const from = `${settings.app.name} <${settings.email.from}>`
 
-  await transporter.sendMail({
-    from: `${settings.app.name} <${settings.email.from}>`,
-    to,
-    subject: `Welcome to ${settings.app.name}!`,
-    html
-  })
+export async function sendWelcomeEmail(to: string, name: string) {
+  const html = await render(<Welcome name={name} app={settings.app.name} />)
+  const subject = `Welcome to ${settings.app.name}!`
+  await transporter.sendMail({ from, to, subject, html })
 }
 
 export async function sendVerificationEmail(to: string, url: string) {
-  const html = await render(<VerificationEmail url={url} />)
+  const html = await render(<Verification url={url} />)
+  const subject = `Welcome to ${settings.app.name}!`
+  await transporter.sendMail({ from, to, subject, html })
+}
 
-  await transporter.sendMail({
-    from: `${settings.app.name} <${settings.email.from}>`,
-    to,
-    subject: `Welcome to ${settings.app.name}!`,
-    html
-  })
+export async function sendChangeEmailEmail(to: string, url: string) {
+  const html = await render(<ChangeEmail newEmail={to} url={url} />)
+  const subject = `Welcome to ${settings.app.name}!`
+  await transporter.sendMail({ from, to, subject, html })
 }

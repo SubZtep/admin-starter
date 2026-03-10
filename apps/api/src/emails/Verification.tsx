@@ -1,6 +1,6 @@
 import { Email } from "./template"
 
-export function VerificationEmail({ url }: { url: string }) {
+export function Verification({ url }: { url: string }) {
   return (
     <Email title="Verify your email address">
       <div>

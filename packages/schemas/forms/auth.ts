@@ -39,7 +39,14 @@ export const editEmailSchema = z.object({
   newEmail: z.email("Invalid email address").trim().toLowerCase()
 })
 
+export const changePasswordSchema = z.object({
+  newPassword: passwordSchema,
+  currentPassword: z.string(),
+  revokeOtherSessions: z.boolean()
+})
+
 export type LoginInput = z.infer<typeof loginSchema>
 export type RegisterInput = z.infer<typeof registerSchema>
 export type EditInput = z.infer<typeof editSchema>
 export type EditEmailInput = z.infer<typeof editEmailSchema>
+export type ChangePasswordInput = z.infer<typeof changePasswordSchema>

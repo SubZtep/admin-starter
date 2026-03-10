@@ -20,6 +20,7 @@ export function CheckboxField({ label, className }: { label: string; className?:
           checked={field.state.value}
           onBlur={field.handleBlur}
           onCheckedChange={field.handleChange}
+          className="mr-1"
         />
         {label}
       </Field.Label>
