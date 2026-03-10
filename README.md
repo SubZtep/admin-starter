@@ -1,20 +1,18 @@
 # Admin Starter
 
-TypeScript monorepo implementing Better Auth with [API](./apps/api/) and [web](./apps/web/) apps. It’s a starter template project, so grab the files and use them as a foundation for your own app.
-
-> [!CAUTION]
-> Work In Progress 🚀...🪐
+TypeScript monorepo, that implements pieces of **Better Auth** with an [API](./apps/api/) and a [web app](./apps/web/) to demonstrate how they work together. It’s a starter template with no business logic, so you could even grab the files and use them to kick-start your own project.
 
 ## Features
 
-| User                                          | Admin        | Misc.                                                 |
-| --------------------------------------------- | ------------ | ----------------------------------------------------- |
-| 🔹 Registration<br>🔹 Login<br>🔹 Update details | 🔹 List users | 🔹 Email validations<br>🔹 Preconfigured Docker Compose |
+| User                                                                                      | Admin                        | Misc.                                             |
+| ----------------------------------------------------------------------------------------- | ---------------------------- | ------------------------------------------------- |
+| 🔹 Registration<br>🔹 Email verification <br>🔹 Cookie based Login<br>🔹 Update user data<br> | 🔹 List users<br><br><br><br> | 🔹 Docker Compose with DB and SMTP<br><br><br><br> |
 
 ## Demo
 
-A **demo page** with default settings is available at [**https://kind-catmint-56983.ondis.co/**](https://kind-catmint-56983.ondis.co/) for a quick overview.\
-The database is disposable, but you can find [test user credentials](https://subztep.github.io/admin-starter/demo.html) in the [documentation](https://subztep.github.io/admin-starter/) .
+A [**Disco**](https://disco.cloud/) deployment is running on the smallest **Hetzner** instance at [**<big>https://kind-catmint-56983.ondis.co/**</big>](https://kind-catmint-56983.ondis.co/).
+
+> It’s an ephemeral database, you can register, or use [test credentials](https://subztep.github.io/admin-starter/demo.html) to sign in.
 
 ## Quick Start
 
@@ -22,10 +20,15 @@ The database is disposable, but you can find [test user credentials](https://sub
 docker compose up -d
 ```
 
-Docker Compose mounts the PostgreSQL data in the `./data` folder. Open [http://localhost:3000](http://localhost:3000) to access the UI.
+Docker Compose mounts the **PostgreSQL** data in the `./data` folder. Open [http://localhost:3000](http://localhost:3000) to access the UI.
+
+## Documentation
+
+A wise man once told me the source code is the best documentation. Share it with your favourite _AI agent_, and ask for the details. :trollface: That [**Jekyll** page](https://subztep.github.io/admin-starter/) is anything but RTFM.
 
 ## Stack
 
+- Base UI
 - Better Auth
 - Biome
 - Bun
@@ -40,3 +43,5 @@ Docker Compose mounts the PostgreSQL data in the `./data` folder. Open [http://l
 - TanStack Table
 - Vite
 - Zod
+
+---

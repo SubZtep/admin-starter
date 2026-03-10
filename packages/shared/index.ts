@@ -3,9 +3,8 @@ import { twMerge } from "tailwind-merge"
 
 /** Calculates the relative time interval. */
 export function getTimeAgo(time: Date, now = new Date(), locale = "en") {
-  function monthDiff(dateFrom: Date, dateTo: Date) {
-    return dateTo.getMonth() - dateFrom.getMonth() + 12 * (dateTo.getFullYear() - dateFrom.getFullYear())
-  }
+  const monthDiff = (dateFrom: Date, dateTo: Date) =>
+    dateTo.getMonth() - dateFrom.getMonth() + 12 * (dateTo.getFullYear() - dateFrom.getFullYear())
 
   let value
   const diff = (now.getTime() - time.getTime()) / 1000
