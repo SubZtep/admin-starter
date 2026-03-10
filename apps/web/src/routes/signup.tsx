@@ -25,13 +25,19 @@ function SignUp() {
       image: ""
     },
     validators: {
-      onChange: registerSchema
+      onSubmit: registerSchema
     },
     onSubmit: async ({ value }) => {
+      const parsed = registerSchema.safeParse(value)
+      if (!parsed.success) {
+        toast.error(parsed.error?.message ?? "Invalid data")
+        return
+      }
+
       progress.start()
-      const parsed = registerSchema.parse(value)
-      const { error, data } = await signUp.email(parsed)
+      const { error, data } = await signUp.email(parsed.data)
       progress.stop()
+
       if (error) toast.error(error.message)
       if (data?.user) {
         toast.success("User registered")
@@ -45,6 +51,7 @@ function SignUp() {
       <MainSection className="max-w-lg">
         <h1>Sign Up</h1>
         <p className="my-4">Enter your details:</p>
+
         <form
           onSubmit={e => {
             e.preventDefault()
@@ -52,13 +59,23 @@ function SignUp() {
           }}
           className="flex flex-col gap-1"
         >
-          <form.AppField name="name" children={field => <field.TextField label="Name" />} />
-          <form.AppField name="email" children={field => <field.EmailField label="Email" />} />
+          <form.AppField
+            name="name"
+            children={field => <field.TextField label="Name" placeholder="Enter your name" />}
+          />
+
+          <form.AppField name="email" children={field => <field.TextField label="Email" type="email" />} />
+
           <form.AppField
             name="password"
-            children={field => <field.PasswordField label="Password" autoComplete="new-password" />}
+            children={field => <field.TextField label="Password" type="password" autoComplete="new-password" />}
           />
-          <form.AppField name="image" children={field => <field.TextField label="Image" />} />
+
+          <form.AppField
+            name="image"
+            children={field => <field.TextField label="Image" placeholder="Random anything" />}
+          />
+
           <Button type="submit">Submit</Button>
         </form>
       </MainSection>

@@ -1,10 +1,10 @@
 import { Field } from "@base-ui/react/field"
 import { useFieldContext } from "#/lib/form"
 import { FieldErrors } from "./FieldErrors"
-import { Input } from "./primitives/Text"
+import { Checkbox } from "./primitives/Checkbox"
 
-export function TextField({ label, ...props }: { label: string } & React.ComponentProps<"input">) {
-  const field = useFieldContext<string>()
+export function CheckboxField({ label, className }: { label: string; className?: string }) {
+  const field = useFieldContext<boolean>()
 
   return (
     <Field.Root
@@ -12,17 +12,17 @@ export function TextField({ label, ...props }: { label: string } & React.Compone
       invalid={!field.state.meta.isValid}
       dirty={field.state.meta.isDirty}
       touched={field.state.meta.isTouched}
+      className={className}
     >
-      <div className="flex">
-        <Field.Label>{label}</Field.Label>
-        <Input
+      <Field.Label>
+        <Checkbox
           name={field.name}
-          value={field.state.value}
+          checked={field.state.value}
           onBlur={field.handleBlur}
-          onChange={e => field.handleChange(e.target.value)}
-          {...props}
+          onCheckedChange={field.handleChange}
         />
-      </div>
+        {label}
+      </Field.Label>
       <Field.Error match={!field.state.meta.isValid}>
         <FieldErrors field={field} />
       </Field.Error>

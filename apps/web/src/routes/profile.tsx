@@ -45,7 +45,7 @@ function EditUser({ user }: { user: User }) {
       image: user?.image
     },
     validators: {
-      onChange: editSchema
+      onSubmit: editSchema
     },
     onSubmit: async ({ value }) => {
       const parsed = editSchema.parse(value)
@@ -84,15 +84,19 @@ function EditEmail({ user }: { user: User }) {
       newEmail: user?.email
     },
     validators: {
-      onChange: editEmailSchema
+      onSubmit: editEmailSchema
     },
     onSubmit: async ({ value }) => {
+      const parsed = editEmailSchema.safeParse(value)
+      if (!parsed.success) {
+        toast.error(parsed.error?.message ?? "Invalid data")
+        return
+      }
       progress.start()
-      const parsed = editEmailSchema.parse(value)
-      const { error, data } = await changeEmail(parsed)
+      const { error, data } = await changeEmail(parsed.data)
+      progress.stop()
       if (error) toast.error(error.message)
       if (data?.status) toast.success("User email updated")
-      progress.stop()
     }
   })
 
@@ -106,7 +110,7 @@ function EditEmail({ user }: { user: User }) {
         }}
         className="flex flex-col gap-1"
       >
-        <form.AppField name="newEmail" children={field => <field.EmailField label="Email" />} />
+        <form.AppField name="newEmail" children={field => <field.TextField label="Email" type="email" />} />
         <Button type="submit">Submit</Button>
       </form>
     </>

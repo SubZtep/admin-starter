@@ -20,18 +20,25 @@ function LogIn() {
   const form = useAppForm({
     defaultValues: {
       email: "",
-      password: ""
+      password: "",
+      rememberMe: true
     },
     validators: {
-      onChange: loginSchema
+      onSubmit: loginSchema
     },
     onSubmit: async ({ value }) => {
+      const parsed = loginSchema.safeParse(value)
+      if (!parsed.success) {
+        toast.error(parsed.error?.message ?? "Invalid data")
+        return
+      }
+
       progress.start()
-      const parsed = loginSchema.parse(value)
-      const { error } = await signIn.email(parsed)
-      if (error) toast.error(error.message)
+      const { error, data } = await signIn.email(parsed.data)
       progress.stop()
-      navigate({ to: "/dashboard" })
+
+      if (error) toast.error(error.message)
+      if (data?.user) navigate({ to: "/dashboard" })
     }
   })
 
@@ -47,11 +54,20 @@ function LogIn() {
           }}
           className="flex flex-col gap-1"
         >
-          <form.AppField name="email" children={field => <field.EmailField label="Email" />} />
+          <form.AppField name="email" children={field => <field.TextField label="Email" type="email" />} />
+
           <form.AppField
             name="password"
-            children={field => <field.PasswordField label="Password" autoComplete="current-password" />}
+            children={field => <field.TextField label="Password" type="password" autoComplete="current-password" />}
           />
+
+          <form.AppField
+            name="rememberMe"
+            children={field => (
+              <field.CheckboxField label="Remember Me" className="flex justify-end [&>label]:w-auto! mt-1" />
+            )}
+          />
+
           <Button type="submit">Log me in</Button>
         </form>
       </MainSection>

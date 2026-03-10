@@ -2,7 +2,7 @@ import { useAuthClient } from "./auth-client"
 
 /** Currently signed in user. */
 export function useUser() {
-  const { useSession } = useAuthClient()
+  const { useSession } = useAuthClient({})
   const { data, isPending } = useSession()
 
   return {

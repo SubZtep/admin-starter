@@ -19,7 +19,8 @@ const passwordSchema = z
 
 export const loginSchema = z.object({
   email: z.email("Invalid email address").trim().toLowerCase(),
-  password: z.string()
+  password: z.string(),
+  rememberMe: z.boolean()
 })
 
 export const registerSchema = z.object({

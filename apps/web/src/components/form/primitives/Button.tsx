@@ -12,7 +12,7 @@ const SIZES = {
 
 const TYPES = {
   button: "outline-cyan-800/90",
-  submit: "outline-amber-800/90 mt-2"
+  submit: "outline-amber-800/90 mt-3"
 } as const
 
 const DEFAULT_CLASSES = "flex items-center justify-center cursor-pointer transition-all duration-100 hover:outline-2"
