@@ -1,9 +1,9 @@
 import { Input as BaseInput } from "@base-ui/react/input"
 
-export function Input(props: React.ComponentProps<"input">) {
+export function Text(props: React.ComponentProps<"input">) {
   return (
     <BaseInput
-      className="h-10 w-56 rounded-md border border-gray-200 pl-3.5 text-base text-gray-900 focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800"
+      className="py-1 px-2.5 border-inset text-base bg-[#333] text-white focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800 rounded-md w-full"
       {...props}
     />
   )

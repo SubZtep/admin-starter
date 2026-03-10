@@ -72,18 +72,13 @@ main {
 
 label {
   display: flex;
-  width: 200px;
+  width: 120px;
   align-content: space-between;
   align-items: center;
-  gap: 0.55rem;
 }
 
-input {
+.border-inset {
   border: 2px inset black;
-  background-color: #333;
-  color: #fff;
-  padding: 2px 4px;
-  @apply rounded-sm w-full;
 }
 
 .border-outset {
@@ -105,7 +100,7 @@ h1 {
 }
 
 h2 {
-  @apply text-xl font-bold my-6;
+  @apply text-xl font-bold my-8;
   font-family: "Fraunces", Georgia, serif;
 }
 

@@ -21,7 +21,15 @@ function Profile() {
   if (!user) throw new Error("Not logged in")
 
   return (
-    <Main>
+    <Main
+      style={{
+        backgroundImage:
+          "linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://assets.4cdn.hu/kraken/8JYrNPx4a8SdJ1Ahs.jpeg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat"
+      }}
+    >
       <MainSection className="max-w-lg">
         <h1>Profile</h1>
         <p>

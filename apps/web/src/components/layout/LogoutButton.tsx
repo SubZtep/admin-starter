@@ -14,13 +14,16 @@ export function LogoutButton({ className }: { className?: string }) {
       size="sm"
       onClick={async () => {
         progress.start()
-        const { error, data } = await signOut()
+        const { error } = await signOut({
+          fetchOptions: {
+            onSuccess: () => {
+              navigate({ to: "/signin" })
+            }
+          }
+        })
         progress.stop()
         if (error) {
           toast.error(error.message ?? error.statusText)
-        }
-        if (data?.success) {
-          navigate({ to: "/signin" })
         }
       }}
       className={className}

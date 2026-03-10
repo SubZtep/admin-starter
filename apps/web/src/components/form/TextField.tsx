@@ -1,7 +1,7 @@
 import { Field } from "@base-ui/react/field"
 import { useFieldContext } from "#/lib/form"
 import { FieldErrors } from "./FieldErrors"
-import { Input } from "./primitives/Text"
+import { Text } from "./primitives/Text"
 
 export function TextField({ label, ...props }: { label: string } & React.ComponentProps<"input">) {
   const field = useFieldContext<string>()
@@ -15,7 +15,7 @@ export function TextField({ label, ...props }: { label: string } & React.Compone
     >
       <div className="flex">
         <Field.Label>{label}</Field.Label>
-        <Input
+        <Text
           name={field.name}
           value={field.state.value}
           onBlur={field.handleBlur}
