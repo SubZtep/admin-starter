@@ -1,4 +1,5 @@
 import { changePasswordSchema, type EditEmailInput, editEmailSchema, editSchema } from "@app/schemas"
+import { isImageUrl } from "@app/shared"
 import { useProgress } from "@bprogress/react"
 import { createFileRoute } from "@tanstack/react-router"
 import type { User } from "better-auth"
@@ -23,7 +24,7 @@ function Profile() {
   return (
     <Main
       style={
-        user.image
+        isImageUrl(user.image)
           ? {
               backgroundImage: `linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('${user.image}')`,
               backgroundSize: "cover",

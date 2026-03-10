@@ -41,3 +41,14 @@ export function getFirstName(fullName?: string, prefix = " ") {
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
+
+/** Returns true if the given string is an image URL. */
+export function isImageUrl(value?: string | null) {
+  if (!value) return false
+  try {
+    const url = new URL(value.includes("://") ? value : `https://${value}`)
+    return /\.(jpg|jpeg|png|gif|webp|svg|bmp|ico|avif)$/i.test(url.pathname)
+  } catch {
+    return false
+  }
+}
