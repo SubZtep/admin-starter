@@ -2,6 +2,7 @@ import { registerSchema } from "@app/schemas"
 import { useProgress } from "@bprogress/react"
 import { createFileRoute, useNavigate } from "@tanstack/react-router"
 import { toast } from "react-toastify"
+import { Button } from "#/components/form/primitives/Button"
 import { Main } from "#/components/ui/Main"
 import { MainSection } from "#/components/ui/MainSection"
 import { useAuthClient } from "#/hooks/auth-client"
@@ -51,14 +52,14 @@ function SignUp() {
           }}
           className="flex flex-col gap-1"
         >
-          <form.AppField name="name" children={field => <field.TextField label="Nane" />} />
+          <form.AppField name="name" children={field => <field.TextField label="Name" />} />
           <form.AppField name="email" children={field => <field.EmailField label="Email" />} />
           <form.AppField
             name="password"
             children={field => <field.PasswordField label="Password" autoComplete="new-password" />}
           />
           <form.AppField name="image" children={field => <field.TextField label="Image" />} />
-          <button type="submit">Submit</button>
+          <Button type="submit">Submit</Button>
         </form>
       </MainSection>
     </Main>

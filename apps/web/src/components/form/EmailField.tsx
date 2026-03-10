@@ -1,4 +1,3 @@
-import type { JSX } from "react"
 import { useFieldContext } from "#/lib/form"
 import { FieldErrors } from "./FieldErrors"
 
@@ -6,7 +5,7 @@ export function EmailField({
   label,
   autoComplete = "off",
   ...props
-}: { label: string; autoComplete?: string } & JSX.IntrinsicElements["input"]) {
+}: { label: string; autoComplete?: string } & React.ComponentPropsWithoutRef<"input">) {
   const id = props.id ?? label
   const field = useFieldContext<string>()
 

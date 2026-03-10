@@ -1,6 +1,6 @@
 import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table"
 
-export default function Table({ columns, rows }: { columns: any[]; rows: any[] }) {
+export function Table({ columns, rows }: { columns: any[]; rows: any[] }) {
   const table = useReactTable({
     data: rows,
     columns,

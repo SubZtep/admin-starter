@@ -2,15 +2,16 @@ import { useProgress } from "@bprogress/react"
 import { useNavigate } from "@tanstack/react-router"
 import { toast } from "react-toastify"
 import { useAuthClient } from "#/hooks/auth-client"
+import { Button } from "../form/primitives/Button"
 
-export default function LogoutButton({ className }: { className?: string }) {
+export function LogoutButton({ className }: { className?: string }) {
   const navigate = useNavigate()
   const { signOut } = useAuthClient()
   const progress = useProgress()
 
   return (
-    <button
-      type="button"
+    <Button
+      size="sm"
       onClick={async () => {
         progress.start()
         const { error, data } = await signOut()
@@ -25,6 +26,6 @@ export default function LogoutButton({ className }: { className?: string }) {
       className={className}
     >
       Sign Out
-    </button>
+    </Button>
   )
 }

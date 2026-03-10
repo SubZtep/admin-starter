@@ -1,13 +1,13 @@
 import { cn } from "@app/shared"
 import { Link } from "@tanstack/react-router"
 import { PawPrint } from "lucide-react"
+import { LogoutButton } from "#/components/layout/LogoutButton"
+import { Chip } from "#/components/ui/Chip"
+import { Loader } from "#/components/ui/Loader"
+import { NavLink } from "#/components/ui/NavLink"
 import { useUser } from "#/hooks/user"
-import { Chip } from "../ui/Chip"
-import Loader from "../ui/Loader"
-import LogoutButton from "../ui/LogoutButton"
-import { NavLink } from "../ui/NavLink"
 
-export default function Header() {
+export function Header() {
   const { user, isAdmin, isLoading } = useUser()
 
   return (
@@ -27,22 +27,14 @@ export default function Header() {
                 </>
               ) : (
                 <>
-                  <Link to="/" className="nav-link" activeProps={{ className: "nav-link is-active" }}>
-                    Home
-                  </Link>
-                  <Link to="/signin" className="nav-link" activeProps={{ className: "nav-link is-active" }}>
-                    Sign In
-                  </Link>
-                  <Link to="/signup" className="nav-link" activeProps={{ className: "nav-link is-active" }}>
-                    Sign Up
-                  </Link>
-                  <Link to="/about" className="nav-link" activeProps={{ className: "nav-link is-active" }}>
-                    About
-                  </Link>
+                  <NavLink to="/">Home</NavLink>
+                  <NavLink to="/signin">Sign In</NavLink>
+                  <NavLink to="/signup">Sign Up</NavLink>
+                  <NavLink to="/about">About</NavLink>
                 </>
               )}
             </div>
-            <LogoutButton className={cn("text-sm", user || "invisible")} />
+            <LogoutButton className={cn(user || "invisible")} />
           </>
         )}
       </nav>

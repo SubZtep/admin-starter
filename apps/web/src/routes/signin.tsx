@@ -2,6 +2,7 @@ import { loginSchema } from "@app/schemas"
 import { useProgress } from "@bprogress/react"
 import { createFileRoute } from "@tanstack/react-router"
 import { toast } from "react-toastify"
+import { Button } from "#/components/form/primitives/Button"
 import { Main } from "#/components/ui/Main"
 import { MainSection } from "#/components/ui/MainSection"
 import { useAuthClient } from "#/hooks/auth-client"
@@ -52,7 +53,7 @@ function LogIn() {
             name="password"
             children={field => <field.PasswordField label="Password" autoComplete="current-password" />}
           />
-          <button type="submit">Submit</button>
+          <Button type="submit">Log me in</Button>
         </form>
       </MainSection>
     </Main>

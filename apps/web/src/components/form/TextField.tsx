@@ -1,8 +1,7 @@
-import type { JSX } from "react"
 import { useFieldContext } from "#/lib/form"
 import { FieldErrors } from "./FieldErrors"
 
-export function TextField({ label, ...props }: { label: string } & JSX.IntrinsicElements["input"]) {
+export function TextField({ label, ...props }: { label: string } & React.ComponentPropsWithoutRef<"input">) {
   const id = props.id ?? label
   const field = useFieldContext<string>()
 

@@ -3,7 +3,8 @@ import { useProgress } from "@bprogress/react"
 import { createFileRoute } from "@tanstack/react-router"
 import type { User } from "better-auth"
 import { toast } from "react-toastify"
-import Loader from "#/components/ui/Loader"
+import { Button } from "#/components/form/primitives/Button"
+import { Loader } from "#/components/ui/Loader"
 import { Main } from "#/components/ui/Main"
 import { MainSection } from "#/components/ui/MainSection"
 import { useAuthClient } from "#/hooks/auth-client"
@@ -68,7 +69,7 @@ function EditUser({ user }: { user: User }) {
       >
         <form.AppField name="name" children={field => <field.TextField label="Name" />} />
         <form.AppField name="image" children={field => <field.TextField label="Image" />} />
-        <button type="submit">Submit</button>
+        <Button type="submit">Submit</Button>
       </form>
     </>
   )
@@ -106,7 +107,7 @@ function EditEmail({ user }: { user: User }) {
         className="flex flex-col gap-1"
       >
         <form.AppField name="newEmail" children={field => <field.EmailField label="Email" />} />
-        <button type="submit">Submit</button>
+        <Button type="submit">Submit</Button>
       </form>
     </>
   )
