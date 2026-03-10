@@ -22,7 +22,23 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content: "width=device-width, initial-scale=1"
       },
       {
-        title: "TanStack Start Starter"
+        title: "Admin Starter"
+      },
+      {
+        name: "og:title",
+        content: "Admin Starter"
+      },
+      {
+        name: "twitter:title",
+        content: "Admin Starter"
+      },
+      {
+        name: "og:url",
+        content: "https://subztep.github.io/admin-starter/"
+      },
+      {
+        name: "twitter:url",
+        content: "https://subztep.github.io/admin-starter/"
       }
     ],
     links: [
@@ -47,12 +63,15 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body className="font-sans antialiased wrap-anywhere selection:bg-[rgba(79,184,178,0.24)]">
-        <Providers>
-          <Header />
-          {children}
-          <Footer />
-        </Providers>
+      {/* <body className="font-sans antialiased wrap-anywhere selection:bg-[#ff69b4] selection:text-black"> */}
+      <body>
+        <div className="root">
+          <Providers>
+            <Header />
+            {children}
+            <Footer />
+          </Providers>
+        </div>
         <Scripts />
       </body>
     </html>

@@ -50,6 +50,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   --bprogress-height: 3px;
+  position: relative;
+  @apply font-sans antialiased wrap-anywhere selection:bg-[#ff69b4] selection:text-black
 }
 
 body::before {
@@ -77,6 +79,10 @@ body::after {
     linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
   background-size: 28px 28px;
   mask-image: radial-gradient(circle at 50% 30%, black, transparent 78%);
+}
+
+.root {
+  isolation: isolate;
 }
 
 /* ~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
@@ -124,11 +130,11 @@ button {
   }
 
   &[type=button] {
-    @apply hover:outline outline-cyan-800;
+    @apply hover:outline outline-cyan-800 transition-all duration-100;
   }
 
   &[type=submit] {
-    @apply mt-2 hover:outline outline-amber-800;
+    @apply mt-2 hover:outline outline-amber-800 transition-all duration-100;
   }
 }
 
@@ -165,16 +171,6 @@ a:hover {
   font-family: "Fraunces", Georgia, serif;
 }
 
-.island-shell {
-  border: 1px solid var(--line);
-  background: linear-gradient(165deg, var(--surface-strong), var(--surface));
-  box-shadow:
-    0 1px 0 var(--inset-glint) inset,
-    0 22px 44px rgba(30, 90, 72, 0.1),
-    0 6px 18px rgba(23, 58, 64, 0.08);
-  backdrop-filter: blur(4px);
-}
-
 .feature-card {
   background: linear-gradient(165deg, color-mix(in oklab, var(--surface-strong) 93%, white 7%), var(--surface));
   box-shadow:
@@ -186,12 +182,6 @@ a:hover {
 .feature-card:hover {
   transform: translateY(-2px);
   border-color: color-mix(in oklab, var(--lagoon-deep) 35%, var(--line));
-}
-
-.island-shell,
-a {
-  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease,
-    transform 180ms ease;
 }
 
 .island-kicker {

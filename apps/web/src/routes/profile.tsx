@@ -4,6 +4,8 @@ import { createFileRoute } from "@tanstack/react-router"
 import type { User } from "better-auth"
 import { toast } from "react-toastify"
 import Loader from "#/components/ui/Loader"
+import { Main } from "#/components/ui/Main"
+import { MainSection } from "#/components/ui/MainSection"
 import { useAuthClient } from "#/hooks/auth-client"
 import { useUser } from "#/hooks/user"
 import { useAppForm } from "#/lib/form"
@@ -18,18 +20,17 @@ function Profile() {
   if (!user) throw new Error("Not logged in")
 
   return (
-    <main className="page-wrap px-4 py-12">
-      <section className="island-shell rounded-2xl p-6 sm:p-8 max-w-lg mx-auto">
+    <Main>
+      <MainSection className="max-w-lg">
         <h1>Profile</h1>
         <p>
           Logged in with the {user.emailVerified ? "verified" : "unverified"} <strong>{user.email}</strong> as{" "}
           <strong>{user.role}</strong>.
         </p>
-
         <EditUser user={user} />
         <EditEmail user={user} />
-      </section>
-    </main>
+      </MainSection>
+    </Main>
   )
 }
 

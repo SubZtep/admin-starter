@@ -2,6 +2,8 @@ import { loginSchema } from "@app/schemas"
 import { useProgress } from "@bprogress/react"
 import { createFileRoute } from "@tanstack/react-router"
 import { toast } from "react-toastify"
+import { Main } from "#/components/ui/Main"
+import { MainSection } from "#/components/ui/MainSection"
 import { useAuthClient } from "#/hooks/auth-client"
 import { useAppForm } from "#/lib/form"
 
@@ -34,8 +36,8 @@ function LogIn() {
   })
 
   return (
-    <main className="page-wrap px-4 py-12">
-      <section className="island-shell rounded-2xl p-6 sm:p-8 mx-auto max-w-lg">
+    <Main>
+      <MainSection className="max-w-lg">
         <h1 className="mb-4">Sign In</h1>
 
         <form
@@ -46,10 +48,13 @@ function LogIn() {
           className="flex flex-col gap-1"
         >
           <form.AppField name="email" children={field => <field.EmailField label="Email" />} />
-          <form.AppField name="password" children={field => <field.PasswordField label="Password" />} />
+          <form.AppField
+            name="password"
+            children={field => <field.PasswordField label="Password" autoComplete="current-password" />}
+          />
           <button type="submit">Submit</button>
         </form>
-      </section>
-    </main>
+      </MainSection>
+    </Main>
   )
 }

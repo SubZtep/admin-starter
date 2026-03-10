@@ -1,5 +1,7 @@
 import { getFirstName } from "@app/shared"
 import { createFileRoute } from "@tanstack/react-router"
+import { Main } from "#/components/ui/Main"
+import { MainSection } from "#/components/ui/MainSection"
 import { useUser } from "#/hooks/user"
 import { getApiUrl } from "#/lib/vars"
 
@@ -13,13 +15,13 @@ function RouteComponent() {
   const { user } = useUser()
 
   return (
-    <main className="page-wrap px-4 py-12">
-      <section className="island-shell rounded-2xl p-6 sm:p-8">
+    <Main>
+      <MainSection>
         <h1>Dashboard</h1>
         <p className="my-3">
           Hey{getFirstName(user?.name)}, the API base URL is <strong>{apiUrl}</strong>.
         </p>
-      </section>
-    </main>
+      </MainSection>
+    </Main>
   )
 }

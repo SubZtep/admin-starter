@@ -6,6 +6,8 @@ import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import Table from "#/components/Table"
 import Loader from "#/components/ui/Loader"
+import { Main } from "#/components/ui/Main"
+import { MainSection } from "#/components/ui/MainSection"
 import { useAuthClient } from "#/hooks/auth-client"
 
 export const Route = createFileRoute("/users")({
@@ -66,11 +68,11 @@ export function UserList() {
   if (!users || users.length === 0) return null
 
   return (
-    <main className="page-wrap px-4 py-12">
-      <section className="island-shell rounded-2xl p-6 sm:p-8">
+    <Main>
+      <MainSection>
         <h1>Users</h1>
         <Table rows={users} columns={columns} />
-      </section>
-    </main>
+      </MainSection>
+    </Main>
   )
 }

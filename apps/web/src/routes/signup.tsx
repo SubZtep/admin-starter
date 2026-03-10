@@ -2,6 +2,8 @@ import { registerSchema } from "@app/schemas"
 import { useProgress } from "@bprogress/react"
 import { createFileRoute, useNavigate } from "@tanstack/react-router"
 import { toast } from "react-toastify"
+import { Main } from "#/components/ui/Main"
+import { MainSection } from "#/components/ui/MainSection"
 import { useAuthClient } from "#/hooks/auth-client"
 import { useAppForm } from "#/lib/form"
 
@@ -38,8 +40,8 @@ function SignUp() {
   })
 
   return (
-    <main className="page-wrap px-4 py-12">
-      <section className="island-shell rounded-2xl p-6 sm:p-8 max-w-lg mx-auto">
+    <Main>
+      <MainSection className="max-w-lg">
         <h1>Sign Up</h1>
         <p className="my-4">Enter your details:</p>
         <form
@@ -58,7 +60,7 @@ function SignUp() {
           <form.AppField name="image" children={field => <field.TextField label="Image" />} />
           <button type="submit">Submit</button>
         </form>
-      </section>
-    </main>
+      </MainSection>
+    </Main>
   )
 }
