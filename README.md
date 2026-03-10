@@ -1,6 +1,12 @@
 # Admin Starter
 
-TypeScript monorepo, that implements pieces of **Better Auth** with an [API](./apps/api/) and a [web app](./apps/web/) to demonstrate how they work together. It’s a starter template with no business logic, so you could even grab the files and use them to kick-start your own project.
+![Bun](https://img.shields.io/badge/Runtime-Bun-black?style=flat-square)
+![Docker Compose](https://img.shields.io/badge/Docker-Compose-blue?style=flat-square)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/SubZtep/admin-starter/dockerhub.yaml?style=flat-square)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/SubZtep/admin-starter?style=flat-square)
+![License](https://img.shields.io/github/license/SubZtep/admin-starter?style=flat-square)
+
+A TypeScript monorepo implementing pieces of **Better Auth** in a **Hono** [API](./apps/api/), with a **TanStack Start** [web app](./apps/web/) consuming it to demonstrate how they work together. 🎓 It’s a starter template with no business logic, so you could even grab the files and use them to kick-start your own project.
 
 ## Features
 
@@ -12,7 +18,7 @@ TypeScript monorepo, that implements pieces of **Better Auth** with an [API](./a
 
 A [**Disco**](https://disco.cloud/) deployment is running on the smallest **Hetzner** instance at [**<big>https://kind-catmint-56983.ondis.co/**</big>](https://kind-catmint-56983.ondis.co/).
 
-> It’s an ephemeral database, you can register, or use [test credentials](https://subztep.github.io/admin-starter/demo.html) to sign in.
+> It’s an ephemeral database. You can register, or use [test credentials](https://subztep.github.io/admin-starter/demo.html) to sign in.
 
 ## Quick Start
 
@@ -24,24 +30,23 @@ Docker Compose mounts the **PostgreSQL** data in the `./data` folder. Open [http
 
 ## Documentation
 
-A wise man once told me the source code is the best documentation. Share it with your favourite _AI agent_, and ask for the details. :trollface: That [**Jekyll** page](https://subztep.github.io/admin-starter/) is anything but RTFM.
+A wise man once told me the source code is the best documentation. Share it with your favourite _AI agent_ and ask for the details. :trollface: That [**Jekyll** page](https://subztep.github.io/admin-starter/) is anything but _RTFM_.
 
 ## Stack
 
-- Base UI
-- Better Auth
-- Biome
-- Bun
-- Hono
-- Lucide
-- PostgreSQL
-- React
-- Tailwind
-- TanStack Form
-- TanStack Query
-- TanStack Start
-- TanStack Table
-- Vite
-- Zod
+**Runtime / Language**  
+Bun, TypeScript, Biome
+
+**Frontend**  
+React, TanStack Start, TanStack Form, TanStack Table, Tailwind, Vite, Lucide
+
+**Backend / API**  
+Hono, Better Auth, PostgreSQL
+
+**Dev / Infrastructure**  
+Docker Compose, Bun, GitHub Actions
+
+**Validation / Schema**  
+Zod
 
 ---
