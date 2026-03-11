@@ -17,4 +17,4 @@ COPY --chown=bun:bun --from=builder /home/bun/app/apps/api/dist ./dist
 USER bun
 
 EXPOSE 3001
-CMD ["bun", "run", "dist/index.js"]
+CMD ["bun", "run", "dist/server.js"]

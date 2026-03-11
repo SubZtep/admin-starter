@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "bun run --hot src/index.ts",
-    "build": "bun build src/index.ts --target bun --outdir dist",
-    "start": "bun x auth@latest migrate && bun run dist/index.js"
+    "dev": "bun run --hot src/server.ts",
+    "build": "bun build src/server.ts --target bun --outdir dist",
+    "start": "bun x auth@latest migrate && bun run dist/server.js"
   },
   "dependencies": {
     "@app/schemas": "workspace:*",

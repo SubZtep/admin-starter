@@ -1,4 +1,3 @@
-"use client"
 import { ProgressProvider } from "@bprogress/react"
 import { TanStackDevtools } from "@tanstack/react-devtools"
 import { FormDevtoolsPanel } from "@tanstack/react-form-devtools"

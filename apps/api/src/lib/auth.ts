@@ -12,10 +12,10 @@ export const auth = betterAuth({
     jwt({
       jwt: {
         definePayload: async ({ user }) => ({
-          userId: user.id,
+          sub: user.id,
           email: user.email
         }),
-        expirationTime: "7d" // or "1h" for access tokens + refresh tokens
+        expirationTime: "15min"
       }
     }),
     admin(),

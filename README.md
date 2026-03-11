@@ -47,7 +47,9 @@ A [**Disco**](https://disco.cloud/) deployment is running on a tiny **Hetzner** 
 
 ## Quick Start
 
-Test secrets are already configured in the [service config](compose.yaml). Just run:
+Test secrets are already configured in the [compose config](compose.yaml).
+
+Just run:
 
 ```sh
 docker compose up -d
