@@ -32,6 +32,7 @@ flowchart LR
   D@{ shape: cyl, label: "PostgreSQL" }
   E@{ shape: braces, label: "Emails" }
   U <-->|Web| W
+  U <-.->|Mobile| W
   S -.-> W
   S -.-> A
   A <==> D
