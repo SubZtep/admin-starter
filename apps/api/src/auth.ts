@@ -1,5 +1,5 @@
 import { betterAuth } from "better-auth"
-import { admin, jwt, openAPI } from "better-auth/plugins"
+import { admin, bearer, jwt, openAPI } from "better-auth/plugins"
 import { Pool } from "pg"
 
 export const auth = betterAuth({
@@ -16,6 +16,7 @@ export const auth = betterAuth({
   }),
   basePath: "/auth",
   plugins: [
+    bearer(),
     jwt({
       jwt: {
         definePayload: async ({ user }) => ({ sub: user.id, email: user.email }),
