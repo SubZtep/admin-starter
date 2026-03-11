@@ -12,20 +12,20 @@ A TypeScript monorepo implementing pieces of **Better Auth** in a **Hono** [API]
 
 ```mermaid
 flowchart LR
-  U@{ shape: circ, label: "User\n•͡˘㇁•͡˘" }
-  subgraph monorepo
-  W(TanStack Start @ apps/web)
+  subgraph "Monorepo👋"
   A(Hono API + Better Auth @ apps/api)
+  W(TanStack Start @ apps/web)
   S@{ shape: notch-rect, label: "packages/schemas\npackages/shared" }
   end
+  U@{ shape: circ, label: "User\n•͡˘㇁•͡˘" }
   D@{ shape: cyl, label: "PostgreSQL" }
   E@{ shape: docs, label: "Emails" }
   U <-->|Web| W
-  W -->|HTTP| A
   S -.-> W
   S -.-> A
-  A -- SMTP ---> E
   A <==> D
+  A <-->|HTTP| W
+  A -- SMTP ---> E
   style U fill:rebeccapurple,stroke:darkred,stroke-width:1px
   style E fill:black,stroke:darkred,stroke-style:dashed,stroke-width:1px
 ```
@@ -63,7 +63,7 @@ Bun, TypeScript, Biome
 React, TanStack Start, TanStack Form, TanStack Table, Tailwind, Vite, Lucide
 
 **Backend / API**  
-Hono, Better Auth, PostgreSQL
+Hono, Better Auth, PostgreSQL, Nodemailer
 
 **Dev / Infrastructure**  
 Docker Compose, Bun, GitHub Actions

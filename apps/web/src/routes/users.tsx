@@ -68,7 +68,7 @@ export function UserList() {
   if (!users || users.length === 0) return null
 
   return (
-    <Main>
+    <Main full>
       <MainSection>
         <h1>Users</h1>
         <Table rows={users} columns={columns} />
