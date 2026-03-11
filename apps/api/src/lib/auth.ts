@@ -1,5 +1,5 @@
 import { betterAuth, type User } from "better-auth"
-import { admin, openAPI } from "better-auth/plugins"
+import { admin, jwt, openAPI } from "better-auth/plugins"
 import { Pool } from "pg"
 import { sendChangeEmailEmail, sendVerificationEmail } from "./email"
 
@@ -9,7 +9,15 @@ export const auth = betterAuth({
     connectionString: process.env.DATABASE_URL
   }),
   plugins: [
-    // jwt(),
+    jwt({
+      jwt: {
+        definePayload: async ({ user }) => ({
+          userId: user.id,
+          email: user.email
+        }),
+        expirationTime: "7d" // or "1h" for access tokens + refresh tokens
+      }
+    }),
     admin(),
     openAPI()
   ],
