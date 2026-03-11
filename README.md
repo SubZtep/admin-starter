@@ -35,9 +35,9 @@ flowchart LR
 
 ## Features
 
-| User                                                                                      | Admin                        | Docker Compose                               |
-| ----------------------------------------------------------------------------------------- | ---------------------------- | -------------------------------------------- |
-| 🔹 Registration<br>🔹 Email verification <br>🔹 Login with cookies<br>🔹 Update self data<br> | 🔹 List users<br><br><br><br> | ▪️ `db`<br>▪️ `mail`<br>▪️ `api`<br>▪️ `web`<br> |
+| User                                                                                                        | Admin                            | Docker Compose                               |
+| ----------------------------------------------------------------------------------------------------------- | -------------------------------- | -------------------------------------------- |
+| 🔹 Register and verify your email <br>🔹 Update your profile<br>🔹 Log in with cookies<br>or bearer tokens<br> | 🔹 View user list<br><br><br><br> | ▪️ `db`<br>▪️ `mail`<br>▪️ `api`<br>▪️ `web`<br> |
 
 ## Demo
 
