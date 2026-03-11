@@ -14,7 +14,7 @@ minima:
     - demo.md
   social_links:
     - title: Admin Starter repository at GitHub
-      icon: github-alt
+      icon: github
       url: "https://github.com/SubZtep/admin-starter"
     - title: Please find API and Web images at Docker Hub
       icon: docker

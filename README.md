@@ -13,21 +13,22 @@ A TypeScript monorepo implementing pieces of **Better Auth** in a **Hono** [API]
 ```mermaid
 flowchart LR
   subgraph "Monorepo👋"
-  A("`<big><tt>apps/api</tt></big>
+  A("`**apps/api**
   Hono API
-  <strong>Better Auth</strong>
-    <small>🫥 _any backend_ 🫥</small>
+  Better Auth
+  _backend_</small>
   `")
-  W("`<big><tt>apps/web</tt></big>
-  React👁
-  TanStack Start
-  <small>Better Auth Client</small>`")
-  S("`<big><tt>packages/*</tt></big>
-  **Zod** schemas
-  Shared functions
-  <small>buildtime only 👻</small>`")
+  W("`**apps/web**
+  React
+  TS. Start
+  Auth Client
+  _frontend_`")
+  S("`**packages/***
+  Zod schemas
+  Shared Fns.
+  _dev+build only_`")
   end
-  U@{ shape: circ, label: "User\n•͡˘㇁•͡˘" }
+  U@{ shape: circ, label: "User\n( ͡° ͜ʖ ͡°)" }
   D@{ shape: cyl, label: "PostgreSQL" }
   E@{ shape: braces, label: "Emails" }
   U <-->|Web| W
@@ -42,13 +43,13 @@ flowchart LR
 
 ## Features
 
-| User                                                                                      | Admin                        | Misc.                                             |
-| ----------------------------------------------------------------------------------------- | ---------------------------- | ------------------------------------------------- |
-| 🔹 Registration<br>🔹 Email verification <br>🔹 Login with cookies<br>🔹 Update user data<br> | 🔹 List users<br><br><br><br> | 🔹 Docker Compose with DB and SMTP<br><br><br><br> |
+| User                                                                                      | Admin                        | Docker Compose                               |
+| ----------------------------------------------------------------------------------------- | ---------------------------- | -------------------------------------------- |
+| 🔹 Registration<br>🔹 Email verification <br>🔹 Login with cookies<br>🔹 Update self data<br> | 🔹 List users<br><br><br><br> | ▪️ `db`<br>▪️ `mail`<br>▪️ `api`<br>▪️ `web`<br> |
 
 ## Demo
 
-A [**Disco**](https://disco.cloud/) deployment is running on a tiny **Hetzner** instance at [**<big>https://kind-catmint-56983.ondis.co/**</big>](https://kind-catmint-56983.ondis.co/).
+A [**Disco**](https://disco.cloud/) deployment is running on a tiny **Hetzner** instance at [https://kind-catmint-56983.ondis.co/](https://kind-catmint-56983.ondis.co/).
 
 > It’s an ephemeral database. You can register, or use [test credentials](https://subztep.github.io/admin-starter/demo.html) to sign in.
 
