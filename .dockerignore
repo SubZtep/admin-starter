@@ -9,4 +9,5 @@ data
 **/.env
 **/Dockerfile
 **/README.md
-**/disco.json
+**/disco.api.json
+**/disco.web.json

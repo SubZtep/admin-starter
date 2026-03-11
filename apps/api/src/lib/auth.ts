@@ -30,7 +30,7 @@ export const auth = betterAuth({
   emailVerification: {
     sendVerificationEmail: async ({ user, url }: { user: User; url: string }) => {
       const urlObj = new URL(url)
-      urlObj.searchParams.set("callbackURL", new URL("/dashboard", process.env.CORS_ORIGIN!).toString())
+      urlObj.searchParams.set("callbackURL", new URL("/dashboard", process.env.CORS_ORIGIN).toString())
       sendVerificationEmail(user.email, urlObj.toString())
     },
     sendOnSignUp: true,

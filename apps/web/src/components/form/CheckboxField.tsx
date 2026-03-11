@@ -3,7 +3,7 @@ import { useFieldContext } from "#/lib/form"
 import { FieldErrors } from "./FieldErrors"
 import { Checkbox } from "./primitives/Checkbox"
 
-export function CheckboxField({ label, className }: { label: string; className?: string }) {
+export function CheckboxField({ label, className }: Readonly<{ label: string; className?: string }>) {
   const field = useFieldContext<boolean>()
 
   return (

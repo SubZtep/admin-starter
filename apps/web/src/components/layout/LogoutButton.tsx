@@ -4,7 +4,7 @@ import { toast } from "react-toastify"
 import { useAuthClient } from "#/hooks/auth-client"
 import { Button } from "../form/primitives/Button"
 
-export function LogoutButton({ className }: { className?: string }) {
+export function LogoutButton({ className }: Readonly<{ className?: string }>) {
   const navigate = useNavigate()
   const { signOut } = useAuthClient()
   const progress = useProgress()

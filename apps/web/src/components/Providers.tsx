@@ -7,7 +7,7 @@ import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
 import type { ReactNode } from "react"
 import { ToastContainer } from "react-toastify"
 
-export function Providers({ children }: { children: React.ReactNode }) {
+export function Providers({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <ProgressProvider color="#e60076" shallowRouting>
       <TanStackQueryProvider>

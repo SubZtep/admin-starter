@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router"
 
-export function Chip({ to, children }: { to: string; children: React.ReactNode }) {
+export function Chip({ to, children }: Readonly<{ to: string; children: React.ReactNode }>) {
   return (
     <div className="m-0 shrink-0 text-base font-semibold tracking-tight">
       <Link

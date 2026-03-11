@@ -23,7 +23,7 @@ export function Checkbox({
   className,
   onBlur,
   onCheckedChange
-}: Props) {
+}: Readonly<Props>) {
   return (
     <CheckboxBase.Root
       name={name}

@@ -5,7 +5,7 @@ import type { RouteVariables } from "../types"
 export const authMiddleware = createMiddleware<{ Variables: RouteVariables }>(async (c, next) => {
   let user = null
 
-  // 1️⃣ JWT token from Authorization header
+  // JWT token from Authorization header
   const authHeader = c.req.header("authorization")
   if (authHeader?.startsWith("Bearer ")) {
     const token = authHeader.slice(7)
@@ -13,7 +13,7 @@ export const authMiddleware = createMiddleware<{ Variables: RouteVariables }>(as
     user = session?.user ?? null
   }
 
-  // 2️⃣ Cookie session fallback
+  // Cookie session fallback
   if (!user) {
     const session = await auth.api.getSession({ headers: c.req.raw.headers })
     user = session?.user ?? null

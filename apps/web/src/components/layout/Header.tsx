@@ -32,7 +32,7 @@ function Menu() {
   )
 }
 
-function MenuLoggedIn({ isAdmin }: { isAdmin: boolean }) {
+function MenuLoggedIn({ isAdmin }: Readonly<{ isAdmin: boolean }>) {
   return (
     <nav className={MENU_CLASSES}>
       <Chip to="/dashboard">Dashboard</Chip>

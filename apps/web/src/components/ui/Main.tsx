@@ -6,12 +6,12 @@ export function Main({
   className,
   style,
   children
-}: {
+}: Readonly<{
   full?: boolean
   className?: string
   style?: CSSProperties
   children: React.ReactNode
-}) {
+}>) {
   return (
     <main className={cn("px-4 py-12", full || "page-wrap", className)} style={style}>
       {children}

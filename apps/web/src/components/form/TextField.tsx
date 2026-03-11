@@ -3,7 +3,7 @@ import { useFieldContext } from "#/lib/form"
 import { FieldErrors } from "./FieldErrors"
 import { Text } from "./primitives/Text"
 
-export function TextField({ label, ...props }: { label: string } & React.ComponentProps<"input">) {
+export function TextField({ label, ...props }: Readonly<{ label: string } & React.ComponentProps<"input">>) {
   const field = useFieldContext<string>()
 
   return (

@@ -1,7 +1,7 @@
 import type { AnyFieldApi } from "@tanstack/react-form"
 
 /** Displays field error messages when present. */
-export function FieldErrors({ field }: { field: AnyFieldApi }) {
+export function FieldErrors({ field }: Readonly<{ field: AnyFieldApi }>) {
   if (field.state.meta.isValid) {
     return null
   }

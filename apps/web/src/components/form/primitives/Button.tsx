@@ -26,15 +26,17 @@ export function Button({
   loading,
   children,
   ...props
-}: {
-  variant?: keyof typeof VARIANTS
-  size?: keyof typeof SIZES
-  type?: "button" | "submit"
-  className?: string
-  onClick?: () => void
-  loading?: boolean
-  children?: React.ReactNode
-} & React.ComponentProps<"button">) {
+}: Readonly<
+  {
+    variant?: keyof typeof VARIANTS
+    size?: keyof typeof SIZES
+    type?: "button" | "submit"
+    className?: string
+    onClick?: () => void
+    loading?: boolean
+    children?: React.ReactNode
+  } & React.ComponentProps<"button">
+>) {
   return (
     <BaseButton
       type={type}
