@@ -1,7 +1,6 @@
-import { render } from "@react-email/render"
 import nodemailer from "nodemailer"
-import { ChangeEmail } from "#/emails/ChangeEmail"
-import { Verification } from "#/emails/Verification"
+import { getChangeEmailHtml } from "#/emails/ChangeEmail"
+import { getVerificationHtml } from "#/emails/Verification"
 import settings from "../../../../settings.toml"
 
 const transporter = nodemailer.createTransport({
@@ -17,13 +16,13 @@ const transporter = nodemailer.createTransport({
 const from = `${settings.app.name} <${settings.email.from}>`
 
 export async function sendVerificationEmail(to: string, url: string) {
-  const html = await render(<Verification url={url} />)
+  const html = await getVerificationHtml(url)
   const subject = `Welcome to ${settings.app.name}!`
   await transporter.sendMail({ from, to, subject, html })
 }
 
 export async function sendChangeEmailEmail(to: string, url: string) {
-  const html = await render(<ChangeEmail newEmail={to} url={url} />)
+  const html = await getChangeEmailHtml(to, url)
   const subject = `Welcome to ${settings.app.name}!`
   await transporter.sendMail({ from, to, subject, html })
 }

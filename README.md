@@ -13,13 +13,23 @@ A TypeScript monorepo implementing pieces of **Better Auth** in a **Hono** [API]
 ```mermaid
 flowchart LR
   subgraph "Monorepo👋"
-  A("Hono API + Better Auth #9829; apps/api")
-  W("TanStack Start #9829; apps/web")
-  S@{ shape: notch-rect, label: "packages/schemas\npackages/shared" }
+  A("`<big><tt>apps/api</tt></big>
+  Hono API
+  <strong>Better Auth</strong>
+    <small>🫥 _any backend_ 🫥</small>
+  `")
+  W("`<big><tt>apps/web</tt></big>
+  React👁
+  TanStack Start
+  <small>Better Auth Client</small>`")
+  S("`<big><tt>packages/*</tt></big>
+  **Zod** schemas
+  Shared functions
+  <small>buildtime only 👻</small>`")
   end
   U@{ shape: circ, label: "User\n•͡˘㇁•͡˘" }
   D@{ shape: cyl, label: "PostgreSQL" }
-  E@{ shape: docs, label: "Emails" }
+  E@{ shape: braces, label: "Emails" }
   U <-->|Web| W
   S -.-> W
   S -.-> A
@@ -34,7 +44,7 @@ flowchart LR
 
 | User                                                                                      | Admin                        | Misc.                                             |
 | ----------------------------------------------------------------------------------------- | ---------------------------- | ------------------------------------------------- |
-| 🔹 Registration<br>🔹 Email verification <br>🔹 Cookie based Login<br>🔹 Update user data<br> | 🔹 List users<br><br><br><br> | 🔹 Docker Compose with DB and SMTP<br><br><br><br> |
+| 🔹 Registration<br>🔹 Email verification <br>🔹 Login with cookies<br>🔹 Update user data<br> | 🔹 List users<br><br><br><br> | 🔹 Docker Compose with DB and SMTP<br><br><br><br> |
 
 ## Demo
 
@@ -52,7 +62,7 @@ Docker Compose mounts the **PostgreSQL** data in the `./data` folder. Open [http
 
 ## Documentation
 
-A wise man once told me the source code is the best documentation. Share it with your favourite _AI agent_ and ask for the details. :trollface: That [**Jekyll** page](https://subztep.github.io/admin-starter/) is anything but _RTFM_.
+A wise man once told me the source code is the best documentation. Share it with your favourite _AI agent_ and ask for the details. :trollface: [That **Jekyll** page](https://subztep.github.io/admin-starter/) is anything but _RTFM_.
 
 ## Stack
 

@@ -1,3 +1,4 @@
+import { render } from "@react-email/render"
 import { Email } from "./template"
 
 export function ChangeEmail({ newEmail, url }: { newEmail: string; url: string }) {
@@ -13,4 +14,8 @@ export function ChangeEmail({ newEmail, url }: { newEmail: string; url: string }
       </div>
     </Email>
   )
+}
+
+export async function getChangeEmailHtml(to: string, url: string) {
+  return await render(<ChangeEmail newEmail={to} url={url} />)
 }

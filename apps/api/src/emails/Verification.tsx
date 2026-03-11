@@ -1,3 +1,4 @@
+import { render } from "@react-email/render"
 import { Email } from "./template"
 
 export function Verification({ url }: { url: string }) {
@@ -11,4 +12,8 @@ export function Verification({ url }: { url: string }) {
       </div>
     </Email>
   )
+}
+
+export async function getVerificationHtml(url: string) {
+  return await render(<Verification url={url} />)
 }
