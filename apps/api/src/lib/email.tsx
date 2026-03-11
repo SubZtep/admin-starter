@@ -3,7 +3,6 @@ import nodemailer from "nodemailer"
 import { ChangeEmail } from "#/emails/ChangeEmail"
 import { Verification } from "#/emails/Verification"
 import settings from "../../../../settings.toml"
-import { Welcome } from "../emails/Welcome"
 
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
@@ -16,12 +15,6 @@ const transporter = nodemailer.createTransport({
 })
 
 const from = `${settings.app.name} <${settings.email.from}>`
-
-export async function sendWelcomeEmail(to: string, name: string) {
-  const html = await render(<Welcome name={name} app={settings.app.name} />)
-  const subject = `Welcome to ${settings.app.name}!`
-  await transporter.sendMail({ from, to, subject, html })
-}
 
 export async function sendVerificationEmail(to: string, url: string) {
   const html = await render(<Verification url={url} />)
