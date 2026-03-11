@@ -12,34 +12,25 @@ A TypeScript monorepo implementing pieces of **Better Auth** in a **Hono** [API]
 
 ```mermaid
 flowchart LR
-  subgraph "Monorepo👋"
-  A("`**apps/api**
-  Hono API
-  Better Auth
-  _backend_</small>
-  `")
-  W("`**apps/web**
-  React
-  TS. Start
-  Auth Client
-  _frontend_`")
-  S("`**packages/***
-  Zod schemas
-  Shared Fns.
-  _dev+build only_`")
+  subgraph "monorepo"
+    A["📁 apps/api<br/>Hono API<br/>Better Auth"]
+    W["📁 apps/web<br/>TanStack Start<br/>React + SSR"]
+    S["📁 packages/*<br/>Zod schemas<br/>shared utilities"]
   end
-  U@{ shape: circ, label: "User\n( ͡° ͜ʖ ͡°)" }
-  D@{ shape: cyl, label: "PostgreSQL" }
-  E@{ shape: braces, label: "Emails" }
-  U <-->|Web| W
-  U <-.->|Mobile| W
-  S -.-> W
+
+  U((User))
+  D[(PostgreSQL)]
+  E{{Emails}}
+
   S -.-> A
-  A <==> D
-  A <-->|HTTP| W
-  A -- SMTP ---> E
-  style U fill:rebeccapurple,stroke:darkred,stroke-width:1px
-  style E fill:black,stroke:darkred,stroke-style:dashed,stroke-width:1px
+  S -.-> W
+
+  U <-->|Web| W
+  U <-->|Mobile| A
+
+  W <-->|HTTP| A
+  A <--> D
+  A -->|SMTP| E
 ```
 
 ## Features
