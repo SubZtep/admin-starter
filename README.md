@@ -13,8 +13,8 @@ A TypeScript monorepo implementing pieces of **Better Auth** in a **Hono** [API]
 ```mermaid
 flowchart LR
   subgraph "Monorepo👋"
-  A(Hono API + Better Auth @ apps/api)
-  W(TanStack Start @ apps/web)
+  A("Hono API + Better Auth #9829; apps/api")
+  W("TanStack Start #9829; apps/web")
   S@{ shape: notch-rect, label: "packages/schemas\npackages/shared" }
   end
   U@{ shape: circ, label: "User\n•͡˘㇁•͡˘" }
