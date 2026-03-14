@@ -65,17 +65,17 @@ A wise man once told me the source code is the best documentation. Share it with
 
 | Package                                       | API | Web | Description                                                          |
 | --------------------------------------------- | --- | --- | -------------------------------------------------------------------- |
-| [Better Auth](https://better-auth.com/)       | ✔   | ✔   | Authentication framework on [PostgreSQL](https://node-postgres.com/) |
-| [Biome](https://biomejs.dev/)                 | ✔   | ✔   | Code format and linter                                               |
-| [Bun](https://bun.sh/)                        | ✔   | ✔   | JavaScript (TypeScript) runtime                                      |
-| [Hono](https://hono.dev/)                     | ✔   |     | API framework _(Express successor?)_                                 |
-| [Lucide](https://lucide.dev/)                 |     | ✔   | Icons                                                                |
-| [Nodemailer](https://nodemailer.com/)         | ✔   |     | Send emails                                                          |
-| [Pino](https://getpino.io/)                   | ✔   |     | Logger                                                               |
-| [React](https://react.dev/)                   | ✔   | ✔   | Library for user intrfaces (emails in API)                           |
-| [Tailwind CSS](https://tailwindcss.com/)      |     | ✔   | Utility-first CSS framework                                          |
-| [TanStack Form](https://tanstack.com/form/)   |     | ✔   | Headless UI for type-safe forms                                      |
-| [TanStack Query](https://tanstack.com/table/) |     | ✔   | Data fetching                                                        |
-| [TanStack Start](https://tanstack.com/start/) |     | ✔   | Full-stack framework powered by [Vite](https://vite.dev/)            |
-| [TanStack Table](https://tanstack.com/table/) |     | ✔   | Headless UI for tables & datagrids                                   |
-| [Zod](https://zod.dev/)                       | ✔   | ✔   | Schema validation with static type inference                         |
+| [Better Auth](https://better-auth.com/)       | ✓   | ✓   | Authentication framework on [PostgreSQL](https://node-postgres.com/) |
+| [Biome](https://biomejs.dev/)                 | ✓   | ✓   | Code format and linter                                               |
+| [Bun](https://bun.sh/)                        | ✓   | ✓   | JavaScript (TypeScript) runtime                                      |
+| [Hono](https://hono.dev/)                     | ✓   |     | API framework _(Express successor?)_                                 |
+| [Lucide](https://lucide.dev/)                 |     | ✓   | Icons                                                                |
+| [Nodemailer](https://nodemailer.com/)         | ✓   |     | Send emails                                                          |
+| [Pino](https://getpino.io/)                   | ✓   |     | Logger                                                               |
+| [React](https://react.dev/)                   | ✓   | ✓   | Library for user intrfaces (emails in API)                           |
+| [Tailwind CSS](https://tailwindcss.com/)      |     | ✓   | Utility-first CSS framework                                          |
+| [TanStack Form](https://tanstack.com/form/)   |     | ✓   | Headless UI for type-safe forms                                      |
+| [TanStack Query](https://tanstack.com/table/) |     | ✓   | Data fetching                                                        |
+| [TanStack Start](https://tanstack.com/start/) |     | ✓   | Full-stack framework powered by [Vite](https://vite.dev/)            |
+| [TanStack Table](https://tanstack.com/table/) |     | ✓   | Headless UI for tables & datagrids                                   |
+| [Zod](https://zod.dev/)                       | ✓   | ✓   | Schema validation with static type inference                         |

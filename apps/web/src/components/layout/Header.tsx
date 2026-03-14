@@ -8,7 +8,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-gray-400/20 bg-gray-800/80 px-4 backdrop-blur-lg hover:[&_.lucide-paw-print]:animate-pulse ">
-      <div className="page-wrap min-h-[50px] flex items-center gap-4">
+      <div className="container min-h-[50px] flex items-center gap-4">
         <Logo className={cn(isLoading && "animate-spin")} />
         <Menu role={user?.role ?? undefined} />
       </div>

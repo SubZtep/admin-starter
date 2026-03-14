@@ -14,13 +14,12 @@ export function CheckboxField({ label, className }: Readonly<{ label: string; cl
       touched={field.state.meta.isTouched}
       className={className}
     >
-      <Field.Label>
+      <Field.Label className="flex gap-1 items-center">
         <Checkbox
           name={field.name}
           checked={field.state.value}
           onBlur={field.handleBlur}
           onCheckedChange={field.handleChange}
-          className="mr-1"
         />
         {label}
       </Field.Label>

@@ -3,7 +3,7 @@ export function Footer() {
 
   return (
     <footer className="mt-20 border-t border-gray-400/20 px-4 pb-14 pt-10 text-gray-200">
-      <div className="page-wrap flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
+      <div className="container flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
         <p className="text-sm">&copy; {year} Your name here. All rights reserved.</p>
         <p className="text-xs tracking-wider uppercase font-bold text-gray-300">Built with TanStack Start</p>
       </div>

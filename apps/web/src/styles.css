@@ -37,42 +37,26 @@
   h2 {
     @apply text-xl font-bold my-8 font-serif;
   }
-}
 
-/* ~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
- * UI
- **/
-
-.page-wrap {
-  width: min(1080px, calc(100% - 2rem));
-  margin-inline: auto;
-}
-
-/* ~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
- * FORM
- **/
-
-label {
-  display: flex;
-  width: 120px;
-  align-content: space-between;
-  align-items: center;
-}
-
-/* ~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
- * LINKS
- **/
-
-a {
-  @apply text-slate-200;
-  text-decoration: underline;
-  text-decoration-color: var(--color-slate-500);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
-  &:hover {
-    @apply text-slate-300 no-underline;
+  a {
+    @apply text-slate-200;
+    text-decoration: underline;
+    text-decoration-color: var(--color-slate-500);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+    &:hover {
+      @apply text-slate-300 no-underline;
+    }
   }
 }
+
+@utility container {
+  @apply mx-auto max-w-6xl;
+}
+
+/* ~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
+ * MENU
+ **/
 
 .nav-link {
   position: relative;
@@ -80,34 +64,34 @@ a {
   align-items: center;
   text-decoration: none;
   color: #ccc;
-}
 
-.nav-link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -6px;
-  width: 100%;
-  height: 2px;
-  transform: scaleX(0);
-  transform-origin: left;
-  background: linear-gradient(90deg, #60d7cf, #7ed3bf);
-  transition: transform 170ms ease;
-}
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 2px;
+    transform: scaleX(0);
+    transform-origin: left;
+    background: linear-gradient(90deg, #60d7cf, #7ed3bf);
+    transition: transform 170ms ease;
+  }
 
-.nav-link:hover,
-.nav-link.is-active {
-  color: white;
-}
+  &:hover,
+  &.is-active {
+    color: white;
+  }
 
-.nav-link:hover::after,
-.nav-link.is-active::after {
-  transform: scaleX(1);
-}
+  &:hover::after,
+  &.is-active::after {
+    transform: scaleX(1);
+  }
 
-@media (max-width: 640px) {
-  .nav-link::after {
-    bottom: -4px;
+  @media (max-width: 640px) {
+    &::after {
+      bottom: -4px;
+    }
   }
 }
 
