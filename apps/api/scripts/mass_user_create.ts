@@ -1,3 +1,4 @@
+import { random } from "@app/shared"
 import { faker } from "@faker-js/faker"
 
 const NUMBER_OF_USERS = 100
@@ -29,7 +30,7 @@ function generatePassword() {
   const shuffle = (str: string) =>
     str
       .split("")
-      .sort(() => Math.random() - 0.5)
+      .sort(() => random() - 0.5)
       .join("")
 
   const base =

@@ -1,3 +1,4 @@
+import { randomBytes } from "node:crypto"
 import clsx, { type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -56,4 +57,9 @@ export function isImageUrl(value?: string | null) {
   } catch {
     return false
   }
+}
+
+/** Generates a random number from 0 to 1. */
+export function random() {
+  return randomBytes(1)[0] / 255
 }
