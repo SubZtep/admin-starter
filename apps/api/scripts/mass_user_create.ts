@@ -1,4 +1,4 @@
-import { random } from "@app/shared"
+import { randomBytes } from "node:crypto"
 import { faker } from "@faker-js/faker"
 
 const NUMBER_OF_USERS = 100
@@ -24,6 +24,11 @@ for (let i = 0; i < NUMBER_OF_USERS; i++) {
   } else {
     console.error("User add fail", await res.text())
   }
+}
+
+/** Generates a random number from 0 to 1. */
+export function random() {
+  return randomBytes(1)[0] / 255
 }
 
 function generatePassword() {

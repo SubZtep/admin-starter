@@ -1,4 +1,3 @@
-import progressCss from "@bprogress/core/css?url"
 import type { QueryClient } from "@tanstack/react-query"
 import { createRootRouteWithContext, ErrorComponent, HeadContent, Scripts } from "@tanstack/react-router"
 import { Providers } from "#/components/Providers"
@@ -45,10 +44,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         rel: "stylesheet",
         href: appCss
-      },
-      {
-        rel: "stylesheet",
-        href: progressCss
       }
     ]
   }),
