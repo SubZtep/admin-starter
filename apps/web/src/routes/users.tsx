@@ -14,8 +14,9 @@ export const Route = createFileRoute("/users")({
   component: UserList
 })
 
-const columnHelper =
-  createColumnHelper<Pick<UserWithRole, "id" | "name" | "email" | "emailVerified" | "role" | "createdAt">>()
+type UsersColumns = Pick<UserWithRole, "id" | "name" | "email" | "emailVerified" | "role" | "createdAt">
+const columnHelper = createColumnHelper<UsersColumns>()
+
 const columns = [
   columnHelper.accessor("name", {
     header: () => "Name",
@@ -34,11 +35,24 @@ const columns = [
   }),
   columnHelper.accessor("role", {
     header: () => "Role",
-    cell: info => <div className="font-mono text-sm">{info.getValue()}</div>
+    cell: info => <div className="font-mono text-sm">{info.getValue()}</div>,
+    meta: {
+      filterVariant: "role"
+    }
   }),
   columnHelper.accessor("createdAt", {
     header: () => "Registered",
-    cell: info => getTimeAgo(info.getValue())
+    cell: info => getTimeAgo(info.getValue()),
+    meta: {
+      filterVariant: "period"
+    },
+    filterFn: (row, columnId: string, filterValue: [Date | undefined, Date | undefined]) => {
+      const currentDate = row.original[columnId as keyof UsersColumns] as Date
+      if ((filterValue[0] && filterValue[0] > currentDate) || (filterValue[1] && filterValue[1] < currentDate)) {
+        return false
+      }
+      return true
+    }
   })
 ]
 

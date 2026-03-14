@@ -22,18 +22,7 @@ function Profile() {
   if (!user) throw new Error("Not logged in")
 
   return (
-    <Main
-      style={
-        isImageUrl(user.image)
-          ? {
-              backgroundImage: `linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('${user.image}')`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat"
-            }
-          : undefined
-      }
-    >
+    <Main>
       <Section className="max-w-lg">
         <h1>Profile</h1>
         <p>
@@ -71,7 +60,19 @@ function EditUser({ user }: { user: User }) {
   })
 
   return (
-    <>
+    <div
+      className="rounded-md"
+      style={
+        isImageUrl(user.image)
+          ? {
+              backgroundImage: `linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('${user.image}')`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat"
+            }
+          : undefined
+      }
+    >
       <h2>Edit Personal Data</h2>
       <form
         onSubmit={e => {
@@ -84,7 +85,7 @@ function EditUser({ user }: { user: User }) {
         <form.AppField name="image" children={field => <field.TextField label="Image" />} />
         <Button type="submit">Submit</Button>
       </form>
-    </>
+    </div>
   )
 }
 

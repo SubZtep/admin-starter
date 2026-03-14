@@ -8,6 +8,7 @@ export function getTimeAgo(time: Date, now = new Date(), locale = "en") {
 
   let value
   const diff = (now.getTime() - time.getTime()) / 1000
+  const seconds = Math.floor(diff)
   const minutes = Math.floor(diff / 60)
   const hours = Math.floor(minutes / 60)
   const days = Math.floor(hours / 24)
@@ -27,7 +28,7 @@ export function getTimeAgo(time: Date, now = new Date(), locale = "en") {
   } else if (minutes > 0) {
     value = rtf.format(0 - minutes, "minute")
   } else {
-    value = rtf.format(0 - diff, "second")
+    value = rtf.format(0 - seconds, "second")
   }
   return value
 }
@@ -35,6 +36,10 @@ export function getTimeAgo(time: Date, now = new Date(), locale = "en") {
 /** Extracts the first part of a name. */
 export function getFirstName(fullName?: string, prefix = " ") {
   return fullName ? `${prefix}${fullName.split(" ")[0]}` : ""
+}
+
+export function capitalized(word: string) {
+  return word.charAt(0).toUpperCase() + word.slice(1)
 }
 
 /** Merge CSS class names. */
