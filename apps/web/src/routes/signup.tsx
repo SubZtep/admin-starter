@@ -59,19 +59,19 @@ function SignUp() {
           }}
           className="flex flex-col gap-1"
         >
-          <form.AppField
-            name="name"
-            children={field => <field.TextField label="Name" placeholder="Enter your name" />}
-          />
+          <form.AppField name="name">
+            {field => <field.TextField label="Name" placeholder="Enter your name" />}
+          </form.AppField>
 
-          <form.AppField name="email" children={field => <field.TextField label="Email" type="email" />} />
+          <form.AppField name="email">{field => <field.TextField label="Email" type="email" />}</form.AppField>
 
-          <form.AppField
-            name="password"
-            children={field => <field.TextField label="Password" type="password" autoComplete="new-password" />}
-          />
+          <form.AppField name="password">
+            {field => <field.TextField label="Password" type="password" autoComplete="new-password" />}
+          </form.AppField>
 
-          <form.AppField name="image" children={field => <field.TextField label="Image" placeholder="Image URL" />} />
+          <form.AppField name="image">
+            {field => <field.TextField label="Image" placeholder="Image URL" />}
+          </form.AppField>
 
           <Button type="submit">Submit</Button>
         </form>

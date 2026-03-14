@@ -64,22 +64,17 @@ function LogIn() {
           }}
           className="flex flex-col gap-1"
         >
-          <form.AppField
-            name="email"
-            children={field => <field.TextField label="Email" type="email" autoComplete="email" />}
-          />
+          <form.AppField name="email">
+            {field => <field.TextField label="Email" type="email" autoComplete="email" />}
+          </form.AppField>
 
-          <form.AppField
-            name="password"
-            children={field => <field.TextField label="Password" type="password" autoComplete="current-password" />}
-          />
+          <form.AppField name="password">
+            {field => <field.TextField label="Password" type="password" autoComplete="current-password" />}
+          </form.AppField>
 
-          <form.AppField
-            name="rememberMe"
-            children={field => (
-              <field.CheckboxField label="Remember Me" className="flex justify-end [&>label]:w-auto! mt-1" />
-            )}
-          />
+          <form.AppField name="rememberMe">
+            {field => <field.CheckboxField label="Remember Me" className="flex justify-end [&>label]:w-auto! mt-1" />}
+          </form.AppField>
 
           <Button type="submit" disabled={loading}>
             Log me in

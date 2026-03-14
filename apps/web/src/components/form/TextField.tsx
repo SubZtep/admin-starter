@@ -16,6 +16,7 @@ export function TextField({ label, ...props }: Readonly<{ label: string } & Reac
       <div className="flex">
         <Field.Label className="flex w-32 align-middle items-center justify-between">{label}</Field.Label>
         <Text
+          variant="3d"
           name={field.name}
           value={field.state.value}
           onBlur={field.handleBlur}

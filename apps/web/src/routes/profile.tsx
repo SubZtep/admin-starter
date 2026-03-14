@@ -81,8 +81,8 @@ function EditUser({ user }: { user: User }) {
         }}
         className="flex flex-col gap-1"
       >
-        <form.AppField name="name" children={field => <field.TextField label="Name" />} />
-        <form.AppField name="image" children={field => <field.TextField label="Image" />} />
+        <form.AppField name="name">{field => <field.TextField label="Name" />}</form.AppField>
+        <form.AppField name="image">{field => <field.TextField label="Image" />}</form.AppField>
         <Button type="submit">Submit</Button>
       </form>
     </div>
@@ -124,7 +124,7 @@ function ChangeEmail() {
         }}
         className="flex flex-col gap-1"
       >
-        <form.AppField name="newEmail" children={field => <field.TextField label="New email" type="email" />} />
+        <form.AppField name="newEmail">{field => <field.TextField label="New email" type="email" />}</form.AppField>
         <Button type="submit">Submit</Button>
       </form>
     </>
@@ -172,20 +172,20 @@ function ChangePassword() {
           form.handleSubmit()
         }}
       >
-        <form.AppField
-          name="newPassword"
-          children={field => <field.TextField label="New password" type="password" autoComplete="new-password" />}
-        />
-        <form.AppField
-          name="currentPassword"
-          children={field => <field.TextField label="Current password" type="password" autoComplete="new-password" />}
-        />
-        <form.AppField
-          name="revokeOtherSessions"
-          children={field => (
+        <form.AppField name="newPassword">
+          {field => <field.TextField label="New password" type="password" autoComplete="new-password" />}
+        </form.AppField>
+
+        <form.AppField name="currentPassword">
+          {field => <field.TextField label="Current password" type="password" autoComplete="new-password" />}
+        </form.AppField>
+
+        <form.AppField name="revokeOtherSessions">
+          {field => (
             <field.CheckboxField label="Revoke other sessions" className="flex justify-end [&>label]:w-auto! mt-1" />
           )}
-        />
+        </form.AppField>
+
         <Button type="submit">Submit</Button>
       </form>
     </>
