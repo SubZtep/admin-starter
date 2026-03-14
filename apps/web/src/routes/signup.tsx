@@ -4,7 +4,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router"
 import { toast } from "react-toastify"
 import { Button } from "#/components/form/primitives/Button"
 import { Main } from "#/components/ui/Main"
-import { MainSection } from "#/components/ui/MainSection"
+import { Section } from "#/components/ui/Section"
 import { useAuthClient } from "#/hooks/auth-client"
 import { useAppForm } from "#/lib/form"
 
@@ -48,7 +48,7 @@ function SignUp() {
 
   return (
     <Main>
-      <MainSection className="max-w-lg">
+      <Section className="max-w-lg">
         <h1>Sign Up</h1>
         <p className="my-4">Enter your details:</p>
 
@@ -71,14 +71,11 @@ function SignUp() {
             children={field => <field.TextField label="Password" type="password" autoComplete="new-password" />}
           />
 
-          <form.AppField
-            name="image"
-            children={field => <field.TextField label="Image" placeholder="Random anything" />}
-          />
+          <form.AppField name="image" children={field => <field.TextField label="Image" placeholder="Image URL" />} />
 
           <Button type="submit">Submit</Button>
         </form>
-      </MainSection>
+      </Section>
     </Main>
   )
 }

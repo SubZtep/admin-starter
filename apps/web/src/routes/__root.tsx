@@ -64,7 +64,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <div className="root">
+        <div className="isolate">
           <Providers>
             <Header />
             {children}

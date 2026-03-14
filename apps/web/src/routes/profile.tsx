@@ -7,7 +7,7 @@ import { toast } from "react-toastify"
 import { Button } from "#/components/form/primitives/Button"
 import { Loader } from "#/components/ui/Loader"
 import { Main } from "#/components/ui/Main"
-import { MainSection } from "#/components/ui/MainSection"
+import { Section } from "#/components/ui/Section"
 import { useAuthClient } from "#/hooks/auth-client"
 import { useUser } from "#/hooks/user"
 import { useAppForm } from "#/lib/form"
@@ -34,7 +34,7 @@ function Profile() {
           : undefined
       }
     >
-      <MainSection className="max-w-lg">
+      <Section className="max-w-lg">
         <h1>Profile</h1>
         <p>
           Logged in with the {user.emailVerified ? "verified" : "unverified"} <strong>{user.email}</strong> as{" "}
@@ -43,7 +43,7 @@ function Profile() {
         <EditUser user={user} />
         <ChangeEmail />
         <ChangePassword />
-      </MainSection>
+      </Section>
     </Main>
   )
 }
