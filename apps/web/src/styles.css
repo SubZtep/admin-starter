@@ -1,65 +1,47 @@
-@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap");
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --animate-rise-in: rise-in 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+
+  @keyframes rise-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
-:root {
-  --sea-ink: #d7ece8;
-  --sea-ink-soft: #afcdc8;
-  --lagoon: #60d7cf;
-  --lagoon-deep: #8de5db;
-  --palm: #6ec89a;
-  --sand: #0f1a1e;
-  --foam: #101d22;
-  --surface: rgba(16, 30, 34, 0.8);
-  --surface-strong: rgba(15, 27, 31, 0.92);
-  --line: rgba(141, 229, 219, 0.18);
-  --inset-glint: rgba(194, 247, 238, 0.14);
-  --kicker: #b8efe5;
-  --header-bg: rgba(10, 20, 24, 0.8);
-  --chip-bg: rgba(13, 28, 32, 0.9);
-  --chip-line: rgba(141, 229, 219, 0.24);
-  --link-bg-hover: rgba(24, 44, 49, 0.8);
-  --hero-a: rgba(96, 215, 207, 0.18);
-  --hero-b: rgba(110, 200, 154, 0.12);
-}
+@layer base {
+  html,
+  body {
+    @apply min-h-full;
+  }
 
-* {
-  box-sizing: border-box;
-}
+  body {
+    background: #0f2027;
+    background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    @apply text-slate-100 m-0 font-sans antialiased wrap-anywhere selection:bg-pink-400 selection:text-black relative;
+    --bprogress-height: 3px;
+  }
 
-html,
-body {
-  min-height: 100%;
-}
+  h1 {
+    @apply text-2xl font-extrabold mb-3 tracking-wide font-serif;
+  }
 
-body {
-  margin: 0;
-  color: var(--sea-ink);
-  font-family: var(--font-sans);
-  background: #0f2027;
-  background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  --bprogress-height: 3px;
-  position: relative;
-  @apply font-sans antialiased wrap-anywhere selection:bg-[#ff69b4] selection:text-black
-}
-
-.root {
-  isolation: isolate;
+  h2 {
+    @apply text-xl font-bold my-8 font-serif;
+  }
 }
 
 /* ~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
  * UI
  **/
-
-main {
-  @apply px-4 py-12;
-}
 
 .page-wrap {
   width: min(1080px, calc(100% - 2rem));
@@ -77,71 +59,19 @@ label {
   align-items: center;
 }
 
-.border-inset {
-  border: 2px inset black;
-}
-
-.border-outset {
-  border: 2px outset gray;
-  &:active {
-    border-style: double;
-    border-color: #5c5c5c;
-    @apply outline-1;
-  }
-}
-
 /* ~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
- * TYPOGRAPHY
- **/
-
-h1 {
-  @apply text-2xl font-extrabold mb-3;
-  font-family: "Fraunces", Georgia, serif;
-}
-
-h2 {
-  @apply text-xl font-bold my-8;
-  font-family: "Fraunces", Georgia, serif;
-}
-
-/* ~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
- *
+ * LINKS
  **/
 
 a {
-  color: var(--lagoon-deep);
-  text-decoration-color: rgba(50, 143, 151, 0.4);
+  @apply text-slate-200;
+  text-decoration: underline;
+  text-decoration-color: var(--color-slate-500);
   text-decoration-thickness: 1px;
   text-underline-offset: 2px;
-}
-
-a:hover {
-  color: #246f76;
-}
-
-.display-title {
-  font-family: "Fraunces", Georgia, serif;
-}
-
-.feature-card {
-  background: linear-gradient(165deg, color-mix(in oklab, var(--surface-strong) 93%, white 7%), var(--surface));
-  box-shadow:
-    0 1px 0 var(--inset-glint) inset,
-    0 18px 34px rgba(30, 90, 72, 0.1),
-    0 4px 14px rgba(23, 58, 64, 0.06);
-}
-
-.feature-card:hover {
-  transform: translateY(-2px);
-  border-color: color-mix(in oklab, var(--lagoon-deep) 35%, var(--line));
-}
-
-.island-kicker {
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 0.69rem;
-  color: var(--kicker);
+  &:hover {
+    @apply text-slate-300 no-underline;
+  }
 }
 
 .nav-link {
@@ -149,7 +79,7 @@ a:hover {
   display: inline-flex;
   align-items: center;
   text-decoration: none;
-  color: var(--sea-ink-soft);
+  color: #ccc;
 }
 
 .nav-link::after {
@@ -161,13 +91,13 @@ a:hover {
   height: 2px;
   transform: scaleX(0);
   transform-origin: left;
-  background: linear-gradient(90deg, var(--lagoon), #7ed3bf);
+  background: linear-gradient(90deg, #60d7cf, #7ed3bf);
   transition: transform 170ms ease;
 }
 
 .nav-link:hover,
 .nav-link.is-active {
-  color: var(--sea-ink);
+  color: white;
 }
 
 .nav-link:hover::after,
@@ -178,25 +108,6 @@ a:hover {
 @media (max-width: 640px) {
   .nav-link::after {
     bottom: -4px;
-  }
-}
-
-/* ~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
- * ANIMATIONS
- **/
-
-.rise-in {
-  animation: rise-in 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-@keyframes rise-in {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
   }
 }
 

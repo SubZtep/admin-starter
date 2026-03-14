@@ -7,7 +7,7 @@ import { toast } from "react-toastify"
 import { Table } from "#/components/Table"
 import { Loader } from "#/components/ui/Loader"
 import { Main } from "#/components/ui/Main"
-import { MainSection } from "#/components/ui/MainSection"
+import { Section } from "#/components/ui/Section"
 import { useAuthClient } from "#/hooks/auth-client"
 
 export const Route = createFileRoute("/users")({
@@ -15,7 +15,7 @@ export const Route = createFileRoute("/users")({
 })
 
 const columnHelper =
-  createColumnHelper<Pick<UserWithRole, "id" | "name" | "email" | "emailVerified" | "image" | "role" | "createdAt">>()
+  createColumnHelper<Pick<UserWithRole, "id" | "name" | "email" | "emailVerified" | "role" | "createdAt">>()
 const columns = [
   columnHelper.accessor("name", {
     header: () => "Name",
@@ -23,19 +23,18 @@ const columns = [
   }),
   columnHelper.accessor("email", {
     header: () => "Email",
-    cell: info => info.getValue()
-  }),
-  columnHelper.accessor("emailVerified", {
-    header: () => "Verified",
-    cell: info => (info.getValue() ? "Yes" : "No")
-  }),
-  columnHelper.accessor("image", {
-    header: () => "Image",
-    cell: info => info.getValue()
+    cell: info =>
+      info.row.original.emailVerified ? (
+        <a href={`mailto:${info.getValue()}`}>{info.getValue()}</a>
+      ) : (
+        <div className="opacity-50" title="unverified">
+          {info.getValue()}
+        </div>
+      )
   }),
   columnHelper.accessor("role", {
     header: () => "Role",
-    cell: info => info.getValue()
+    cell: info => <div className="font-mono text-sm">{info.getValue()}</div>
   }),
   columnHelper.accessor("createdAt", {
     header: () => "Registered",
@@ -68,11 +67,11 @@ export function UserList() {
   if (!users || users.length === 0) return null
 
   return (
-    <Main full>
-      <MainSection>
+    <Main>
+      <Section>
         <h1>Users</h1>
         <Table rows={users} columns={columns} />
-      </MainSection>
+      </Section>
     </Main>
   )
 }

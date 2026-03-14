@@ -7,9 +7,7 @@ import type { RouteVariables } from "./types"
 export const app = new Hono<{ Variables: RouteVariables }>()
 
 // CORS
-if (process.env.NODE_ENV === "production") {
-  app.use("*", cors({ origin: process.env.CORS_ORIGIN!, credentials: true }))
-}
+app.use("*", cors({ origin: process.env.CORS_ORIGIN!, credentials: true }))
 
 // Attach auth middleware
 app.use("*", authMiddleware)
