@@ -14,8 +14,8 @@ const passwordSchema = z
   .max(72, "Password too long")
   .regex(/[a-z]/, "Must include a lowercase letter")
   .regex(/[A-Z]/, "Must include an uppercase letter")
-  .regex(/[0-9]/, "Must include a number")
-  .regex(/[^a-zA-Z0-9]/, "Must include a special character")
+  .regex(/[\d]/, "Must include a number")
+  .regex(/[^a-zA-Z\d]/, "Must include a special character")
 
 export const loginSchema = z.object({
   email: z.email("Invalid email address").trim().toLowerCase(),

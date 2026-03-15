@@ -1,7 +1,6 @@
 import { loginSchema } from "@app/schemas"
-import { useProgress } from "@bprogress/react"
 import { createFileRoute, useNavigate } from "@tanstack/react-router"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { toast } from "react-toastify"
 import { Button } from "#/components/form/primitives/Button"
 import { Main } from "#/components/ui/Main"
@@ -15,7 +14,6 @@ export const Route = createFileRoute("/signin")({
 
 function SignIn() {
   const authClient = useAuthClient()
-  const progress = useProgress()
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
 
@@ -59,14 +57,6 @@ function SignIn() {
     }
   })
 
-  useEffect(() => {
-    if (loading) {
-      progress.start()
-    } else {
-      progress.stop()
-    }
-  }, [loading])
-
   return (
     <Main>
       <Section className="max-w-lg">
@@ -78,7 +68,7 @@ function SignIn() {
             const submitter = (event.nativeEvent as SubmitEvent).submitter as HTMLButtonElement
             form.handleSubmit({ action: submitter?.value })
           }}
-          className="flex flex-col gap-1"
+          className="flex flex-col gap-2"
         >
           <form.AppField name="email">
             {field => <field.TextField label="Email" type="email" autoComplete="email" />}
@@ -92,11 +82,18 @@ function SignIn() {
             {field => <field.CheckboxField label="Remember Me" className="flex justify-end [&>label]:w-auto! mt-1" />}
           </form.AppField>
 
-          <Button type="submit" value="login" disabled={loading} className="mt-4 mb-1">
+          <Button type="submit" value="login" loading={loading} className="mt-4 mb-1">
             Log me in
           </Button>
 
-          <Button type="submit" value="forgot" variant="link" size="sm" disabled={loading}>
+          <Button
+            type="submit"
+            value="forgot"
+            variant="link"
+            size="sm"
+            className="hover:decoration-red-700 hover:underline-offset-4 hover:decoration-3"
+            loading={loading}
+          >
             Forgot my password
           </Button>
         </form>

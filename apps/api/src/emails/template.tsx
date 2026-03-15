@@ -1,6 +1,6 @@
 import { Body, Font, Head, Html } from "@react-email/components"
 
-export function Email({ children }: { children: React.ReactNode }) {
+export function Email({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <Html lang="en">
       <Head>

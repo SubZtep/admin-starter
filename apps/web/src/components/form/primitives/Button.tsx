@@ -48,12 +48,12 @@ export function Button({
       type={type}
       className={cn(DEFAULT_CLASSES, size && SIZES[size], VARIANTS[variant], TYPES[type], className)}
       focusableWhenDisabled={focusableWhenDisabled}
-      disabled={loading}
+      disabled={loading || props.disabled}
       onClick={onClick}
       {...props}
     >
       {children}
-      {loading && <LoaderCircle strokeWidth={3} color="cyan" className="animate-spin absolute right-1 opacity-70" />}
+      {loading && <LoaderCircle strokeWidth={3} color="cyan" className="animate-spin absolute right-1 opacity-60" />}
     </BaseButton>
   )
 }

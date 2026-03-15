@@ -1,18 +1,16 @@
-import { Link, Section } from "@react-email/components"
+import { Link, Text } from "@react-email/components"
 import { render } from "@react-email/render"
 import { Email } from "./template"
 
 export function Verification({ url }: { url: string }) {
   return (
     <Email>
-      <Section>
-        <big>Hey-ho 👋</big>
-      </Section>
-      <Section>
-        <p>
-          Click the link to verify your email: <Link href={url}>{url}</Link>
-        </p>
-      </Section>
+      <Text style={{ fontSize: "21px", marginBottom: "15px" }}>Hey-ho 👋</Text>
+      <Text>
+        Click the link to verify your email:
+        <br />
+        <Link href={url}>{url}</Link>
+      </Text>
     </Email>
   )
 }

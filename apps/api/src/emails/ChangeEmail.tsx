@@ -1,18 +1,16 @@
-import { Link, Section, Text } from "@react-email/components"
+import { Link, Text } from "@react-email/components"
 import { render } from "@react-email/render"
 import { Email } from "./template"
 
-export function ChangeEmail({ newEmail, url }: { newEmail: string; url: string }) {
+export function ChangeEmail({ newEmail, url }: Readonly<{ newEmail: string; url: string }>) {
   return (
     <Email>
-      <Section>
-        <big>Hey-ho 👋</big>
-      </Section>
-      <Section>
-        <Text>
-          Click the link to approve the change to {newEmail}: <Link href={url}>{url}</Link>
-        </Text>
-      </Section>
+      <Text style={{ fontSize: "21px", marginBottom: "15px" }}>Hey-ho 👋</Text>
+      <Text>
+        Click the link to approve the change to {newEmail}:
+        <br />
+        <Link href={url}>{url}</Link>
+      </Text>
     </Email>
   )
 }

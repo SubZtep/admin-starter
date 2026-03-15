@@ -1,7 +1,9 @@
 title: Admin Starter
-description: Starter template for projects with user authentication and admin features.
+description: Starter boilerplate for projects with user authentication and admin features.
 
 plugins:
   - jekyll-remote-theme
 
 remote_theme: jekyll/minima
+
+color_scheme: dark

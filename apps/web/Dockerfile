@@ -18,4 +18,4 @@ COPY --chown=bun:bun --from=builder /home/bun/app/apps/web/.output ./
 USER bun
 
 EXPOSE 3000
-ENTRYPOINT ["bun", "run", "server/index.mjs"]
+CMD ["bun", "run", "server/index.mjs"]

@@ -105,7 +105,7 @@ export function Table({ columns, rows }: Readonly<{ columns: any[]; rows: any[] 
   )
 }
 
-function Filter({ column }: { column: Column<any, unknown> }) {
+function Filter({ column }: Readonly<{ column: Column<any, unknown> }>) {
   const columnFilterValue = column.getFilterValue()
   const { filterVariant } = column.columnDef.meta ?? {}
 

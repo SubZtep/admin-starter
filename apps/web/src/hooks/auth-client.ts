@@ -12,5 +12,5 @@ export function getAuthClient(apiUrl: string) {
 
 export function useAuthClient() {
   const { apiUrl } = useLoaderData({ from: "__root__" })
-  return getAuthClient(apiUrl!)
+  return getAuthClient(apiUrl)
 }

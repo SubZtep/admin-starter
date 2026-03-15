@@ -37,7 +37,7 @@ function Profile() {
   )
 }
 
-function EditUser({ user }: { user: User }) {
+function EditUser({ user }: Readonly<{ user: User }>) {
   const { updateUser } = useAuthClient()
   const progress = useProgress()
 

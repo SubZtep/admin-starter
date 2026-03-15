@@ -1,9 +1,14 @@
-import { useProgress } from "@bprogress/react"
 import { Link, useNavigate } from "@tanstack/react-router"
-import { type CSSProperties, useEffect, useState } from "react"
+import { type CSSProperties, useState } from "react"
 import { toast } from "react-toastify"
 import { useAuthClient } from "#/hooks/auth-client"
+import { Button } from "../form/primitives/Button"
 import { ConfirmDialog } from "../ui/ConfirmDialog"
+
+interface Props {
+  /** Show items for the given role. */
+  role?: string
+}
 
 const menuItems: {
   to: string
@@ -40,12 +45,7 @@ const menuItems: {
   }
 ] as const
 
-export function Menu({
-  role
-}: Readonly<{
-  /** User role */
-  role?: string
-}>) {
+export function Menu({ role }: Readonly<Props>) {
   return (
     <nav className="flex items-center gap-x-4 text-sm font-semibold w-full">
       {menuItems
@@ -75,16 +75,7 @@ function MenuItem({ to, style, children }: Readonly<{ to: string; style?: CSSPro
 function LogoutButton() {
   const navigate = useNavigate()
   const { signOut } = useAuthClient()
-  const progress = useProgress()
   const [loading, setLoading] = useState(false)
-
-  useEffect(() => {
-    if (loading) {
-      progress.start()
-    } else {
-      progress.stop()
-    }
-  }, [loading])
 
   return (
     <ConfirmDialog
@@ -107,7 +98,9 @@ function LogoutButton() {
         setLoading(false)
       }}
     >
-      Sign Out
+      <Button variant="oval" size="sm" loading={loading}>
+        Sign Out
+      </Button>
     </ConfirmDialog>
   )
 }
