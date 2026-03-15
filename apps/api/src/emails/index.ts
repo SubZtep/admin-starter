@@ -14,7 +14,12 @@ const transporter = nodemailer.createTransport({
   }
 })
 
-transporter.verify(error => logger.warn({ message: error?.message }, "Invalid SMTP configuration"))
+try {
+  await transporter.verify()
+  console.log("Server is ready to take our messages")
+} catch (error: any) {
+  console.error("Verification failed", error.message)
+}
 
 const from = `${settings.app.name} <${settings.email.from}>`
 

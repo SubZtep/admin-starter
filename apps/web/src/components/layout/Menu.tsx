@@ -3,7 +3,7 @@ import { Link, useNavigate } from "@tanstack/react-router"
 import { type CSSProperties, useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import { useAuthClient } from "#/hooks/auth-client"
-import { Button } from "../form/primitives/Button"
+import { ConfirmDialog } from "../ui/ConfirmDialog"
 
 const menuItems: {
   to: string
@@ -72,7 +72,7 @@ function MenuItem({ to, style, children }: Readonly<{ to: string; style?: CSSPro
   )
 }
 
-function LogoutButton({ className }: Readonly<{ className?: string }>) {
+function LogoutButton() {
   const navigate = useNavigate()
   const { signOut } = useAuthClient()
   const progress = useProgress()
@@ -87,28 +87,27 @@ function LogoutButton({ className }: Readonly<{ className?: string }>) {
   }, [loading])
 
   return (
-    <Button
-      size="sm"
-      onClick={async () => {
+    <ConfirmDialog
+      title="Sign Out?"
+      onConfirm={async () => {
         setLoading(true)
-        if (confirm("Are you sure?")) {
-          const { error } = await signOut({
-            fetchOptions: {
-              onSuccess: () => {
-                navigate({ to: "/signin" })
-              }
+
+        const { error } = await signOut({
+          fetchOptions: {
+            onSuccess: () => {
+              navigate({ to: "/signin" })
             }
-          })
-          if (error) {
-            toast.error(error.message ?? error.statusText)
           }
+        })
+
+        if (error) {
+          toast.error(error.message ?? error.statusText)
         }
+
         setLoading(false)
       }}
-      disabled={loading}
-      className={className}
     >
       Sign Out
-    </Button>
+    </ConfirmDialog>
   )
 }

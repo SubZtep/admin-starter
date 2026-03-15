@@ -21,6 +21,7 @@ services:
     restart: unless-stopped
     ports:
       - "1080:1080"
+      - "1025:1025" # expose SMTP to host
     healthcheck:
       test:
         [

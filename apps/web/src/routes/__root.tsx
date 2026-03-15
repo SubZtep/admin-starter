@@ -24,6 +24,27 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         title: "Admin Starter"
       },
       {
+        rel: "apple-touch-icon",
+        sizes: "180x180",
+        href: "/apple-touch-icon.png"
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "32x32",
+        href: "/favicon-32x32.png"
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "16x16",
+        href: "/favicon-16x16.png"
+      },
+      {
+        rel: "manifest",
+        href: "/site.webmanifest"
+      },
+      {
         name: "og:title",
         content: "Admin Starter"
       },
@@ -52,7 +73,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   errorComponent: DefaultError
 })
 
-function RootDocument({ children }: { children: React.ReactNode }) {
+function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -80,7 +101,7 @@ function NotFound() {
   )
 }
 
-function DefaultError({ error }: { error: Error }) {
+function DefaultError({ error }: Readonly<{ error: Error }>) {
   return (
     <div className="flex flex-col items-center py-24">
       <ErrorComponent error={error} />

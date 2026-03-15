@@ -35,9 +35,10 @@ export function getTimeAgo(time: Date, now = new Date(), locale = "en") {
 
 /** Extracts the first part of a name. */
 export function getFirstName(fullName?: string, prefix = " ") {
-  return fullName ? `${prefix}${fullName.split(" ")[0]}` : ""
+  return fullName ? prefix + fullName.split(" ").shift() : ""
 }
 
+/** Capitalize the first letter of the given string. */
 export function capitalized(word: string) {
   return word.charAt(0).toUpperCase() + word.slice(1)
 }

@@ -9,7 +9,7 @@ import { ToastContainer } from "react-toastify"
 
 export function Providers({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <ProgressProvider color="#e60076" shallowRouting>
+    <ProgressProvider color="#e60076" shallowRouting disableStyle>
       <TanStackQueryProvider>
         {children}
 

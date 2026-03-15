@@ -2,11 +2,12 @@ import { cn } from "@app/shared"
 import { Button as BaseButton } from "@base-ui/react/button"
 
 const VARIANTS = {
-  "3d": "border-2 border-gray-400 [border-style:outset] active:[border-style:double] active:border-[#5c5c5c] outline-1 bg-gray-800"
+  "3d": "border-2 border-gray-400 [border-style:outset] active:[border-style:double] active:border-[#5c5c5c] outline-1 bg-gray-800",
+  oval: "border border-gray-500 rounded-full text-gray-300"
 } as const
 
 const SIZES = {
-  sm: "rounded-sm px-1.5 py-0.5 text-sm",
+  sm: "rounded-sm px-1.5 text-sm",
   md: "rounded-md px-2 py-1.5"
 } as const
 
