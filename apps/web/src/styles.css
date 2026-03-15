@@ -77,7 +77,7 @@
   display: inline-flex;
   align-items: center;
   text-decoration: none;
-  color: #ccc;
+  @apply text-gray-300;
 
   &::after {
     content: "";

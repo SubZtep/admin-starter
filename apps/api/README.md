@@ -6,14 +6,23 @@ Create database tables:
 bun x auth@latest migrate
 ```
 
-Create `.env` file:
+## Load env files
 
-```ini
-PORT=3001
-BETTER_AUTH_SECRET=uECOarRCMYJfTylXt2jo92JVTV6GbPjP
-BETTER_AUTH_URL=http://localhost:3001
-CORS_ORIGIN=http://localhost:3000
-DATABASE_URL=postgresql://testuser:testpass@localhost:5433/test
+To overwrite the default [`.env`](.env) values just create one of the following files:
+
+```
+.env.local
+.env.{NODE_ENV}
+.env.{NODE_ENV}.local
+```
+
+Typical structure:
+
+```
+.env                  shared defaults
+.env.local            local machine secrets
+.env.production       production defaults
+.env.production.local production secrets
 ```
 
 ## OpenAPI

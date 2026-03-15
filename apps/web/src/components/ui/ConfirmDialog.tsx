@@ -1,11 +1,13 @@
 import { AlertDialog } from "@base-ui/react/alert-dialog"
 import { Button } from "../form/primitives/Button"
 
-export function ConfirmDialog({
-  title,
-  onConfirm,
-  children
-}: Readonly<{ title: string; onConfirm: () => void; children: React.ReactNode }>) {
+interface Props {
+  title: string
+  onConfirm: () => void
+  children: React.ReactNode
+}
+
+export function ConfirmDialog({ title, onConfirm, children }: Readonly<Props>) {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger render={<Button variant="oval" size="sm" />}>{children}</AlertDialog.Trigger>

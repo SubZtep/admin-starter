@@ -1,0 +1,3 @@
+# [test]
+# envFile = ".env"
+# retry = 3

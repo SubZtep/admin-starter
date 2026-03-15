@@ -36,5 +36,5 @@ export function DebouncedText({
     return () => clearTimeout(timeout)
   }, [value])
 
-  return <Text onChange={ev => setValue(ev.target.value)} {...props} />
+  return <Text onChange={event => setValue(event.target.value)} {...props} />
 }

@@ -2,7 +2,7 @@ import { Link, Section } from "@react-email/components"
 import { render } from "@react-email/render"
 import { Email } from "./template"
 
-export function Verification({ url }: { url: string }) {
+export function ResetPassword({ url }: Readonly<{ url: string }>) {
   return (
     <Email>
       <Section>
@@ -10,13 +10,13 @@ export function Verification({ url }: { url: string }) {
       </Section>
       <Section>
         <p>
-          Click the link to verify your email: <Link href={url}>{url}</Link>
+          Click the link to reset your password: <Link href={url}>{url}</Link>
         </p>
       </Section>
     </Email>
   )
 }
 
-export async function getVerificationHtml(url: string) {
-  return await render(<Verification url={url} />)
+export async function getResetPasswordHtml(url: string) {
+  return await render(<ResetPassword url={url} />)
 }

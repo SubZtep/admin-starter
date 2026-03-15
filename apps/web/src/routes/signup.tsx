@@ -57,23 +57,27 @@ function SignUp() {
             e.preventDefault()
             form.handleSubmit()
           }}
-          className="flex flex-col gap-1"
+          className="flex flex-col gap-2"
         >
           <form.AppField name="name">
             {field => <field.TextField label="Name" placeholder="Enter your name" />}
           </form.AppField>
 
-          <form.AppField name="email">{field => <field.TextField label="Email" type="email" />}</form.AppField>
+          <form.AppField name="email">
+            {field => <field.TextField label="Email" type="email" placeholder="Enter your email" />}
+          </form.AppField>
 
           <form.AppField name="password">
             {field => <field.TextField label="Password" type="password" autoComplete="new-password" />}
           </form.AppField>
 
           <form.AppField name="image">
-            {field => <field.TextField label="Image" placeholder="Image URL" />}
+            {field => <field.TextField label="Image" placeholder="Anything" />}
           </form.AppField>
 
-          <Button type="submit">Submit</Button>
+          <Button type="submit" className="mt-3">
+            Submit
+          </Button>
         </form>
       </Section>
     </Main>

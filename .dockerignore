@@ -1,12 +1,12 @@
 .dockerignore
 .git
 .gitignore
-data
+pgdata
 **/.output
 **/.tanstack
 **/dist
 **/node_modules
-**/.env
+**/.env*
 **/Dockerfile
 **/README.md
 **/disco.api.json

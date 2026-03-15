@@ -7,7 +7,7 @@ export function FieldErrors({ field }: Readonly<{ field: AnyFieldApi }>) {
   }
 
   return (
-    <div className="border border-red-800 bg-red-950 text-red-100 opacity-80 rounded-sm text-sm my-1 px-1">
+    <div className="border border-red-800 bg-red-950 text-red-100 opacity-80 rounded-sm text-sm mt-1 px-1">
       <ul>
         {field.state.meta.errors
           .map(error => error?.message)

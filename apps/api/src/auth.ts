@@ -23,14 +23,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 export const auth = betterAuth({
-  advanced:
-    process.env.NODE_ENV !== "production"
-      ? {
-          disableOriginCheck: true,
-          disableCSRFCheck: true
-        }
-      : undefined,
-  trustedOrigins: [process.env.CORS_ORIGIN!],
+  trustedOrigins: [process.env.CORS_ORIGIN],
   database: new Pool({
     connectionString: process.env.DATABASE_URL
   }),
@@ -42,7 +35,13 @@ export const auth = betterAuth({
     }
   },
   emailAndPassword: {
-    enabled: true
+    enabled: true,
+    sendResetPassword: async ({ user, url, token: _token }, _request) => {
+      sendEmail("resetPassword", user.email, { url })
+    },
+    onPasswordReset: async ({ user }, _request) => {
+      logger.info(`Password for user ${user.email} has been reset.`)
+    }
   },
   emailVerification: {
     sendVerificationEmail: async ({ user, url }: { user: User; url: string }) => {

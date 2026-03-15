@@ -7,7 +7,7 @@ import type { RouteVariables } from "./types"
 export const app = new Hono<{ Variables: RouteVariables }>()
 
 // CORS
-app.use("*", cors({ origin: process.env.CORS_ORIGIN!, credentials: true }))
+app.use("*", cors({ origin: process.env.CORS_ORIGIN, credentials: true }))
 
 // Attach auth middleware
 app.use("*", authMiddleware)
@@ -16,6 +16,6 @@ app.use("*", authMiddleware)
 app.route("/", routes)
 
 export default {
-  port: Number(process.env.PORT ?? 3001),
+  port: Number(process.env.PORT),
   fetch: app.fetch
 }

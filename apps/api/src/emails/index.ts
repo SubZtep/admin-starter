@@ -2,7 +2,13 @@ import nodemailer from "nodemailer"
 import { logger } from "#/logger"
 import settings from "../../../../settings.toml"
 import { getChangeEmailHtml } from "./ChangeEmail"
+import { getResetPasswordHtml } from "./ResetPassword"
 import { getVerificationHtml } from "./Verification"
+
+type EmailType = "verification" | "changeEmail" | "resetPassword"
+
+/** Email sender */
+const from = `${settings.app.name} <${settings.email.from}>`
 
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
@@ -14,28 +20,31 @@ const transporter = nodemailer.createTransport({
   }
 })
 
-try {
-  await transporter.verify()
-  console.log("Server is ready to take our messages")
-} catch (error: any) {
-  console.error("Verification failed", error.message)
-}
+void (async () => {
+  try {
+    await transporter.verify()
+    logger.info("SMTP server is ready to take our messages")
+  } catch (error) {
+    logger.warn({ error }, "SMTP verification failed")
+  }
+})()
 
-const from = `${settings.app.name} <${settings.email.from}>`
-
-export async function sendEmail(type: "verification" | "changeEmail", to: string, payload: Record<string, string>) {
+export async function sendEmail(type: EmailType, to: string, payload: Record<string, string>) {
   let subject: string
   let html: string
 
   switch (type) {
-    case "changeEmail": {
+    case "changeEmail":
       html = await getChangeEmailHtml(to, payload.url)
       subject = `Welcome to ${settings.app.name}!`
       break
-    }
     case "verification":
       html = await getVerificationHtml(payload.url)
-      subject = `Welcome to ${settings.app.name}!`
+      subject = `[${settings.app.name}] Verify your email address`
+      break
+    case "resetPassword":
+      html = await getResetPasswordHtml(payload.url)
+      subject = `[${settings.app.name}] Reset your password`
       break
   }
 

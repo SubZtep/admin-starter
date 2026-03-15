@@ -55,7 +55,7 @@ Just run:
 docker compose up -d
 ```
 
-Docker Compose mounts the **PostgreSQL** data in the `./data` folder. Open [http://localhost:3000](http://localhost:3000) to access the UI.
+Docker Compose mounts the **PostgreSQL** data in the `./pgdata` folder. Open [http://localhost:3000](http://localhost:3000) to access the UI.
 
 ## Documentation
 
@@ -67,8 +67,8 @@ A wise man once told me the source code is the best documentation. Share it with
 | --------------------------------------------- | :---: | :---: | -------------------------------------------------------------------- |
 | [Better Auth](https://better-auth.com/)       |   ✓   |   ✓   | Authentication framework on [PostgreSQL](https://node-postgres.com/) |
 | [Biome](https://biomejs.dev/)                 |   ✓   |   ✓   | Code format and linter                                               |
-| [Bun](https://bun.sh/)                        |   ✓   |   ✓   | JavaScript (TypeScript) runtime                                      |
-| [Hono](https://hono.dev/)                     |   ✓   |       | API framework _(Express successor?)_                                 |
+| [Bun](https://bun.sh/)                        |   ✓   |   ✓   | TypeScript runtime                                                   |
+| [Hono](https://hono.dev/)                     |   ✓   |       | API framework                                                        |
 | [Lucide](https://lucide.dev/)                 |       |   ✓   | Icons                                                                |
 | [Nodemailer](https://nodemailer.com/)         |   ✓   |       | Send emails                                                          |
 | [Pino](https://getpino.io/)                   |   ✓   |       | Logger                                                               |

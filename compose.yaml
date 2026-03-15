@@ -10,7 +10,7 @@ services:
       POSTGRES_PASSWORD: testpass
       POSTGRES_DB: test
     volumes:
-      - ./data:/var/lib/postgresql
+      - ./pgdata:/var/lib/postgresql
       - ./apps/api/better-auth_migrations:/docker-entrypoint-initdb.d
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "testuser", "-d", "postgres"]

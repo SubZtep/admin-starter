@@ -1,13 +1,12 @@
-import { Body, Head, Html } from "@react-email/components"
+import { Body, Font, Head, Html } from "@react-email/components"
 
-export function Email({ title, children }: { title: string; children: React.ReactNode }) {
+export function Email({ children }: { children: React.ReactNode }) {
   return (
     <Html lang="en">
-      <Head />
-      <Body>
-        <h1>{title}</h1>
-        {children}
-      </Body>
+      <Head>
+        <Font fontFamily="Trebuchet MS" fallbackFontFamily="Verdana" />
+      </Head>
+      <Body style={{ backgroundColor: "whitesmoke", color: "darkslateblue", padding: "1rem" }}>{children}</Body>
     </Html>
   )
 }

@@ -1,5 +1,5 @@
 import { Hono } from "hono"
-import type { RouteVariables } from "../types"
+import type { RouteVariables } from "#/types"
 import { authRoutes } from "./auth"
 import { healthRoutes } from "./health"
 import { userRoutes } from "./user"

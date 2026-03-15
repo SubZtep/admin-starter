@@ -10,11 +10,11 @@ import { useAuthClient } from "#/hooks/auth-client"
 import { useAppForm } from "#/lib/form"
 
 export const Route = createFileRoute("/signin")({
-  component: LogIn
+  component: SignIn
 })
 
-function LogIn() {
-  const { signIn } = useAuthClient()
+function SignIn() {
+  const authClient = useAuthClient()
   const progress = useProgress()
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
@@ -28,19 +28,34 @@ function LogIn() {
     validators: {
       onSubmit: loginSchema
     },
-    onSubmit: async ({ value }) => {
+    onSubmit: async ({ value, meta }) => {
       const parsed = loginSchema.safeParse(value)
       if (!parsed.success) {
         toast.error(parsed.error?.message ?? "Invalid data")
         return
       }
 
-      setLoading(true)
-      const { error, data } = await signIn.email(parsed.data)
-      setLoading(false)
+      try {
+        setLoading(true)
 
-      if (error) toast.error(error.message)
-      if (data?.user) navigate({ to: "/dashboard" })
+        // @ts-ignore
+        switch (meta.action) {
+          case "login":
+            await authClient.signIn.email(parsed.data)
+            navigate({ to: "/dashboard" })
+            break
+          case "forgot": {
+            const { data, error } = await authClient.requestPasswordReset({ email: parsed.data.email })
+            if (error) toast.error(error.message)
+            if (data) toast.info(data.message)
+            break
+          }
+        }
+      } catch (error: any) {
+        toast.error(error.message)
+      } finally {
+        setLoading(false)
+      }
     }
   })
 
@@ -58,9 +73,10 @@ function LogIn() {
         <h1 className="mb-4">Sign In</h1>
 
         <form
-          onSubmit={e => {
-            e.preventDefault()
-            form.handleSubmit()
+          onSubmit={event => {
+            event.preventDefault()
+            const submitter = (event.nativeEvent as SubmitEvent).submitter as HTMLButtonElement
+            form.handleSubmit({ action: submitter?.value })
           }}
           className="flex flex-col gap-1"
         >
@@ -76,8 +92,12 @@ function LogIn() {
             {field => <field.CheckboxField label="Remember Me" className="flex justify-end [&>label]:w-auto! mt-1" />}
           </form.AppField>
 
-          <Button type="submit" disabled={loading}>
+          <Button type="submit" value="login" disabled={loading} className="mt-4 mb-1">
             Log me in
+          </Button>
+
+          <Button type="submit" value="forgot" variant="link" size="sm" disabled={loading}>
+            Forgot my password
           </Button>
         </form>
       </Section>
