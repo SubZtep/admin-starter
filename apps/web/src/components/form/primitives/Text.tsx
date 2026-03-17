@@ -4,7 +4,7 @@ import { type ComponentProps, useEffect, useState } from "react"
 
 const VARIANTS = {
   "3d": "py-1 px-2.5 border-2 border-black [border-style:inset] text-base bg-[#333] text-white focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800 rounded-md w-full",
-  simple: "bg-[#333] text-gray-300 font-normal px-1"
+  simple: "bg-gray-800 text-gray-300 font-normal px-1"
 } as const
 
 export function Text({
@@ -23,7 +23,7 @@ export function DebouncedText({
 }: Readonly<
   { debounce?: number; onChange: (value: string | number) => void; value: string | number } & Omit<
     ComponentProps<typeof Text>,
-    "value"
+    "value" | "onChange"
   >
 >) {
   const [value, setValue] = useState<string | number>(initialValue)

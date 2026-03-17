@@ -29,6 +29,7 @@ export function Button({
   className,
   onClick,
   loading,
+  disabled,
   children,
   ...props
 }: Readonly<
@@ -48,7 +49,7 @@ export function Button({
       type={type}
       className={cn(DEFAULT_CLASSES, size && SIZES[size], VARIANTS[variant], TYPES[type], className)}
       focusableWhenDisabled={focusableWhenDisabled}
-      disabled={loading || props.disabled}
+      disabled={loading || disabled}
       onClick={onClick}
       {...props}
     >

@@ -11,7 +11,7 @@ const config = defineConfig({
   },
   plugins: [
     devtools(),
-    nitro(),
+    nitro({ preset: "bun" }),
     tailwindcss(),
     tanstackStart(),
     viteReact()

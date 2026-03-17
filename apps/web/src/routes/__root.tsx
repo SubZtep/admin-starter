@@ -8,7 +8,7 @@ import appCss from "../styles.css?url"
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   loader: () => {
     return {
-      apiUrl: process.env.API_URL
+      apiUrl: process.env.API_URL!
     }
   },
   head: () => ({

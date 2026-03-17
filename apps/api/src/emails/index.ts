@@ -22,8 +22,8 @@ const transporter = nodemailer.createTransport({
 
 void (async () => {
   try {
-    await transporter.verify()
-    logger.info("SMTP server is ready to take our messages")
+    const verified = await transporter.verify()
+    logger.info({ verified }, "SMTP server is ready to take our messages")
   } catch (error) {
     logger.warn({ error }, "SMTP verification failed")
   }
@@ -50,7 +50,7 @@ export async function sendEmail(type: EmailType, to: string, payload: Record<str
 
   try {
     await transporter.sendMail({ from, to, subject, html })
-  } catch (error: any) {
-    logger.error({ message: error.message }, "Email sending error")
+  } catch (error) {
+    logger.error({ error }, "Email sending error")
   }
 }

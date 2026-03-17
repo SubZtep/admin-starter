@@ -36,10 +36,10 @@ export const auth = betterAuth({
   },
   emailAndPassword: {
     enabled: true,
-    sendResetPassword: async ({ user, url, token: _token }, _request) => {
+    sendResetPassword: async ({ user, url }) => {
       sendEmail("resetPassword", user.email, { url })
     },
-    onPasswordReset: async ({ user }, _request) => {
+    onPasswordReset: async ({ user }) => {
       logger.info(`Password for user ${user.email} has been reset.`)
     }
   },

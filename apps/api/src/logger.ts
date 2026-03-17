@@ -1,19 +1,28 @@
 import pino from "pino"
 
-const targets = []
+let transport: ReturnType<typeof pino.transport> | undefined
 
 if (process.env.NODE_ENV === "development") {
-  targets.push({
-    target: "pino-pretty",
-    level: "trace",
-    options: {
-      ignore: "pid,hostname,time",
-      levelFirst: true,
-      singleLine: true,
-      colorize: true
-    }
-  })
+  try {
+    transport = pino.transport({
+      targets: [
+        {
+          target: "pino-pretty",
+          level: "trace",
+          options: {
+            ignore: "pid,hostname,time",
+            levelFirst: true,
+            singleLine: true,
+            colorize: true,
+            destination: 1 // 1 is stdout, all logs (including error) go to stdout
+          }
+        }
+      ]
+    })
+  } catch {
+    // If pino-pretty can't be resolved in some runtime images, fallback to JSON logs.
+    transport = undefined
+  }
 }
 
-const transport = pino.transport({ targets })
 export const logger = pino({ level: "trace" }, transport)

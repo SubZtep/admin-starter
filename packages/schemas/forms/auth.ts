@@ -45,8 +45,13 @@ export const changePasswordSchema = z.object({
   revokeOtherSessions: z.boolean()
 })
 
+export const resetPasswordSchema = z.object({
+  newPassword: passwordSchema
+})
+
 export type LoginInput = z.infer<typeof loginSchema>
 export type RegisterInput = z.infer<typeof registerSchema>
 export type EditInput = z.infer<typeof editSchema>
 export type EditEmailInput = z.infer<typeof editEmailSchema>
 export type ChangePasswordInput = z.infer<typeof changePasswordSchema>
+export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>

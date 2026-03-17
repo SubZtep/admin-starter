@@ -1,8 +1,8 @@
 import { app } from "./app"
+import { logger } from "./logger"
 
 const port = Number(process.env.PORT ?? 3001)
-
-console.log(`API running on http://localhost:${port}`)
+logger.info({ port }, "API is running")
 
 export default {
   port,

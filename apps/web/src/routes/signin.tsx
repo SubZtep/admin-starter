@@ -38,13 +38,18 @@ function SignIn() {
 
         // @ts-ignore
         switch (meta.action) {
-          case "login":
-            await authClient.signIn.email(parsed.data)
-            navigate({ to: "/dashboard" })
+          case "login": {
+            const { data, error } = await authClient.signIn.email(parsed.data)
+            if (error) toast.error(error.message ?? error.statusText)
+            if (data) navigate({ to: "/dashboard" })
             break
+          }
           case "forgot": {
-            const { data, error } = await authClient.requestPasswordReset({ email: parsed.data.email })
-            if (error) toast.error(error.message)
+            const { data, error } = await authClient.requestPasswordReset({
+              email: parsed.data.email,
+              redirectTo: `${import.meta.env.VITE_APP_URL}/reset-password`
+            })
+            if (error) toast.error(error.message ?? error.statusText)
             if (data) toast.info(data.message)
             break
           }
@@ -92,7 +97,7 @@ function SignIn() {
             variant="link"
             size="sm"
             className="hover:decoration-red-700 hover:underline-offset-4 hover:decoration-3"
-            loading={loading}
+            disabled={loading}
           >
             Forgot my password
           </Button>

@@ -45,22 +45,19 @@ services:
         condition: service_healthy
       mail:
         condition: service_healthy
+    env_file: apps/api/.env
     environment:
-      - PORT=3001
-      - CORS_ORIGIN=http://localhost:3000
-      - DATABASE_URL=postgresql://testuser:testpass@db:5432/test
-      - BETTER_AUTH_SECRET=uECOarRCMYJfTylXt2jo92JVTV6GbPjP
-      - BETTER_AUTH_URL=http://localhost:3001
-      - SMTP_HOST=mail
-      - SMTP_PORT=1025
+      DATABASE_URL: postgresql://testuser:testpass@db:5432/test
+      SMTP_HOST: mail
 
   web:
     build:
       context: .
       dockerfile: apps/web/Dockerfile
+      args:
+        VITE_APP_URL: ${VITE_APP_URL:-http://localhost:3000}
     ports:
       - "3000:3000"
     depends_on:
       - api
-    environment:
-      - API_URL=http://localhost:3001
+    env_file: apps/web/.env

@@ -62,7 +62,7 @@ export function UserList() {
   const { admin } = useAuthClient()
 
   useEffect(() => {
-    ;(async () => {
+    void (async () => {
       setLoading(true)
       const { data, error } = await admin.listUsers({
         query: {}
