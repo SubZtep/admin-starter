@@ -4,7 +4,6 @@ description: Starter boilerplate for projects with user authentication and admin
 plugins:
   - jekyll-remote-theme
 
-remote_theme: just-the-docs
+remote_theme: pmarsceill/just-the-docs
 
-just-the-docs:
-  color_scheme: dark
+color_scheme: dark

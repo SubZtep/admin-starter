@@ -14,7 +14,7 @@ const passwordSchema = z
   .max(72, "Password too long")
   .regex(/[a-z]/, "Must include a lowercase letter")
   .regex(/[A-Z]/, "Must include an uppercase letter")
-  .regex(/[\d]/, "Must include a number")
+  .regex(/\d/, "Must include a number")
   .regex(/[^a-zA-Z\d]/, "Must include a special character")
 
 export const loginSchema = z.object({

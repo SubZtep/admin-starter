@@ -2,7 +2,7 @@ import { Link, Text } from "@react-email/components"
 import { render } from "@react-email/render"
 import { Email } from "./template"
 
-export function Verification({ url }: { url: string }) {
+export function Verification({ url }: Readonly<{ url: string }>) {
   return (
     <Email>
       <Text style={{ fontSize: "21px", marginBottom: "15px" }}>Hey-ho 👋</Text>

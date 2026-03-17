@@ -58,7 +58,7 @@ export function getContext() {
   return context
 }
 
-function TanStackQueryProvider({ children }: { children: ReactNode }) {
+function TanStackQueryProvider({ children }: Readonly<{ children: ReactNode }>) {
   const { queryClient } = getContext()
   return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
 }
