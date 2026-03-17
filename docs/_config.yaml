@@ -1,9 +1,10 @@
 title: Admin Starter
 description: Starter boilerplate for projects with user authentication and admin features.
+theme: just-the-docs
 
-plugins:
-  - jekyll-remote-theme
+# plugins:
+#   - jekyll-remote-theme
 
-remote_theme: just-the-docs
+# remote_theme: just-the-docs
 
 color_scheme: dark
