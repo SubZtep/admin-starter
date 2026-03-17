@@ -1,6 +1,6 @@
 import { registerSchema } from "@app/schemas"
-import { useProgress } from "@bprogress/react"
 import { createFileRoute, useNavigate } from "@tanstack/react-router"
+import { useState } from "react"
 import { toast } from "react-toastify"
 import { Button } from "#/components/form/primitives/Button"
 import { Main } from "#/components/ui/Main"
@@ -13,7 +13,7 @@ export const Route = createFileRoute("/signup")({
 })
 
 function SignUp() {
-  const progress = useProgress()
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const { signUp } = useAuthClient()
 
@@ -34,14 +34,19 @@ function SignUp() {
         return
       }
 
-      progress.start()
-      const { error, data } = await signUp.email(parsed.data)
-      progress.stop()
+      try {
+        setLoading(true)
+        const { error, data } = await signUp.email(parsed.data)
 
-      if (error) toast.error(error.message)
-      if (data?.user) {
-        toast.success("User registered")
-        navigate({ to: "/dashboard" })
+        if (error) toast.error(error.message ?? error.statusText)
+        if (data?.user) {
+          toast.success("User registered")
+          navigate({ to: "/dashboard" })
+        }
+      } catch (error: any) {
+        toast.error(error.message)
+      } finally {
+        setLoading(false)
       }
     }
   })
@@ -75,7 +80,7 @@ function SignUp() {
             {field => <field.TextField label="Image" placeholder="Anything" />}
           </form.AppField>
 
-          <Button type="submit" className="mt-3">
+          <Button type="submit" loading={loading} className="mt-3">
             Submit
           </Button>
         </form>

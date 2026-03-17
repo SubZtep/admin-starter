@@ -1,4 +1,3 @@
-import { ProgressProvider } from "@bprogress/react"
 import { TanStackDevtools } from "@tanstack/react-devtools"
 import { FormDevtoolsPanel } from "@tanstack/react-form-devtools"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
@@ -9,32 +8,30 @@ import { ToastContainer } from "react-toastify"
 
 export function Providers({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <ProgressProvider color="#e60076" shallowRouting disableStyle>
-      <TanStackQueryProvider>
-        {children}
+    <TanStackQueryProvider>
+      {children}
 
-        <ToastContainer theme="colored" />
-        <TanStackDevtools
-          config={{
-            position: "bottom-right"
-          }}
-          plugins={[
-            {
-              name: "Tanstack Form",
-              render: <FormDevtoolsPanel />
-            },
-            {
-              name: "Tanstack Router",
-              render: <TanStackRouterDevtoolsPanel />
-            },
-            {
-              name: "Tanstack Query",
-              render: <ReactQueryDevtoolsPanel />
-            }
-          ]}
-        />
-      </TanStackQueryProvider>
-    </ProgressProvider>
+      <ToastContainer theme="colored" />
+      <TanStackDevtools
+        config={{
+          position: "bottom-right"
+        }}
+        plugins={[
+          {
+            name: "Tanstack Form",
+            render: <FormDevtoolsPanel />
+          },
+          {
+            name: "Tanstack Router",
+            render: <TanStackRouterDevtoolsPanel />
+          },
+          {
+            name: "Tanstack Query",
+            render: <ReactQueryDevtoolsPanel />
+          }
+        ]}
+      />
+    </TanStackQueryProvider>
   )
 }
 

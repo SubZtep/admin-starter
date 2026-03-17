@@ -1,8 +1,8 @@
 import { changePasswordSchema, type EditEmailInput, editEmailSchema, editSchema } from "@app/schemas"
 import { isImageUrl } from "@app/shared"
-import { useProgress } from "@bprogress/react"
 import { createFileRoute } from "@tanstack/react-router"
 import type { User } from "better-auth"
+import { useState } from "react"
 import { toast } from "react-toastify"
 import { Button } from "#/components/form/primitives/Button"
 import { Loader } from "#/components/ui/Loader"
@@ -39,7 +39,7 @@ function Profile() {
 
 function EditUser({ user }: Readonly<{ user: User }>) {
   const { updateUser } = useAuthClient()
-  const progress = useProgress()
+  const [loading, setLoading] = useState(false)
 
   const form = useAppForm({
     defaultValues: {
@@ -50,12 +50,22 @@ function EditUser({ user }: Readonly<{ user: User }>) {
       onSubmit: editSchema
     },
     onSubmit: async ({ value }) => {
-      const parsed = editSchema.parse(value)
-      progress.start()
-      const { error, data } = await updateUser(parsed)
-      progress.stop()
-      if (error) toast.error(error.message)
-      if (data?.status) toast.success("User updated")
+      const parsed = editSchema.safeParse(value)
+      if (!parsed.success) {
+        toast.error(parsed.error?.message ?? "Invalid data")
+        return
+      }
+
+      try {
+        setLoading(true)
+        const { error, data } = await updateUser(parsed.data)
+        if (error) toast.error(error.message ?? error.statusText)
+        if (data?.status) toast.success("User updated")
+      } catch (error: any) {
+        toast.error(error.message)
+      } finally {
+        setLoading(false)
+      }
     }
   })
 
@@ -83,7 +93,9 @@ function EditUser({ user }: Readonly<{ user: User }>) {
       >
         <form.AppField name="name">{field => <field.TextField label="Name" />}</form.AppField>
         <form.AppField name="image">{field => <field.TextField label="Image" />}</form.AppField>
-        <Button type="submit">Submit</Button>
+        <Button type="submit" loading={loading}>
+          Submit
+        </Button>
       </form>
     </div>
   )
@@ -91,7 +103,7 @@ function EditUser({ user }: Readonly<{ user: User }>) {
 
 function ChangeEmail() {
   const { changeEmail } = useAuthClient()
-  const progress = useProgress()
+  const [loading, setLoading] = useState(false)
 
   const form = useAppForm({
     defaultValues: {
@@ -106,11 +118,17 @@ function ChangeEmail() {
         toast.error(parsed.error?.message ?? "Invalid data")
         return
       }
-      progress.start()
-      const { error, data } = await changeEmail(parsed.data)
-      progress.stop()
-      if (error) toast.error(error.message)
-      if (data?.status) toast.success("User email updated")
+
+      try {
+        setLoading(true)
+        const { error, data } = await changeEmail(parsed.data)
+        if (error) toast.error(error.message ?? error.statusText)
+        if (data?.status) toast.success("User email updated")
+      } catch (error: any) {
+        toast.error(error.message)
+      } finally {
+        setLoading(false)
+      }
     }
   })
 
@@ -125,7 +143,9 @@ function ChangeEmail() {
         className="flex flex-col gap-1"
       >
         <form.AppField name="newEmail">{field => <field.TextField label="New email" type="email" />}</form.AppField>
-        <Button type="submit">Submit</Button>
+        <Button type="submit" loading={loading}>
+          Submit
+        </Button>
       </form>
     </>
   )
@@ -133,7 +153,7 @@ function ChangeEmail() {
 
 function ChangePassword() {
   const { changePassword } = useAuthClient()
-  const progress = useProgress()
+  const [loading, setLoading] = useState(false)
 
   const form = useAppForm({
     defaultValues: {
@@ -150,15 +170,21 @@ function ChangePassword() {
         toast.error(parsed.error?.message ?? "Invalid data")
         return
       }
-      progress.start()
-      const { error, data } = await changePassword({
-        newPassword: parsed.data.newPassword,
-        currentPassword: parsed.data.currentPassword,
-        revokeOtherSessions: parsed.data.revokeOtherSessions
-      })
-      progress.stop()
-      if (error) toast.error(error.message)
-      if (data?.user) toast.success("Password changed")
+
+      try {
+        setLoading(true)
+        const { error, data } = await changePassword({
+          newPassword: parsed.data.newPassword,
+          currentPassword: parsed.data.currentPassword,
+          revokeOtherSessions: parsed.data.revokeOtherSessions
+        })
+        if (error) toast.error(error.message ?? error.statusText)
+        if (data?.user) toast.success("Password changed")
+      } catch (error: any) {
+        toast.error(error.message)
+      } finally {
+        setLoading(false)
+      }
     }
   })
 
@@ -186,7 +212,9 @@ function ChangePassword() {
           )}
         </form.AppField>
 
-        <Button type="submit">Submit</Button>
+        <Button type="submit" loading={loading}>
+          Submit
+        </Button>
       </form>
     </>
   )
