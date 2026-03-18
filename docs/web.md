@@ -1,3 +1,10 @@
+---
+layout: page
+title: Web App
+parent: Development
+nav_order: 2
+---
+
 Welcome to your new TanStack Start app! 
 
 ## Install

@@ -12,7 +12,7 @@ export function Text({
   className,
   ...props
 }: Readonly<{ variant?: keyof typeof VARIANTS; className?: string } & ComponentProps<"input">>) {
-  return <BaseInput className={cn(variant && VARIANTS[variant], className)} {...props} />
+  return <BaseInput className={cn(variant && VARIANTS[variant], "dark:scheme-dark", className)} {...props} />
 }
 
 export function DebouncedText({

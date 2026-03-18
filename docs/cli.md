@@ -2,7 +2,7 @@
 layout: page
 title: Useful CLI Commands
 parent: Development
-nav_order: 1
+nav_order: 3
 ---
 
 # Useful CLI Commands

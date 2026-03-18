@@ -1,3 +1,10 @@
+---
+layout: page
+title: API App
+parent: Development
+nav_order: 1
+---
+
 ## Installation
 
 Create database tables:

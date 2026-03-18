@@ -11,7 +11,7 @@
     background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    @apply text-slate-100 m-0 font-sans antialiased wrap-anywhere selection:bg-pink-400 selection:text-black relative;
+    @apply text-slate-100 m-0 font-sans antialiased wrap-anywhere selection:bg-pink-400 selection:text-black relative text-base;
   }
 
   h1 {
@@ -40,6 +40,22 @@
 }
 
 @theme {
+  /* Base viewport range */
+  --fluid-min-width: 320;
+  --fluid-max-width: 1280;
+
+  /* Step scale (like Tailwind text sizes) */
+  --text-xs: clamp(0.75rem, 0.7rem + 0.2vw, 0.875rem);
+  --text-sm: clamp(0.875rem, 0.8rem + 0.3vw, 1rem);
+  --text-base: clamp(1rem, 0.9rem + 0.4vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 1rem + 0.5vw, 1.25rem);
+  --text-xl: clamp(1.25rem, 1.1rem + 0.7vw, 1.5rem);
+  --text-2xl: clamp(1.5rem, 1.2rem + 1vw, 1.875rem);
+  --text-3xl: clamp(1.875rem, 1.4rem + 1.5vw, 2.25rem);
+  --text-4xl: clamp(2.25rem, 1.6rem + 2vw, 3rem);
+  --text-5xl: clamp(3rem, 2rem + 3vw, 3.75rem);
+  --text-6xl: clamp(3.75rem, 2.5rem + 4vw, 4.5rem);
+
   --animate-rise-in: rise-in 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
 
   @keyframes rise-in {
@@ -54,11 +70,24 @@
   }
 }
 
+@layer utilities {
+  .text-xs { font-size: var(--text-xs); }
+  .text-sm { font-size: var(--text-sm); }
+  .text-base { font-size: var(--text-base); }
+  .text-lg { font-size: var(--text-lg); }
+  .text-xl { font-size: var(--text-xl); }
+  .text-2xl { font-size: var(--text-2xl); }
+  .text-3xl { font-size: var(--text-3xl); }
+  .text-4xl { font-size: var(--text-4xl); }
+  .text-5xl { font-size: var(--text-5xl); }
+  .text-6xl { font-size: var(--text-6xl); }
+}
+
 /* ~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
  * MENU
  **/
 
-.nav-link {
+@utility nav-link {
   position: relative;
   display: inline-flex;
   align-items: center;

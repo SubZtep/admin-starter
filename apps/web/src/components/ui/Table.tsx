@@ -194,7 +194,7 @@ function Filter({ column }: Readonly<{ column: Column<any, unknown> }>) {
             type="date"
             placeholder="From"
             variant="simple"
-            className="w-32"
+            className="w-34"
             value={values[0] ?? ""}
             onChange={value => {
               column.setFilterValue((old: PeriodFilter) => [
@@ -207,7 +207,7 @@ function Filter({ column }: Readonly<{ column: Column<any, unknown> }>) {
             type="date"
             placeholder="To"
             variant="simple"
-            className="w-32"
+            className="w-34"
             value={values[1] ?? ""}
             onChange={value =>
               column.setFilterValue((old: PeriodFilter) => [
