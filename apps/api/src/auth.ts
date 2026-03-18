@@ -30,11 +30,13 @@ export const auth = betterAuth({
           enabled: true,
           domain: process.env.CROSS_PARENT_DOMAIN
         }
-      : undefined,
-    defaultCookieAttributes: {
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      secure: true
-    }
+      : undefined
+  },
+  defaultCookieAttributes: {
+    sameSite: "none",
+    secure: true,
+    httpOnly: true,
+    path: "/"
   },
   database: new Pool({
     connectionString: process.env.DATABASE_URL
