@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer"
 import { logger } from "#/logger"
-import settings from "../../../../settings.toml"
+// import settings from "../../../../settings.toml"
 import { getChangeEmailHtml } from "./ChangeEmail"
 import { getResetPasswordHtml } from "./ResetPassword"
 import { getVerificationHtml } from "./Verification"
@@ -8,7 +8,8 @@ import { getVerificationHtml } from "./Verification"
 type EmailType = "verification" | "changeEmail" | "resetPassword"
 
 /** Email sender */
-const from = `${settings.app.name} <${settings.email.from}>`
+// const from = `${settings.app.name} <${settings.email.from}>`
+const from = "Admin Starter <subztep+noreply@gmail.com>"
 
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
@@ -37,15 +38,15 @@ export async function sendEmail(type: EmailType, to: string, payload: Record<str
   switch (type) {
     case "changeEmail":
       html = await getChangeEmailHtml(to, payload.url)
-      subject = `Welcome to ${settings.app.name}!`
+      subject = `Welcome to Admin Starter!`
       break
     case "verification":
       html = await getVerificationHtml(payload.url)
-      subject = `[${settings.app.name}] Verify your email address`
+      subject = `[Admin Starter] Verify your email address`
       break
     case "resetPassword":
       html = await getResetPasswordHtml(payload.url)
-      subject = `[${settings.app.name}] Reset your password`
+      subject = `[Admin Starter] Reset your password`
       break
   }
 
