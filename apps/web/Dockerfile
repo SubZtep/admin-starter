@@ -1,6 +1,6 @@
 FROM oven/bun:1-alpine AS builder
 
-COPY package.json bun.lock tsconfig.json settings.toml ./
+COPY package.json bun.lock tsconfig.json ./
 COPY apps/web/package.json ./apps/web/package.json
 COPY packages ./packages
 RUN bun install

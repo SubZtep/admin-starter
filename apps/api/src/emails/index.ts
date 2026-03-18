@@ -1,15 +1,10 @@
 import nodemailer from "nodemailer"
 import { logger } from "#/logger"
-// import settings from "../../../../settings.toml"
 import { getChangeEmailHtml } from "./ChangeEmail"
 import { getResetPasswordHtml } from "./ResetPassword"
 import { getVerificationHtml } from "./Verification"
 
 type EmailType = "verification" | "changeEmail" | "resetPassword"
-
-/** Email sender */
-// const from = `${settings.app.name} <${settings.email.from}>`
-const from = "Admin Starter <subztep+noreply@gmail.com>"
 
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
@@ -21,7 +16,6 @@ const transporter = nodemailer.createTransport({
   }
 })
 
-// NOSONAR
 if (!process.env.CI) {
   void (async () => {
     try {
@@ -53,7 +47,7 @@ export async function sendEmail(type: EmailType, to: string, payload: Record<str
   }
 
   try {
-    await transporter.sendMail({ from, to, subject, html })
+    await transporter.sendMail({ from: process.env.EMAIL_FROM, to, subject, html })
   } catch (error) {
     logger.error({ error }, "Email sending error")
   }

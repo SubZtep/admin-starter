@@ -42,7 +42,7 @@ function UserComponent() {
   )
 }
 
-function UserSessions({ userId }: { userId: string }) {
+function UserSessions({ userId }: Readonly<{ userId: string }>) {
   const authClient = useAuthClient()
   const [sessions, setSessions] = useState<any>()
 
