@@ -65,7 +65,9 @@ export function UserList() {
     void (async () => {
       setLoading(true)
       const { data, error } = await admin.listUsers({
-        query: {}
+        query: {
+          limit: 1000
+        }
       })
       setLoading(false)
       if (error) {
