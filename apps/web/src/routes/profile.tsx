@@ -1,5 +1,4 @@
 import { changePasswordSchema, type EditEmailInput, editEmailSchema, editSchema } from "@app/schemas"
-import { isImageUrl } from "@app/shared"
 import { createFileRoute } from "@tanstack/react-router"
 import type { User } from "better-auth"
 import { useState } from "react"

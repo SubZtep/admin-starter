@@ -63,3 +63,5 @@ services:
     depends_on:
       - api
     env_file: apps/web/.env
+    environment:
+      API_URL: http://api:3001

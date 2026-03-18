@@ -37,6 +37,12 @@ function UserPageComponent() {
       <Section>
         <h1>{user.name}</h1>
         <table className="table-auto">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Value</th>
+            </tr>
+          </thead>
           <tbody>
             <tr>
               <td className="p-4 border-b border-gray-700">Email:</td>
