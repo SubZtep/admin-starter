@@ -26,3 +26,5 @@ Start database only:
 ```sh
 docker compose up -d db
 ```
+
+Connect with any PostgreSQL client to port 5433.

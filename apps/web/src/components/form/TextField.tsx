@@ -13,7 +13,7 @@ export function TextField({ label, ...props }: Readonly<{ label: string } & Reac
       dirty={field.state.meta.isDirty}
       touched={field.state.meta.isTouched}
     >
-      <div className="flex">
+      <div className="md:flex">
         <Field.Label className="flex w-48 align-middle items-center justify-between">{label}:</Field.Label>
         <Text
           variant="3d"

@@ -23,9 +23,7 @@ const columns = [
   columnHelper.accessor("userAgent", {
     header: () => "User Agent",
     cell: info => (
-      <pre className="w-56! max-h-32 overflow-auto">
-        {JSON.stringify(info.getValue() ? UAParser(info.getValue()!) : {}, null, 2)}
-      </pre>
+      <pre className="w-56! max-h-32 overflow-auto">{JSON.stringify(UAParser(info.getValue() || "{}"), null, 2)}</pre>
     )
   }),
   columnHelper.accessor("createdAt", {

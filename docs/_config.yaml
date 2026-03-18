@@ -2,7 +2,7 @@ title: Admin Starter
 description: Starter boilerplate for projects with user authentication and admin features.
 repository: SubZtep/admin-starter
 permalink: pretty
-heading_anchors: true
+heading_anchors: false
 
 aux_links:
   "Source on GitHub":

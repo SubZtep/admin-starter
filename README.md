@@ -43,11 +43,12 @@ flowchart LR
 
 **[<big>Click Here</big>](https://kind-catmint-56983.ondis.co/) for the demo!**
 
-> It’s an ephemeral database. Register, or use a [test credential](https://subztep.github.io/admin-starter/demo/) to sign in.
+> It’s an ephemeral database. 🛡️\
+> Register, or use a [test credential](https://subztep.github.io/admin-starter/demo/) to sign in.
 
 ## Quick Start
 
-Test secrets are already configured in the [compose config](compose.yaml) and in `.env` files.
+Working defaults in the [compose config](compose.yaml) and in `.env` files.
 
 Just run:
 
@@ -55,11 +56,12 @@ Just run:
 docker compose up -d
 ```
 
-Docker Compose mounts the **PostgreSQL** data in the `./pgdata` folder. Open [http://localhost:3000](http://localhost:3000) to access the UI.
+Docker Compose mounts the **PostgreSQL** data in the `./pgdata` folder.\
+Open [http://localhost:3000](http://localhost:3000) to access the UI.
 
 ## Documentation
 
-A wise man once told me the source code is the best documentation. Share it with your favourite _AI agent_ and ask for the details. :trollface: [That **Jekyll** page](https://subztep.github.io/admin-starter/) is anything but _RTFM_.
+_A wise man once told me the source code is the best documentation._ Share it with your favourite _AI agent_ and ask for the details. :trollface: [That **Jekyll** page](https://subztep.github.io/admin-starter/) is anything but _RTFM_.
 
 ## Stack
 

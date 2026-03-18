@@ -5,3 +5,19 @@ nav_order: 5
 ---
 
 # Deploy
+
+All you need is:
+- 2 containers (api+web)
+- PostgreSQL
+- SMTP
+
+> [Gmail's SMTP](/smtp/) works, free, but for no/minimal traffic.
+
+## [Disco](https://disco.cloud/docs/) Deploy
+
+Create two **Projects** and add additional **environment variables**:
+
+| Project | Variable          | Value            |
+| ------- | ----------------- | ---------------- |
+| API     | `DISCO_JSON_PATH` | `disco.api.json` |
+| Web     | `DISCO_JSON_PATH` | `disco.web.json` |

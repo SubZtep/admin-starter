@@ -34,7 +34,7 @@ export function Checkbox({
       onBlur={onBlur}
       onCheckedChange={onCheckedChange}
       className={cn(
-        "cursor-pointer flex size-5 items-center justify-center rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 data-checked:bg-gray-900 data-unchecked:border data-unchecked:border-gray-300",
+        "cursor-pointer flex size-5 items-center justify-center rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800/70 data-checked:bg-gray-900 data-unchecked:border data-unchecked:border-gray-300",
         className
       )}
     >

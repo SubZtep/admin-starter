@@ -6,18 +6,15 @@ nav_order: 2
 
 # Demo Page
 
-{: .note }
-A [**Disco**](https://disco.cloud/) deployment is running on a tiny **Hetzner** instance.
+> A [**Disco**](https://disco.cloud/) deployment is running on a tiny **Hetzner** instance.
 
-For the demo page please click here:
-
-|
-
-## »-(¯\`·.·´¯)-> [**kind-catmint-56983.ondis.co**](https://kind-catmint-56983.ondis.co/) <-(¯\`·.·´¯)-«
+For the demo page please click below:
 
 |
 
-It is configured using the `disco.*.json` files with the `DISCO_JSON_PATH` environment variable on a [Disco](https://disco.cloud/) instance running on a [Hetzner](https://www.hetzner.com/) instance.
+## »-(¯\`·.·´¯)-> [**kind-catmint-56983.ondis.co**](https://kind-catmint-56983.ondis.co/){: .btn .btn-green } <-(¯\`·.·´¯)-«
+
+|
 
 Feel free to register, or use one of the test accounts below:
 

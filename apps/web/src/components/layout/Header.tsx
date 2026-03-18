@@ -3,7 +3,7 @@ import { Logo } from "./Logo"
 import { Menu } from "./Menu"
 
 export function Header() {
-  const { user } = useUser()
+  const user = useUser()
 
   return (
     <header className="sticky top-0 z-50 border-b border-gray-400/20 bg-gray-800/80 backdrop-blur-lg hover:[&_.lucide]:animate-pulse">

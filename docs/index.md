@@ -8,6 +8,6 @@ nav_order: 1
 
 ## Start Your Project
 
-1. [Configuration](./config.md)
+1. [Config](./config/)
 2. ???
 3. Profit
