@@ -4,9 +4,9 @@ import type { Session } from "better-auth"
 import type { UserWithRole } from "better-auth/plugins"
 
 export const getSession = createServerFn({ method: "GET" }).handler(async () => {
-  const apiUrl = process.env.API_URL
+  const apiUrl = process.env.API_URL || process.env.VITE_API_URL
   if (!apiUrl) {
-    throw new Error("API_URL is not set")
+    throw new Error("VITE_API_URL is not set")
   }
 
   const headers = getRequestHeaders()

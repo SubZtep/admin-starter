@@ -11,4 +11,4 @@ plugins:
 remote_theme: pmarsceill/just-the-docs
 
 color_scheme: dark
-favicon_ico: https://kind-catmint-56983.ondis.co/favicon.ico
+favicon_ico: /images/favicon.ico

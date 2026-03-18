@@ -33,8 +33,8 @@ function UserPageComponent() {
   }
 
   return (
-    <Main className="grid grid-cols-2 grid-rows-2 gap-4 justify-items-stretch [&>section]:w-full">
-      <Section>
+    <Main className="grid grid-cols-2 gap-4 justify-items-stretch [&>section]:w-full">
+      <Section className="row-span-1">
         <h1>{user.name}</h1>
         <table className="table-auto">
           <thead>

@@ -19,7 +19,7 @@ function Profile() {
   const user = Route.useLoaderData()
 
   return (
-    <Main className="grid sm:grid-cols-2 sm:grid-rows-2 gap-8 sm:gap-4 [&>section]:w-full">
+    <Main className="grid sm:grid-cols-2 gap-8 sm:gap-4 [&>section]:w-full">
       <Section className="sm:row-span-2">
         <h1>Profile</h1>
         <p>
