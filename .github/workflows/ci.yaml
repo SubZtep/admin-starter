@@ -49,7 +49,7 @@ jobs:
       - name: Run migrations
         env:
           DATABASE_URL: postgresql://testuser:testpass@localhost:5432/test
-        run: cd apps/api && bunx auth@latest migrate
+        run: cd apps/api && bunx auth@latest migrate --yes
 
       - name: Run tests
         env:
