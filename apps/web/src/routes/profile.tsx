@@ -19,8 +19,8 @@ function Profile() {
   const user = Route.useLoaderData()
 
   return (
-    <Main className="grid grid-cols-2 grid-rows-2 gap-4 [&>section]:w-full">
-      <Section className="row-span-2">
+    <Main className="grid sm:grid-cols-2 sm:grid-rows-2 gap-8 sm:gap-4 [&>section]:w-full">
+      <Section className="sm:row-span-2">
         <h1>Profile</h1>
         <p>
           Logged in with the {user.emailVerified ? "verified" : "unverified"} <strong>{user.email}</strong> as{" "}
@@ -31,7 +31,7 @@ function Profile() {
       <Section>
         <ChangeEmail />
       </Section>
-      <Section className="col-start-2">
+      <Section className="sm:col-start-2">
         <ChangePassword />
       </Section>
     </Main>
