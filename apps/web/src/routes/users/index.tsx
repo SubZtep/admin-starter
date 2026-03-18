@@ -75,7 +75,7 @@ export function UserList() {
       setLoading(true)
       const { data, error } = await admin.listUsers({
         query: {
-          limit: 1000
+          limit: 10_000
         }
       })
       setLoading(false)

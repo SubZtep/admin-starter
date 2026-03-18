@@ -2,7 +2,7 @@ import clsx, { type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
 /** Calculates the relative time interval. */
-export function getTimeAgo(time: Date, now = new Date(), locale = "en") {
+export function getTimeAgo(time: Date, now = new Date(), locale?: Intl.LocalesArgument) {
   const monthDiff = (dateFrom: Date, dateTo: Date) =>
     dateTo.getMonth() - dateFrom.getMonth() + 12 * (dateTo.getFullYear() - dateFrom.getFullYear())
 
@@ -31,6 +31,10 @@ export function getTimeAgo(time: Date, now = new Date(), locale = "en") {
     value = rtf.format(0 - seconds, "second")
   }
   return value
+}
+
+export function getDateTime(time: Date, style: "short" | "full" | "long" | "medium", locale?: Intl.LocalesArgument) {
+  return new Intl.DateTimeFormat(locale, { dateStyle: style, timeStyle: style }).format(time)
 }
 
 /** Extracts the first part of a name. */
