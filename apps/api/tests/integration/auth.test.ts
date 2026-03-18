@@ -3,8 +3,6 @@ import { faker } from "@faker-js/faker"
 import { app } from "../../src/app"
 
 describe("authentication flow", () => {
-  console.log("ENV", process.env)
-
   const firstName = faker.person.firstName()
   const lastName = faker.person.lastName()
   const email = faker.internet.email({ firstName, lastName })

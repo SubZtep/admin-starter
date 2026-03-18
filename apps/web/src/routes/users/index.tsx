@@ -11,7 +11,7 @@ import { Main } from "#/components/ui/Main"
 import { Section } from "#/components/ui/Section"
 import { useAuthClient } from "#/hooks/auth-client"
 
-export const Route = createFileRoute("/users")({
+export const Route = createFileRoute("/users/")({
   component: UserList
 })
 
