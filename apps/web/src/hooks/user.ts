@@ -1,13 +1,19 @@
-import { useAuthClient } from "./auth-client"
+import { useLoaderData } from "@tanstack/react-router"
+// import { useAuthClient } from "./auth-client"
 
 /** Currently signed in user. */
 export function useUser() {
-  const { useSession } = useAuthClient()
-  const { data, isPending } = useSession()
+  const { session } = useLoaderData({ from: "__root__" })
+  // const { useSession } = useAuthClient()
+  // const { data, isPending } = useSession()
+
+  const effective = session ?? null
+  // const effective = data ?? session ?? null
 
   return {
-    user: data?.user ?? null,
-    isLoading: isPending,
-    isAdmin: data?.user?.role === "admin"
+    user: effective?.user ?? null,
+    // isLoading: isPending && !session,
+    // isLoading: !session,
+    isAdmin: effective?.user?.role === "admin"
   }
 }

@@ -6,15 +6,24 @@ nav_order: 4
 
 # Development
 
-## Start Required Services
+## Setup
+
+Generate local environment secrets (into `apps/api/.env.local`):
+
+```sh
+./create_local_secrets.sh
+```
+
+Start Required Services:
 
 ```sh
 docker compose up -d db mail
 ```
 
----
+## Run
 
-Only in production:
-- CORS
-- Origin check
-- CSRF check
+```sh
+bun dev
+```
+
+Open [http://localhost:3000](http://localhost:3000).

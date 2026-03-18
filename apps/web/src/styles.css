@@ -19,7 +19,7 @@
   }
 
   h2 {
-    @apply text-xl font-bold my-8 font-serif;
+    @apply text-xl font-bold my-8 font-serif first:mt-0;
   }
 
   a {

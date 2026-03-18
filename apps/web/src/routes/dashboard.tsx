@@ -2,24 +2,22 @@ import { getFirstName } from "@app/shared"
 import { createFileRoute } from "@tanstack/react-router"
 import { Main } from "#/components/ui/Main"
 import { Section } from "#/components/ui/Section"
-import { useUser } from "#/hooks/user"
-import { getApiUrl } from "#/lib/vars"
+import { userRequired } from "#/lib/loaders"
 
 export const Route = createFileRoute("/dashboard")({
-  component: RouteComponent
+  component: RouteComponent,
+  loader: () => userRequired()
 })
 
-const apiUrl = await getApiUrl()
-
 function RouteComponent() {
-  const { user } = useUser()
+  const user = Route.useLoaderData()
 
   return (
     <Main>
       <Section>
         <h1>Dashboard</h1>
         <p className="my-3">
-          Hey{getFirstName(user?.name)}, the API base URL is <strong>{apiUrl}</strong>.
+          Hey{getFirstName(user.name)}, the {user.role}.
         </p>
       </Section>
     </Main>

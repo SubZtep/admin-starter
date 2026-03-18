@@ -8,12 +8,14 @@ import { Main } from "#/components/ui/Main"
 import { Section } from "#/components/ui/Section"
 import { UserSessions } from "#/components/user/UserSessions"
 import { useAuthClient } from "#/hooks/auth-client"
+import { userRequired } from "#/lib/loaders"
 
 export const Route = createFileRoute("/users/$userId")({
-  component: UserComponent
+  component: UserPageComponent,
+  loader: () => userRequired("admin")
 })
 
-function UserComponent() {
+function UserPageComponent() {
   const { userId } = useParams({ from: "/users/$userId" })
   const authClient = useAuthClient()
   const [user, setUser] = useState<UserWithRole>()
@@ -31,15 +33,28 @@ function UserComponent() {
   }
 
   return (
-    <Main>
+    <Main className="grid grid-cols-2 grid-rows-2 gap-4 justify-items-stretch [&>section]:w-full">
       <Section>
         <h1>{user.name}</h1>
-        Email: {user.email} (user.emailVerified ? "verified" : "not verified")
-        <br />
-        Created: {getDateTime(user.createdAt, "full")}
+        <table className="table-auto">
+          <tbody>
+            <tr>
+              <td className="p-4 border-b border-gray-700">Email:</td>
+              <td className="p-4 border-b border-gray-700">
+                {user.email} ({user.emailVerified ? "verified" : "not verified"})
+              </td>
+            </tr>
+            <tr>
+              <td className="p-4 border-b border-gray-700">Created:</td>
+              <td className="p-4 border-b border-gray-700">{getDateTime(user.createdAt, "long")}</td>
+            </tr>
+          </tbody>
+        </table>
       </Section>
 
-      <UserSessions userId={userId} />
+      <Section>x</Section>
+
+      <UserSessions userId={userId} className="col-span-2 row-start-2" />
     </Main>
   )
 }

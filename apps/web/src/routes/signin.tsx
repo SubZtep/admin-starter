@@ -1,5 +1,5 @@
 import { loginSchema } from "@app/schemas"
-import { createFileRoute, useNavigate } from "@tanstack/react-router"
+import { createFileRoute } from "@tanstack/react-router"
 import { useState } from "react"
 import { toast } from "react-toastify"
 import { Button } from "#/components/form/primitives/Button"
@@ -14,7 +14,6 @@ export const Route = createFileRoute("/signin")({
 
 function SignIn() {
   const authClient = useAuthClient()
-  const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
 
   const form = useAppForm({
@@ -39,9 +38,11 @@ function SignIn() {
         // @ts-ignore
         switch (meta.action) {
           case "login": {
-            const { data, error } = await authClient.signIn.email(parsed.data)
+            const { error } = await authClient.signIn.email({
+              ...parsed.data,
+              callbackURL: "/dashboard"
+            })
             if (error) toast.error(error.message ?? error.statusText)
-            if (data) navigate({ to: "/dashboard" })
             break
           }
           case "forgot": {

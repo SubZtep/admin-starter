@@ -5,32 +5,34 @@ import type { User } from "better-auth"
 import { useState } from "react"
 import { toast } from "react-toastify"
 import { Button } from "#/components/form/primitives/Button"
-import { Loader } from "#/components/ui/Loader"
 import { Main } from "#/components/ui/Main"
 import { Section } from "#/components/ui/Section"
 import { useAuthClient } from "#/hooks/auth-client"
-import { useUser } from "#/hooks/user"
 import { useAppForm } from "#/lib/form"
+import { userRequired } from "#/lib/loaders"
 
 export const Route = createFileRoute("/profile")({
-  component: Profile
+  component: Profile,
+  loader: () => userRequired()
 })
 
 function Profile() {
-  const { user, isLoading } = useUser()
-  if (isLoading) return <Loader />
-  if (!user) throw new Error("Not logged in")
+  const user = Route.useLoaderData()
 
   return (
-    <Main>
-      <Section className="max-w-lg">
+    <Main className="grid grid-cols-2 grid-rows-2 gap-4 [&>section]:w-full">
+      <Section className="row-span-2">
         <h1>Profile</h1>
         <p>
           Logged in with the {user.emailVerified ? "verified" : "unverified"} <strong>{user.email}</strong> as{" "}
           <strong>{user.role}</strong>.
         </p>
         <EditUser user={user} />
+      </Section>
+      <Section>
         <ChangeEmail />
+      </Section>
+      <Section className="col-start-2">
         <ChangePassword />
       </Section>
     </Main>
@@ -70,19 +72,7 @@ function EditUser({ user }: Readonly<{ user: User }>) {
   })
 
   return (
-    <div
-      className="rounded-md"
-      style={
-        isImageUrl(user.image)
-          ? {
-              backgroundImage: `linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('${user.image}')`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat"
-            }
-          : undefined
-      }
-    >
+    <>
       <h2>Edit Personal Data</h2>
       <form
         onSubmit={e => {
@@ -93,11 +83,11 @@ function EditUser({ user }: Readonly<{ user: User }>) {
       >
         <form.AppField name="name">{field => <field.TextField label="Name" />}</form.AppField>
         <form.AppField name="image">{field => <field.TextField label="Image" />}</form.AppField>
-        <Button type="submit" loading={loading}>
+        <Button type="submit" className="mt-4" loading={loading}>
           Submit
         </Button>
       </form>
-    </div>
+    </>
   )
 }
 
@@ -143,7 +133,7 @@ function ChangeEmail() {
         className="flex flex-col gap-1"
       >
         <form.AppField name="newEmail">{field => <field.TextField label="New email" type="email" />}</form.AppField>
-        <Button type="submit" loading={loading}>
+        <Button type="submit" className="mt-4" loading={loading}>
           Submit
         </Button>
       </form>
@@ -212,7 +202,7 @@ function ChangePassword() {
           )}
         </form.AppField>
 
-        <Button type="submit" loading={loading}>
+        <Button type="submit" className="mt-4" loading={loading}>
           Submit
         </Button>
       </form>

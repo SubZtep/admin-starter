@@ -10,9 +10,11 @@ import { Loader } from "#/components/ui/Loader"
 import { Main } from "#/components/ui/Main"
 import { Section } from "#/components/ui/Section"
 import { useAuthClient } from "#/hooks/auth-client"
+import { userRequired } from "#/lib/loaders"
 
 export const Route = createFileRoute("/users/")({
-  component: UserList
+  component: UserList,
+  loader: () => userRequired("admin")
 })
 
 type UsersColumns = Pick<UserWithRole, "id" | "name" | "email" | "emailVerified" | "role" | "createdAt">
@@ -73,17 +75,18 @@ export function UserList() {
   useEffect(() => {
     void (async () => {
       setLoading(true)
-      const { data, error } = await admin.listUsers({
-        query: {
-          limit: 10_000
-        }
-      })
-      setLoading(false)
-      if (error) {
+      try {
+        const { data, error } = await admin.listUsers({
+          query: {
+            limit: 10_000
+          }
+        })
+        if (error) toast.error(error.message)
+        if (data) setUsers(data.users)
+      } catch (error: any) {
         toast.error(error.message)
-      }
-      if (data) {
-        setUsers(data.users)
+      } finally {
+        setLoading(false)
       }
     })()
   }, [])

@@ -32,7 +32,7 @@ const columns = [
   })
 ]
 
-export function UserSessions({ userId }: Readonly<{ userId: string }>) {
+export function UserSessions({ userId, className }: Readonly<{ userId: string; className?: string }>) {
   const authClient = useAuthClient()
   const [sessions, setSessions] = useState<SessionWithImpersonatedBy[]>()
 
@@ -49,8 +49,8 @@ export function UserSessions({ userId }: Readonly<{ userId: string }>) {
   }
 
   return (
-    <Section>
-      <h2>Sessions</h2>
+    <Section className={className}>
+      <h2 className="m-0">Sessions</h2>
       <Table rows={sessions} columns={columns} />
     </Section>
   )

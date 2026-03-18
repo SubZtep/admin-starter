@@ -20,7 +20,7 @@ export function ConfirmDialog({ title, onConfirm, children }: Readonly<Props>) {
           </AlertDialog.Description>
           <div className="flex justify-end gap-4">
             <AlertDialog.Close render={<Button />}>Cancel</AlertDialog.Close>
-            <AlertDialog.Close onClick={onConfirm} render={<Button className="text-red-400 font-semibold" />}>
+            <AlertDialog.Close onClick={onConfirm} render={<Button className="text-red-400 font-semibold" autoFocus />}>
               Confirm
             </AlertDialog.Close>
           </div>

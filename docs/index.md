@@ -4,7 +4,7 @@ title: Home
 nav_order: 1
 ---
 
-# Welcome to the **Admin Starter** documentation
+# Welcome to the Documentation
 
 ## Start Your Project
 

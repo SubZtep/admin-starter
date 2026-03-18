@@ -3,13 +3,15 @@ import { createRootRouteWithContext, ErrorComponent, HeadContent, Scripts } from
 import { Providers } from "#/components/Providers"
 import { Footer } from "../components/layout/Footer"
 import { Header } from "../components/layout/Header"
+import { getSession } from "../lib/session"
 import appCss from "../styles.css?url"
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  loader: () => {
-    // TODO: get user session here (server-side)
+  loader: async () => {
+    const session = await getSession()
     return {
-      apiUrl: process.env.API_URL!
+      apiUrl: process.env.API_URL!,
+      session
     }
   },
   head: () => ({

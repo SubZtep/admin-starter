@@ -19,7 +19,7 @@ const TYPES = {
 } as const
 
 const DEFAULT_CLASSES =
-  "relative flex items-center justify-center cursor-pointer transition-all duration-100 hover:outline-2 disabled:opacity-50 disabled:pointer-events-none"
+  "focus:outline-3 relative flex items-center justify-center cursor-pointer transition-all duration-100 hover:outline-2 disabled:opacity-50 disabled:pointer-events-none"
 
 export function Button({
   variant = "3d",
