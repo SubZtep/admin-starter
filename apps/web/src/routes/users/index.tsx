@@ -2,13 +2,13 @@ import { getTimeAgo } from "@app/shared"
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { createColumnHelper } from "@tanstack/react-table"
 import type { UserWithRole } from "better-auth/client/plugins"
-import { PersonStanding } from "lucide-react"
+import { Check, PersonStanding, X } from "lucide-react"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
-import { Table } from "#/components/Table"
 import { Loader } from "#/components/ui/Loader"
 import { Main } from "#/components/ui/Main"
 import { Section } from "#/components/ui/Section"
+import { Table } from "#/components/ui/Table"
 import { useAuthClient } from "#/hooks/auth-client"
 import { userRequired } from "#/lib/loaders"
 
@@ -23,18 +23,13 @@ const columnHelper = createColumnHelper<UsersColumns>()
 const columns = [
   columnHelper.accessor("name", {
     header: () => "Name",
-    cell: info => info.getValue()
+    cell: info => <a href={`mailto:${info.row.original.email}`}>{info.getValue()}</a>
   }),
-  columnHelper.accessor("email", {
-    header: () => "Email",
+  columnHelper.accessor("emailVerified", {
+    header: () => "Verified",
     cell: info =>
-      info.row.original.emailVerified ? (
-        <a href={`mailto:${info.getValue()}`}>{info.getValue()}</a>
-      ) : (
-        <div className="opacity-50" title="unverified">
-          {info.getValue()}
-        </div>
-      )
+      info.row.original.emailVerified ? <Check aria-label="Yes" /> : <X className="opacity-50" aria-label="No" />,
+    enableColumnFilter: false
   }),
   columnHelper.accessor("role", {
     header: () => "Role",
@@ -60,8 +55,9 @@ const columns = [
   {
     id: "link",
     cell: (info: { row: { original: { id: string } } }) => (
-      <Link to="/users/$userId" params={{ userId: info.row.original.id }}>
+      <Link to="/users/$userId" params={{ userId: info.row.original.id }} className="flex text-sm items-center gap-0.5">
         <PersonStanding />
+        Details
       </Link>
     )
   }
@@ -97,8 +93,8 @@ export function UserList() {
   return (
     <Main>
       <Section>
-        <h1>Users</h1>
-        <Table rows={users} columns={columns} />
+        <h1 className="text-center">Users</h1>
+        <Table data={users} columns={columns} />
       </Section>
     </Main>
   )

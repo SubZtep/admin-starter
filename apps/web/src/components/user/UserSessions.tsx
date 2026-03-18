@@ -10,8 +10,8 @@ import { Section } from "#/components/ui/Section"
 import { useAuthClient } from "#/hooks/auth-client"
 import { queryClient } from "#/lib/query"
 import { Button } from "../form/primitives/Button"
-import { Table } from "../Table"
 import { ConfirmDialog } from "../ui/ConfirmDialog"
+import { Table } from "../ui/Table"
 
 const columnHelper = createColumnHelper<SessionWithImpersonatedBy>()
 
@@ -66,12 +66,12 @@ export function UserSessions({ userId, className }: Readonly<{ userId: string; c
       <h2 className="m-0">Sessions</h2>
 
       <ConfirmDialog title="Are you sure?" onConfirm={() => mutate()}>
-        <Button size="lg" className="my-4">
+        <Button size="lg" className="my-4" disabled={sessions?.length === 0}>
           <MonitorX className="mr-4" /> Revoke All Sessions
         </Button>
       </ConfirmDialog>
 
-      {sessions && <Table rows={sessions} columns={columns} />}
+      {sessions && <Table data={sessions} columns={columns} />}
     </Section>
   )
 }

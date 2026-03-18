@@ -29,7 +29,7 @@ Default developer values.
 | EMAIL_FROM          | `"Admin Starter <noreply@test.com>"`               |                                                                                                           |
 | SMTP_HOST           | localhost                                          |                                                                                                           |
 | SMTP_PORT           | 1025                                               |                                                                                                           |
-| SMTP_SECURE         |                                                    |                                                                                                           |
+| SMTP_SECURE         |                                                    | _Usually empty_                                                                                           |
 | SMTP_USER           |                                                    |                                                                                                           |
 | SMTP_PASS           |                                                    |                                                                                                           |
 | BETTER_AUTH_SECRET  |                                                    | Generate: `openssl rand -base64 32`                                                                       |
