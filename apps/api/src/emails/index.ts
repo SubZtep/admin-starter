@@ -22,14 +22,16 @@ const transporter = nodemailer.createTransport({
 })
 
 // NOSONAR
-void (async () => {
-  try {
-    const verified = await transporter.verify()
-    logger.info({ verified }, "SMTP server is ready to take our messages")
-  } catch (error) {
-    logger.warn({ error }, "SMTP verification failed")
-  }
-})()
+if (!process.env.CI) {
+  void (async () => {
+    try {
+      const verified = await transporter.verify()
+      logger.info({ verified }, "SMTP server is ready to take our messages")
+    } catch (error) {
+      logger.warn({ error }, "SMTP verification failed")
+    }
+  })()
+}
 
 export async function sendEmail(type: EmailType, to: string, payload: Record<string, string>) {
   let subject: string
