@@ -35,19 +35,19 @@ flowchart LR
 
 ## Features
 
-| User                                                                                                        | Admin                            | Docker Compose                               |
-| ----------------------------------------------------------------------------------------------------------- | -------------------------------- | -------------------------------------------- |
-| 🔹 Register and verify your email <br>🔹 Update your profile<br>🔹 Log in with cookies<br>or bearer tokens<br> | 🔹 View user list<br><br><br><br> | ▪️ `db`<br>▪️ `mail`<br>▪️ `api`<br>▪️ `web`<br> |
+| User                                                                                                        | Admin                                         | Docker Compose                               |
+| ----------------------------------------------------------------------------------------------------------- | --------------------------------------------- | -------------------------------------------- |
+| 🔹 Register and verify your email <br>🔹 Update your profile<br>🔹 Log in with cookies<br>or bearer tokens<br> | 🔹 View users<br>🔹 Revoke sessions<br><br><br> | ▪️ `db`<br>▪️ `mail`<br>▪️ `api`<br>▪️ `web`<br> |
 
 ## Demo
 
-A [**Disco**](https://disco.cloud/) deployment is running on a tiny **Hetzner** instance at [https://kind-catmint-56983.ondis.co/](https://kind-catmint-56983.ondis.co/).
+**[<big>Click Here</big>](https://kind-catmint-56983.ondis.co/) for the demo!**
 
-> It’s an ephemeral database. You can register, or use [test credentials](https://subztep.github.io/admin-starter/demo.html) to sign in.
+> It’s an ephemeral database. Register, or use a [test credential](https://subztep.github.io/admin-starter/demo/) to sign in.
 
 ## Quick Start
 
-Test secrets are already configured in the [compose config](compose.yaml).
+Test secrets are already configured in the [compose config](compose.yaml) and in `.env` files.
 
 Just run:
 

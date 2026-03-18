@@ -2,6 +2,12 @@ title: Admin Starter
 description: Starter boilerplate for projects with user authentication and admin features.
 repository: SubZtep/admin-starter
 permalink: pretty
+heading_anchors: true
+
+aux_links:
+  "Source on GitHub":
+    - "//github.com/SubZtep/admin-starter"
+aux_links_new_tab: true
 
 plugins:
   - jekyll-remote-theme
