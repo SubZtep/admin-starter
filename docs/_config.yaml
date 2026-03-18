@@ -11,3 +11,4 @@ plugins:
 remote_theme: pmarsceill/just-the-docs
 
 color_scheme: dark
+favicon_ico: https://raw.githubusercontent.com/SubZtep/admin-starter/refs/heads/main/apps/web/public/favicon.ico

@@ -1,7 +1,11 @@
 ---
 layout: page
 title: Useful CLI Commands
+parent: Development
+nav_order: 2
 ---
+
+# Useful CLI Commands
 
 Check for dependency updates:
 

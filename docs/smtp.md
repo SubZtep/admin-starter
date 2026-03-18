@@ -1,7 +1,11 @@
 ---
 layout: page
 title: Gmail as free SMTP server
+parent: Development
+nav_order: 1
 ---
+
+# Gmail as free SMTP server
 
 ## Use App Password
 

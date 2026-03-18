@@ -20,6 +20,7 @@ const transporter = nodemailer.createTransport({
   }
 })
 
+// NOSONAR
 void (async () => {
   try {
     const verified = await transporter.verify()

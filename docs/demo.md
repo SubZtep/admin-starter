@@ -1,9 +1,11 @@
 ---
 layout: page
 title: Demo Page
+nav_order: 2
 ---
 
----
+# Demo Page
+
 For the demo page please click here:
 
 ### »-(¯\`·.·´¯)->[**kind-catmint-56983.ondis.co**](https://kind-catmint-56983.ondis.co/)<-(¯\`·.·´¯)-«
