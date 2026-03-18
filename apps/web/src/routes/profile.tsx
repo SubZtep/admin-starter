@@ -78,7 +78,7 @@ function EditUser({ user }: Readonly<{ user: User }>) {
           e.preventDefault()
           form.handleSubmit()
         }}
-        className="flex flex-col gap-1"
+        className="flex flex-col gap-2"
       >
         <form.AppField name="name">{field => <field.TextField label="Name" />}</form.AppField>
         <form.AppField name="image">{field => <field.TextField label="Image" />}</form.AppField>
@@ -129,7 +129,7 @@ function ChangeEmail() {
           e.preventDefault()
           form.handleSubmit()
         }}
-        className="flex flex-col gap-1"
+        className="flex flex-col gap-2"
       >
         <form.AppField name="newEmail">{field => <field.TextField label="New email" type="email" />}</form.AppField>
         <Button type="submit" className="mt-4" loading={loading}>
@@ -181,7 +181,7 @@ function ChangePassword() {
     <>
       <h2>Change Password</h2>
       <form
-        className="flex flex-col gap-1"
+        className="flex flex-col gap-2"
         onSubmit={e => {
           e.preventDefault()
           form.handleSubmit()
@@ -192,7 +192,7 @@ function ChangePassword() {
         </form.AppField>
 
         <form.AppField name="currentPassword">
-          {field => <field.TextField label="Current password" type="password" autoComplete="new-password" />}
+          {field => <field.TextField label="Current password" type="password" autoComplete="current-password" />}
         </form.AppField>
 
         <form.AppField name="revokeOtherSessions">

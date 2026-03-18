@@ -9,7 +9,7 @@ import {
   type RowData,
   useReactTable
 } from "@tanstack/react-table"
-import { ArrowDownAZ, ArrowUpAZ } from "lucide-react"
+import { ArrowDown, ArrowUp } from "lucide-react"
 import { useState } from "react"
 import { DebouncedText } from "./form/primitives/Text"
 
@@ -73,8 +73,8 @@ export function Table({ columns, rows }: Readonly<{ columns: any[]; rows: any[] 
                       >
                         {flexRender(header.column.columnDef.header, header.getContext())}
                         {{
-                          asc: <ArrowDownAZ size={21} className="text-gray-400" />,
-                          desc: <ArrowUpAZ size={21} className="text-gray-400" />
+                          asc: <ArrowDown size={21} className="text-gray-400" />,
+                          desc: <ArrowUp size={21} className="text-gray-400" />
                         }[header.column.getIsSorted() as string] ?? null}
                       </button>
                       {header.column.getCanFilter() ? (

@@ -10,7 +10,8 @@ const VARIANTS = {
 
 const SIZES = {
   sm: "rounded-sm px-1.5 text-sm",
-  md: "rounded-md px-2 py-1.5"
+  md: "rounded-md px-2.5 py-2",
+  lg: "rounded-lg px-4 py-2 text-lg font-semibold"
 } as const
 
 const TYPES = {

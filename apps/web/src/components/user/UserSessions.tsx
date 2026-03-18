@@ -1,11 +1,17 @@
 import { getDateTime } from "@app/shared"
+import { useMutation, useQuery } from "@tanstack/react-query"
 import { createColumnHelper } from "@tanstack/react-table"
 import type { SessionWithImpersonatedBy } from "better-auth/plugins"
+import { MonitorX } from "lucide-react"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
+import { UAParser } from "ua-parser-js"
 import { Section } from "#/components/ui/Section"
 import { useAuthClient } from "#/hooks/auth-client"
+import { queryClient } from "#/lib/query"
+import { Button } from "../form/primitives/Button"
 import { Table } from "../Table"
+import { ConfirmDialog } from "../ui/ConfirmDialog"
 
 const columnHelper = createColumnHelper<SessionWithImpersonatedBy>()
 
@@ -16,14 +22,14 @@ const columns = [
   }),
   columnHelper.accessor("userAgent", {
     header: () => "User Agent",
-    cell: info => info.getValue()
+    cell: info => (
+      <pre className="w-56! max-h-32 overflow-auto">
+        {JSON.stringify(info.getValue() ? UAParser(info.getValue()!) : {}, null, 2)}
+      </pre>
+    )
   }),
   columnHelper.accessor("createdAt", {
     header: () => "Created",
-    cell: info => getDateTime(info.getValue(), "short")
-  }),
-  columnHelper.accessor("updatedAt", {
-    header: () => "Updated",
     cell: info => getDateTime(info.getValue(), "short")
   }),
   columnHelper.accessor("expiresAt", {
@@ -36,22 +42,38 @@ export function UserSessions({ userId, className }: Readonly<{ userId: string; c
   const authClient = useAuthClient()
   const [sessions, setSessions] = useState<SessionWithImpersonatedBy[]>()
 
-  useEffect(() => {
-    void (async () => {
-      const { data, error } = await authClient.admin.listUserSessions({ userId })
-      if (error) toast.error(error.message)
-      if (data) setSessions(data.sessions)
-    })()
-  }, [])
+  const { data, error, refetch } = useQuery({
+    queryKey: ["userSessions", userId],
+    queryFn: () => authClient.admin.listUserSessions({ userId })
+  })
 
-  if (!sessions) {
-    return null
-  }
+  const { mutate } = useMutation({
+    mutationFn: () => authClient.admin.revokeUserSessions({ userId }),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["userSessions", userId] })
+      await refetch()
+    }
+  })
+
+  useEffect(() => {
+    setSessions(data?.data?.sessions)
+  }, [data])
+
+  useEffect(() => {
+    toast.error(error?.message)
+  }, [error])
 
   return (
     <Section className={className}>
       <h2 className="m-0">Sessions</h2>
-      <Table rows={sessions} columns={columns} />
+
+      <ConfirmDialog title="Are you sure?" onConfirm={() => mutate()}>
+        <Button size="lg" className="my-4">
+          <MonitorX className="mr-4" /> Revoke All Sessions
+        </Button>
+      </ConfirmDialog>
+
+      {sessions && <Table rows={sessions} columns={columns} />}
     </Section>
   )
 }

@@ -1,6 +1,7 @@
 import { getDateTime } from "@app/shared"
 import { createFileRoute, useParams } from "@tanstack/react-router"
 import type { UserWithRole } from "better-auth/plugins"
+import { PawPrint } from "lucide-react"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import { Loader } from "#/components/ui/Loader"
@@ -58,7 +59,9 @@ function UserPageComponent() {
         </table>
       </Section>
 
-      <Section>x</Section>
+      <Section>
+        <PawPrint color="#6666" size={64} />
+      </Section>
 
       <UserSessions userId={userId} className="col-span-2 row-start-2" />
     </Main>
