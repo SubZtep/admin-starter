@@ -17,7 +17,7 @@ ENV NODE_ENV=production
 ENV PORT=3000
 ENV HOST=0.0.0.0
 
-COPY --chown=bun:bun --from=builder /home/bun/app/apps/web/.output ./
+COPY --chown=root:root --chmod=755 --from=builder /home/bun/app/apps/web/.output ./
 USER bun
 
 EXPOSE 3000

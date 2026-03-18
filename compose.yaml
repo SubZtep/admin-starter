@@ -45,7 +45,9 @@ services:
         condition: service_healthy
       mail:
         condition: service_healthy
-    env_file: apps/api/.env
+    env_file:
+      - apps/api/.env
+      - apps/api/.env.local
     environment:
       DATABASE_URL: postgresql://testuser:testpass@db:5432/test
       SMTP_HOST: mail

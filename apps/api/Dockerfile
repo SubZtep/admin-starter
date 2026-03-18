@@ -13,7 +13,7 @@ RUN bun run --filter @app/api build
 FROM oven/bun:1-alpine AS runner
 ENV NODE_ENV=production
 
-COPY --chown=bun:bun --from=builder /home/bun/app/apps/api/dist ./dist
+COPY --chown=root:root --chmod=755 --from=builder /home/bun/app/apps/api/dist ./dist
 COPY --chown=root:root --chmod=755 --from=builder /home/bun/app/node_modules ./node_modules
 USER bun
 
