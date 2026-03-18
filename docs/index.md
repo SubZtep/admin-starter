@@ -4,7 +4,7 @@ title: Home
 nav_order: 1
 ---
 
-# Welcome to the Documentation
+# Welcome to the documentation
 
 ## Start Your Project
 
