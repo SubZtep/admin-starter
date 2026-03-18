@@ -38,10 +38,10 @@ jobs:
       - name: Setup PostgreSQL
         uses: Harmon758/postgresql-action@v1
         with:
-          postgresql-version: 18-alpine
-          postgresql-user: testuser
-          postgresql-password: testpass
-          postgresql-db: test
+          postgresql version: 18-alpine
+          postgresql user: testuser
+          postgresql password: testpass
+          postgresql db: test
 
       - name: Install dependencies
         run: bun install
