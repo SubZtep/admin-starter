@@ -24,20 +24,26 @@ if (process.env.NODE_ENV === "development") {
 
 export const auth = betterAuth({
   trustedOrigins: [process.env.CORS_ORIGIN],
-  advanced: {
-    crossSubDomainCookies: process.env.CROSS_PARENT_DOMAIN
-      ? {
-          enabled: true,
-          domain: process.env.CROSS_PARENT_DOMAIN
+  ...(process.env.CROSS_PARENT_DOMAIN
+    ? {
+        advanced: {
+          crossSubDomainCookies: {
+            enabled: true,
+            domain: process.env.CROSS_PARENT_DOMAIN
+          },
+          cookies: {
+            session_token: {
+              attributes: {
+                sameSite: "none",
+                secure: true,
+                httpOnly: true,
+                path: "/"
+              }
+            }
+          }
         }
-      : undefined
-  },
-  defaultCookieAttributes: {
-    sameSite: "none",
-    secure: true,
-    httpOnly: true,
-    path: "/"
-  },
+      }
+    : {}),
   database: new Pool({
     connectionString: process.env.DATABASE_URL
   }),
