@@ -1,7 +1,8 @@
 import { getTimeAgo } from "@app/shared"
-import { createFileRoute } from "@tanstack/react-router"
+import { createFileRoute, Link } from "@tanstack/react-router"
 import { createColumnHelper } from "@tanstack/react-table"
 import type { UserWithRole } from "better-auth/client/plugins"
+import { PersonStanding } from "lucide-react"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import { Table } from "#/components/Table"
@@ -53,7 +54,15 @@ const columns = [
       }
       return true
     }
-  })
+  }),
+  {
+    id: "link",
+    cell: (info: { row: { original: { id: string } } }) => (
+      <Link to="/users/$userId" params={{ userId: info.row.original.id }}>
+        <PersonStanding />
+      </Link>
+    )
+  }
 ]
 
 export function UserList() {
