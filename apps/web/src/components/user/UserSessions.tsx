@@ -1,4 +1,4 @@
-import { getDateTime } from "@app/shared"
+import { getDateTime, getTimeAgo } from "@app/shared"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { createColumnHelper } from "@tanstack/react-table"
 import type { SessionWithImpersonatedBy } from "better-auth/plugins"
@@ -17,22 +17,24 @@ const columnHelper = createColumnHelper<SessionWithImpersonatedBy>()
 
 const columns = [
   columnHelper.accessor("ipAddress", {
-    header: () => "IP",
+    header: "IP",
     cell: info => info.getValue()
   }),
   columnHelper.accessor("userAgent", {
-    header: () => "User Agent",
+    header: "User Agent",
     cell: info => (
       <pre className="w-56! max-h-32 overflow-auto">{JSON.stringify(UAParser(info.getValue() || "{}"), null, 2)}</pre>
     )
   }),
   columnHelper.accessor("createdAt", {
-    header: () => "Created",
-    cell: info => getDateTime(info.getValue(), "short")
+    header: "Created",
+    cell: info => getTimeAgo(info.getValue()),
+    enableColumnFilter: false
   }),
   columnHelper.accessor("expiresAt", {
-    header: () => "Expires",
-    cell: info => getDateTime(info.getValue(), "short")
+    header: "Expires",
+    cell: info => getDateTime(info.getValue(), "short"),
+    enableColumnFilter: false
   })
 ]
 
@@ -54,11 +56,15 @@ export function UserSessions({ userId, className }: Readonly<{ userId: string; c
   })
 
   useEffect(() => {
-    setSessions(data?.data?.sessions)
+    if (data?.data?.sessions && Array.isArray(data.data.sessions)) {
+      setSessions(data.data.sessions)
+    }
   }, [data])
 
   useEffect(() => {
-    toast.error(error?.message)
+    if (error) {
+      toast.error(error.message)
+    }
   }, [error])
 
   return (

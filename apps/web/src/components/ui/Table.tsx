@@ -74,7 +74,10 @@ export function Table({ columns, data }: Readonly<{ columns: any[]; data: any[] 
         {table.getHeaderGroups().map(headerGroup =>
           headerGroup.headers.map(header =>
             header.column.getCanFilter() ? (
-              <div key={header.id} className="flex flex-row gap-4 mt-1 bg-gray-900/90 px-4 py-2 items-center">
+              <div
+                key={header.id}
+                className="flex flex-row gap-4 mt-1 bg-gray-900/90 px-4 py-2 items-center rounded-md"
+              >
                 {flexRender(header.column.columnDef.header, header.getContext())}:
                 <Filter column={header.column} />
               </div>
@@ -186,7 +189,7 @@ function Filter({ column }: Readonly<{ column: Column<any, unknown> }>) {
         v => (typeof v === "object" ? v.toISOString().split("T")[0] : undefined) // FIXME: check with timezones
       )
       return (
-        <>
+        <div className="flex flex-col gap-0.5">
           <DebouncedText
             type="date"
             placeholder="From"
@@ -213,7 +216,7 @@ function Filter({ column }: Readonly<{ column: Column<any, unknown> }>) {
               ])
             }
           />
-        </>
+        </div>
       )
     }
 

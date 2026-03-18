@@ -38,7 +38,7 @@ function UserPageComponent() {
       <Section className="row-span-1">
         <h1>{user.name}</h1>
         <table className="table-auto">
-          <thead>
+          <thead className="hidden">
             <tr>
               <th>Name</th>
               <th>Value</th>

@@ -19,7 +19,7 @@
     "admin-starter": "."
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.7",
+    "@biomejs/biome": "^2.4.8",
     "nitro": "npm:nitro-nightly@latest"
   },
   "optionalDependencies": {

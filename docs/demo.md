@@ -8,7 +8,7 @@ nav_order: 2
 
 > A [**Disco**](https://disco.cloud/) deployment is running on a tiny **Hetzner** instance.
 
-For the demo page please click below:
+For the demo page, please click below:
 
 |
 

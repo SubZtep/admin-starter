@@ -1,4 +1,5 @@
 import { getTimeAgo } from "@app/shared"
+import { useQuery } from "@tanstack/react-query"
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { createColumnHelper } from "@tanstack/react-table"
 import type { UserWithRole } from "better-auth/client/plugins"
@@ -22,34 +23,31 @@ const columnHelper = createColumnHelper<UsersColumns>()
 
 const columns = [
   columnHelper.accessor("name", {
-    header: () => "Name",
+    header: "Name",
     cell: info => <a href={`mailto:${info.row.original.email}`}>{info.getValue()}</a>
   }),
   columnHelper.accessor("emailVerified", {
-    header: () => "Verified",
+    header: "Verified",
     cell: info =>
       info.row.original.emailVerified ? <Check aria-label="Yes" /> : <X className="opacity-50" aria-label="No" />,
     enableColumnFilter: false
   }),
   columnHelper.accessor("role", {
-    header: () => "Role",
+    header: "Role",
     cell: info => <div className="font-mono text-sm">{info.getValue()}</div>,
     meta: {
       filterVariant: "role"
     }
   }),
   columnHelper.accessor("createdAt", {
-    header: () => "Registered",
+    header: "Registered",
     cell: info => getTimeAgo(info.getValue()),
     meta: {
       filterVariant: "period"
     },
     filterFn: (row, columnId: string, filterValue: [Date | undefined, Date | undefined]) => {
       const currentDate = row.original[columnId as keyof UsersColumns] as Date
-      if ((filterValue[0] && filterValue[0] > currentDate) || (filterValue[1] && filterValue[1] < currentDate)) {
-        return false
-      }
-      return true
+      return !((filterValue[0] && filterValue[0] > currentDate) || (filterValue[1] && filterValue[1] < currentDate))
     }
   }),
   {
@@ -65,29 +63,34 @@ const columns = [
 
 export function UserList() {
   const [users, setUsers] = useState<UserWithRole[]>([])
-  const [loading, setLoading] = useState(false)
   const { admin } = useAuthClient()
 
-  useEffect(() => {
-    void (async () => {
-      setLoading(true)
-      try {
-        const { data, error } = await admin.listUsers({
-          query: {
-            limit: 10_000
-          }
-        })
-        if (error) toast.error(error.message)
-        if (data) setUsers(data.users)
-      } catch (error: any) {
-        toast.error(error.message)
-      } finally {
-        setLoading(false)
-      }
-    })()
-  }, [])
+  const { data, error, isLoading } = useQuery({
+    queryKey: ["users"],
+    queryFn: async () => {
+      const { data, error } = await admin.listUsers({
+        query: {
+          limit: 10_000
+        }
+      })
+      if (error) throw new Error(error.message)
+      return data.users
+    }
+  })
 
-  if (loading) return <Loader />
+  useEffect(() => {
+    if (error) {
+      toast.error(error.message)
+    }
+  }, [error])
+
+  useEffect(() => {
+    if (data && Array.isArray(data)) {
+      setUsers(data)
+    }
+  }, [data])
+
+  if (isLoading) return <Loader />
   if (!users || users.length === 0) return null
 
   return (
