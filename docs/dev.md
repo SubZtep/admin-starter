@@ -37,3 +37,38 @@ bun run test
 App: [http://localhost:3000](http://localhost:3000)\
 Webmail for the SMTP: [http://localhost:1080](http://localhost:1080)\
 Better-Auth OpenAPI in dev mode: [http://localhost:3001/auth/reference](http://localhost:3001/auth/reference)
+
+
+## Folder Structure
+
+```yaml
+.
+├── apps
+│   ├── api
+│   │   ├── better-auth_migrations  # user schema
+│   │   ├── public
+│   │   ├── src
+│   │   │   ├── emails              # email templates
+│   │   │   ├── middleware
+│   │   │   └── routes              # endpoint definitions
+│   │   └── tests
+│   │       └── integration
+│   └── web
+│       ├── public
+│       └── src
+│           ├── components
+│           │   ├── form
+│           │   │   └── primitives
+│           │   ├── layout
+│           │   ├── ui
+│           │   └── user
+│           ├── hooks
+│           ├── lib
+│           └── routes              # file-based route components
+├── docs
+├── packages
+│   ├── schemas                     # form and endpoint definitions
+│   └── shared
+├── pgdata
+└── scripts
+```
