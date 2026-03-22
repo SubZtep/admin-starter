@@ -1,5 +1,5 @@
 import type { QueryClient } from "@tanstack/react-query"
-import { createRootRouteWithContext, ErrorComponent, HeadContent, Scripts } from "@tanstack/react-router"
+import { createRootRouteWithContext, ErrorComponent, HeadContent, Scripts, useLocation } from "@tanstack/react-router"
 import { Providers } from "#/components/Providers"
 import { Footer } from "../components/layout/Footer"
 import { Header } from "../components/layout/Header"
@@ -77,6 +77,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 })
 
 function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
+  const location = useLocation()
+  const pathname = location.pathname
+  const hideChrome = pathname === "/users" || pathname === "/users/"
+
   return (
     <html lang="en" dir="ltr" suppressHydrationWarning>
       <head>
@@ -85,9 +89,9 @@ function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
       <body>
         <div className="isolate">
           <Providers>
-            <Header />
+            {!hideChrome && <Header />}
             {children}
-            <Footer />
+            {!hideChrome && <Footer />}
           </Providers>
         </div>
         <Scripts />
