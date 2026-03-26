@@ -21,11 +21,17 @@ jobs:
       contents: read
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          ref: main
+
       - name: Get API version
         id: version
         run: |
           VERSION=$(jq -r .version ./apps/api/package.json)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
+
       - name: Release API
         uses: SubZtep/dockerhub-action@v0.1.0
         with:
@@ -41,11 +47,17 @@ jobs:
       contents: read
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          ref: main
+
       - name: Get Web version
         id: version
         run: |
           VERSION=$(jq -r .version ./apps/web/package.json)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
+
       - name: Release Web
         uses: SubZtep/dockerhub-action@v0.1.0
         with:
