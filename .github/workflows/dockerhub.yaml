@@ -36,6 +36,8 @@ jobs:
         uses: SubZtep/dockerhub-action@v0.1.0
         with:
           dockerhub_repository: ${{ vars.DOCKER_IMAGE_API }}
+          dockerhub_username: ${{ vars.DOCKERHUB_USERNAME }}
+          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
           dockerfile: ./apps/api/Dockerfile
           version: ${{ steps.version.outputs.version }}
 
@@ -62,5 +64,7 @@ jobs:
         uses: SubZtep/dockerhub-action@v0.1.0
         with:
           dockerhub_repository: ${{ vars.DOCKER_IMAGE_WEB }}
+          dockerhub_username: ${{ vars.DOCKERHUB_USERNAME }}
+          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
           dockerfile: ./apps/web/Dockerfile
           version: ${{ steps.version.outputs.version }}
