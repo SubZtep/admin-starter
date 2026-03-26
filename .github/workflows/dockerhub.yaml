@@ -27,7 +27,7 @@ jobs:
           VERSION=$(jq -r .version ./apps/api/package.json)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
       - name: Release API
-        uses: actions/dockerhub-action@v0.1.0
+        uses: SubZtep/dockerhub-action@v0.1.0
         with:
           dockerhub_repository: ${{ vars.DOCKER_IMAGE_API }}
           dockerfile: ./apps/api/Dockerfile
@@ -47,7 +47,7 @@ jobs:
           VERSION=$(jq -r .version ./apps/web/package.json)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
       - name: Release Web
-        uses: actions/dockerhub-action@v0.1.0
+        uses: SubZtep/dockerhub-action@v0.1.0
         with:
           dockerhub_repository: ${{ vars.DOCKER_IMAGE_WEB }}
           dockerfile: ./apps/web/Dockerfile
