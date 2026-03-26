@@ -6,13 +6,19 @@
     {
       "label": "Check dependency updates",
       "type": "shell",
-      "command": "bun outdated -r",
+      "command": "exception",
+      "problemMatcher": []
+    },
+    {
+      "label": "Update dependencies",
+      "type": "shell",
+      "command": "bunx npm-check-updates -w -u",
       "problemMatcher": []
     },
     {
       "label": "Find unused dependencies",
       "type": "shell",
-      "command": "npx knip",
+      "command": "bunx knip",
       "problemMatcher": []
     }
   ]

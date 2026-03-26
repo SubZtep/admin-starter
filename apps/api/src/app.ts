@@ -1,10 +1,12 @@
 import { Hono } from "hono"
 import { cors } from "hono/cors"
-import { authMiddleware } from "./middleware/auth"
-import { routes } from "./routes"
-import type { RouteVariables } from "./types"
+import { healthRoutes } from "#/core/routes/health"
+import { userRoutes } from "#/core/routes/user"
+import { authMiddleware, authRoutes } from "#/features/auth"
+import { kajaRoutes } from "#/features/kaja"
+import type { RouteProps } from "#/types"
 
-export const app = new Hono<{ Variables: RouteVariables }>()
+export const app = new Hono<RouteProps>()
 
 // CORS
 app.use("*", cors({ origin: process.env.CORS_ORIGIN, credentials: true }))
@@ -13,8 +15,12 @@ app.use("*", cors({ origin: process.env.CORS_ORIGIN, credentials: true }))
 app.use("*", authMiddleware)
 
 // Mount routes
-app.route("/", routes)
+app.route("/health", healthRoutes)
+app.route("/auth", authRoutes)
+app.route("/kaja", kajaRoutes)
+app.route("/users", userRoutes)
 
+// Run server
 export default {
   port: Number(process.env.PORT),
   fetch: app.fetch

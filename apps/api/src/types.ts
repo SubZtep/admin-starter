@@ -1,3 +1,5 @@
+import type { Hono } from "hono"
+
 declare module "bun" {
   interface Env {
     PORT: string
@@ -27,3 +29,9 @@ export type AuthSessionUser = {
 export type RouteVariables = {
   user: AuthSessionUser | null
 }
+
+/** common route properties. */
+export type RouteProps = { Variables: RouteVariables }
+
+/** Register functions properties for route register helpers. */
+export type RouteRegProps = Hono<RouteProps>

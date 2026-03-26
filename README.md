@@ -61,6 +61,16 @@ Open [http://localhost:3000](http://localhost:3000) to access the UI.
 
 More details on the [dev page](https://subztep.github.io/admin-starter/dev/).
 
+## Environment Variables
+
+There are .env files at `/apps/*/`. Just clone and run! Split Configuration between shared defaults and local overrides.
+
+1. `.env` (Committed) -> Loads defaults
+2. `.env.local` (Ignored) -> Loads your secrets/overrides
+3. `.env.development` (Committed) -> Loads dev-specific defaults
+4. `.env.development.local` (Ignored) -> Loads dev-specific secrets
+
+
 ## Documentation
 
 _A wise man once told me the source code is the best documentation._ Share it with your favourite _AI agent_ and ask for the details. :trollface: [That **Jekyll** page](https://subztep.github.io/admin-starter/) is anything but _RTFM_.

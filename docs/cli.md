@@ -19,6 +19,12 @@ Print full output with errors into a file:
 bun dev > output.txt 2>&1
 ```
 
+Generate Better-Auth secret:
+
+```sh
+openssl rand -base64 32
+```
+
 ## Docker
 
 Start database only:

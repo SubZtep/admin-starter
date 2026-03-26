@@ -22,3 +22,9 @@ Feel free to register, or use one of the test accounts below:
 | ----- | -------------- | ---------- |
 | Admin | admin@test.com | `P4$sword` |
 | User  | user@test.com  | `P4$sword` |
+
+---
+
+> [!TIP]
+> 👉 Try it online: ~~kaja.io~~\
+> 👉 Run locally: docker compose up
