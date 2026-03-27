@@ -1,30 +1,19 @@
-/*
-TODO:
-✔ Connected to kaja.io
-✔ Ollama detected
-✔ Model llama3 ready
+import { intro, note, outro } from "@clack/prompts"
+import { validateConnections, waitingForJobs } from "lib/cli-flow"
+import { green, lime } from "./lib/var"
 
-Waiting for jobs...
-*/
-import { KajaWorkerClient } from "sdk"
-import { workerLoop } from "./worker"
+intro(`${lime}Welcome Aboard! 🏴‍☠️`)
+await Bun.sleep(1200)
+await validateConnections()
 
-const client = new KajaWorkerClient()
-console.log("\n\tCLI is working!\n\n\t\\ (^_^) /\n\n", client.baseURL)
-
-// await client.createJob({
-//   type: "ollama.generate",
-//   payload: {
-//     model: "llama3",
-//     prompt: "Explain event loop simply"
-//   }
-// })
-
-const { nodeId } = await client.registerNode({ name: "test-node" })
-
-if (!(await client.heartbeat({ nodeId, status: "idle" }))) {
-  console.error("Failed to send heartbeat")
-  process.exit(1)
+while (true) {
+  if (await waitingForJobs()) {
+    note("TODO: do something")
+    await Bun.sleep(1000)
+  } else {
+    break
+  }
 }
 
-await workerLoop(client, nodeId)
+outro(`${green}Farewell`)
+process.exit(0)

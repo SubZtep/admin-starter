@@ -1,4 +1,5 @@
 import { join } from "node:path"
+
 import type {
   CreateJobRequest,
   GetJobRequest,
@@ -46,6 +47,19 @@ export class KajaWorkerClient {
     return true
   }
 
+  async ping() {
+    const res = await fetch(join(this.baseURL, "/health"))
+    return res.ok
+  }
+
+  host() {
+    try {
+      return new URL(this.baseURL).host
+    } catch {
+      return "N/A 😱"
+    }
+  }
+
   async #apiRequest(path: string, payload?: Record<string, any>, options?: RequestInit) {
     const response = await fetch(join(this.baseURL, path), {
       method: "POST",
@@ -54,13 +68,10 @@ export class KajaWorkerClient {
       ...options
     })
 
-    const data = await response.json()
-    // console.log("RESPONSE", data)
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status} at around {path}! 🤮 Payload: ${JSON.stringify(payload)}`)
+    }
 
-    // if (!response.ok) {
-    //   throw new Error(`HTTP error! status: ${response.status}, path: ${path}, payload: ${JSON.stringify(payload)}`)
-    // }
-    // return response.json()
-    return data
+    return await response.json()
   }
 }

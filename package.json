@@ -3,11 +3,10 @@
   "description": "monorepo",
   "private": true,
   "scripts": {
-    "dev": "bun run --filter '*' dev",
+    "dev": "bun run --filter '!@app/worker' dev",
     "dev:api": "bun run --filter @app/api dev",
     "dev:web": "bun run --filter @app/web dev",
     "dev:worker": "bun run --filter @app/worker dev",
-    "testerhelper": "bun run --filter @app/worker testerhelper",
     "build": "bun run --filter @app/web build",
     "build:worker": "bun run --filter @app/worker build",
     "lint": "biome check .",
