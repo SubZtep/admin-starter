@@ -4,7 +4,13 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "bun run --hot worker.ts"
+    "zdev": "exit 0; bun run --hot cli.ts",
+    "dev": "bun run --hot cli.ts",
+    "testerhelper": "bun run --hot testerhelper.ts",
+    "build": "bun build ./cli.ts --compile --minify --sourcemap --bytecode --outfile mycli"
+  },
+  "dependencies": {
+    "@app/schemas": "workspace:*"
   },
   "devDependencies": {
     "@types/bun": "1.3.11"

@@ -28,7 +28,7 @@ export const createJobResponseSchema = z.object({
 })
 
 export const getJobRequestSchema = z.object({
-  jobId: z.uuid()
+  jobId: z.uuid().optional()
 })
 
 export const getJobResponseSchema = z.object({
@@ -86,3 +86,5 @@ export type GetJobRequest = z.infer<typeof getJobRequestSchema>
 export type GetJobResponse = z.infer<typeof getJobResponseSchema>
 export type RegisterNodeRequest = z.infer<typeof registerNodeRequestSchema>
 export type RegisterNodeResponse = z.infer<typeof registerNodeResponseSchema>
+export type SubmitResultRequest = z.infer<typeof submitResultRequestSchema>
+export type SubmitResultResponse = z.infer<typeof submitResultResponseSchema>

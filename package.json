@@ -7,7 +7,9 @@
     "dev:api": "bun run --filter @app/api dev",
     "dev:web": "bun run --filter @app/web dev",
     "dev:worker": "bun run --filter @app/worker dev",
+    "testerhelper": "bun run --filter @app/worker testerhelper",
     "build": "bun run --filter @app/web build",
+    "build:worker": "bun run --filter @app/worker build",
     "lint": "biome check .",
     "lint:fix": "biome check . --write --unsafe",
     "test": "bun --env-file=apps/api/.env test"

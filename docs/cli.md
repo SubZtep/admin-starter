@@ -13,6 +13,12 @@ Check for dependency updates:
 bun outdated -r
 ```
 
+Update depdendencies for all packages:
+
+```sh
+bunx npm-check-updates -w -u
+```
+
 Print full output with errors into a file:
 
 ```sh
@@ -23,6 +29,12 @@ Generate Better-Auth secret:
 
 ```sh
 openssl rand -base64 32
+```
+
+Find unused dependencies:
+
+```sh
+bunx knip
 ```
 
 ## Docker
