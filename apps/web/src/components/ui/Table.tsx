@@ -94,29 +94,22 @@ export function Table({ columns, data }: Readonly<{ columns: any[]; data: any[] 
                 {headerGroup.headers.map(header => (
                   <th key={header.id} className="p-4 text-left border-b border-gray-500 align-top">
                     {header.isPlaceholder ? null : (
-                      <>
-                        <button
-                          type="button"
-                          className={cn(
-                            "flex gap-2 items-center",
-                            header.column.getCanSort() && "cursor-pointer",
-                            header.column.getIsSorted() && "select-none",
-                            header.column.getCanSort() && !header.column.getIsSorted() && "mr-[29px]"
-                          )}
-                          onClick={() => header.column.getCanSort() && toggleSorting(header.column.id)}
-                        >
-                          {flexRender(header.column.columnDef.header, header.getContext())}
-                          {{
-                            asc: <ArrowDown size={21} className="text-gray-400" />,
-                            desc: <ArrowUp size={21} className="text-gray-400" />
-                          }[header.column.getIsSorted() as string] ?? null}
-                        </button>
-                        {/* {header.column.getCanFilter() ? (
-                          <div className="flex flex-col gap-1 mt-1">
-                            <Filter column={header.column} />
-                          </div>
-                        ) : null} */}
-                      </>
+                      <button
+                        type="button"
+                        className={cn(
+                          "flex gap-2 items-center",
+                          header.column.getCanSort() && "cursor-pointer",
+                          header.column.getIsSorted() && "select-none",
+                          header.column.getCanSort() && !header.column.getIsSorted() && "mr-[29px]"
+                        )}
+                        onClick={() => header.column.getCanSort() && toggleSorting(header.column.id)}
+                      >
+                        {flexRender(header.column.columnDef.header, header.getContext())}
+                        {{
+                          asc: <ArrowDown size={21} className="text-gray-400" />,
+                          desc: <ArrowUp size={21} className="text-gray-400" />
+                        }[header.column.getIsSorted() as string] ?? null}
+                      </button>
                     )}
                   </th>
                 ))}
@@ -144,15 +137,6 @@ export function Table({ columns, data }: Readonly<{ columns: any[]; data: any[] 
                 </tr>
               )
             })}
-            {/* {table.getRowModel().rows.map(row => (
-              <tr key={row.id}>
-                {row.getVisibleCells().map(cell => (
-                  <td key={cell.id} className="p-4 border-b border-gray-700">
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                ))}
-              </tr>
-            ))} */}
           </tbody>
         </table>
       </div>

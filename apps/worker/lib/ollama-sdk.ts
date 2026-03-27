@@ -23,7 +23,7 @@ export class OllamaClient {
   }
 
   async runJob(job: JobData) {
-    const res = await $`ollama qwerun ${job.payload.model} """${job.payload.prompt}"""`.quiet()
+    const res = await $`ollama run ${job.payload.model} """${job.payload.prompt}"""`.quiet()
     return res.stdout.toString().trim()
   }
 }

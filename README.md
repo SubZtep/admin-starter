@@ -23,14 +23,15 @@ flowchart LR
   end
 
   U((User))
-  UW((User
-    <small>worker</small>))
+  UW(((User’s
+    worker)))
   D[(PostgreSQL)]
   E{{Emails}}
   O{Ollama}
 
   P -.-> A
   P -.-> W
+  P -.-> WW
 
   U <-->|Web| W
   U <-->|Mobile| A

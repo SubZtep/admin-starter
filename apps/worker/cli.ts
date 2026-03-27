@@ -23,12 +23,11 @@ do {
       nodeId: kaja.nodeId,
       jobId: job.jobId
     }
-    let output: string
 
     try {
-      output = await cli.workingOnJob(job)
+      const text = await cli.workingOnJob(job)
       result.status = "success"
-      result.result = { text: output }
+      result.result = { text }
     } catch (error: any) {
       console.error(`Error working on job: ${error.message}`)
       result.status = "error"
