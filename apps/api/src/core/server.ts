@@ -1,8 +1,14 @@
+import { SchedulerService } from "#/features/kaja/services/scheduler"
 import { app } from "../app"
+import { pool } from "./db"
 import { logger } from "./logger"
 
 const port = Number(process.env.PORT ?? 3001)
 logger.info({ port }, "API is running")
+
+// Start the scheduler for stale jobs and inactive nodes
+const scheduler = new SchedulerService(pool)
+scheduler.start()
 
 export default {
   port,

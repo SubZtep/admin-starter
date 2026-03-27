@@ -52,7 +52,7 @@ export async function workerLoop(client: KajaWorkerClient, nodeId: string) {
       if (!job) {
         console.log("no job -> no work 😪")
         await Bun.sleep(2000)
-        return
+        continue
       }
 
       console.log("Working hard 😫", job)

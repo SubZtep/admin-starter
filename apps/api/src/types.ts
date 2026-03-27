@@ -1,4 +1,6 @@
 import type { Hono } from "hono"
+import type { NodeService } from "#/features/kaja/services/node"
+import type { QueueService } from "#/features/kaja/services/queue"
 
 declare module "bun" {
   interface Env {
@@ -28,6 +30,8 @@ export type AuthSessionUser = {
 // context variables for Hono
 export type RouteVariables = {
   user: AuthSessionUser | null
+  queueService: QueueService
+  nodeService: NodeService
 }
 
 /** common route properties. */

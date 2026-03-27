@@ -46,15 +46,42 @@ describe("kaja worker client flow", () => {
     jobId = data.jobId
   })
 
-  test("get a job", async () => {
+  test("claim a job with node", async () => {
     const res = await app.request("/kaja/get-job", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ jobId })
+      body: JSON.stringify({ nodeId })
     })
     expect(res.ok).toBeTrue()
     expect(res.status).toBe(200)
     const data = await res.json()
-    expect(data.jobId).toBe(jobId)
+    expect(data.jobId).toBeTruthy()
+    expect(data.type).toBe("ollama.generate")
+  })
+
+  test("submit job result", async () => {
+    const res = await app.request("/kaja/submit-result", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        nodeId,
+        jobId,
+        status: "success",
+        result: { text: "The event loop is..." }
+      })
+    })
+    expect(res.ok).toBeTrue()
+    expect(res.status).toBe(200)
+    const data = await res.json()
+    expect(data.ok).toBeTrue()
+  })
+
+  test("no more jobs available", async () => {
+    const res = await app.request("/kaja/get-job", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nodeId })
+    })
+    expect(res.status).toBe(204)
   })
 })

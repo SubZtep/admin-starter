@@ -1,19 +1,18 @@
 import { registerNodeRequestSchema, registerNodeResponseSchema } from "@app/schemas"
 import { zValidator } from "@hono/zod-validator"
 import type { RouteRegProps } from "#/types"
-import { nodes } from "../../services/queue"
 
 export function registerRegisterNode(app: RouteRegProps) {
   app.post("/register-node", zValidator("json", registerNodeRequestSchema), async c => {
     const body = c.req.valid("json")
+    const nodeService = c.get("nodeService")
+
     const nodeId = body.nodeId || Bun.randomUUIDv7()
 
-    nodes.set(nodeId, {
+    await nodeService.registerNode({
       nodeId,
       name: body.name,
-      capabilities: body.capabilities,
-      lastSeen: Date.now(),
-      status: "idle"
+      capabilities: body.capabilities
     })
 
     return c.json(

@@ -28,7 +28,8 @@ export const createJobResponseSchema = z.object({
 })
 
 export const getJobRequestSchema = z.object({
-  jobId: z.uuid().optional()
+  jobId: z.uuid().optional(),
+  nodeId: z.uuid().optional()
 })
 
 export const getJobResponseSchema = z.object({

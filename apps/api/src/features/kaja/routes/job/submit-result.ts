@@ -1,25 +1,22 @@
 import { submitResultRequestSchema, submitResultResponseSchema } from "@app/schemas"
 import { zValidator } from "@hono/zod-validator"
 import type { RouteRegProps } from "#/types"
-import { jobs, nodes } from "../../services/queue"
 
 export function registerSubmitResult(app: RouteRegProps) {
   app.post("/submit-result", zValidator("json", submitResultRequestSchema), async c => {
-    // const body = c.req.valid("json")
+    const body = c.req.valid("json")
+    const queueService = c.get("queueService")
+    const nodeService = c.get("nodeService")
 
-    // const job = jobs.find(j => j.jobId === body.jobId)
-    // if (!job) return c.json({ error: "job not found" }, 404)
+    // Submit the job result
+    const success = await queueService.submitResult(body.jobId, body.status, body.result, body.error)
 
-    // job.status = body.status === "success" ? "done" : "error"
+    if (!success) {
+      return c.json({ error: "job not found" }, 404)
+    }
 
-    // const node = nodes.get(body.nodeId)
-    // if (node) {
-    //   node.status = "idle"
-    //   node.currentJobId = null
-    // }
-
-    // for now just log result
-    // console.log("RESULT:", body.result || body.error)
+    // Update node status back to idle
+    await nodeService.heartbeat(body.nodeId, "idle", undefined)
 
     return c.json(submitResultResponseSchema.parse({ ok: true }))
   })

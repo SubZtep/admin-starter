@@ -17,10 +17,10 @@ export const jobSchema = z.object({
   status: z.enum(["queued", "assigned", "done", "error"]),
   assignedTo: z.string().optional(),
   createdAt: z.iso.datetime(),
-  payload: {
+  payload: z.object({
     model: z.string(),
     prompt: z.string()
-  }
+  })
 })
 
 export type Job = z.infer<typeof jobSchema>
