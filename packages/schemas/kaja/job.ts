@@ -1,26 +1,24 @@
 import { z } from "zod"
 
-/**
- * @example
- * {
- *  "jobId": "job-xyz",
- *  "type": "ollama.generate",
- *  "payload": {
- *    "model": "llama3",
- *    "prompt": "Explain event loop simply"
- *  }
- * }
- */
-export const jobSchema = z.object({
+export const jobPayloadSchema = z.object({
+  /** @example "llama3" */
+  model: z.string(),
+  /** @example "explain event loop simply" */
+  prompt: z.string()
+})
+
+export const jobDataSchema = z.object({
   jobId: z.string(),
+  /** @example "ollama.generate" */
   type: z.string(),
+  payload: jobPayloadSchema
+})
+
+export const jobSchema = jobDataSchema.extend({
   status: z.enum(["queued", "assigned", "done", "error"]),
   assignedTo: z.string().optional(),
-  createdAt: z.iso.datetime(),
-  payload: z.object({
-    model: z.string(),
-    prompt: z.string()
-  })
+  createdAt: z.iso.datetime()
 })
 
 export type Job = z.infer<typeof jobSchema>
+export type JobData = z.infer<typeof jobDataSchema>

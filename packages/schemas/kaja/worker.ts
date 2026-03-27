@@ -1,4 +1,5 @@
 import { z } from "zod"
+import { jobDataSchema } from "./job"
 
 export const heartbeatRequestSchema = z.object({
   /** @example `"abc-123"` */
@@ -12,15 +13,8 @@ export const heartbeatResponseSchema = z.object({
   ok: z.boolean()
 })
 
-export const createJobRequestSchema = z.object({
-  /** @example "ollama.generate" */
-  type: z.string(),
-  payload: z.object({
-    /** @example "llama3" */
-    model: z.string(),
-    /** @example "Explain event loop simply" */
-    prompt: z.string()
-  })
+export const createJobRequestSchema = jobDataSchema.omit({
+  jobId: true
 })
 
 export const createJobResponseSchema = z.object({
@@ -28,18 +22,10 @@ export const createJobResponseSchema = z.object({
 })
 
 export const getJobRequestSchema = z.object({
-  jobId: z.uuid().optional(),
-  nodeId: z.uuid().optional()
+  nodeId: z.uuid()
 })
 
-export const getJobResponseSchema = z.object({
-  jobId: z.string(),
-  type: z.string(),
-  payload: z.object({
-    model: z.string(),
-    prompt: z.string()
-  })
-})
+export const getJobResponseSchema = jobDataSchema
 
 export const registerNodeRequestSchema = z.object({
   nodeId: z.uuid().optional(),

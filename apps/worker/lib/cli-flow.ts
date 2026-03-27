@@ -1,17 +1,13 @@
+import type { JobData } from "@app/schemas"
 import { box, spinner, tasks } from "@clack/prompts"
-import { KajaWorkerClient } from "./kaja-sdk"
-import { OllamaClient } from "./ollama-sdk"
-import { cyan, red } from "./var"
-
-const kaja = new KajaWorkerClient()
-const ollama = new OllamaClient()
+import { kaja, ollama, pink, red } from "./var"
 
 export async function validateConnections() {
   await tasks([
     {
       title: "Phone home",
       task: async () => {
-        await Bun.sleep(250)
+        await Bun.sleep(500)
         if (!(await kaja.ping())) {
           console.log(`\n${red}No Home ☄️`)
           process.exit(1)
@@ -22,7 +18,7 @@ export async function validateConnections() {
     {
       title: "Signal Ollama",
       task: async () => {
-        await Bun.sleep(250)
+        await Bun.sleep(500)
         if (!(await ollama.ping())) {
           console.log(`\n${red}No Llama 🐒`)
           process.exit(1)
@@ -44,7 +40,7 @@ export async function validateConnections() {
     }
   ])
 
-  box(`${cyan}Looking good! 💋`, undefined, {
+  box(`${pink}Looking all pretty‼ 💋`, undefined, {
     width: "auto",
     contentPadding: 1,
     rounded: true
@@ -56,7 +52,35 @@ export async function waitingForJobs() {
   const spin = spinner()
   spin.start("Waiting for jobs")
   await Bun.sleep(3000)
-  spin.stop("Giving up the ghost 😵‍💫")
-  spin.cancel()
+  const job = await kaja.getJob()
+
+  if (job) {
+    spin.stop("Job found")
+  } else {
+    spin.cancel("No jobs found 🪹")
+  }
+
+  return job
+}
+
+export async function beatingHeart() {
+  if (!kaja.nodeId) {
+    console.log(`\n${red}Heartbeat for nodes only`)
+    process.exit(1)
+  }
+  if (!(await kaja.heartbeat({ nodeId: kaja.nodeId, status: "idle" }))) {
+    console.log(`\n${red}Heartbeat failed 🪹`)
+    process.exit(1)
+  }
+}
+
+/** @returns `true` if the job was completed successfully */
+export async function workingOnJob(_job: JobData) {
+  const spin = spinner({ indicator: "timer" })
+  spin.start("Working")
+  // TODO: do the job
+  await Bun.sleep(5000)
+  // TODO: submit the result
+  spin.stop("Job done")
   return true
 }
