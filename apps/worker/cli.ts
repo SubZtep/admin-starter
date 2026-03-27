@@ -12,18 +12,28 @@ if (!kaja.nodeId) {
   console.error("Node ID is required to submit results")
   process.exit(1)
 }
+
 await cli.beatingHeart()
 let job: JobData | undefined
 
 do {
   job = await cli.waitingForJobs()
   if (job) {
-    const isJobDone = await cli.workingOnJob(job)
+    let output: string
+    let status: "success" | "error"
+    try {
+      output = await cli.workingOnJob(job)
+      status = "success"
+    } catch (error: any) {
+      console.error(`Error working on job: ${error.message}`)
+      output = error.message
+      status = "error"
+    }
     await kaja.submitResult({
       nodeId: kaja.nodeId,
       jobId: job.jobId,
-      status: isJobDone ? "success" : "error",
-      result: { text: "Lolem lorem ipsum dolor, sit amet!" }
+      status,
+      result: { text: output }
     })
   }
 } while (job)

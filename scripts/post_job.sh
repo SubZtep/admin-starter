@@ -13,4 +13,4 @@ set -euo pipefail
 # Create jobs via API or SDK
 curl -X POST http://localhost:3001/kaja/create-job \
   -H "Content-Type: application/json" \
-  -d '{"type":"ollama.generate","payload":{"model":"llama3","prompt":"Hello"}}'
+  -d '{"type":"ollama.generate","payload":{"model":"gemma3:1b-it-qat","prompt":"Hello"}}'

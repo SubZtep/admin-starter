@@ -9,7 +9,7 @@ export async function validateConnections() {
       task: async () => {
         await Bun.sleep(500)
         if (!(await kaja.ping())) {
-          console.log(`\n${red}No Home ☄️`)
+          console.log(`\n${red}No Home 🧟`)
           process.exit(1)
         }
         return `Connected to ${kaja.host()}`
@@ -51,7 +51,7 @@ export async function validateConnections() {
 export async function waitingForJobs() {
   const spin = spinner()
   spin.start("Waiting for jobs")
-  await Bun.sleep(3000)
+  await Bun.sleep(1500)
   const job = await kaja.getJob()
 
   if (job) {
@@ -75,12 +75,10 @@ export async function beatingHeart() {
 }
 
 /** @returns `true` if the job was completed successfully */
-export async function workingOnJob(_job: JobData) {
+export async function workingOnJob(job: JobData) {
   const spin = spinner({ indicator: "timer" })
   spin.start("Working")
-  // TODO: do the job
-  await Bun.sleep(5000)
-  // TODO: submit the result
+  const output = await ollama.runJob(job)
   spin.stop("Job done")
-  return true
+  return output
 }
