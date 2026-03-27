@@ -1,6 +1,6 @@
 import type { JobData } from "@app/schemas"
 import { box, spinner, tasks } from "@clack/prompts"
-import { kaja, ollama, pink, red } from "./var"
+import { cyan, kaja, ollama, pink, red } from "./var"
 
 export async function validateConnections() {
   await tasks([
@@ -30,12 +30,16 @@ export async function validateConnections() {
       title: "Check available models",
       task: async () => {
         await Bun.sleep(500)
-        const models = await ollama.listModels({ hideVersion: true })
+        const models = await ollama.listModels()
         if (models.length === 0) {
           console.log(`\n${red}No models found 🪹`)
           process.exit(1)
         }
-        return `Model ${models[0].split(":")[0]} ready`
+        if (models.length > 1) {
+          return `Multiple models found: | -  ${models.join("\n| - ")}`
+        } else {
+          return `Model ${models[0]} ready`
+        }
       }
     }
   ])
@@ -76,9 +80,21 @@ export async function beatingHeart() {
 
 /** @returns `true` if the job was completed successfully */
 export async function workingOnJob(job: JobData) {
+  box(`${cyan}${job.payload.prompt}`, "Prompt", {
+    width: "auto",
+    contentPadding: 1,
+    rounded: true
+  })
+
   const spin = spinner({ indicator: "timer" })
   spin.start("Working")
   const output = await ollama.runJob(job)
   spin.stop("Job done")
+
+  box(output, "Output", {
+    width: "auto",
+    contentPadding: 1,
+    rounded: true
+  })
   return output
 }

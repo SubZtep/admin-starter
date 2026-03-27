@@ -24,7 +24,7 @@ flowchart LR
 
   U((User))
   UW((User
-    <sup>worker</sup>))
+    <small>worker</small>))
   D[(PostgreSQL)]
   E{{Emails}}
   O{Ollama}
@@ -70,16 +70,6 @@ Docker Compose mounts the **PostgreSQL** data in the `./pgdata` folder.\
 Open [http://localhost:3000](http://localhost:3000) to access the UI.
 
 More details on the [dev page](https://subztep.github.io/admin-starter/dev/).
-
-## Environment Variables
-
-There are .env files at `/apps/*/`. Just clone and run! Split Configuration between shared defaults and local overrides.
-
-1. `.env` (Committed) -> Loads defaults
-2. `.env.local` (Ignored) -> Loads your secrets/overrides
-3. `.env.development` (Committed) -> Loads dev-specific defaults
-4. `.env.development.local` (Ignored) -> Loads dev-specific secrets
-
 
 ## Documentation
 

@@ -1,4 +1,4 @@
-import type { JobData } from "@app/schemas"
+import type { JobData, SubmitResultRequest } from "@app/schemas"
 import { intro, outro } from "@clack/prompts"
 import * as cli from "lib/cli-flow"
 import { green, kaja, lime } from "./lib/var"
@@ -19,22 +19,23 @@ let job: JobData | undefined
 do {
   job = await cli.waitingForJobs()
   if (job) {
+    const result: Partial<SubmitResultRequest> = {
+      nodeId: kaja.nodeId,
+      jobId: job.jobId
+    }
     let output: string
-    let status: "success" | "error"
+
     try {
       output = await cli.workingOnJob(job)
-      status = "success"
+      result.status = "success"
+      result.result = { text: output }
     } catch (error: any) {
       console.error(`Error working on job: ${error.message}`)
-      output = error.message
-      status = "error"
+      result.status = "error"
+      result.error = error.message
     }
-    await kaja.submitResult({
-      nodeId: kaja.nodeId,
-      jobId: job.jobId,
-      status,
-      result: { text: output }
-    })
+
+    await kaja.submitResult(result as SubmitResultRequest)
   }
 } while (job)
 

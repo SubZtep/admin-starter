@@ -12,18 +12,18 @@ export class OllamaClient {
     return true
   }
 
-  async listModels({ hideVersion = false }: { hideVersion?: boolean } = {}) {
+  async listModels() {
     const res = await $`ollama list`.quiet()
     return res.stdout
       .toString()
       .split("\n")
       .slice(1)
-      .map(line => (hideVersion ? line.split(" ")[0].trim() : line.trim()))
+      .map(line => line.split(" ")[0].trim())
       .filter(Boolean)
   }
 
   async runJob(job: JobData) {
-    const res = await $`ollama run ${job.payload.model} """${job.payload.prompt}"""`.quiet()
-    return res.stdout.toString()
+    const res = await $`ollama qwerun ${job.payload.model} """${job.payload.prompt}"""`.quiet()
+    return res.stdout.toString().trim()
   }
 }
