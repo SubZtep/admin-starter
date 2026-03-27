@@ -1,5 +1,5 @@
 import { createMiddleware } from "hono/factory"
-import type { RouteVariables } from "../types"
+import type { RouteVariables } from "#/types"
 import { auth } from "./auth"
 
 export const authMiddleware = createMiddleware<{ Variables: RouteVariables }>(async (c, next) => {

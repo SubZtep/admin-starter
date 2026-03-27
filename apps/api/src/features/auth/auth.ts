@@ -1,8 +1,8 @@
 import { type BetterAuthPlugin, betterAuth, type User } from "better-auth"
 import { admin, bearer, jwt, openAPI } from "better-auth/plugins"
-import { Pool } from "pg"
-import { logger } from "../../core/logger"
-import { sendEmail } from "../../emails"
+import { pool } from "#/core/db"
+import { logger } from "#/core/logger"
+import { sendEmail } from "#/emails"
 
 const plugins: BetterAuthPlugin[] = [
   bearer(),
@@ -44,14 +44,7 @@ export const auth = betterAuth({
         }
       }
     : {}),
-  database: new Pool({
-    connectionString: process.env.DATABASE_URL,
-    // FIXME: handle db error properly
-    idleTimeoutMillis: 30000,
-    connectionTimeoutMillis: 2000,
-    maxLifetimeSeconds: 60,
-    allowExitOnIdle: true
-  }),
+  database: pool,
   basePath: "/auth",
   plugins,
   logger: {

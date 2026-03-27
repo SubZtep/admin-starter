@@ -55,7 +55,7 @@ export class KajaWorkerClient {
     })
 
     const data = await response.json()
-    console.log("RESPONSE", data)
+    // console.log("RESPONSE", data)
 
     // if (!response.ok) {
     //   throw new Error(`HTTP error! status: ${response.status}, path: ${path}, payload: ${JSON.stringify(payload)}`)
