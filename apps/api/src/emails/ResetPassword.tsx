@@ -1,20 +1,21 @@
-import { Link, Text } from "@react-email/components"
+import { getFirstName } from "@app/shared"
+import { Heading, Link, Text } from "@react-email/components"
 import { render } from "@react-email/render"
-import { Email } from "./template"
+import { EmailContainer, type EmailPayload } from "./template"
 
-export function ResetPassword({ url }: Readonly<{ url: string }>) {
+export function ResetPassword({ user, url }: Readonly<EmailPayload>) {
   return (
-    <Email>
-      <Text style={{ fontSize: "21px", marginBottom: "15px" }}>Hey-ho 👋</Text>
+    <EmailContainer>
+      <Heading as="h2">Hey-ho {getFirstName(user.name)} 👋</Heading>
       <Text>
         Click the link to reset your password:
         <br />
         <Link href={url}>{url}</Link>
       </Text>
-    </Email>
+    </EmailContainer>
   )
 }
 
-export async function getResetPasswordHtml(url: string) {
-  return await render(<ResetPassword url={url} />)
+export async function getResetPasswordHtml(payload: Readonly<EmailPayload>) {
+  return await render(<ResetPassword {...payload} />)
 }

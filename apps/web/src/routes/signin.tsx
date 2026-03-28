@@ -5,6 +5,7 @@ import { toast } from "react-toastify"
 import { Button } from "#/components/form/primitives/Button"
 import { Main } from "#/components/ui/Main"
 import { Section } from "#/components/ui/Section"
+import { ForgotPassword } from "#/components/user/ForgotPassword"
 import { useAuthClient } from "#/hooks/auth-client"
 import { useAppForm } from "#/lib/form"
 
@@ -25,7 +26,7 @@ function SignIn() {
     validators: {
       onSubmit: loginSchema
     },
-    onSubmit: async ({ value, meta }) => {
+    onSubmit: async ({ value }) => {
       const parsed = loginSchema.safeParse(value)
       if (!parsed.success) {
         toast.error(parsed.error?.message ?? "Invalid data")
@@ -34,26 +35,12 @@ function SignIn() {
 
       try {
         setLoading(true)
-
-        // @ts-ignore
-        switch (meta.action) {
-          case "login": {
-            const { error } = await authClient.signIn.email({
-              ...parsed.data,
-              callbackURL: "/dashboard"
-            })
-            if (error) toast.error(error.message ?? error.statusText)
-            break
-          }
-          case "forgot": {
-            const { data, error } = await authClient.requestPasswordReset({
-              email: parsed.data.email,
-              redirectTo: `${import.meta.env.VITE_APP_URL}/reset-password`
-            })
-            if (error) toast.error(error.message ?? error.statusText)
-            if (data) toast.info(data.message)
-            break
-          }
+        const { error } = await authClient.signIn.email({
+          ...parsed.data,
+          callbackURL: "/dashboard"
+        })
+        if (error) {
+          toast.error(error.message ?? error.statusText)
         }
       } catch (error: any) {
         toast.error(error.message)
@@ -88,20 +75,20 @@ function SignIn() {
             {field => <field.CheckboxField label="Remember Me" className="flex justify-end [&>label]:w-auto! mt-1" />}
           </form.AppField>
 
-          <Button type="submit" value="login" loading={loading} className="mt-4 mb-1">
+          <Button type="submit" loading={loading} className="mt-4 mb-1">
             Log me in
           </Button>
 
-          <Button
-            type="submit"
-            value="forgot"
-            variant="link"
-            size="sm"
-            className="hover:decoration-red-700 hover:underline-offset-4 hover:decoration-3"
-            disabled={loading}
-          >
-            Forgot my password
-          </Button>
+          <ForgotPassword getEmail={() => form.state.values.email}>
+            <Button
+              size="sm"
+              variant="link"
+              disabled={loading}
+              className="hover:[text-decoration:underline_3px_var(--color-red-700)] hover:underline-offset-4"
+            >
+              Forgot my password
+            </Button>
+          </ForgotPassword>
         </form>
       </Section>
     </Main>

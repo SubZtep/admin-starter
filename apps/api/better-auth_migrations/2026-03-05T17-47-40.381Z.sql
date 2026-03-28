@@ -1,9 +1,10 @@
-alter table "user" add column "role" text;
-
-alter table "user" add column "banned" boolean;
-
-alter table "user" add column "banReason" text;
-
-alter table "user" add column "banExpires" timestamptz;
-
-alter table "session" add column "impersonatedBy" uuid;
+alter table "user"
+add column "role" text;
+alter table "user"
+add column "banned" boolean;
+alter table "user"
+add column "banReason" text;
+alter table "user"
+add column "banExpires" timestamptz;
+alter table "session"
+add column "impersonatedBy" uuid;

@@ -10,7 +10,8 @@ if (process.env.NODE_ENV === "development") {
           target: "pino-pretty",
           level: "trace",
           options: {
-            ignore: "pid,hostname,time",
+            ignore: "pid,hostname",
+            translateTime: "SYS:HH:MM",
             levelFirst: true,
             singleLine: true,
             colorize: true,

@@ -1,20 +1,22 @@
-import { Link, Text } from "@react-email/components"
+import { getFirstName } from "@app/shared"
+import { Heading, Link, Text } from "@react-email/components"
 import { render } from "@react-email/render"
-import { Email } from "./template"
+import type { EmailPayload } from "./template"
+import { EmailContainer } from "./template"
 
-export function Verification({ url }: Readonly<{ url: string }>) {
+export function Verification({ user, url }: Readonly<EmailPayload>) {
   return (
-    <Email>
-      <Text style={{ fontSize: "21px", marginBottom: "15px" }}>Hey-ho 👋</Text>
+    <EmailContainer>
+      <Heading as="h2">Hey-ho {getFirstName(user.name)} 👋</Heading>
       <Text>
         Click the link to verify your email:
         <br />
         <Link href={url}>{url}</Link>
       </Text>
-    </Email>
+    </EmailContainer>
   )
 }
 
-export async function getVerificationHtml(url: string) {
-  return await render(<Verification url={url} />)
+export async function getVerificationHtml(payload: Readonly<EmailPayload>) {
+  return await render(<Verification {...payload} />)
 }

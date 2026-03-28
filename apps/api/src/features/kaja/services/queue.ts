@@ -9,14 +9,14 @@ export class QueueService {
     this.#db = db
   }
 
-  async createJob(job: Job) {
+  async createJob(job: Omit<Job, "id">) {
     const result = await this.#db.query(
       `
-      INSERT INTO jobs (job_id, type, payload, status, created_at, updated_at)
-      VALUES ($1, $2, $3, 'queued', NOW(), NOW())
+      INSERT INTO jobs (type, payload, status, created_at, updated_at)
+      VALUES ($1, $2, 'queued', NOW(), NOW())
       RETURNING *
       `,
-      [job.jobId, job.type, JSON.stringify(job.payload)]
+      [job.type, JSON.stringify(job.payload)]
     )
     logger.info({ job: result.rows[0] }, "created job")
     return this.#rowToJob(result.rows[0])
@@ -30,8 +30,8 @@ export class QueueService {
           assigned_to = $1,
           updated_at = NOW(),
           started_at = NOW()
-      WHERE job_id = (
-        SELECT job_id
+      WHERE id = (
+        SELECT id
         FROM jobs
         WHERE status = 'queued'
         ORDER BY created_at ASC
@@ -58,7 +58,7 @@ export class QueueService {
           error = $4,
           updated_at = NOW(),
           completed_at = NOW()
-      WHERE job_id = $2
+      WHERE id = $2
       `,
       [status === "success" ? "done" : "error", jobId, result ? JSON.stringify(result) : null, error || null]
     )
@@ -108,7 +108,7 @@ export class QueueService {
     }
 
     return {
-      jobId: row.job_id,
+      id: row.id,
       type: row.type,
       status: row.status,
       assignedTo: row.assigned_to || undefined,

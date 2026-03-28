@@ -2,7 +2,7 @@
 layout: page
 title: Gmail as free SMTP server
 parent: Development
-nav_order: 4
+nav_order: 5
 ---
 
 # Gmail as free SMTP server
