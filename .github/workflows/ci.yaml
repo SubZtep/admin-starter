@@ -28,7 +28,7 @@ jobs:
       DATABASE_URL: postgresql://testuser:testpass@127.0.0.1:5432/test
     services:
       postgres:
-        image: postgres:18
+        image: postgres:18-alpine
         env:
           POSTGRES_USER: testuser
           POSTGRES_PASSWORD: testpass
@@ -56,9 +56,6 @@ jobs:
             echo "applying $f"
             psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f "$f"
           done
-
-      - name: Show user table def
-        run: psql $DATABASE_URL -c '\d "user"'
 
       - name: Run tests
         run: bun run test
