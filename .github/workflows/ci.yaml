@@ -50,11 +50,11 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Show user table def
-        run: psql $DATABASE_URL -c '\d "user"'
-
       - name: Run migrations
         run: cd apps/api && bunx auth@latest migrate --yes --config src/features/auth/auth.ts
+
+      - name: Show user table def
+        run: psql $DATABASE_URL -c '\d "user"'
 
       - name: Patch id default
         run: psql $DATABASE_URL -c 'ALTER TABLE "user" ALTER COLUMN id SET DEFAULT uuidv7();'
