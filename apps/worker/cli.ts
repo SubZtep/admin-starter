@@ -22,7 +22,7 @@ do {
     // @ts-expect-error status is required
     const result: SubmitResultRequest = {
       nodeId: kaja.nodeId,
-      jobId: job.jobId
+      jobId: job.id
     }
 
     try {

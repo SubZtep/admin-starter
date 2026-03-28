@@ -24,6 +24,8 @@ jobs:
     permissions:
       contents: read
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: postgresql://testuser:testpass@localhost:5432/test
     steps:
       - name: Checkout Repo
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
@@ -43,11 +45,7 @@ jobs:
         run: bun install
 
       - name: Run migrations
-        env:
-          DATABASE_URL: postgresql://testuser:testpass@localhost:5432/test
         run: cd apps/api && bunx auth@latest migrate --yes --config src/features/auth/auth.ts
 
       - name: Run tests
-        env:
-          DATABASE_URL: postgresql://testuser:testpass@localhost:5432/test
-        run: cd apps/api && bun test
+        run: bun run test

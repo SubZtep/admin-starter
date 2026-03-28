@@ -8,8 +8,9 @@
 
 A TypeScript monorepo is implementing pieces of **Better Auth** in a **Hono** [API](./apps/api/), with a **TanStack Start** [web app](./apps/web/) consuming it to demonstrate how they work together. 🎓
 
-It [started](https://github.com/SubZtep/admin-starter/releases/tag/v0.0.1) as a starter template with no business logic, an experiment in a monorepo, focusing on file structure and build setup. Over time, the project naturally evolved, and I introduced features as the need arose. The custom features are easily removable, so you can grab the files and use them to kick-start your own project.
+It [started](https://github.com/SubZtep/admin-starter/releases/tag/v0.0.1) as a starter template with no business logic, an experiment in a monorepo, focusing on file structure and build setup. Over time, the project naturally evolved, and I introduced features as the need arose.
 
+The custom features are easily removable, so you can grab the files and use them to kick-start your own project.
 
 > [!NOTE]
 > This isn’t even the final form. Its exact purpose are still evolving.

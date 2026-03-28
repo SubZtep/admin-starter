@@ -10,7 +10,7 @@ export function registerRegisterNode(app: RouteRegProps) {
     const nodeId = body.nodeId || Bun.randomUUIDv7()
 
     await nodeService.registerNode({
-      nodeId,
+      id: nodeId,
       name: body.name,
       capabilities: body.capabilities
     })

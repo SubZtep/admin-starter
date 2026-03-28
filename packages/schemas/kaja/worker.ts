@@ -2,11 +2,9 @@ import { z } from "zod"
 import { jobDataSchema } from "./job"
 
 export const heartbeatRequestSchema = z.object({
-  /** @example `"abc-123"` */
-  nodeId: z.string(),
+  nodeId: z.uuid(),
   status: z.enum(["idle", "busy"]),
-  /** @example `"job-xyz"` */
-  currentJobId: z.string().optional()
+  currentJobId: z.uuid().optional()
 })
 
 export const heartbeatResponseSchema = z.object({
@@ -14,7 +12,7 @@ export const heartbeatResponseSchema = z.object({
 })
 
 export const createJobRequestSchema = jobDataSchema.omit({
-  jobId: true
+  id: true
 })
 
 export const createJobResponseSchema = z.object({
@@ -51,7 +49,7 @@ export const registerNodeResponseSchema = z.object({
 
 export const submitResultRequestSchema = z.object({
   nodeId: z.uuid(),
-  jobId: z.string(),
+  jobId: z.uuid(),
   status: z.enum(["success", "error"]),
   result: z
     .object({

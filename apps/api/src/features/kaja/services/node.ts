@@ -2,7 +2,7 @@ import type { Pool } from "pg"
 import { logger } from "#/core/logger"
 
 export interface Node {
-  nodeId: string
+  id: string
   name: string
   capabilities?: {
     models: string[]
@@ -24,9 +24,9 @@ export class NodeService {
   async registerNode(node: Omit<Node, "lastSeen" | "status">): Promise<Node> {
     const result = await this.#db.query(
       `
-      INSERT INTO nodes (node_id, name, capabilities, last_seen, status)
+      INSERT INTO nodes (id, name, capabilities, last_seen, status)
       VALUES ($1, $2, $3, NOW(), 'idle')
-      ON CONFLICT (node_id)
+      ON CONFLICT (id)
       DO UPDATE SET
         name = EXCLUDED.name,
         capabilities = EXCLUDED.capabilities,
@@ -34,7 +34,7 @@ export class NodeService {
         status = 'idle'
       RETURNING *
       `,
-      [node.nodeId, node.name, JSON.stringify(node.capabilities || {})]
+      [node.id, node.name, JSON.stringify(node.capabilities || {})]
     )
 
     logger.info({ node: result.rows[0] }, "registered node")
@@ -48,7 +48,7 @@ export class NodeService {
       SET last_seen = NOW(),
           status = $2,
           current_job_id = $3
-      WHERE node_id = $1
+      WHERE id = $1
       `,
       [nodeId, status, currentJobId || null]
     )
@@ -78,7 +78,7 @@ export class NodeService {
   async getNode(nodeId: string): Promise<Node | null> {
     const { rows } = await this.#db.query(
       `
-      SELECT * FROM nodes WHERE node_id = $1
+      SELECT * FROM nodes WHERE id = $1
       `,
       [nodeId]
     )
@@ -122,7 +122,7 @@ export class NodeService {
     }
 
     return {
-      nodeId: row.node_id,
+      id: row.id,
       name: row.name,
       capabilities,
       lastSeen: new Date(row.last_seen),

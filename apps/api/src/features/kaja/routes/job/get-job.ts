@@ -21,7 +21,7 @@ export function registerGetJob(app: RouteRegProps) {
     }
 
     // Update node status to busy
-    await nodeService.heartbeat(nodeId, "busy", job.jobId)
+    await nodeService.heartbeat(nodeId, "busy", job.id)
 
     return c.json(getJobResponseSchema.parse(job))
   })

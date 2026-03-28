@@ -55,7 +55,7 @@ describe("kaja worker client flow", () => {
     expect(res.ok).toBeTrue()
     expect(res.status).toBe(200)
     const data = await res.json()
-    expect(data.jobId).toBeTruthy()
+    expect(data.id).toBeTruthy()
     expect(data.type).toBe("ollama.generate")
   })
 

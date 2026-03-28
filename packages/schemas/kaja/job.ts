@@ -8,7 +8,7 @@ export const jobPayloadSchema = z.object({
 })
 
 export const jobDataSchema = z.object({
-  jobId: z.string(),
+  id: z.uuid(),
   /** @example "ollama.generate" */
   type: z.string(),
   payload: jobPayloadSchema

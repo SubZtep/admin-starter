@@ -8,5 +8,4 @@ pgdata
 # ...
 .DS_Store
 .agents
-.sisyphus
 skills-lock.json
