@@ -29,7 +29,7 @@ export class KajaWorkerClient {
   }
 
   /** Apply for jobs */
-  async registerNode(payload: RegisterNodeRequest = { name: "worker" }) {
+  async registerNode(payload: RegisterNodeRequest) {
     let res: RegisterNodeResponse | undefined
     try {
       res = await this.#apiRequest<RegisterNodeResponse>("/kaja/register-node", payload)

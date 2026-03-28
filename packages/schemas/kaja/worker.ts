@@ -33,7 +33,7 @@ export const registerNodeRequestSchema = z.object({
   name: z.string(),
   capabilities: z
     .object({
-      /** @example ["llama3", "mistral"] */ // FIXME: add version?
+      /** @example ["llama3", "moondream:1.8b"] */
       models: z.array(z.string()),
       gpu: z.boolean(),
       /** @example 16 */

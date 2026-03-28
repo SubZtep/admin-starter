@@ -4,9 +4,14 @@ import { pool } from "#/core/db"
 import { logger } from "#/core/logger"
 import { sendEmail } from "#/emails"
 
+const isDevMode = process.env.NODE_ENV === "development"
+
 const plugins: BetterAuthPlugin[] = [
   bearer(),
   jwt({
+    jwks: {
+      disablePrivateKeyEncryption: isDevMode
+    },
     jwt: {
       definePayload: async ({ user }) => ({
         sub: user.id,
@@ -18,7 +23,7 @@ const plugins: BetterAuthPlugin[] = [
   admin()
 ]
 
-if (process.env.NODE_ENV === "development") {
+if (isDevMode) {
   plugins.push(openAPI())
 }
 

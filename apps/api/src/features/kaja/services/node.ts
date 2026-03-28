@@ -15,7 +15,7 @@ export interface Node {
 }
 
 export class NodeService {
-  #db: Pool
+  readonly #db: Pool
 
   constructor(db: Pool) {
     this.#db = db
@@ -26,8 +26,8 @@ export class NodeService {
       `
       INSERT INTO nodes (node_id, name, capabilities, last_seen, status)
       VALUES ($1, $2, $3, NOW(), 'idle')
-      ON CONFLICT (node_id) 
-      DO UPDATE SET 
+      ON CONFLICT (node_id)
+      DO UPDATE SET
         name = EXCLUDED.name,
         capabilities = EXCLUDED.capabilities,
         last_seen = NOW(),

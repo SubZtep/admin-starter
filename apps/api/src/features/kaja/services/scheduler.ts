@@ -4,8 +4,8 @@ import { NodeService } from "./node"
 import { QueueService } from "./queue"
 
 export class SchedulerService {
-  #queueService: QueueService
-  #nodeService: NodeService
+  readonly #queueService: QueueService
+  readonly #nodeService: NodeService
   #intervalId?: Timer
   #isRunning = false
 

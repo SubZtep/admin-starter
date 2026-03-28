@@ -1,5 +1,5 @@
-import { KajaWorkerClient } from "lib/kaja-sdk"
-import { OllamaClient } from "lib/ollama-sdk"
+import { KajaWorkerClient } from "./kaja-sdk"
+import { OllamaClient } from "./ollama-sdk"
 
 export const red = Bun.color("#880808", "ansi")
 export const pink = Bun.color("pink", "ansi")

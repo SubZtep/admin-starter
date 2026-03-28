@@ -3,7 +3,7 @@ import type { Pool } from "pg"
 import { logger } from "#/core/logger"
 
 export class QueueService {
-  #db: Pool
+  readonly #db: Pool
 
   constructor(db: Pool) {
     this.#db = db
@@ -66,7 +66,7 @@ export class QueueService {
     return rowCount && rowCount > 0
   }
 
-  // TODO: run this periodically (cron or setInterval)
+  /** Runs periodically via the scheduler. */
   async requeueStaleJobs(timeoutSeconds = 60) {
     await this.#db.query(
       `

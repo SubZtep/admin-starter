@@ -1,13 +1,13 @@
 import type { JobData, SubmitResultRequest } from "@app/schemas"
 import { intro, outro } from "@clack/prompts"
-import * as cli from "lib/cli-flow"
+import * as cli from "./lib/cli-flow"
 import { green, kaja, lime } from "./lib/var"
 
 intro(`${lime}Welcome Aboard! 🏴‍☠️`)
 Bun.sleepSync(1200)
 
 await cli.validateConnections()
-await kaja.registerNode()
+await kaja.registerNode({ name: "no-name" })
 if (!kaja.nodeId) {
   console.error("Node ID is required to submit results")
   process.exit(1)
@@ -19,7 +19,8 @@ let job: JobData | undefined
 do {
   job = await cli.waitingForJobs()
   if (job) {
-    const result: Partial<SubmitResultRequest> = {
+    // @ts-expect-error status is required
+    const result: SubmitResultRequest = {
       nodeId: kaja.nodeId,
       jobId: job.jobId
     }
@@ -34,7 +35,7 @@ do {
       result.error = error.message
     }
 
-    await kaja.submitResult(result as SubmitResultRequest)
+    await kaja.submitResult(result)
   }
 } while (job)
 
