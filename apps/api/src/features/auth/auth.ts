@@ -1,12 +1,17 @@
 import { type BetterAuthPlugin, betterAuth, type User } from "better-auth"
 import { admin, bearer, jwt, openAPI } from "better-auth/plugins"
-import { Pool } from "pg"
-import { sendEmail } from "./emails"
-import { logger } from "./logger"
+import { pool } from "#/core/db"
+import { logger } from "#/core/logger"
+import { sendEmail } from "#/emails"
+
+const isDevMode = process.env.NODE_ENV === "development"
 
 const plugins: BetterAuthPlugin[] = [
   bearer(),
   jwt({
+    jwks: {
+      disablePrivateKeyEncryption: isDevMode
+    },
     jwt: {
       definePayload: async ({ user }) => ({
         sub: user.id,
@@ -18,15 +23,18 @@ const plugins: BetterAuthPlugin[] = [
   admin()
 ]
 
-if (process.env.NODE_ENV === "development") {
+if (isDevMode) {
   plugins.push(openAPI())
 }
 
 export const auth = betterAuth({
   trustedOrigins: [process.env.CORS_ORIGIN],
-  ...(process.env.CROSS_PARENT_DOMAIN
-    ? {
-        advanced: {
+  advanced: {
+    database: {
+      generateId: false
+    },
+    ...(process.env.CROSS_PARENT_DOMAIN
+      ? {
           crossSubDomainCookies: {
             enabled: true,
             domain: process.env.CROSS_PARENT_DOMAIN
@@ -42,11 +50,9 @@ export const auth = betterAuth({
             }
           }
         }
-      }
-    : {}),
-  database: new Pool({
-    connectionString: process.env.DATABASE_URL
-  }),
+      : {})
+  },
+  database: pool,
   basePath: "/auth",
   plugins,
   logger: {

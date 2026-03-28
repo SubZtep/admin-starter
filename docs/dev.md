@@ -38,37 +38,11 @@ App: [http://localhost:3000](http://localhost:3000)\
 Webmail for the SMTP: [http://localhost:1080](http://localhost:1080)\
 Better-Auth OpenAPI in dev mode: [http://localhost:3001/auth/reference](http://localhost:3001/auth/reference)
 
+## Environment Variables
 
-## Folder Structure
+There are .env files at `/apps/*/`. Just clone and run! Split Configuration between shared defaults and local overrides.
 
-```yaml
-.
-├── apps
-│   ├── api
-│   │   ├── better-auth_migrations  # user schema
-│   │   ├── public
-│   │   ├── src
-│   │   │   ├── emails              # email templates
-│   │   │   ├── middleware
-│   │   │   └── routes              # endpoint definitions
-│   │   └── tests
-│   │       └── integration
-│   └── web
-│       ├── public
-│       └── src
-│           ├── components
-│           │   ├── form
-│           │   │   └── primitives
-│           │   ├── layout
-│           │   ├── ui
-│           │   └── user
-│           ├── hooks
-│           ├── lib
-│           └── routes              # file-based route components
-├── docs
-├── packages
-│   ├── schemas                     # form and endpoint definitions
-│   └── shared
-├── pgdata
-└── scripts
-```
+1. `.env` (Committed) -> Loads defaults
+2. `.env.local` (Ignored) -> Loads your secrets/overrides
+3. `.env.development` (Committed) -> Loads dev-specific defaults
+4. `.env.development.local` (Ignored) -> Loads dev-specific secrets

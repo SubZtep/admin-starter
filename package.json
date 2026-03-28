@@ -3,10 +3,12 @@
   "description": "monorepo",
   "private": true,
   "scripts": {
-    "dev": "bun run --filter '*' dev",
+    "dev": "bun run --filter '!@app/worker' dev",
     "dev:api": "bun run --filter @app/api dev",
     "dev:web": "bun run --filter @app/web dev",
+    "dev:worker": "bun run --filter @app/worker dev",
     "build": "bun run --filter @app/web build",
+    "build:worker": "bun run --filter @app/worker build",
     "lint": "biome check .",
     "lint:fix": "biome check . --write --unsafe",
     "test": "bun --env-file=apps/api/.env test"
@@ -19,10 +21,10 @@
     "admin-starter": "."
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.8",
+    "@biomejs/biome": "^2.4.9",
     "nitro": "npm:nitro-nightly@latest"
   },
   "optionalDependencies": {
-    "@faker-js/faker": "^10.3.0"
+    "@faker-js/faker": "^10.4.0"
   }
 }

@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer"
-import { logger } from "#/logger"
+import { logger } from "#/core/logger"
 import { getChangeEmailHtml } from "./ChangeEmail"
 import { getResetPasswordHtml } from "./ResetPassword"
 import { getVerificationHtml } from "./Verification"

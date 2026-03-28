@@ -52,7 +52,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-/** Returns true if the given string is an image URL. */
+/** @returns `true` if the given string is an image URL. */
 export function isImageUrl(value?: string | null) {
   if (!value) return false
   try {

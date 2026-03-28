@@ -1,5 +1,5 @@
 import { Hono } from "hono"
-import type { RouteVariables } from "../types"
+import type { RouteVariables } from "#/types"
 
 export const userRoutes = new Hono<{ Variables: RouteVariables }>()
 

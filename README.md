@@ -8,6 +8,9 @@
 
 A TypeScript monorepo implementing pieces of **Better Auth** in a **Hono** [API](./apps/api/), with a **TanStack Start** [web app](./apps/web/) consuming it to demonstrate how they work together. 🎓 It’s a starter template with no business logic, so you could even grab the files and use them to kick-start your own project.
 
+> [!NOTE]
+> This isn’t even the final form. Its exact purpose are still evolving.
+
 ## Architecture
 
 ```mermaid
@@ -15,21 +18,29 @@ flowchart LR
   subgraph "monorepo"
     A["📁 apps/api<br/>Hono API<br/>Better Auth"]
     W["📁 apps/web<br/>TanStack Start<br/>React + SSR"]
-    S["📁 packages/*<br/>Zod schemas<br/>shared utilities"]
+    P["📁 packages/*<br/>Zod schemas<br/>shared utilities"]
+    WW["📁 apps/worker<br/>CLI for bulk operations"]
   end
 
   U((User))
+  UW(((User’s
+    worker)))
   D[(PostgreSQL)]
   E{{Emails}}
+  O{Ollama}
 
-  S -.-> A
-  S -.-> W
+  P -.-> A
+  P -.-> W
+  P -.-> WW
 
   U <-->|Web| W
   U <-->|Mobile| A
+  UW <-->|HTTP| A
+  UW <==> O
+  WW -.-> UW
 
   W <-->|HTTP| A
-  A <--> D
+  A <==> D
   A -->|SMTP| E
 ```
 
@@ -67,19 +78,20 @@ _A wise man once told me the source code is the best documentation._ Share it wi
 
 ## Stack
 
-| Package                                       |  API  |  Web  | Description                                                          |
-| --------------------------------------------- | :---: | :---: | -------------------------------------------------------------------- |
-| [Better Auth](https://better-auth.com/)       |   ✓   |   ✓   | Authentication framework on [PostgreSQL](https://node-postgres.com/) |
-| [Biome](https://biomejs.dev/)                 |   ✓   |   ✓   | Code format and linter                                               |
-| [Bun](https://bun.sh/)                        |   ✓   |   ✓   | TypeScript runtime                                                   |
-| [Hono](https://hono.dev/)                     |   ✓   |       | API framework                                                        |
-| [Lucide](https://lucide.dev/)                 |       |   ✓   | Icons                                                                |
-| [Nodemailer](https://nodemailer.com/)         |   ✓   |       | Send emails                                                          |
-| [Pino](https://getpino.io/)                   |   ✓   |       | Logger                                                               |
-| [React](https://react.dev/)                   |   ✓   |   ✓   | Library for user intrfaces (emails in API)                           |
-| [Tailwind CSS](https://tailwindcss.com/)      |       |   ✓   | Utility-first CSS framework                                          |
-| [TanStack Form](https://tanstack.com/form/)   |       |   ✓   | Headless UI for type-safe forms                                      |
-| [TanStack Query](https://tanstack.com/table/) |       |   ✓   | Data fetching                                                        |
-| [TanStack Start](https://tanstack.com/start/) |       |   ✓   | Full-stack framework powered by [Vite](https://vite.dev/)            |
-| [TanStack Table](https://tanstack.com/table/) |       |   ✓   | Headless UI for tables & datagrids                                   |
-| [Zod](https://zod.dev/)                       |   ✓   |   ✓   | Schema validation with static type inference                         |
+| Package                                               |  API  |  Web  | Worker | Description                                                          |
+| ----------------------------------------------------- | :---: | :---: | :----: | -------------------------------------------------------------------- |
+| [Better Auth](https://better-auth.com/)               |   ✓   |   ✓   |        | Authentication framework on [PostgreSQL](https://node-postgres.com/) |
+| [Biome](https://biomejs.dev/)                         |   ✓   |   ✓   |   ✓    | Code format and linter                                               |
+| [Bun](https://bun.sh/)                                |   ✓   |   ✓   |   ✓    | TypeScript runtime                                                   |
+| [Clack](https://bomb.sh/docs/clack/packages/prompts/) |       |       |   ✓    | CLI library                                                          |
+| [Hono](https://hono.dev/)                             |   ✓   |       |        | API framework                                                        |
+| [Lucide](https://lucide.dev/)                         |       |   ✓   |        | Icons                                                                |
+| [Nodemailer](https://nodemailer.com/)                 |   ✓   |       |        | Send emails                                                          |
+| [Pino](https://getpino.io/)                           |   ✓   |       |        | Logger                                                               |
+| [React](https://react.dev/)                           |   ✓   |   ✓   |        | Library for user intrfaces (emails in API)                           |
+| [Tailwind CSS](https://tailwindcss.com/)              |       |   ✓   |        | Utility-first CSS framework                                          |
+| [TanStack Form](https://tanstack.com/form/)           |       |   ✓   |        | Headless UI for type-safe forms                                      |
+| [TanStack Query](https://tanstack.com/table/)         |       |   ✓   |        | Data fetching                                                        |
+| [TanStack Start](https://tanstack.com/start/)         |       |   ✓   |        | Full-stack framework powered by [Vite](https://vite.dev/)            |
+| [TanStack Table](https://tanstack.com/table/)         |       |   ✓   |        | Headless UI for tables & datagrids                                   |
+| [Zod](https://zod.dev/)                               |   ✓   |   ✓   |        | Schema validation with static type inference                         |

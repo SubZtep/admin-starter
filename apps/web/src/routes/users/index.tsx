@@ -61,7 +61,7 @@ const columns = [
   }
 ]
 
-export function UserList() {
+function UserList() {
   const [users, setUsers] = useState<UserWithRole[]>([])
   const { admin } = useAuthClient()
 

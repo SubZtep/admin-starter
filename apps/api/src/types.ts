@@ -1,3 +1,7 @@
+import type { Hono } from "hono"
+import type { NodeService } from "#/features/kaja/services/node"
+import type { QueueService } from "#/features/kaja/services/queue"
+
 declare module "bun" {
   interface Env {
     PORT: string
@@ -26,4 +30,12 @@ export type AuthSessionUser = {
 // context variables for Hono
 export type RouteVariables = {
   user: AuthSessionUser | null
+  queueService: QueueService
+  nodeService: NodeService
 }
+
+/** common route properties. */
+export type RouteProps = { Variables: RouteVariables }
+
+/** Register functions properties for route register helpers. */
+export type RouteRegProps = Hono<RouteProps>

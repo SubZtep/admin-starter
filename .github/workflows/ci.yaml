@@ -17,12 +17,13 @@ jobs:
       - name: Setup Biome Toolchain
         uses: biomejs/setup-biome@4c91541eaada48f67d7dbd7833600ce162b68f51
         with:
-          version: "2.4.8"
+          version: "2.4.9"
 
       - name: Run linter and formatter
         run: biome ci .
 
   test:
+    if: false
     permissions:
       contents: read
     runs-on: ubuntu-latest

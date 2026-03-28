@@ -1,0 +1,21 @@
+import { createJobRequestSchema, createJobResponseSchema } from "@app/schemas"
+import { zValidator } from "@hono/zod-validator"
+import type { RouteRegProps } from "#/types"
+
+export function registerCreateJob(app: RouteRegProps) {
+  app.post("/create-job", zValidator("json", createJobRequestSchema), async c => {
+    const { type, payload } = c.req.valid("json")
+    const queueService = c.get("queueService")
+
+    const jobId = Bun.randomUUIDv7()
+    const job = await queueService.createJob({
+      jobId,
+      type,
+      payload,
+      status: "queued",
+      createdAt: new Date().toISOString()
+    })
+
+    return c.json(createJobResponseSchema.parse({ jobId: job.jobId }))
+  })
+}
