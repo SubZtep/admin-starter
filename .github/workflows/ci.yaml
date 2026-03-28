@@ -50,14 +50,15 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Run migrations
-        run: cd apps/api && bunx auth@latest migrate --yes --config src/features/auth/auth.ts
+      - name: Apply SQL migrations
+        run: |
+          printf '%s\n' apps/api/better-auth_migrations/*.sql | LC_ALL=C sort | while read -r f; do
+            echo "applying $f"
+            psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f "$f"
+          done
 
       - name: Show user table def
         run: psql $DATABASE_URL -c '\d "user"'
-
-      - name: Patch id default
-        run: psql $DATABASE_URL -c 'ALTER TABLE "user" ALTER COLUMN id SET DEFAULT uuidv7();'
 
       - name: Run tests
         run: bun run test
