@@ -13,7 +13,7 @@ declare module "bun" {
     EMAIL_FROM: string
     SMTP_HOST: string
     SMTP_PORT: string
-    /** **Truthy** value please */
+    /** Set to `true`, `1`, or any value interpreted as boolean true. */
     SMTP_SECURE: string
     SMTP_USER: string
     SMTP_PASS: string

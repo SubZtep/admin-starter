@@ -9,7 +9,7 @@ type EmailType = "verification" | "changeEmail" | "resetPassword"
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
   port: Number(process.env.SMTP_PORT),
-  secure: !!process.env.SMTP_SECURE,
+  secure: isItTrue(process.env.SMTP_SECURE),
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS
@@ -48,7 +48,19 @@ export async function sendEmail(type: EmailType, to: string, payload: Record<str
 
   try {
     await transporter.sendMail({ from: process.env.EMAIL_FROM, to, subject, html })
-  } catch (error) {
-    logger.error({ error }, "Email sending error")
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      logger.error({ error: error.message }, "Email sending error")
+      throw error
+    }
+    logger.error({ error: "Unknown error" }, "Email sending error")
+    throw new Error("Unknown error")
   }
+  // TODO: let user know about email sending errors.
+}
+
+/** Determines the boolean value represented by a string. */
+function isItTrue(value: string) {
+  const normalized = value.trim().toLowerCase()
+  return normalized === "true" || normalized === "1" || normalized === "on" || normalized.startsWith("y")
 }
