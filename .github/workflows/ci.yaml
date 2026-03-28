@@ -36,7 +36,7 @@ jobs:
       - name: Setup PostgreSQL
         uses: Harmon758/postgresql-action@0be19fa37850b22cb4c9bbf28a03abbf44abd863
         with:
-          postgresql version: 18-alpine
+          postgresql version: 17-alpine
           postgresql user: testuser
           postgresql password: testpass
           postgresql db: test
