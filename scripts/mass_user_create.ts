@@ -1,7 +1,7 @@
 import { randomBytes } from "node:crypto"
 import { faker } from "@faker-js/faker"
 
-const NUMBER_OF_USERS = 100
+const NUMBER_OF_USERS = /^\d+$/.test(Bun.argv[2]) ? Number.parseInt(Bun.argv[2], 10) : 10
 
 for (let i = 0; i < NUMBER_OF_USERS; i++) {
   const firstName = faker.person.firstName()
@@ -19,12 +19,14 @@ for (let i = 0; i < NUMBER_OF_USERS; i++) {
     })
   })
 
-  if (res.ok) {
-    console.log("User added", firstName)
-  } else {
-    console.error("User add fail", await res.text())
+  if (!res.ok) {
+    console.log("User add fail", await res.text())
+    process.exit(1)
   }
 }
+
+console.log(`${NUMBER_OF_USERS} user${NUMBER_OF_USERS === 1 ? "" : "s"} created`)
+process.exit(0)
 
 /** Generates a random number from 0 to 1. */
 export function random() {

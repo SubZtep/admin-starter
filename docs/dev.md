@@ -22,6 +22,8 @@ docker compose up -d db mail
 
 ## Available commands
 
+Run from your project root in a ***nix** system:
+
 ```sh
 # Run API and Web
 bun dev
@@ -32,6 +34,12 @@ bun lint:fix
 
 # Run test
 bun run test
+
+# Post multiple random jobs locally (10 or given)
+./scripts/mass_post_jobs.ts [number]
+
+# Create multiple random users locally (10 or given)
+./scripts/mass_user_create.ts [number]
 ```
 
 App: [http://localhost:3000](http://localhost:3000)\

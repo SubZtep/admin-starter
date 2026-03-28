@@ -1,6 +1,6 @@
 import type { JobData } from "@app/schemas"
 import { box, spinner, tasks } from "@clack/prompts"
-import { cyan, kaja, ollama, pink, red } from "./var"
+import { dimgrey, kaja, ollama, pink, red } from "./var"
 
 export async function validateConnections() {
   await tasks([
@@ -80,7 +80,7 @@ export async function beatingHeart() {
 
 /** @returns `true` if the job was completed successfully */
 export async function workingOnJob(job: JobData) {
-  box(`${cyan}${job.payload.prompt}`, "Prompt", {
+  box(`${dimgrey}${job.payload.prompt}`, "Prompt", {
     width: "auto",
     contentPadding: 1,
     rounded: true
