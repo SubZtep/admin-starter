@@ -1,20 +1,21 @@
-import { Link, Text } from "@react-email/components"
+import { getFirstName } from "@app/shared"
+import { Heading, Link, Text } from "@react-email/components"
 import { render } from "@react-email/render"
-import { Email } from "./template"
+import { type ChangeEmailPayload, EmailContainer } from "./template"
 
-export function ChangeEmail({ newEmail, url }: Readonly<{ newEmail: string; url: string }>) {
+export function ChangeEmail({ user, url, newEmail }: Readonly<ChangeEmailPayload>) {
   return (
-    <Email>
-      <Text style={{ fontSize: "21px", marginBottom: "15px" }}>Hey-ho 👋</Text>
+    <EmailContainer>
+      <Heading as="h2">Hey-ho {getFirstName(user.name)} 👋</Heading>
       <Text>
-        Click the link to approve the change to {newEmail}:
+        Click the link to approve the change from {user.email} to {newEmail}:
         <br />
         <Link href={url}>{url}</Link>
       </Text>
-    </Email>
+    </EmailContainer>
   )
 }
 
-export async function getChangeEmailHtml(to: string, url: string) {
-  return await render(<ChangeEmail newEmail={to} url={url} />)
+export async function getChangeEmailHtml(payload: Readonly<ChangeEmailPayload>) {
+  return await render(<ChangeEmail {...payload} />)
 }

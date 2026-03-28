@@ -1,10 +1,27 @@
-import { type BetterAuthPlugin, betterAuth, type User } from "better-auth"
+import { type BetterAuthPlugin, betterAuth } from "better-auth"
 import { admin, bearer, jwt, openAPI } from "better-auth/plugins"
 import { pool } from "#/core/db"
 import { logger } from "#/core/logger"
 import { sendEmail } from "#/emails"
+import type { EmailPayload } from "#/emails/template"
 
 const isDevMode = process.env.NODE_ENV === "development"
+
+function sendAuthEmail(args: Parameters<typeof sendEmail>[0]) {
+  // FIXME: Avoid awaiting the email sending to prevent timing attacks. (from Better-Auth doc)
+  void sendEmail(args).catch(error => {
+    // TODO: notify user somehow
+    logger.error(
+      {
+        error,
+        type: args.type,
+        userId: args.payload.user.id,
+        email: args.payload.user.email
+      },
+      "Failed to send auth email"
+    )
+  })
+}
 
 const plugins: BetterAuthPlugin[] = [
   bearer(),
@@ -64,14 +81,14 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     sendResetPassword: async ({ user, url }) => {
-      sendEmail("resetPassword", user.email, { url })
+      sendAuthEmail({ type: "resetPassword", payload: { user, url } })
     }
   },
   emailVerification: {
-    sendVerificationEmail: async ({ user, url }: { user: User; url: string }) => {
+    sendVerificationEmail: async ({ user, url }: Readonly<EmailPayload>) => {
       const urlObj = new URL(url)
       urlObj.searchParams.set("callbackURL", new URL("/dashboard", process.env.CORS_ORIGIN).toString())
-      sendEmail("verification", user.email, { url: urlObj.toString() })
+      sendAuthEmail({ type: "verification", payload: { user, url: urlObj.toString() } })
     },
     sendOnSignUp: true,
     sendOnSignIn: true,
@@ -81,8 +98,8 @@ export const auth = betterAuth({
   user: {
     changeEmail: {
       enabled: true,
-      sendChangeEmailConfirmation: async ({ newEmail, url }) => {
-        sendEmail("changeEmail", newEmail, { url })
+      sendChangeEmailConfirmation: async ({ user, url, newEmail }) => {
+        sendAuthEmail({ type: "changeEmail", payload: { user, url, newEmail } })
       }
     }
   }

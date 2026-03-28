@@ -62,3 +62,9 @@ export function isImageUrl(value?: string | null) {
     return false
   }
 }
+
+/** Determines the boolean value represented by a string. */
+export function isItTrue(value = "") {
+  const normalized = value.trim().toLowerCase()
+  return normalized === "true" || normalized === "1" || normalized === "on" || normalized.startsWith("y")
+}
