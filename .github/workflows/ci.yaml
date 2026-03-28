@@ -49,6 +49,10 @@ jobs:
           done
           exit 1
 
+      - name: Enable uuid-ossp extension
+        run: |
+          psql postgresql://testuser:testpass@127.0.0.1:5432/test -c 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp";'
+
       - name: Install dependencies
         run: bun install
 
