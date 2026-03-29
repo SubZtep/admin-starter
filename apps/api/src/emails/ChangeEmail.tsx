@@ -10,7 +10,7 @@ export function ChangeEmail({ user, url, newEmail }: Readonly<ChangeEmailPayload
       <Text>
         Click the link to approve the change from {user.email} to {newEmail}:
         <br />
-        <Link href={url}>{url}</Link>
+        <Link href={url}>Change Email Link</Link>
       </Text>
     </EmailContainer>
   )

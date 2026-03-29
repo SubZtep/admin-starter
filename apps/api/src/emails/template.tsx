@@ -28,6 +28,7 @@ export function EmailContainer({ children }: Readonly<{ children: React.ReactNod
             body {
               padding: 1rem;
               background-color: darkgreen;
+              color: yellow;
             }
             h2 {
               font-size: 21px !important;
@@ -40,7 +41,6 @@ export function EmailContainer({ children }: Readonly<{ children: React.ReactNod
               line-height: 1.5;
             }
             a {
-              display: block;
               margin: 1rem 0;
               padding: 0.1rem 0;
               color: ghostwhite;
@@ -57,7 +57,7 @@ export function EmailContainer({ children }: Readonly<{ children: React.ReactNod
         </style>
       </Head>
       <Body>
-        <Container style={{ backgroundColor: "darkolivegreen", color: "yellow", padding: "1rem" }}>
+        <Container bgcolor="darkolivegreen" cellPadding="16">
           {children}
         </Container>
       </Body>

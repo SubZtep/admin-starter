@@ -11,7 +11,7 @@ export function Verification({ user, url }: Readonly<EmailPayload>) {
       <Text>
         Click the link to verify your email:
         <br />
-        <Link href={url}>{url}</Link>
+        <Link href={url}>Verify Email Link</Link>
       </Text>
     </EmailContainer>
   )

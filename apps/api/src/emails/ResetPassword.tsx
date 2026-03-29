@@ -10,7 +10,7 @@ export function ResetPassword({ user, url }: Readonly<EmailPayload>) {
       <Text>
         Click the link to reset your password:
         <br />
-        <Link href={url}>{url}</Link>
+        <Link href={url}>Reset Password Link</Link>
       </Text>
     </EmailContainer>
   )

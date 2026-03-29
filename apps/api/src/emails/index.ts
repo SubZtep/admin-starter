@@ -36,7 +36,7 @@ export async function sendEmail({ type, payload }: Readonly<SendEmailArgs>) {
   switch (type) {
     case "changeEmail":
       html = await getChangeEmailHtml(payload)
-      subject = `Welcome to Admin Starter!`
+      subject = `[Admin Starter] Change your email address`
       break
     case "verification":
       html = await getVerificationHtml(payload)
