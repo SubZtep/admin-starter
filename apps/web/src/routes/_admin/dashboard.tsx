@@ -13,10 +13,10 @@ function DashboardPage() {
   return (
     <>
       <header className="mb-12">
-        <h2 className="text-5xl font-bold font-headline tracking-tighter text-on-surface mb-4 my-0">
+        <h2 className="my-0 mb-4 text-5xl font-headline font-bold tracking-tighter text-slate-100">
           Welcome back{user ? `, ${getFirstName(user.name)}` : ""}
         </h2>
-        <p className="text-on-surface-variant text-lg leading-relaxed max-w-lg">
+        <p className="max-w-lg text-lg leading-relaxed text-slate-400">
           Here's what's happening with your platform today.
         </p>
       </header>
@@ -28,9 +28,9 @@ function DashboardPage() {
         <StatCard icon={TrendingUp} label="Growth Rate" value="--" accent="tertiary" />
       </div>
 
-      <section className="bg-surface-container-low rounded-2xl p-8 shadow-2xl">
-        <h3 className="font-headline font-bold text-on-surface mb-2 text-lg">Quick Actions</h3>
-        <p className="text-on-surface-variant leading-relaxed">
+      <section className="rounded-2xl bg-slate-900 p-8 shadow-2xl">
+        <h3 className="mb-2 text-lg font-headline font-bold text-slate-100">Quick Actions</h3>
+        <p className="leading-relaxed text-slate-400">
           Navigate to the User Directory to manage users, or check your Profile settings.
         </p>
       </section>
@@ -49,13 +49,13 @@ function StatCard({
   value: string
   accent: "primary" | "tertiary"
 }>) {
-  const borderClass = accent === "primary" ? "border-primary" : "border-tertiary"
-  const valueClass = accent === "primary" ? "text-primary" : "text-tertiary"
+  const borderClass = accent === "primary" ? "border-teal-400" : "border-sky-300"
+  const valueClass = accent === "primary" ? "text-teal-400" : "text-sky-300"
 
   return (
-    <div className={`bg-surface-container-low p-6 rounded-xl border-t-2 ${borderClass}`}>
+    <div className={`rounded-xl border-t-2 bg-slate-900 p-6 ${borderClass}`}>
       <div className="flex items-center justify-between mb-3">
-        <p className="text-on-surface-variant font-bold uppercase tracking-widest text-[10px]">{label}</p>
+        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">{label}</p>
         <Icon size={16} className={valueClass} />
       </div>
       <p className={`text-3xl font-bold font-headline ${valueClass}`}>{value}</p>

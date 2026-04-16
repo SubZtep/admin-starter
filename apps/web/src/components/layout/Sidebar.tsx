@@ -25,7 +25,7 @@ export function Sidebar() {
         <div className="flex items-center gap-3 px-4 pb-6 rounded-lg">
           {/* <div className="flex items-center gap-3 px-4 py-3 rounded-lg"> */}
           <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center shrink-0">
-            <span className="text-xs font-bold text-primary">{user.name?.charAt(0)?.toUpperCase() ?? "?"}</span>
+            <span className="text-xs font-bold text-teal-400">{user.name?.charAt(0)?.toUpperCase() ?? "?"}</span>
           </div>
           <div className="flex flex-col min-w-0">
             <span className="text-sm font-semibold text-slate-200 truncate">{user.name}</span>

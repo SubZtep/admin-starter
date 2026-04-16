@@ -12,7 +12,7 @@ function AdminLayoutRoute() {
   return (
     <>
       <Sidebar />
-      <main className="md:ml-64 min-h-screen p-6 md:p-10 pb-24 md:pb-10 bg-background">
+      <main className="min-h-screen bg-slate-950 p-6 pb-24 md:ml-64 md:p-10 md:pb-10">
         <Outlet />
       </main>
       <MobileNav />

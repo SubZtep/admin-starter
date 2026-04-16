@@ -27,11 +27,11 @@ type UsersColumns = Pick<UserWithRole, "id" | "name" | "email" | "emailVerified"
 const columnHelper = createColumnHelper<UsersColumns>()
 
 const ROLE_STYLES: Record<string, string> = {
-  admin: "text-tertiary-fixed-dim bg-tertiary-container/50",
-  superuser: "text-tertiary-fixed-dim bg-tertiary-container/50",
-  user: "text-on-surface-variant bg-surface-container/50",
-  editor: "text-on-surface-variant bg-surface-container/50",
-  viewer: "text-on-surface-variant bg-surface-container/50"
+  admin: "bg-sky-950/50 text-sky-300",
+  superuser: "bg-sky-950/50 text-sky-300",
+  user: "bg-slate-900/50 text-slate-400",
+  editor: "bg-slate-900/50 text-slate-400",
+  viewer: "bg-slate-900/50 text-slate-400"
 }
 
 function UserList() {
@@ -73,16 +73,16 @@ function UserList() {
             .slice(0, 2)
           return (
             <div className="flex items-center gap-4">
-              <div className="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center shrink-0">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-slate-800">
                 {user.image ? (
                   <img alt={user.name ?? ""} className="w-full h-full object-cover rounded-lg" src={user.image} />
                 ) : (
-                  <span className="text-sm font-bold text-primary">{initials}</span>
+                  <span className="text-sm font-bold text-teal-400">{initials}</span>
                 )}
               </div>
               <div>
-                <div className="text-sm font-bold text-on-surface">{info.getValue()}</div>
-                <div className="text-xs text-on-surface-variant">{user.email}</div>
+                <div className="text-sm font-bold text-slate-100">{info.getValue()}</div>
+                <div className="text-xs text-slate-400">{user.email}</div>
               </div>
             </div>
           )
@@ -104,15 +104,15 @@ function UserList() {
           if (verified) {
             return (
               <div className="flex items-center gap-2">
-                <div className="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(60,221,199,0.6)]" />
-                <span className="text-xs text-on-surface-variant">Authenticated</span>
+                <div className="h-1.5 w-1.5 rounded-full bg-teal-400 shadow-[0_0_8px_rgba(45,212,191,0.6)]" />
+                <span className="text-xs text-slate-400">Authenticated</span>
               </div>
             )
           }
           return (
             <div className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 rounded-full bg-outline-variant" />
-              <span className="text-xs text-on-surface-variant">Pending</span>
+              <div className="h-1.5 w-1.5 rounded-full bg-slate-700" />
+              <span className="text-xs text-slate-400">Pending</span>
             </div>
           )
         },
@@ -120,7 +120,7 @@ function UserList() {
       }),
       columnHelper.accessor("createdAt", {
         header: "Last Sync",
-        cell: info => <span className="font-mono text-xs text-on-surface-variant">{getTimeAgo(info.getValue())}</span>,
+        cell: info => <span className="font-mono text-xs text-slate-400">{getTimeAgo(info.getValue())}</span>,
         enableColumnFilter: false
       }),
       {
@@ -131,7 +131,7 @@ function UserList() {
             <Link
               to="/users/$userId"
               params={{ userId: info.row.original.id }}
-              className="text-primary hover:bg-primary/10 p-2 rounded-lg transition-all inline-flex"
+              className="inline-flex rounded-lg p-2 text-teal-400 transition-all hover:bg-teal-400/10"
             >
               <Eye size={18} />
             </Link>
@@ -184,44 +184,42 @@ function UserList() {
     <>
       <header className="mb-12 flex flex-col lg:flex-row justify-between lg:items-end gap-8">
         <div className="max-w-2xl">
-          <h2 className="text-5xl font-bold font-headline tracking-tighter text-on-surface mb-4 my-0">
-            User Directory
-          </h2>
-          <p className="text-on-surface-variant text-lg leading-relaxed max-w-lg">
+          <h2 className="my-0 mb-4 text-5xl font-headline font-bold tracking-tighter text-slate-100">User Directory</h2>
+          <p className="max-w-lg text-lg leading-relaxed text-slate-400">
             Manage your organization's digital identity hierarchy and access controls.
           </p>
         </div>
         <div className="flex gap-4">
-          <div className="bg-surface-container-low p-6 rounded-xl border-t-2 border-primary min-w-[160px]">
-            <p className="text-on-surface-variant font-bold uppercase tracking-widest text-[10px] mb-1">Total Users</p>
-            <p className="text-3xl font-bold font-headline text-primary">{users.length.toLocaleString()}</p>
+          <div className="min-w-[160px] rounded-xl border-t-2 border-teal-400 bg-slate-900 p-6">
+            <p className="mb-1 text-[10px] font-bold uppercase tracking-widest text-slate-400">Total Users</p>
+            <p className="text-3xl font-headline font-bold text-teal-400">{users.length.toLocaleString()}</p>
           </div>
-          <div className="bg-surface-container-low p-6 rounded-xl border-t-2 border-tertiary min-w-[160px]">
-            <p className="text-on-surface-variant font-bold uppercase tracking-widest text-[10px] mb-1">Verified</p>
-            <p className="text-3xl font-bold font-headline text-tertiary">{activeCount}</p>
+          <div className="min-w-[160px] rounded-xl border-t-2 border-sky-300 bg-slate-900 p-6">
+            <p className="mb-1 text-[10px] font-bold uppercase tracking-widest text-slate-400">Verified</p>
+            <p className="text-3xl font-headline font-bold text-sky-300">{activeCount}</p>
           </div>
         </div>
       </header>
 
-      <section className="bg-surface-container-low rounded-2xl overflow-hidden shadow-2xl">
-        <div className="p-6 bg-surface-container flex flex-wrap items-center gap-4">
+      <section className="overflow-hidden rounded-2xl bg-slate-900 shadow-2xl">
+        <div className="flex flex-wrap items-center gap-4 bg-slate-900 px-6 py-6">
           <div className="flex-1 min-w-[280px] relative">
-            <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant" />
+            <Search size={18} className="absolute top-1/2 left-4 -translate-y-1/2 text-slate-400" />
             <input
               type="text"
               placeholder="Search by name, email, or role..."
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              className="w-full bg-surface-container-high border-none rounded-lg py-3 pl-12 pr-4 text-on-surface placeholder:text-outline focus:ring-1 focus:ring-primary transition-all outline-none"
+              className="w-full rounded-lg bg-slate-800 py-3 pr-4 pl-12 text-slate-100 outline-none transition-all placeholder:text-slate-500 focus:ring-1 focus:ring-teal-400"
             />
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-sm font-bold text-on-surface-variant uppercase tracking-tighter mr-2">Filters:</span>
+            <span className="mr-2 text-sm font-bold uppercase tracking-tighter text-slate-400">Filters:</span>
             {roleFilter ? (
               <button
                 type="button"
                 onClick={() => setRoleFilter("")}
-                className="bg-secondary-container text-on-secondary-container px-4 py-2 rounded-full text-xs font-semibold flex items-center gap-2 hover:brightness-110 transition-all"
+                className="flex items-center gap-2 rounded-full bg-slate-700 px-4 py-2 text-xs font-semibold text-slate-100 transition-all hover:brightness-110"
               >
                 Role: {capitalized(roleFilter)} <X size={12} />
               </button>
@@ -230,14 +228,14 @@ function UserList() {
                 <button
                   type="button"
                   onClick={() => setRoleFilter("admin")}
-                  className="bg-surface-container-highest text-on-surface-variant px-4 py-2 rounded-full text-xs font-semibold flex items-center gap-2 hover:text-on-surface transition-all"
+                  className="flex items-center gap-2 rounded-full bg-slate-800 px-4 py-2 text-xs font-semibold text-slate-400 transition-all hover:text-slate-100"
                 >
                   Admin
                 </button>
                 <button
                   type="button"
                   onClick={() => setRoleFilter("user")}
-                  className="bg-surface-container-highest text-on-surface-variant px-4 py-2 rounded-full text-xs font-semibold flex items-center gap-2 hover:text-on-surface transition-all"
+                  className="flex items-center gap-2 rounded-full bg-slate-800 px-4 py-2 text-xs font-semibold text-slate-400 transition-all hover:text-slate-100"
                 >
                   User
                 </button>
@@ -250,7 +248,7 @@ function UserList() {
                   setSearchQuery("")
                   setRoleFilter("")
                 }}
-                className="ml-2 text-primary font-bold text-xs uppercase tracking-widest hover:underline"
+                className="ml-2 text-xs font-bold uppercase tracking-widest text-teal-400 hover:underline"
               >
                 Clear All
               </button>
@@ -264,7 +262,7 @@ function UserList() {
               {table.getHeaderGroups().map(headerGroup => (
                 <tr
                   key={headerGroup.id}
-                  className="bg-surface-container-lowest text-on-surface-variant uppercase text-[10px] tracking-[0.2em] font-bold"
+                  className="bg-slate-950 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400"
                 >
                   {headerGroup.headers.map(header => (
                     <th
@@ -288,10 +286,7 @@ function UserList() {
             </thead>
             <tbody className="divide-y divide-white/5">
               {table.getRowModel().rows.map(row => (
-                <tr
-                  key={row.id}
-                  className="group hover:bg-surface-container-highest transition-colors duration-150 cursor-pointer"
-                >
+                <tr key={row.id} className="group cursor-pointer transition-colors duration-150 hover:bg-slate-800">
                   {row.getVisibleCells().map(cell => (
                     <td key={cell.id} className={`px-8 py-5 ${cell.column.id === "createdAt" ? "text-right" : ""}`}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -304,7 +299,7 @@ function UserList() {
         </div>
       </section>
 
-      <footer className="mt-12 flex flex-col sm:flex-row justify-between items-center text-on-surface-variant text-[10px] uppercase tracking-widest font-bold gap-4">
+      <footer className="mt-12 flex flex-col items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-slate-400 sm:flex-row sm:justify-between">
         <div>
           Showing {filteredCount} of {users.length} users
         </div>

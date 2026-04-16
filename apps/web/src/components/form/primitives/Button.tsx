@@ -3,10 +3,10 @@ import { Button as BaseButton } from "@base-ui/react/button"
 import { LoaderCircle } from "lucide-react"
 
 const VARIANTS = {
-  "3d": "border border-outline-variant/50 bg-surface-container hover:bg-surface-container-high",
-  link: "inline-block underline text-primary hover:text-primary/80 size-fit mx-auto p-0! hover:outline-0",
-  oval: "border border-outline/50 rounded-full text-on-surface-variant hover:text-on-surface",
-  primary: "bg-primary text-on-primary font-bold hover:opacity-90"
+  "3d": "border border-slate-700/50 bg-slate-900 hover:bg-slate-800",
+  link: "mx-auto inline-block size-fit p-0! text-teal-400 underline hover:text-teal-300 hover:outline-0",
+  oval: "rounded-full border border-slate-500/50 text-slate-400 hover:text-slate-100",
+  primary: "bg-teal-400 text-slate-950 font-bold hover:bg-teal-300"
 } as const
 
 const SIZES = {
@@ -16,7 +16,7 @@ const SIZES = {
 } as const
 
 const DEFAULT_CLASSES =
-  "relative flex items-center justify-center cursor-pointer transition-all duration-100 focus:outline-2 focus:outline-primary/50 disabled:opacity-50 disabled:pointer-events-none active:scale-95"
+  "relative flex cursor-pointer items-center justify-center transition-all duration-100 focus:outline-2 focus:outline-teal-400/50 disabled:pointer-events-none disabled:opacity-50 active:scale-95"
 
 export function Button({
   variant = "3d",
@@ -51,7 +51,7 @@ export function Button({
       {...props}
     >
       {children}
-      {loading && <LoaderCircle strokeWidth={3} className="animate-spin absolute right-2 opacity-60 text-primary" />}
+      {loading && <LoaderCircle strokeWidth={3} className="absolute right-2 animate-spin text-current opacity-60" />}
     </BaseButton>
   )
 }

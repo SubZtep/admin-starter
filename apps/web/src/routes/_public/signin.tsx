@@ -84,7 +84,7 @@ function SignIn() {
               size="sm"
               variant="link"
               disabled={loading}
-              className="hover:[text-decoration:underline_3px_var(--color-red-700)] hover:underline-offset-4"
+              className="hover:decoration-red-700 hover:underline-offset-4"
             >
               Forgot my password
             </Button>

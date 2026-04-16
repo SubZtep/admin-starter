@@ -23,7 +23,7 @@ const columns = [
     cell: info => {
       const parsed = UAParser(info.getValue() || "{}")
       return (
-        <span className="text-xs text-on-surface-variant">
+        <span className="text-xs text-slate-400">
           {parsed.browser.name} / {parsed.os.name}
         </span>
       )
@@ -75,7 +75,7 @@ export function UserSessions({ userId, className }: Readonly<{ userId: string; c
   return (
     <div className={className}>
       <div className="flex items-center justify-between mb-4">
-        <h3 className="font-headline font-bold text-on-surface">Sessions</h3>
+        <h3 className="font-headline font-bold text-slate-100">Sessions</h3>
         <ConfirmDialog title="Are you sure?" onConfirm={() => mutate()}>
           <Button size="sm" variant="oval" disabled={sessions.length === 0}>
             <MonitorX size={14} className="mr-2" /> Revoke All
@@ -88,11 +88,11 @@ export function UserSessions({ userId, className }: Readonly<{ userId: string; c
           <table className="w-full text-left border-collapse text-sm">
             <thead>
               {table.getHeaderGroups().map(headerGroup => (
-                <tr key={headerGroup.id} className="border-b border-outline-variant/30">
+                <tr key={headerGroup.id} className="border-b border-slate-700/30">
                   {headerGroup.headers.map(header => (
                     <th
                       key={header.id}
-                      className="px-3 py-2 text-[11px] font-bold text-on-surface-variant uppercase tracking-widest"
+                      className="px-3 py-2 text-[11px] font-bold uppercase tracking-widest text-slate-400"
                     >
                       {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </th>
@@ -102,9 +102,9 @@ export function UserSessions({ userId, className }: Readonly<{ userId: string; c
             </thead>
             <tbody className="divide-y divide-outline-variant/20">
               {table.getRowModel().rows.map(row => (
-                <tr key={row.id} className="hover:bg-primary/4 transition-colors">
+                <tr key={row.id} className="transition-colors hover:bg-teal-400/4">
                   {row.getVisibleCells().map(cell => (
-                    <td key={cell.id} className="px-3 py-2 text-on-surface-variant">
+                    <td key={cell.id} className="px-3 py-2 text-slate-400">
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
                   ))}
@@ -114,7 +114,7 @@ export function UserSessions({ userId, className }: Readonly<{ userId: string; c
           </table>
         </div>
       ) : (
-        <p className="text-sm text-on-surface-variant">No active sessions.</p>
+        <p className="text-sm text-slate-400">No active sessions.</p>
       )}
     </div>
   )

@@ -13,7 +13,7 @@ export function Main({
   children: React.ReactNode
 }>) {
   return (
-    <main className={cn("px-4 py-12 text-on-surface", full || "container", className)} style={style}>
+    <main className={cn("px-4 py-12 text-slate-100", full || "container", className)} style={style}>
       {children}
     </main>
   )
