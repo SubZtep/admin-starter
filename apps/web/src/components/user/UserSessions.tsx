@@ -1,17 +1,15 @@
 import { getDateTime, getTimeAgo } from "@app/shared"
 import { useMutation, useQuery } from "@tanstack/react-query"
-import { createColumnHelper } from "@tanstack/react-table"
+import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table"
 import type { SessionWithImpersonatedBy } from "better-auth/plugins"
 import { MonitorX } from "lucide-react"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import { UAParser } from "ua-parser-js"
-import { Section } from "#/components/ui/Section"
 import { useAuthClient } from "#/hooks/auth-client"
 import { queryClient } from "#/lib/query"
 import { Button } from "../form/primitives/Button"
 import { ConfirmDialog } from "../ui/ConfirmDialog"
-import { Table } from "../ui/Table"
 
 const columnHelper = createColumnHelper<SessionWithImpersonatedBy>()
 
@@ -22,25 +20,28 @@ const columns = [
   }),
   columnHelper.accessor("userAgent", {
     header: "User Agent",
-    cell: info => (
-      <pre className="w-56! max-h-32 overflow-auto">{JSON.stringify(UAParser(info.getValue() || "{}"), null, 2)}</pre>
-    )
+    cell: info => {
+      const parsed = UAParser(info.getValue() || "{}")
+      return (
+        <span className="text-xs text-on-surface-variant">
+          {parsed.browser.name} / {parsed.os.name}
+        </span>
+      )
+    }
   }),
   columnHelper.accessor("createdAt", {
     header: "Created",
-    cell: info => getTimeAgo(info.getValue()),
-    enableColumnFilter: false
+    cell: info => getTimeAgo(info.getValue())
   }),
   columnHelper.accessor("expiresAt", {
     header: "Expires",
-    cell: info => getDateTime(info.getValue(), "short"),
-    enableColumnFilter: false
+    cell: info => getDateTime(info.getValue(), "short")
   })
 ]
 
 export function UserSessions({ userId, className }: Readonly<{ userId: string; className?: string }>) {
   const authClient = useAuthClient()
-  const [sessions, setSessions] = useState<SessionWithImpersonatedBy[]>()
+  const [sessions, setSessions] = useState<SessionWithImpersonatedBy[]>([])
 
   const { data, error, refetch } = useQuery({
     queryKey: ["userSessions", userId],
@@ -62,22 +63,59 @@ export function UserSessions({ userId, className }: Readonly<{ userId: string; c
   }, [data])
 
   useEffect(() => {
-    if (error) {
-      toast.error(error.message)
-    }
+    if (error) toast.error(error.message)
   }, [error])
 
+  const table = useReactTable({
+    data: sessions,
+    columns,
+    getCoreRowModel: getCoreRowModel()
+  })
+
   return (
-    <Section className={className}>
-      <h2 className="m-0">Sessions</h2>
+    <div className={className}>
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="font-headline font-bold text-on-surface">Sessions</h3>
+        <ConfirmDialog title="Are you sure?" onConfirm={() => mutate()}>
+          <Button size="sm" variant="oval" disabled={sessions.length === 0}>
+            <MonitorX size={14} className="mr-2" /> Revoke All
+          </Button>
+        </ConfirmDialog>
+      </div>
 
-      <ConfirmDialog title="Are you sure?" onConfirm={() => mutate()}>
-        <Button size="lg" className="my-4" disabled={sessions?.length === 0}>
-          <MonitorX className="mr-4" /> Revoke All Sessions
-        </Button>
-      </ConfirmDialog>
-
-      {sessions && <Table data={sessions} columns={columns} />}
-    </Section>
+      {sessions.length > 0 ? (
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border-collapse text-sm">
+            <thead>
+              {table.getHeaderGroups().map(headerGroup => (
+                <tr key={headerGroup.id} className="border-b border-outline-variant/30">
+                  {headerGroup.headers.map(header => (
+                    <th
+                      key={header.id}
+                      className="px-3 py-2 text-[11px] font-bold text-on-surface-variant uppercase tracking-widest"
+                    >
+                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                    </th>
+                  ))}
+                </tr>
+              ))}
+            </thead>
+            <tbody className="divide-y divide-outline-variant/20">
+              {table.getRowModel().rows.map(row => (
+                <tr key={row.id} className="hover:bg-primary/4 transition-colors">
+                  {row.getVisibleCells().map(cell => (
+                    <td key={cell.id} className="px-3 py-2 text-on-surface-variant">
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <p className="text-sm text-on-surface-variant">No active sessions.</p>
+      )}
+    </div>
   )
 }

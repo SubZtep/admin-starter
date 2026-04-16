@@ -4,13 +4,11 @@ import type { User } from "better-auth"
 import { useState } from "react"
 import { toast } from "react-toastify"
 import { Button } from "#/components/form/primitives/Button"
-import { Main } from "#/components/ui/Main"
-import { Section } from "#/components/ui/Section"
 import { useAuthClient } from "#/hooks/auth-client"
 import { useAppForm } from "#/lib/form"
 import { userRequired } from "#/lib/loaders"
 
-export const Route = createFileRoute("/profile")({
+export const Route = createFileRoute("/_admin/profile")({
   component: Profile,
   loader: () => userRequired()
 })
@@ -19,22 +17,31 @@ function Profile() {
   const user = Route.useLoaderData()
 
   return (
-    <Main className="grid sm:grid-cols-2 gap-8 sm:gap-4 [&>section]:w-full">
-      <Section className="sm:row-span-2">
-        <h1>Profile</h1>
-        <p>
-          Logged in with the {user.emailVerified ? "verified" : "unverified"} <strong>{user.email}</strong> as{" "}
-          <strong>{user.role}</strong>.
+    <div className="space-y-8">
+      <div className="space-y-1">
+        <h2 className="text-3xl font-headline font-extrabold text-on-surface tracking-tight my-0">Profile</h2>
+        <p className="text-sm text-on-surface-variant">
+          Logged in with the {user.emailVerified ? "verified" : "unverified"}{" "}
+          <strong className="text-on-surface">{user.email}</strong> as{" "}
+          <strong className="text-primary">{user.role}</strong>.
         </p>
-        <EditUser user={user} />
-      </Section>
-      <Section>
-        <ChangeEmail />
-      </Section>
-      <Section className="sm:col-start-2">
-        <ChangePassword />
-      </Section>
-    </Main>
+      </div>
+
+      <div className="grid sm:grid-cols-2 gap-6">
+        <div className="bg-surface-container rounded-xl border border-outline-variant/30 p-6 sm:row-span-2">
+          <h3 className="font-headline font-bold text-on-surface mb-4">Edit Personal Data</h3>
+          <EditUser user={user} />
+        </div>
+        <div className="bg-surface-container rounded-xl border border-outline-variant/30 p-6">
+          <h3 className="font-headline font-bold text-on-surface mb-4">Change Email</h3>
+          <ChangeEmail />
+        </div>
+        <div className="bg-surface-container rounded-xl border border-outline-variant/30 p-6">
+          <h3 className="font-headline font-bold text-on-surface mb-4">Change Password</h3>
+          <ChangePassword />
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -71,22 +78,19 @@ function EditUser({ user }: Readonly<{ user: User }>) {
   })
 
   return (
-    <>
-      <h2>Edit Personal Data</h2>
-      <form
-        onSubmit={e => {
-          e.preventDefault()
-          form.handleSubmit()
-        }}
-        className="flex flex-col gap-2"
-      >
-        <form.AppField name="name">{field => <field.TextField label="Name" />}</form.AppField>
-        <form.AppField name="image">{field => <field.TextField label="Image" />}</form.AppField>
-        <Button type="submit" className="mt-4" loading={loading}>
-          Submit
-        </Button>
-      </form>
-    </>
+    <form
+      onSubmit={e => {
+        e.preventDefault()
+        form.handleSubmit()
+      }}
+      className="flex flex-col gap-2"
+    >
+      <form.AppField name="name">{field => <field.TextField label="Name" />}</form.AppField>
+      <form.AppField name="image">{field => <field.TextField label="Image" />}</form.AppField>
+      <Button type="submit" className="mt-4" loading={loading}>
+        Submit
+      </Button>
+    </form>
   )
 }
 
@@ -122,21 +126,18 @@ function ChangeEmail() {
   })
 
   return (
-    <>
-      <h2>Change Email</h2>
-      <form
-        onSubmit={e => {
-          e.preventDefault()
-          form.handleSubmit()
-        }}
-        className="flex flex-col gap-2"
-      >
-        <form.AppField name="newEmail">{field => <field.TextField label="New email" type="email" />}</form.AppField>
-        <Button type="submit" className="mt-4" loading={loading}>
-          Submit
-        </Button>
-      </form>
-    </>
+    <form
+      onSubmit={e => {
+        e.preventDefault()
+        form.handleSubmit()
+      }}
+      className="flex flex-col gap-2"
+    >
+      <form.AppField name="newEmail">{field => <field.TextField label="New email" type="email" />}</form.AppField>
+      <Button type="submit" className="mt-4" loading={loading}>
+        Submit
+      </Button>
+    </form>
   )
 }
 
@@ -178,33 +179,30 @@ function ChangePassword() {
   })
 
   return (
-    <>
-      <h2>Change Password</h2>
-      <form
-        className="flex flex-col gap-2"
-        onSubmit={e => {
-          e.preventDefault()
-          form.handleSubmit()
-        }}
-      >
-        <form.AppField name="newPassword">
-          {field => <field.TextField label="New password" type="password" autoComplete="new-password" />}
-        </form.AppField>
+    <form
+      className="flex flex-col gap-2"
+      onSubmit={e => {
+        e.preventDefault()
+        form.handleSubmit()
+      }}
+    >
+      <form.AppField name="newPassword">
+        {field => <field.TextField label="New password" type="password" autoComplete="new-password" />}
+      </form.AppField>
 
-        <form.AppField name="currentPassword">
-          {field => <field.TextField label="Current password" type="password" autoComplete="current-password" />}
-        </form.AppField>
+      <form.AppField name="currentPassword">
+        {field => <field.TextField label="Current password" type="password" autoComplete="current-password" />}
+      </form.AppField>
 
-        <form.AppField name="revokeOtherSessions">
-          {field => (
-            <field.CheckboxField label="Revoke other sessions" className="flex justify-end [&>label]:w-auto! mt-1" />
-          )}
-        </form.AppField>
+      <form.AppField name="revokeOtherSessions">
+        {field => (
+          <field.CheckboxField label="Revoke other sessions" className="flex justify-end [&>label]:w-auto! mt-1" />
+        )}
+      </form.AppField>
 
-        <Button type="submit" className="mt-4" loading={loading}>
-          Submit
-        </Button>
-      </form>
-    </>
+      <Button type="submit" className="mt-4" loading={loading}>
+        Submit
+      </Button>
+    </form>
   )
 }

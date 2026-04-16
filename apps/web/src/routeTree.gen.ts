@@ -9,86 +9,98 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SignupRouteImport } from './routes/signup'
-import { Route as SigninRouteImport } from './routes/signin'
-import { Route as ResetPasswordRouteImport } from './routes/reset-password'
-import { Route as ProfileRouteImport } from './routes/profile'
-import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as UsersIndexRouteImport } from './routes/users/index'
-import { Route as UsersUserIdRouteImport } from './routes/users/$userId'
+import { Route as PublicRouteImport } from './routes/_public'
+import { Route as AdminRouteImport } from './routes/_admin'
+import { Route as PublicIndexRouteImport } from './routes/_public/index'
+import { Route as PublicSignupRouteImport } from './routes/_public/signup'
+import { Route as PublicSigninRouteImport } from './routes/_public/signin'
+import { Route as PublicResetPasswordRouteImport } from './routes/_public/reset-password'
+import { Route as AdminProfileRouteImport } from './routes/_admin/profile'
+import { Route as AdminDashboardRouteImport } from './routes/_admin/dashboard'
+import { Route as AdminUsersIndexRouteImport } from './routes/_admin/users/index'
+import { Route as AdminUsersUserIdRouteImport } from './routes/_admin/users/$userId'
 
-const SignupRoute = SignupRouteImport.update({
-  id: '/signup',
-  path: '/signup',
+const PublicRoute = PublicRouteImport.update({
+  id: '/_public',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SigninRoute = SigninRouteImport.update({
-  id: '/signin',
-  path: '/signin',
+const AdminRoute = AdminRouteImport.update({
+  id: '/_admin',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ResetPasswordRoute = ResetPasswordRouteImport.update({
-  id: '/reset-password',
-  path: '/reset-password',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProfileRoute = ProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const IndexRoute = IndexRouteImport.update({
+const PublicIndexRoute = PublicIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => PublicRoute,
 } as any)
-const UsersIndexRoute = UsersIndexRouteImport.update({
+const PublicSignupRoute = PublicSignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicSigninRoute = PublicSigninRouteImport.update({
+  id: '/signin',
+  path: '/signin',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicResetPasswordRoute = PublicResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => PublicRoute,
+} as any)
+const AdminProfileRoute = AdminProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminDashboardRoute = AdminDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminUsersIndexRoute = AdminUsersIndexRouteImport.update({
   id: '/users/',
   path: '/users/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AdminRoute,
 } as any)
-const UsersUserIdRoute = UsersUserIdRouteImport.update({
+const AdminUsersUserIdRoute = AdminUsersUserIdRouteImport.update({
   id: '/users/$userId',
   path: '/users/$userId',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AdminRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/dashboard': typeof DashboardRoute
-  '/profile': typeof ProfileRoute
-  '/reset-password': typeof ResetPasswordRoute
-  '/signin': typeof SigninRoute
-  '/signup': typeof SignupRoute
-  '/users/$userId': typeof UsersUserIdRoute
-  '/users/': typeof UsersIndexRoute
+  '/': typeof PublicIndexRoute
+  '/dashboard': typeof AdminDashboardRoute
+  '/profile': typeof AdminProfileRoute
+  '/reset-password': typeof PublicResetPasswordRoute
+  '/signin': typeof PublicSigninRoute
+  '/signup': typeof PublicSignupRoute
+  '/users/$userId': typeof AdminUsersUserIdRoute
+  '/users/': typeof AdminUsersIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/dashboard': typeof DashboardRoute
-  '/profile': typeof ProfileRoute
-  '/reset-password': typeof ResetPasswordRoute
-  '/signin': typeof SigninRoute
-  '/signup': typeof SignupRoute
-  '/users/$userId': typeof UsersUserIdRoute
-  '/users': typeof UsersIndexRoute
+  '/': typeof PublicIndexRoute
+  '/dashboard': typeof AdminDashboardRoute
+  '/profile': typeof AdminProfileRoute
+  '/reset-password': typeof PublicResetPasswordRoute
+  '/signin': typeof PublicSigninRoute
+  '/signup': typeof PublicSignupRoute
+  '/users/$userId': typeof AdminUsersUserIdRoute
+  '/users': typeof AdminUsersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/dashboard': typeof DashboardRoute
-  '/profile': typeof ProfileRoute
-  '/reset-password': typeof ResetPasswordRoute
-  '/signin': typeof SigninRoute
-  '/signup': typeof SignupRoute
-  '/users/$userId': typeof UsersUserIdRoute
-  '/users/': typeof UsersIndexRoute
+  '/_admin': typeof AdminRouteWithChildren
+  '/_public': typeof PublicRouteWithChildren
+  '/_admin/dashboard': typeof AdminDashboardRoute
+  '/_admin/profile': typeof AdminProfileRoute
+  '/_public/reset-password': typeof PublicResetPasswordRoute
+  '/_public/signin': typeof PublicSigninRoute
+  '/_public/signup': typeof PublicSignupRoute
+  '/_public/': typeof PublicIndexRoute
+  '/_admin/users/$userId': typeof AdminUsersUserIdRoute
+  '/_admin/users/': typeof AdminUsersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -113,97 +125,134 @@ export interface FileRouteTypes {
     | '/users'
   id:
     | '__root__'
-    | '/'
-    | '/dashboard'
-    | '/profile'
-    | '/reset-password'
-    | '/signin'
-    | '/signup'
-    | '/users/$userId'
-    | '/users/'
+    | '/_admin'
+    | '/_public'
+    | '/_admin/dashboard'
+    | '/_admin/profile'
+    | '/_public/reset-password'
+    | '/_public/signin'
+    | '/_public/signup'
+    | '/_public/'
+    | '/_admin/users/$userId'
+    | '/_admin/users/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  DashboardRoute: typeof DashboardRoute
-  ProfileRoute: typeof ProfileRoute
-  ResetPasswordRoute: typeof ResetPasswordRoute
-  SigninRoute: typeof SigninRoute
-  SignupRoute: typeof SignupRoute
-  UsersUserIdRoute: typeof UsersUserIdRoute
-  UsersIndexRoute: typeof UsersIndexRoute
+  AdminRoute: typeof AdminRouteWithChildren
+  PublicRoute: typeof PublicRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/signup': {
-      id: '/signup'
-      path: '/signup'
-      fullPath: '/signup'
-      preLoaderRoute: typeof SignupRouteImport
+    '/_public': {
+      id: '/_public'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof PublicRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/signin': {
-      id: '/signin'
-      path: '/signin'
-      fullPath: '/signin'
-      preLoaderRoute: typeof SigninRouteImport
+    '/_admin': {
+      id: '/_admin'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/reset-password': {
-      id: '/reset-password'
-      path: '/reset-password'
-      fullPath: '/reset-password'
-      preLoaderRoute: typeof ResetPasswordRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/profile': {
-      id: '/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof ProfileRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
+    '/_public/': {
+      id: '/_public/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof PublicIndexRouteImport
+      parentRoute: typeof PublicRoute
     }
-    '/users/': {
-      id: '/users/'
+    '/_public/signup': {
+      id: '/_public/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof PublicSignupRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/signin': {
+      id: '/_public/signin'
+      path: '/signin'
+      fullPath: '/signin'
+      preLoaderRoute: typeof PublicSigninRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/reset-password': {
+      id: '/_public/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof PublicResetPasswordRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_admin/profile': {
+      id: '/_admin/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AdminProfileRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/_admin/dashboard': {
+      id: '/_admin/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AdminDashboardRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/_admin/users/': {
+      id: '/_admin/users/'
       path: '/users'
       fullPath: '/users/'
-      preLoaderRoute: typeof UsersIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AdminUsersIndexRouteImport
+      parentRoute: typeof AdminRoute
     }
-    '/users/$userId': {
-      id: '/users/$userId'
+    '/_admin/users/$userId': {
+      id: '/_admin/users/$userId'
       path: '/users/$userId'
       fullPath: '/users/$userId'
-      preLoaderRoute: typeof UsersUserIdRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AdminUsersUserIdRouteImport
+      parentRoute: typeof AdminRoute
     }
   }
 }
 
+interface AdminRouteChildren {
+  AdminDashboardRoute: typeof AdminDashboardRoute
+  AdminProfileRoute: typeof AdminProfileRoute
+  AdminUsersUserIdRoute: typeof AdminUsersUserIdRoute
+  AdminUsersIndexRoute: typeof AdminUsersIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminDashboardRoute: AdminDashboardRoute,
+  AdminProfileRoute: AdminProfileRoute,
+  AdminUsersUserIdRoute: AdminUsersUserIdRoute,
+  AdminUsersIndexRoute: AdminUsersIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
+interface PublicRouteChildren {
+  PublicResetPasswordRoute: typeof PublicResetPasswordRoute
+  PublicSigninRoute: typeof PublicSigninRoute
+  PublicSignupRoute: typeof PublicSignupRoute
+  PublicIndexRoute: typeof PublicIndexRoute
+}
+
+const PublicRouteChildren: PublicRouteChildren = {
+  PublicResetPasswordRoute: PublicResetPasswordRoute,
+  PublicSigninRoute: PublicSigninRoute,
+  PublicSignupRoute: PublicSignupRoute,
+  PublicIndexRoute: PublicIndexRoute,
+}
+
+const PublicRouteWithChildren =
+  PublicRoute._addFileChildren(PublicRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  DashboardRoute: DashboardRoute,
-  ProfileRoute: ProfileRoute,
-  ResetPasswordRoute: ResetPasswordRoute,
-  SigninRoute: SigninRoute,
-  SignupRoute: SignupRoute,
-  UsersUserIdRoute: UsersUserIdRoute,
-  UsersIndexRoute: UsersIndexRoute,
+  AdminRoute: AdminRouteWithChildren,
+  PublicRoute: PublicRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

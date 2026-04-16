@@ -34,11 +34,11 @@ export function Checkbox({
       onBlur={onBlur}
       onCheckedChange={onCheckedChange}
       className={cn(
-        "cursor-pointer flex size-5 items-center justify-center rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800/70 data-checked:bg-gray-900 data-unchecked:border data-unchecked:border-gray-300",
+        "cursor-pointer flex size-5 items-center justify-center rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/50 data-checked:bg-primary/20 data-checked:border data-checked:border-primary/40 data-unchecked:border data-unchecked:border-outline",
         className
       )}
     >
-      <CheckboxBase.Indicator className="flex text-gray-50 data-unchecked:hidden">
+      <CheckboxBase.Indicator className="flex text-primary data-unchecked:hidden">
         <Check size={18} strokeWidth={3} />
       </CheckboxBase.Indicator>
     </CheckboxBase.Root>

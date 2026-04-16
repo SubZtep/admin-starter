@@ -3,24 +3,20 @@ import { Button as BaseButton } from "@base-ui/react/button"
 import { LoaderCircle } from "lucide-react"
 
 const VARIANTS = {
-  "3d": "border-2 border-gray-400 [border-style:outset] active:[border-style:double] active:border-[#5c5c5c] outline-1 bg-gray-800",
-  link: "inline-block underline text-blue-500 hover:text-blue-300 size-fit mx-auto p-0! hover:outline-0",
-  oval: "border border-gray-500 rounded-full text-gray-300"
+  "3d": "border border-outline-variant/50 bg-surface-container hover:bg-surface-container-high",
+  link: "inline-block underline text-primary hover:text-primary/80 size-fit mx-auto p-0! hover:outline-0",
+  oval: "border border-outline/50 rounded-full text-on-surface-variant hover:text-on-surface",
+  primary: "bg-primary text-on-primary font-bold hover:opacity-90"
 } as const
 
 const SIZES = {
-  sm: "rounded-sm px-1.5 text-sm",
-  md: "rounded-md px-2.5 py-2",
-  lg: "rounded-lg px-4 py-2 text-lg font-semibold"
-} as const
-
-const TYPES = {
-  button: "outline-cyan-800/90",
-  submit: "outline-amber-800/90"
+  sm: "rounded-md px-2 py-1 text-sm",
+  md: "rounded-lg px-3 py-2.5",
+  lg: "rounded-lg px-4 py-2.5 text-lg font-semibold"
 } as const
 
 const DEFAULT_CLASSES =
-  "focus:outline-3 relative flex items-center justify-center cursor-pointer transition-all duration-100 hover:outline-2 disabled:opacity-50 disabled:pointer-events-none"
+  "relative flex items-center justify-center cursor-pointer transition-all duration-100 focus:outline-2 focus:outline-primary/50 disabled:opacity-50 disabled:pointer-events-none active:scale-95"
 
 export function Button({
   variant = "3d",
@@ -48,14 +44,14 @@ export function Button({
   return (
     <BaseButton
       type={type}
-      className={cn(DEFAULT_CLASSES, size && SIZES[size], VARIANTS[variant], TYPES[type], className)}
+      className={cn(DEFAULT_CLASSES, size && SIZES[size], VARIANTS[variant], className)}
       focusableWhenDisabled={focusableWhenDisabled}
       disabled={loading || disabled}
       onClick={onClick}
       {...props}
     >
       {children}
-      {loading && <LoaderCircle strokeWidth={3} color="cyan" className="animate-spin absolute right-1 opacity-60" />}
+      {loading && <LoaderCircle strokeWidth={3} className="animate-spin absolute right-2 opacity-60 text-primary" />}
     </BaseButton>
   )
 }

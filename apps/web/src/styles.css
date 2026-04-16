@@ -1,60 +1,69 @@
 @import "tailwindcss";
-
-@layer base {
-  html,
-  body {
-    @apply min-h-full;
-  }
-
-  body {
-    background: #0f2027;
-    background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    @apply text-slate-100 m-0 font-sans antialiased wrap-anywhere selection:bg-pink-400 selection:text-black relative text-base;
-  }
-
-  h1 {
-    @apply text-2xl font-extrabold mb-3 tracking-wide font-serif;
-  }
-
-  h2 {
-    @apply text-xl font-bold my-8 font-serif first:mt-0;
-  }
-
-  a {
-    @apply text-slate-200;
-    text-decoration: underline;
-    text-decoration-color: var(--color-slate-500);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 2px;
-    &:hover {
-      @apply text-slate-300 no-underline;
-    }
-  }
-}
-
-@utility container {
-  @apply mx-auto max-w-6xl;
-  padding-inline: 1rem;
-}
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/manrope";
 
 @theme {
-  /* Base viewport range */
-  --fluid-min-width: 320;
-  --fluid-max-width: 1280;
+  --color-primary: #3cddc7;
+  --color-on-primary: #003731;
+  --color-primary-container: #001c18;
+  --color-on-primary-container: #009182;
+  --color-primary-fixed: #62fae3;
+  --color-primary-fixed-dim: #3cddc7;
+  --color-on-primary-fixed: #00201c;
+  --color-on-primary-fixed-variant: #005047;
 
-  /* Step scale (like Tailwind text sizes) */
-  --text-xs: clamp(0.75rem, 0.7rem + 0.2vw, 0.875rem);
-  --text-sm: clamp(0.875rem, 0.8rem + 0.3vw, 1rem);
-  --text-base: clamp(1rem, 0.9rem + 0.4vw, 1.125rem);
-  --text-lg: clamp(1.125rem, 1rem + 0.5vw, 1.25rem);
-  --text-xl: clamp(1.25rem, 1.1rem + 0.7vw, 1.5rem);
-  --text-2xl: clamp(1.5rem, 1.2rem + 1vw, 1.875rem);
-  --text-3xl: clamp(1.875rem, 1.4rem + 1.5vw, 2.25rem);
-  --text-4xl: clamp(2.25rem, 1.6rem + 2vw, 3rem);
-  --text-5xl: clamp(3rem, 2rem + 3vw, 3.75rem);
-  --text-6xl: clamp(3.75rem, 2.5rem + 4vw, 4.5rem);
+  --color-secondary: #b9c7e0;
+  --color-on-secondary: #233144;
+  --color-secondary-container: #3c4a5e;
+  --color-on-secondary-container: #abb9d2;
+  --color-secondary-fixed: #d5e3fd;
+  --color-secondary-fixed-dim: #b9c7e0;
+  --color-on-secondary-fixed: #0d1c2f;
+  --color-on-secondary-fixed-variant: #3a485c;
+
+  --color-tertiary: #7bd0ff;
+  --color-on-tertiary: #00354a;
+  --color-tertiary-container: #001a27;
+  --color-on-tertiary-container: #008abb;
+  --color-tertiary-fixed: #c4e7ff;
+  --color-tertiary-fixed-dim: #7bd0ff;
+  --color-on-tertiary-fixed: #001e2c;
+  --color-on-tertiary-fixed-variant: #004c69;
+
+  --color-error: #ffb4ab;
+  --color-on-error: #690005;
+  --color-error-container: #93000a;
+  --color-on-error-container: #ffdad6;
+
+  --color-surface: #0b1326;
+  --color-on-surface: #dae2fd;
+  --color-surface-dim: #0b1326;
+  --color-surface-bright: #31394d;
+  --color-surface-variant: #2d3449;
+  --color-on-surface-variant: #c6c6cd;
+  --color-surface-container: #171f33;
+  --color-surface-container-low: #131b2e;
+  --color-surface-container-lowest: #060e20;
+  --color-surface-container-high: #222a3d;
+  --color-surface-container-highest: #2d3449;
+  --color-surface-tint: #3cddc7;
+
+  --color-outline: #909097;
+  --color-outline-variant: #45464d;
+
+  --color-background: #0b1326;
+  --color-on-background: #dae2fd;
+  --color-inverse-surface: #dae2fd;
+  --color-inverse-on-surface: #283044;
+  --color-inverse-primary: #006b5f;
+
+  --radius-DEFAULT: 0.125rem;
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.5rem;
+  --radius-full: 0.75rem;
+
+  --font-headline: "Manrope Variable", "Manrope", sans-serif;
+  --font-body: "Inter Variable", "Inter", sans-serif;
 
   --animate-rise-in: rise-in 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
 
@@ -70,29 +79,62 @@
   }
 }
 
-@layer utilities {
-  .text-xs { font-size: var(--text-xs); }
-  .text-sm { font-size: var(--text-sm); }
-  .text-base { font-size: var(--text-base); }
-  .text-lg { font-size: var(--text-lg); }
-  .text-xl { font-size: var(--text-xl); }
-  .text-2xl { font-size: var(--text-2xl); }
-  .text-3xl { font-size: var(--text-3xl); }
-  .text-4xl { font-size: var(--text-4xl); }
-  .text-5xl { font-size: var(--text-5xl); }
-  .text-6xl { font-size: var(--text-6xl); }
+@layer base {
+  html,
+  body {
+    @apply min-h-full;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-on-surface);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    @apply m-0 font-body antialiased wrap-anywhere selection:bg-primary/30 relative text-base;
+  }
+
+  h1 {
+    @apply text-2xl font-extrabold mb-3 tracking-tight font-headline;
+  }
+
+  h2 {
+    @apply text-xl font-bold my-8 font-headline first:mt-0;
+  }
+
+  a {
+    @apply text-on-surface;
+    text-decoration: none;
+    &:hover {
+      @apply text-primary;
+    }
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-surface);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-surface-container);
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-surface-container-high);
+  }
 }
 
-/* ~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
- * MENU
- **/
+@utility container {
+  @apply mx-auto max-w-7xl;
+  padding-inline: 2rem;
+}
 
 @utility nav-link {
   position: relative;
   display: inline-flex;
   align-items: center;
   text-decoration: none;
-  @apply text-gray-300;
+  @apply text-on-surface-variant;
 
   &::after {
     content: "";
@@ -103,13 +145,13 @@
     height: 2px;
     transform: scaleX(0);
     transform-origin: left;
-    background: linear-gradient(90deg, #60d7cf, #7ed3bf);
+    background: var(--color-primary);
     transition: transform 170ms ease;
   }
 
   &:hover,
   &.is-active {
-    color: white;
+    @apply text-on-surface;
   }
 
   &:hover::after,
@@ -123,10 +165,6 @@
     }
   }
 }
-
-/* ~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
- * DEBUG
- **/
 
 pre {
   width: fit-content;

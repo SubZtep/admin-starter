@@ -9,7 +9,7 @@ import { ForgotPassword } from "#/components/user/ForgotPassword"
 import { useAuthClient } from "#/hooks/auth-client"
 import { useAppForm } from "#/lib/form"
 
-export const Route = createFileRoute("/signin")({
+export const Route = createFileRoute("/_public/signin")({
   component: SignIn
 })
 

@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router"
 import { Main } from "#/components/ui/Main"
 import { Section } from "#/components/ui/Section"
 
-export const Route = createFileRoute("/")({ component: App })
+export const Route = createFileRoute("/_public/")({ component: App })
 
 function App() {
   return (
