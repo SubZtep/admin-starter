@@ -1,3 +1,4 @@
+import { NOTIFICATION_CORRELATION_ID_HEADER } from "@app/shared"
 import { type BetterAuthPlugin, betterAuth } from "better-auth"
 import { admin, bearer, jwt, openAPI } from "better-auth/plugins"
 import { pool } from "#/core/db"
@@ -6,6 +7,8 @@ import { sendEmail } from "#/emails"
 import type { EmailPayload } from "#/emails/template"
 
 const isDevMode = process.env.NODE_ENV === "development"
+type AuthLoggerLevel = "debug" | "trace" | "fatal" | "error" | "warn" | "info"
+type AuthUser = EmailPayload["user"]
 
 function sendAuthEmail(args: Parameters<typeof sendEmail>[0]) {
   // FIXME: Avoid awaiting the email sending to prevent timing attacks. (from Better-Auth doc)
@@ -30,7 +33,7 @@ const plugins: BetterAuthPlugin[] = [
       disablePrivateKeyEncryption: isDevMode
     },
     jwt: {
-      definePayload: async ({ user }) => ({
+      definePayload: async ({ user }: Readonly<{ user: AuthUser }>) => ({
         sub: user.id,
         email: user.email
       }),
@@ -74,14 +77,25 @@ export const auth = betterAuth({
   basePath: "/auth",
   plugins,
   logger: {
-    log: (level, message, args) => {
+    log: (level: AuthLoggerLevel, message: string, args: unknown) => {
       logger[level](args, message)
     }
   },
   emailAndPassword: {
     enabled: true,
-    sendResetPassword: async ({ user, url }) => {
-      sendAuthEmail({ type: "resetPassword", payload: { user, url } })
+    sendResetPassword: async ({ user, url }: Readonly<EmailPayload>, request: Request) => {
+      const correlationId = request.headers.get(NOTIFICATION_CORRELATION_ID_HEADER) ?? undefined
+
+      sendAuthEmail({
+        type: "resetPassword",
+        payload: { user, url },
+        notification: correlationId
+          ? {
+              correlationId,
+              flow: "reset-password"
+            }
+          : undefined
+      })
     }
   },
   emailVerification: {
@@ -98,7 +112,7 @@ export const auth = betterAuth({
   user: {
     changeEmail: {
       enabled: true,
-      sendChangeEmailConfirmation: async ({ user, url, newEmail }) => {
+      sendChangeEmailConfirmation: async ({ user, url, newEmail }: Readonly<EmailPayload & { newEmail: string }>) => {
         sendAuthEmail({ type: "changeEmail", payload: { user, url, newEmail } })
       }
     }

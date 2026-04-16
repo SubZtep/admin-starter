@@ -68,3 +68,8 @@ export function isItTrue(value = "") {
   const normalized = value.trim().toLowerCase()
   return normalized === "true" || normalized === "1" || normalized === "on" || normalized.startsWith("y")
 }
+
+export const NOTIFICATION_SOCKET_PATH = "/notifications"
+export const NOTIFICATION_CORRELATION_ID_HEADER = "x-notification-correlation-id"
+export const NOTIFICATION_CORRELATION_ID_QUERY_PARAM = "correlationId"
+export const NOTIFICATION_SOCKET_TIMEOUT_MS = 10_000

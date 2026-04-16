@@ -1,22 +1,36 @@
 import { Body, Container, Font, Head, Html } from "@react-email/components"
-import type { User } from "better-auth"
 
 export type EmailType = "verification" | "changeEmail" | "resetPassword"
 
+export interface EmailUser {
+  id: string
+  email: string
+  [key: string]: unknown
+}
+
 export interface EmailPayload {
-  user: User
+  user: EmailUser
   url: string
-  [key: string]: string | number | boolean | User | Record<string, unknown>
+  [key: string]: string | number | boolean | EmailUser | Record<string, unknown>
 }
 
 export interface ChangeEmailPayload extends EmailPayload {
   newEmail: string
 }
 
+export interface EmailNotificationContext {
+  correlationId: string
+  flow: "reset-password"
+}
+
+type SendEmailBase = {
+  notification?: EmailNotificationContext
+}
+
 export type SendEmailArgs =
-  | { type: "changeEmail"; payload: ChangeEmailPayload }
-  | { type: "verification"; payload: EmailPayload }
-  | { type: "resetPassword"; payload: EmailPayload }
+  | (SendEmailBase & { type: "changeEmail"; payload: ChangeEmailPayload })
+  | (SendEmailBase & { type: "verification"; payload: EmailPayload })
+  | (SendEmailBase & { type: "resetPassword"; payload: EmailPayload })
 
 export function EmailContainer({ children }: Readonly<{ children: React.ReactNode }>) {
   return (

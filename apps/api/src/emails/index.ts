@@ -1,6 +1,7 @@
 import { isItTrue } from "@app/shared"
 import nodemailer from "nodemailer"
 import { logger } from "#/core/logger"
+import { notifyAuthEmailError } from "#/core/notifications"
 import { getChangeEmailHtml } from "./ChangeEmail"
 import { getResetPasswordHtml } from "./ResetPassword"
 import type { SendEmailArgs } from "./template"
@@ -27,7 +28,7 @@ if (!process.env.CI) {
   })()
 }
 
-export async function sendEmail({ type, payload }: Readonly<SendEmailArgs>) {
+export async function sendEmail({ type, payload, notification }: Readonly<SendEmailArgs>) {
   const from = process.env.EMAIL_FROM
   const to = payload.user.email
   let subject: string
@@ -51,6 +52,10 @@ export async function sendEmail({ type, payload }: Readonly<SendEmailArgs>) {
   try {
     await transporter.sendMail({ from, to, subject, html })
   } catch (error: unknown) {
+    if (notification?.flow === "reset-password") {
+      notifyAuthEmailError(notification.correlationId, "Couldn't send the reset email. Please try again.")
+    }
+
     if (error instanceof Error) {
       logger.error({ error: error.message }, "Email sending error")
       throw error
