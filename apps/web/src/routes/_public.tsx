@@ -10,17 +10,17 @@ export const Route = createFileRoute("/_public")({
 function PublicLayout() {
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center min-h-screen min-w-full"
+      className="cursor-cell fixed inset-0 flex items-center justify-center min-h-screen min-w-full"
       style={{
-        backgroundImage: "url('/bg.png')",
+        // backgroundImage: "url('/bg.png')",
         backgroundSize: "cover",
         backgroundPosition: "center"
       }}
     >
       {/* <Header /> */}
-      <Main className="flex items-center justify-center w-full h-full">
-        <Outlet />
-      </Main>
+      {/* <Main className="flex items-center justify-center w-full h-full" onClick={e => e.stopPropagation()}> */}
+      <Outlet />
+      {/* </Main> */}
       {/* <Footer /> */}
     </div>
   )

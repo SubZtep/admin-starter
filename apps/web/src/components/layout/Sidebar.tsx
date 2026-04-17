@@ -85,7 +85,7 @@ function SignOutButton() {
       onClick={handleSignOut}
       disabled={loading}
       className={cn(
-        "flex items-center gap-3 px-4 py-3 rounded-lg font-headline text-sm font-semibold tracking-tight text-muted hover:text-fg hover:bg-surface-2/50 transition-colors duration-200 w-full",
+        "flex cursor-crosshair items-center gap-3 px-4 py-3 rounded-lg font-headline text-sm font-semibold tracking-tight text-muted hover:text-fg hover:bg-surface-2/50 transition-colors duration-200 w-full",
         loading && "opacity-50 pointer-events-none"
       )}
     >
