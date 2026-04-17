@@ -15,9 +15,15 @@ ENV VITE_API_URL=$VITE_API_URL
 RUN bun run --filter @app/web build
 
 FROM oven/bun:1-alpine AS runner
+ARG VITE_API_URL
+ARG VITE_APP_URL
 ENV NODE_ENV=production
 ENV PORT=3000
 ENV HOST=0.0.0.0
+# Runtime env vars for server-side functions
+ENV API_URL=$VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
+ENV VITE_APP_URL=$VITE_APP_URL
 
 COPY --chown=root:root --chmod=755 --from=builder /home/bun/app/apps/web/.output ./
 USER bun
