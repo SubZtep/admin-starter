@@ -1,3 +1,4 @@
+import { cn } from "@app/shared"
 import { Link, useNavigate } from "@tanstack/react-router"
 import { type CSSProperties, useState } from "react"
 import { toast } from "react-toastify"
@@ -7,6 +8,7 @@ import { ConfirmDialog } from "../ui/ConfirmDialog"
 
 interface Props {
   role?: string
+  className?: string
 }
 
 const menuItems: {
@@ -43,9 +45,9 @@ const menuItems: {
   }
 ] as const
 
-export function Menu({ role }: Readonly<Props>) {
+export function Menu({ role, className }: Readonly<Props>) {
   return (
-    <nav className="flex items-center gap-x-4 text-sm font-semibold w-full">
+    <nav className={cn("flex items-center gap-x-4 text-sm font-semibold w-full", className)}>
       {menuItems
         .filter(item => item.role === role || (role && item.role?.includes(role)))
         .map((item, index) => (

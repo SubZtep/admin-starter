@@ -1,7 +1,4 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router"
-import { Main } from "#/components/ui/Main"
-// import { Footer } from "#/components/layout/Footer"
-// import { Header } from "#/components/layout/Header"
 
 export const Route = createFileRoute("/_public")({
   component: PublicLayout
@@ -10,18 +7,14 @@ export const Route = createFileRoute("/_public")({
 function PublicLayout() {
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center min-h-screen min-w-full"
-      style={{
-        backgroundImage: "url('/bg.png')",
-        backgroundSize: "cover",
-        backgroundPosition: "center"
-      }}
+      className='cursor-[url("/favicon-16x16.png")_16_16,auto] fixed inset-0 flex items-center justify-center min-h-screen min-w-full'
+      // style={{
+      //   backgroundImage: "url('/bg.png')",
+      //   backgroundSize: "cover",
+      //   backgroundPosition: "center"
+      // }}
     >
-      {/* <Header /> */}
-      <Main className="flex items-center justify-center w-full h-full">
-        <Outlet />
-      </Main>
-      {/* <Footer /> */}
+      <Outlet />
     </div>
   )
 }

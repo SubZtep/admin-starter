@@ -6,8 +6,8 @@ export function Logo({ className }: Readonly<{ className?: string }>) {
     <Puzzle
       size={28}
       strokeWidth={2}
-      aria-label="Puzzle Logo"
-      className={cn("text-neon neon-glow hover:cursor-none", className)}
+      aria-label="Puzzle piece"
+      className={cn("text-purple-500 neon-glow hover:cursor-none", className)}
     />
   )
 }
