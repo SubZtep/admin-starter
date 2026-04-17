@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test"
 import { app } from "../../src/app"
 
-describe("kaja worker client flow", () => {
+describe("kaja cli client flow", () => {
   let nodeId: string
   let jobId: string
 

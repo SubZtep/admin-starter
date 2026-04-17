@@ -9,7 +9,7 @@ import { Section } from "#/components/ui/Section"
 import { useAuthClient } from "#/hooks/auth-client"
 import { useAppForm } from "#/lib/form"
 
-export const Route = createFileRoute("/reset-password")({
+export const Route = createFileRoute("/_public/reset-password")({
   component: ResetPasswordComponent,
   validateSearch: z.object({
     token: z.string().optional()
@@ -58,7 +58,7 @@ function ResetPasswordComponent() {
   return (
     <Main>
       <Section className="max-w-lg">
-        <h1 className="mb-4">Sign In</h1>
+        <h1 className="mb-4">Reset Password</h1>
 
         <form
           onSubmit={event => {

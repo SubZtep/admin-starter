@@ -74,10 +74,7 @@ export function Table({ columns, data }: Readonly<{ columns: any[]; data: any[] 
         {table.getHeaderGroups().map(headerGroup =>
           headerGroup.headers.map(header =>
             header.column.getCanFilter() ? (
-              <div
-                key={header.id}
-                className="flex flex-row gap-4 mt-1 bg-gray-900/90 px-4 py-2 items-center rounded-md"
-              >
+              <div key={header.id} className="flex flex-row gap-4 mt-1 bg-surface/90 px-4 py-2 items-center rounded-md">
                 {flexRender(header.column.columnDef.header, header.getContext())}:
                 <Filter column={header.column} />
               </div>
@@ -92,7 +89,7 @@ export function Table({ columns, data }: Readonly<{ columns: any[]; data: any[] 
             {table.getHeaderGroups().map(headerGroup => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map(header => (
-                  <th key={header.id} className="p-4 text-left border-b border-gray-500 align-top">
+                  <th key={header.id} className="p-4 text-left border-b border-border/40 align-top">
                     {header.isPlaceholder ? null : (
                       <button
                         type="button"
@@ -106,8 +103,8 @@ export function Table({ columns, data }: Readonly<{ columns: any[]; data: any[] 
                       >
                         {flexRender(header.column.columnDef.header, header.getContext())}
                         {{
-                          asc: <ArrowDown size={21} className="text-gray-400" />,
-                          desc: <ArrowUp size={21} className="text-gray-400" />
+                          asc: <ArrowDown size={21} className="text-muted" />,
+                          desc: <ArrowUp size={21} className="text-muted" />
                         }[header.column.getIsSorted() as string] ?? null}
                       </button>
                     )}
@@ -129,7 +126,7 @@ export function Table({ columns, data }: Readonly<{ columns: any[]; data: any[] 
                 >
                   {row.getVisibleCells().map(cell => {
                     return (
-                      <td key={cell.id} className="p-4 border-b border-gray-700">
+                      <td key={cell.id} className="p-4 border-b border-border/40">
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                       </td>
                     )

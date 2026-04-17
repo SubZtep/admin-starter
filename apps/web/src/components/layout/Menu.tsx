@@ -6,14 +6,12 @@ import { Button } from "../form/primitives/Button"
 import { ConfirmDialog } from "../ui/ConfirmDialog"
 
 interface Props {
-  /** Show items for the given role. */
   role?: string
 }
 
 const menuItems: {
   to: string
   label: string
-  /** Visible only for the specified user roles (omit for public pages). */
   role?: string[]
 }[] = [
   {
@@ -87,7 +85,7 @@ function LogoutButton() {
           fetchOptions: {
             onSuccess: () => {
               navigate({
-                to: "/signin",
+                to: "/",
                 reloadDocument: true
               })
             }

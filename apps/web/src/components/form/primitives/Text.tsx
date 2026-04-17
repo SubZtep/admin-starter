@@ -3,8 +3,8 @@ import { Input as BaseInput } from "@base-ui/react/input"
 import { type ComponentProps, useEffect, useState } from "react"
 
 const VARIANTS = {
-  "3d": "py-2 px-3 border-2 border-black [border-style:inset] text-base bg-gray-700 text-white focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800/70 rounded-md w-full",
-  simple: "bg-gray-800 text-gray-300 font-normal px-1"
+  "3d": "w-full rounded-lg border border-border/50 bg-surface px-3 py-2 text-base text-fg focus:outline-2 focus:-outline-offset-1 focus:outline-neon/50",
+  simple: "rounded border border-border/50 bg-surface px-1 font-normal text-muted"
 } as const
 
 export function Text({

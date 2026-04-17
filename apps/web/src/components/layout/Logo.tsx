@@ -7,7 +7,7 @@ export function Logo({ className }: Readonly<{ className?: string }>) {
       size={28}
       strokeWidth={2}
       aria-label="Puzzle Logo"
-      className={cn("hover:cursor-none text-pink-700", className)}
+      className={cn("text-neon neon-glow hover:cursor-none", className)}
     />
   )
 }

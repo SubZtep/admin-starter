@@ -8,7 +8,7 @@ import { Section } from "#/components/ui/Section"
 import { useAuthClient } from "#/hooks/auth-client"
 import { useAppForm } from "#/lib/form"
 
-export const Route = createFileRoute("/signup")({
+export const Route = createFileRoute("/_public/signup")({
   component: SignUp
 })
 

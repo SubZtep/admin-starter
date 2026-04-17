@@ -1,8 +1,6 @@
 import type { QueryClient } from "@tanstack/react-query"
 import { createRootRouteWithContext, ErrorComponent, HeadContent, Scripts } from "@tanstack/react-router"
 import { Providers } from "#/components/Providers"
-import { Footer } from "../components/layout/Footer"
-import { Header } from "../components/layout/Header"
 import { getSession } from "../lib/session"
 import appCss from "../styles.css?url"
 
@@ -83,13 +81,7 @@ function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
         <HeadContent />
       </head>
       <body>
-        <div className="isolate">
-          <Providers>
-            <Header />
-            {children}
-            <Footer />
-          </Providers>
-        </div>
+        <Providers>{children}</Providers>
         <Scripts />
       </body>
     </html>
@@ -97,11 +89,7 @@ function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
 }
 
 function NotFound() {
-  return (
-    <p className="text-center my-28 text-red-500 text-xl font-bold text-shadow-sm text-shadow-green-700">
-      Sorry, this page doesn’t exist.
-    </p>
-  )
+  return <p className="text-center my-28 text-red-500 text-xl font-bold">Sorry, this page doesn't exist.</p>
 }
 
 function DefaultError({ error }: Readonly<{ error: Error }>) {

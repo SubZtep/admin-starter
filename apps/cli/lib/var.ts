@@ -1,4 +1,4 @@
-import { KajaWorkerClient } from "./kaja-sdk"
+import { KajaClient } from "./kaja-sdk"
 import { OllamaClient } from "./ollama-sdk"
 
 export const red = Bun.color("#880808", "ansi")
@@ -9,5 +9,5 @@ export const lime = Bun.color("lime", "ansi")
 export const dimgrey = Bun.color("#6969", "ansi")
 
 // singletons
-export const kaja = new KajaWorkerClient()
+export const kaja = new KajaClient()
 export const ollama = new OllamaClient()

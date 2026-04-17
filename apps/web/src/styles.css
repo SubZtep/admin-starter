@@ -1,60 +1,25 @@
 @import "tailwindcss";
-
-@layer base {
-  html,
-  body {
-    @apply min-h-full;
-  }
-
-  body {
-    background: #0f2027;
-    background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    @apply text-slate-100 m-0 font-sans antialiased wrap-anywhere selection:bg-pink-400 selection:text-black relative text-base;
-  }
-
-  h1 {
-    @apply text-2xl font-extrabold mb-3 tracking-wide font-serif;
-  }
-
-  h2 {
-    @apply text-xl font-bold my-8 font-serif first:mt-0;
-  }
-
-  a {
-    @apply text-slate-200;
-    text-decoration: underline;
-    text-decoration-color: var(--color-slate-500);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 2px;
-    &:hover {
-      @apply text-slate-300 no-underline;
-    }
-  }
-}
-
-@utility container {
-  @apply mx-auto max-w-6xl;
-  padding-inline: 1rem;
-}
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/manrope";
 
 @theme {
-  /* Base viewport range */
-  --fluid-min-width: 320;
-  --fluid-max-width: 1280;
+  --radius-DEFAULT: 0.125rem;
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.5rem;
+  --radius-full: 0.75rem;
 
-  /* Step scale (like Tailwind text sizes) */
-  --text-xs: clamp(0.75rem, 0.7rem + 0.2vw, 0.875rem);
-  --text-sm: clamp(0.875rem, 0.8rem + 0.3vw, 1rem);
-  --text-base: clamp(1rem, 0.9rem + 0.4vw, 1.125rem);
-  --text-lg: clamp(1.125rem, 1rem + 0.5vw, 1.25rem);
-  --text-xl: clamp(1.25rem, 1.1rem + 0.7vw, 1.5rem);
-  --text-2xl: clamp(1.5rem, 1.2rem + 1vw, 1.875rem);
-  --text-3xl: clamp(1.875rem, 1.4rem + 1.5vw, 2.25rem);
-  --text-4xl: clamp(2.25rem, 1.6rem + 2vw, 3rem);
-  --text-5xl: clamp(3rem, 2rem + 3vw, 3.75rem);
-  --text-6xl: clamp(3.75rem, 2.5rem + 4vw, 4.5rem);
+  --font-headline: "Manrope Variable", "Manrope", sans-serif;
+  --font-body: "Inter Variable", "Inter", sans-serif;
+
+  --color-bg: #0a0414;
+  --color-surface: #15092a;
+  --color-surface-2: #1f1040;
+  --color-border: #3a1f6b;
+  --color-fg: #f5e9ff;
+  --color-muted: #b09bd6;
+  --color-neon: #ff3fb5;
+  --color-neon-hi: #ff7ad1;
+  --color-ice: #5ef0ff;
 
   --animate-rise-in: rise-in 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
 
@@ -70,29 +35,85 @@
   }
 }
 
-@layer utilities {
-  .text-xs { font-size: var(--text-xs); }
-  .text-sm { font-size: var(--text-sm); }
-  .text-base { font-size: var(--text-base); }
-  .text-lg { font-size: var(--text-lg); }
-  .text-xl { font-size: var(--text-xl); }
-  .text-2xl { font-size: var(--text-2xl); }
-  .text-3xl { font-size: var(--text-3xl); }
-  .text-4xl { font-size: var(--text-4xl); }
-  .text-5xl { font-size: var(--text-5xl); }
-  .text-6xl { font-size: var(--text-6xl); }
+@layer base {
+  html,
+  body {
+    @apply min-h-full;
+  }
+
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    @apply relative m-0 bg-bg font-body text-base text-fg antialiased wrap-anywhere selection:bg-neon/40;
+    background-image:
+      radial-gradient(
+        circle at 50% 50%,
+        rgba(10, 4, 20, 0) 0%,
+        rgba(10, 4, 20, 0.55) 55%,
+        rgba(10, 4, 20, 0.95) 100%
+      ),
+      radial-gradient(
+        circle at 50% 50%,
+        rgba(255, 0, 128, 0.55) 0%,
+        rgba(255, 115, 0, 0.5) 14%,
+        rgba(255, 230, 0, 0.45) 28%,
+        rgba(0, 230, 120, 0.45) 42%,
+        rgba(0, 180, 255, 0.5) 56%,
+        rgba(140, 0, 255, 0.55) 70%,
+        rgba(255, 0, 128, 0.5) 85%,
+        transparent 100%
+      );
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+  }
+
+  h1 {
+    @apply text-2xl font-extrabold mb-3 tracking-tight font-headline;
+  }
+
+  h2 {
+    @apply text-xl font-bold my-8 font-headline first:mt-0;
+  }
+
+  a {
+    @apply text-fg;
+    text-decoration: none;
+    &:hover {
+      @apply text-neon;
+    }
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-bg;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-[10px] bg-neon/40;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-neon/70;
+  }
 }
 
-/* ~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
- * MENU
- **/
+@utility container {
+  @apply mx-auto max-w-7xl;
+  padding-inline: 2rem;
+}
+
+@utility neon-glow {
+  text-shadow:
+    0 0 6px currentColor,
+    0 0 18px currentColor;
+}
 
 @utility nav-link {
   position: relative;
   display: inline-flex;
   align-items: center;
   text-decoration: none;
-  @apply text-gray-300;
+  @apply text-muted;
 
   &::after {
     content: "";
@@ -103,13 +124,14 @@
     height: 2px;
     transform: scaleX(0);
     transform-origin: left;
-    background: linear-gradient(90deg, #60d7cf, #7ed3bf);
+    @apply bg-ice;
+    box-shadow: 0 0 8px var(--color-ice);
     transition: transform 170ms ease;
   }
 
   &:hover,
   &.is-active {
-    color: white;
+    @apply text-fg;
   }
 
   &:hover::after,
@@ -123,10 +145,6 @@
     }
   }
 }
-
-/* ~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
- * DEBUG
- **/
 
 pre {
   width: fit-content;

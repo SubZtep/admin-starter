@@ -2,17 +2,17 @@ export function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="mt-10 border-t border-gray-400/20 px-4 pb-14 pt-10 text-gray-200">
+    <footer className="mt-10 border-t border-border/40 px-4 pb-14 pt-10 text-muted">
       <div className="container flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
         <p className="text-sm">&copy; {year} Your name here. All rights reserved.</p>
-        <p className="text-xs tracking-wider uppercase font-bold text-gray-300">Built with TanStack Start</p>
+        <p className="text-xs font-bold uppercase tracking-wider text-muted">Built with TanStack Start</p>
       </div>
       <div className="mt-4 flex justify-center gap-4">
         <a
           href="https://github.com/SubZtep/admin-starter"
           target="_blank"
           rel="noreferrer"
-          className="rounded-xl p-2 transition hover:bg-gray-600/30"
+          className="rounded-xl p-2 transition hover:bg-surface"
         >
           <span className="sr-only">Go to project GitHub</span>
           <svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32">
