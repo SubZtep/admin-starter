@@ -1,18 +1,31 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router"
+import { useEffect, useState } from "react"
 
 export const Route = createFileRoute("/_public")({
   component: PublicLayout
 })
 
+const ICONS = [
+  { url: "/favicon.ico", hx: 48, hy: 48 },
+  { url: "/ladyicon.ico", hx: 48, hy: 48 },
+  { url: "/kissicon.ico", hx: 48, hy: 48 },
+  { url: "/unicon.ico", hx: 48, hy: 48 },
+  { url: "/kissicon-rot.png", hx: 32, hy: 32 }
+] as const
+
 function PublicLayout() {
+  const [i, setI] = useState(0)
+  useEffect(() => {
+    const id = setInterval(() => setI(v => (v + 1) % ICONS.length), 666_69)
+    return () => clearInterval(id)
+  }, [])
+
+  const c = ICONS[i]
+
   return (
     <div
-      className='cursor-[url("/favicon-16x16.png")_16_16,auto] fixed inset-0 flex items-center justify-center min-h-screen min-w-full'
-      // style={{
-      //   backgroundImage: "url('/bg.png')",
-      //   backgroundSize: "cover",
-      //   backgroundPosition: "center"
-      // }}
+      style={{ cursor: `url("${c.url}") ${c.hx} ${c.hy}, auto` }}
+      className="fixed inset-0 flex items-center justify-center min-h-screen min-w-full"
     >
       <Outlet />
     </div>

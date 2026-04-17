@@ -69,7 +69,7 @@ function SignOutButton() {
     const { error } = await signOut({
       fetchOptions: {
         onSuccess: () => {
-          navigate({ to: "/signin", reloadDocument: true })
+          navigate({ to: "/", reloadDocument: true })
         }
       }
     })
