@@ -1,10 +1,10 @@
 ---
 layout: page
-title: Worker App
+title: Kaja CLI
 parent: Development
 nav_order: 3
 ---
 
-# W가💋자rk🔥er
+# K가💋자CL🔥I
 
 CLI client for accessing the model-pool.

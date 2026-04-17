@@ -19,25 +19,24 @@ function Profile() {
   return (
     <div className="space-y-8">
       <div className="space-y-1">
-        <h2 className="my-0 text-3xl font-headline font-extrabold tracking-tight text-slate-100">Profile</h2>
-        <p className="text-sm text-slate-400">
+        <h2 className="my-0 text-3xl font-headline font-extrabold tracking-tight text-fg">Profile</h2>
+        <p className="text-sm text-muted">
           Logged in with the {user.emailVerified ? "verified" : "unverified"}{" "}
-          <strong className="text-slate-100">{user.email}</strong> as{" "}
-          <strong className="text-teal-400">{user.role}</strong>.
+          <strong className="text-fg">{user.email}</strong> as <strong className="text-neon">{user.role}</strong>.
         </p>
       </div>
 
       <div className="grid sm:grid-cols-2 gap-6">
-        <div className="rounded-xl border border-slate-700/30 bg-slate-900 p-6 sm:row-span-2">
-          <h3 className="mb-4 font-headline font-bold text-slate-100">Edit Personal Data</h3>
+        <div className="rounded-xl border border-border/40 bg-surface p-6 sm:row-span-2">
+          <h3 className="mb-4 font-headline font-bold text-fg">Edit Personal Data</h3>
           <EditUser user={user} />
         </div>
-        <div className="rounded-xl border border-slate-700/30 bg-slate-900 p-6">
-          <h3 className="mb-4 font-headline font-bold text-slate-100">Change Email</h3>
+        <div className="rounded-xl border border-border/40 bg-surface p-6">
+          <h3 className="mb-4 font-headline font-bold text-fg">Change Email</h3>
           <ChangeEmail />
         </div>
-        <div className="rounded-xl border border-slate-700/30 bg-slate-900 p-6">
-          <h3 className="mb-4 font-headline font-bold text-slate-100">Change Password</h3>
+        <div className="rounded-xl border border-border/40 bg-surface p-6">
+          <h3 className="mb-4 font-headline font-bold text-fg">Change Password</h3>
           <ChangePassword />
         </div>
       </div>

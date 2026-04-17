@@ -85,7 +85,7 @@ function LogoutButton() {
           fetchOptions: {
             onSuccess: () => {
               navigate({
-                to: "/signin",
+                to: "/",
                 reloadDocument: true
               })
             }

@@ -1,5 +1,5 @@
 {
-  "name": "@app/worker",
+  "name": "@app/cli",
   "version": "0.0.1",
   "type": "module",
   "private": true,

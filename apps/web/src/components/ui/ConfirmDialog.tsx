@@ -26,9 +26,9 @@ export function ConfirmDialog({
       <AlertDialog.Trigger render={children} />
       <AlertDialog.Portal>
         <AlertDialog.Backdrop className="fixed inset-0 min-h-dvh bg-black transition-all duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0 opacity-70 supports-[-webkit-touch-callout:none]:absolute" />
-        <AlertDialog.Popup className="fixed top-1/2 left-1/2 -mt-8 w-96 max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 rounded-lg border border-slate-700/30 bg-slate-900 p-6 text-slate-100 outline-none transition-all duration-150 data-ending-style:scale-90 data-ending-style:opacity-0 data-starting-style:scale-90 data-starting-style:opacity-0 ">
+        <AlertDialog.Popup className="fixed top-1/2 left-1/2 -mt-8 w-96 max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 rounded-lg border border-border/40 bg-surface p-6 text-fg outline-none transition-all duration-150 data-ending-style:scale-90 data-ending-style:opacity-0 data-starting-style:scale-90 data-starting-style:opacity-0 ">
           <AlertDialog.Title className="-mt-1.5 mb-1 text-lg font-bold font-headline">{title}</AlertDialog.Title>
-          <AlertDialog.Description className="mb-6 text-base text-slate-400">{description}</AlertDialog.Description>
+          <AlertDialog.Description className="mb-6 text-base text-muted">{description}</AlertDialog.Description>
           <div className="flex justify-end gap-4">
             <AlertDialog.Close render={<Button />}>{cancel}</AlertDialog.Close>
             <AlertDialog.Close

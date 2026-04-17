@@ -10,16 +10,16 @@ import type {
   SubmitResultRequest
 } from "@app/schemas"
 
-export interface KajaWorkerClientOptions {
+export interface KajaClientOptions {
   baseURL?: string
   nodeId?: string
 }
 
-export class KajaWorkerClient {
+export class KajaClient {
   readonly baseURL: string
   nodeId?: string
 
-  constructor(options?: KajaWorkerClientOptions) {
+  constructor(options?: KajaClientOptions) {
     this.baseURL = options?.baseURL ?? process.env.KAJA_API_URL ?? "https://kaja.io"
     this.nodeId = options?.nodeId
   }

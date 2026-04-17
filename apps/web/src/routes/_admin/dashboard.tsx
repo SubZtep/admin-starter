@@ -13,12 +13,10 @@ function DashboardPage() {
   return (
     <>
       <header className="mb-12">
-        <h2 className="my-0 mb-4 text-5xl font-headline font-bold tracking-tighter text-slate-100">
+        <h2 className="my-0 mb-4 text-5xl font-headline font-bold tracking-tighter text-neon neon-glow">
           Welcome back{user ? `, ${getFirstName(user.name)}` : ""}
         </h2>
-        <p className="max-w-lg text-lg leading-relaxed text-slate-400">
-          Here's what's happening with your platform today.
-        </p>
+        <p className="max-w-lg text-lg leading-relaxed text-muted">Here's what's happening with your platform today.</p>
       </header>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
@@ -28,9 +26,9 @@ function DashboardPage() {
         <StatCard icon={TrendingUp} label="Growth Rate" value="--" accent="tertiary" />
       </div>
 
-      <section className="rounded-2xl bg-slate-900 p-8 shadow-2xl">
-        <h3 className="mb-2 text-lg font-headline font-bold text-slate-100">Quick Actions</h3>
-        <p className="leading-relaxed text-slate-400">
+      <section className="rounded-2xl bg-surface p-8 shadow-2xl">
+        <h3 className="mb-2 text-lg font-headline font-bold text-fg">Quick Actions</h3>
+        <p className="leading-relaxed text-muted">
           Navigate to the User Directory to manage users, or check your Profile settings.
         </p>
       </section>
@@ -49,16 +47,16 @@ function StatCard({
   value: string
   accent: "primary" | "tertiary"
 }>) {
-  const borderClass = accent === "primary" ? "border-teal-400" : "border-sky-300"
-  const valueClass = accent === "primary" ? "text-teal-400" : "text-sky-300"
+  const borderClass = accent === "primary" ? "border-neon" : "border-ice"
+  const valueClass = accent === "primary" ? "text-neon" : "text-ice"
 
   return (
-    <div className={`rounded-xl border-t-2 bg-slate-900 p-6 ${borderClass}`}>
+    <div className={`rounded-xl border-t-2 bg-surface p-6 ${borderClass}`}>
       <div className="flex items-center justify-between mb-3">
-        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">{label}</p>
+        <p className="text-[10px] font-bold uppercase tracking-widest text-muted">{label}</p>
         <Icon size={16} className={valueClass} />
       </div>
-      <p className={`text-3xl font-bold font-headline ${valueClass}`}>{value}</p>
+      <p className={`text-3xl font-bold font-headline neon-glow ${valueClass}`}>{value}</p>
     </div>
   )
 }

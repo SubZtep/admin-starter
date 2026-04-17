@@ -7,8 +7,8 @@ set -euo pipefail
 # # Run the API
 # bun run dev:api
 
-# # Run a worker (in another terminal)
-# cd apps/worker && bun run cli.ts
+# # Run the CLI (in another terminal)
+# cd apps/cli && bun run cli.ts
 
 # Create jobs via API or SDK
 curl -X POST http://localhost:3001/kaja/create-job \

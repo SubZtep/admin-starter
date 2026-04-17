@@ -13,7 +13,7 @@ export function Section({
   return (
     <section
       className={cn(
-        "mx-auto rounded-2xl sm:border sm:border-slate-700/30 sm:bg-slate-900 sm:px-5 sm:py-4 sm:shadow-md",
+        "mx-auto rounded-2xl sm:border sm:border-border/40 sm:bg-surface sm:px-5 sm:py-4 sm:shadow-md",
         className
       )}
       style={style}
