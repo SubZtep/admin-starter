@@ -48,7 +48,7 @@ export const auth = betterAuth({
   trustedOrigins: [process.env.CORS_ORIGIN],
   advanced: {
     database: {
-      generateId: false,
+      generateId: () => Bun.randomUUIDv7(),
       defaultFindManyLimit: 1000
     },
     ...(process.env.CROSS_PARENT_DOMAIN
