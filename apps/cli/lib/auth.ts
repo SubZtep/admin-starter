@@ -1,5 +1,5 @@
 import { KAJA_CLI_CLIENT_ID } from "@app/schemas"
-import { box, cancel, intro, isCancel, note, outro, select, spinner } from "@clack/prompts"
+import { box, cancel, isCancel, note, select } from "@clack/prompts"
 import { createAuthClient } from "better-auth/client"
 import { deviceAuthorizationClient } from "better-auth/client/plugins"
 import clipboard from "clipboardy"
@@ -18,18 +18,14 @@ function createDeviceAuthClient() {
 export async function authFlow() {
   if (process.argv[2] === "logout") {
     await deleteAccessToken()
-    outro("Logged out successfully")
+    cancel("Logged out successfully")
     process.exit()
   }
 
-  const spin = spinner()
-  spin.start(`Pinging ${kaja.host()}`)
-  await Bun.sleep(669)
   if (!(await kaja.ping())) {
-    spin.error(`${red}No Home at ${kaja.host()} 🧟`)
+    cancel(`${red}No Home at ${kaja.host()} 🧟`)
     process.exit(1)
   }
-  spin.clear()
 
   const authClient = createDeviceAuthClient()
 
@@ -46,13 +42,13 @@ export async function authFlow() {
     client_id: KAJA_CLI_CLIENT_ID
   })
   if (error || !data) {
-    console.log(`\n${red}${error?.error_description ?? "Could not start device login"} 🤮`)
+    cancel(`\n${red}${error?.error_description ?? "Could not start device login"} 🤮`)
     process.exit(1)
   }
 
   const { device_code, user_code, verification_uri, verification_uri_complete, interval = 5, expires_in = 1800 } = data
 
-  intro("Authentication")
+  // MARK: Authentication
 
   const link = verification_uri_complete ?? verification_uri
   if (!verification_uri_complete) {
@@ -107,9 +103,7 @@ export async function authFlow() {
       break
   }
 
-  spin.start("Waiting for user to approve login")
   const token = await pollDeviceToken(authClient, device_code, interval, Date.now() + expires_in * 1000)
-  spin.clear()
 
   try {
     await setAccessToken(token)
@@ -124,7 +118,7 @@ export async function authFlow() {
     }
   })
 
-  outro(`${green}Welcome aboard, ${session?.user?.name ?? session?.user?.email ?? "user"}! 👋`)
+  note(`${green}Welcome aboard, ${session?.user?.name ?? session?.user?.email ?? "user"}!`, "👋")
 }
 
 async function pollDeviceToken(
