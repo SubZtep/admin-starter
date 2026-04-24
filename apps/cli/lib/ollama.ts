@@ -57,7 +57,7 @@ export async function configFlow() {
           model.details.parameter_size,
           model.details.quantization_level,
           getTimeAgo(new Date(model.modified_at))
-        ].join(" • ")
+        ].join(" · ")
       }))
     })) as ModelResponse
     if (isCancel(model)) {

@@ -7,7 +7,7 @@ INSTALL_DIR="${INSTALL_DIR:-$HOME/.local/bin}"
 usage() {
   cat << 'EOF'
 Usage:
-  curl -fsSL https://kaja.io/install.sh | bash
+  curl -fsSL https://kaja.io/setup.sh | sh
 
 Environment (optional):
   REPO=owner/repo          GitHub repo hosting releases (default: subztep/admin-starter)
@@ -15,8 +15,8 @@ Environment (optional):
   VERSION=v1.2.3           Pin to a specific release tag instead of latest
 
 Examples:
-  REPO=myfork/admin-starter curl -fsSL https://kaja.io/install.sh | bash
-  VERSION=v0.1.0 curl -fsSL https://kaja.io/install.sh | bash
+  REPO=myfork/admin-starter curl -fsSL https://kaja.io/setup.sh | sh
+  VERSION=v0.1.0 curl -fsSL https://kaja.io/setup.sh | sh
 EOF
   return
 }
