@@ -1,6 +1,17 @@
 import { ACCESS_TOKEN_KEY, SERVICE_NAME } from "./vars"
 
+let sessionAccessToken: string | null = null
+
+/** Used when Bun.secrets.set fails so this process can still call the API. */
+export function setSessionAccessToken(token: string) {
+  const trimmed = token.trim()
+  sessionAccessToken = trimmed.length > 0 ? trimmed : null
+}
+
 export async function getAccessToken() {
+  if (sessionAccessToken) {
+    return sessionAccessToken
+  }
   const token = await Bun.secrets.get({
     service: SERVICE_NAME,
     name: ACCESS_TOKEN_KEY
@@ -14,9 +25,11 @@ export async function setAccessToken(value: string) {
     name: ACCESS_TOKEN_KEY,
     value
   })
+  sessionAccessToken = null
 }
 
 export async function deleteAccessToken() {
+  sessionAccessToken = null
   return await Bun.secrets.delete({
     service: SERVICE_NAME,
     name: ACCESS_TOKEN_KEY

@@ -1,11 +1,11 @@
 import { KAJA_CLI_CLIENT_ID } from "@app/schemas"
-import { box, cancel, isCancel, note, select } from "@clack/prompts"
+import { box, cancel, isCancel, note, outro, select } from "@clack/prompts"
 import { createAuthClient } from "better-auth/client"
 import { deviceAuthorizationClient } from "better-auth/client/plugins"
 import clipboard from "clipboardy"
 import qrcode from "qrcode-terminal"
-import { deleteAccessToken, getAccessToken, setAccessToken } from "./token"
-import { green, kaja, red } from "./vars"
+import { deleteAccessToken, getAccessToken, setAccessToken, setSessionAccessToken } from "./token"
+import { cyan, kaja, red } from "./vars"
 
 function createDeviceAuthClient() {
   return createAuthClient({
@@ -18,7 +18,7 @@ function createDeviceAuthClient() {
 export async function authFlow() {
   if (process.argv[2] === "logout") {
     await deleteAccessToken()
-    cancel("Logged out successfully")
+    outro("Logged out successfully")
     process.exit()
   }
 
@@ -42,7 +42,7 @@ export async function authFlow() {
     client_id: KAJA_CLI_CLIENT_ID
   })
   if (error || !data) {
-    cancel(`\n${red}${error?.error_description ?? "Could not start device login"} 🤮`)
+    cancel(error?.error_description ?? "Could not start device login")
     process.exit(1)
   }
 
@@ -89,7 +89,7 @@ export async function authFlow() {
     case "copy": {
       try {
         await clipboard.write(link)
-        note("Link copied to clipboard. Open the link manually in your browser.", "Device login")
+        note(`Link copied to clipboard.\nOpen ${link} manually in your browser.`, "Device login")
       } catch {
         note(`Could not copy to clipboard. Open this URL manually:\n${link}`, "Device login")
       }
@@ -108,8 +108,11 @@ export async function authFlow() {
   try {
     await setAccessToken(token)
   } catch (err) {
-    console.error("Failed to store token:", err instanceof Error ? err.message : err)
-    process.exit(1)
+    setSessionAccessToken(token)
+    note(
+      `Could not save the token to the system secret store (${err instanceof Error ? err.message : String(err)}). You stay signed in for this CLI run only — next time, fix the store or sign in again.`,
+      "Session only"
+    )
   }
 
   const { data: session } = await authClient.getSession({
@@ -118,7 +121,7 @@ export async function authFlow() {
     }
   })
 
-  note(`${green}Welcome aboard, ${session?.user?.name ?? session?.user?.email ?? "user"}!`, "👋")
+  note(`${cyan}Welcome aboard, ${session?.user?.name ?? session?.user?.email ?? "user"}!`, "👋")
 }
 
 async function pollDeviceToken(
@@ -149,17 +152,17 @@ async function pollDeviceToken(
       continue
     }
     if (code === "access_denied") {
-      console.log(`\n${red}Access denied`)
+      cancel("Access denied")
       process.exit(1)
     }
     if (code === "expired_token") {
-      console.log(`\n${red}Device code expired — run again`)
+      cancel("Device code expired — run again")
       process.exit(1)
     }
-    console.log(`\n${red}${error?.error_description ?? code ?? "Device token error"} 🤮`)
+    cancel(error?.error ?? code ?? "Device token error")
     process.exit(1)
   }
 
-  console.log(`\n${red}Device authorization timed out`)
+  cancel("Device authorization timed out")
   process.exit(1)
 }
