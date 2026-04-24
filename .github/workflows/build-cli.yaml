@@ -28,9 +28,6 @@ jobs:
           - os: macos-latest
             platform: macos-arm64
             artifact: kaja-macos-arm64
-          - os: windows-latest
-            platform: windows-x64
-            artifact: kaja-windows-x64.exe
 
     runs-on: ${{ matrix.os }}
     steps:
@@ -57,13 +54,8 @@ jobs:
       - name: Rename artifact
         shell: bash
         run: |
-          # handle linux/macos/windows differences
-          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
-            mv apps/cli/kaja*.exe "${{ matrix.artifact }}"
-          else
-            mv apps/cli/kaja "${{ matrix.artifact }}"
-            chmod +x "${{ matrix.artifact }}"
-          fi
+          mv apps/cli/kaja "${{ matrix.artifact }}"
+          chmod +x "${{ matrix.artifact }}"
 
       - name: Generate SHA256 checksum
         shell: bash
@@ -127,10 +119,6 @@ jobs:
               "macos-arm64": {
                 "artifact": "kaja-macos-arm64",
                 "checksum": ""
-              },
-              "windows-x64": {
-                "artifact": "kaja-windows-x64.exe",
-                "checksum": ""
               }
             }
           }
@@ -145,16 +133,13 @@ jobs:
               jq --arg c "$checksum" '.platforms["linux-x64"].checksum=$c' artifacts/manifest.json > tmp.json && mv tmp.json artifacts/manifest.json
             elif [[ "$name" == *"macos"* ]]; then
               jq --arg c "$checksum" '.platforms["macos-arm64"].checksum=$c' artifacts/manifest.json > tmp.json && mv tmp.json artifacts/manifest.json
-            elif [[ "$name" == *"windows"* ]]; then
-              jq --arg c "$checksum" '.platforms["windows-x64"].checksum=$c' artifacts/manifest.json > tmp.json && mv tmp.json artifacts/manifest.json
             fi
           done
 
           # sanity check
           if jq -e '
             .platforms["linux-x64"].checksum == "" or
-            .platforms["macos-arm64"].checksum == "" or
-            .platforms["windows-x64"].checksum == ""
+            .platforms["macos-arm64"].checksum == ""
           ' artifacts/manifest.json > /dev/null; then
             echo "❌ Missing checksum in manifest"
             cat artifacts/manifest.json
