@@ -2,6 +2,7 @@ import type { JobData, SubmitResultRequest } from "@app/schemas"
 import { box, intro, outro } from "@clack/prompts"
 import * as auth from "./lib/auth"
 import * as cli from "./lib/cli-flow"
+import * as ollama from "./lib/ollama"
 import { kaja, lime, purple } from "./lib/vars"
 
 if (process.argv[2]?.toLowerCase()?.includes("help")) {
@@ -16,15 +17,15 @@ Commands:
 
 void (async () => {
   intro()
-  box(lime + ["▖▖   ▘  ▄▖▖ ▄▖", "▙▘▀▌ ▌▀▌▌ ▌ ▐ ", "▌▌█▌ ▌█▌▙▖▙▖▟▖", "    ▙▌"].join("\n"), undefined, {
+  box(lime + ["▖▖   ▘  ▄▖▄▖", "▙▘▀▌ ▌▀▌▐ ▌▌", "▌▌█▌ ▌█▌▟▖▙▌", "    ▙▌"].join("\n"), undefined, {
     width: "auto",
-    contentPadding: 1,
-    rounded: true
+    contentPadding: 1
   })
 
   await auth.authFlow()
+  await ollama.configFlow()
 
-  await cli.validateConnections()
+  // await cli.validateConnections()
   await kaja.registerNode({ name: "no-name" })
   if (!kaja.nodeId) {
     console.error("Node ID is required to submit results")

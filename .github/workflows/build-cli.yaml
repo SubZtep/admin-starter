@@ -88,11 +88,13 @@ jobs:
       - name: Determine version
         id: version
         shell: bash
+        env:
+          INPUT_TAG: ${{ inputs.tag }}
         run: |
           if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
             VERSION="${GITHUB_REF#refs/tags/}"
           else
-            VERSION="${{ inputs.tag }}"
+            VERSION="${INPUT_TAG}"
           fi
 
           if [[ -z "$VERSION" ]]; then
