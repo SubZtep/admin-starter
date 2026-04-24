@@ -26,7 +26,10 @@ export function ForgotPassword({
         email: parsed.data.email,
         redirectTo: `${import.meta.env.VITE_APP_URL}/reset-password`
       })
-      if (error) return void toast.error(error.message ?? error.statusText)
+      if (error) {
+        toast.error(error.message ?? error.statusText)
+        return
+      }
       if (data) toast.info(data.message)
       setSent(true)
     } catch (error: any) {
