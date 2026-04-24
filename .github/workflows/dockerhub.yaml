@@ -22,7 +22,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        uses: actions/checkout@v6
 
       - name: Get API version
         id: version
@@ -31,7 +31,7 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Release API
-        uses: SubZtep/dockerhub-action@5db2a2070545d32c86b7eecce3538ccde9099e45
+        uses: SubZtep/dockerhub-action@v1
         with:
           dockerhub_repository: ${{ vars.DOCKER_IMAGE_API }}
           dockerhub_username: ${{ vars.DOCKERHUB_USERNAME }}
@@ -48,7 +48,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        uses: actions/checkout@v6
 
       - name: Get Web version
         id: version
@@ -57,13 +57,13 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Release Web
-        uses: SubZtep/dockerhub-action@5db2a2070545d32c86b7eecce3538ccde9099e45
+        uses: SubZtep/dockerhub-action@v1
         with:
           dockerhub_repository: ${{ vars.DOCKER_IMAGE_WEB }}
           dockerhub_username: ${{ vars.DOCKERHUB_USERNAME }}
           dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
           dockerfile: ./apps/web/Dockerfile
           version: ${{ steps.version.outputs.version }}
-          build-args: |
+          build_args: |
             VITE_API_URL=${{ vars.VITE_API_URL }}
             VITE_APP_URL=${{ vars.VITE_APP_URL }}

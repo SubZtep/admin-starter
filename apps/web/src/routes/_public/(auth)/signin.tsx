@@ -1,7 +1,8 @@
 import { loginSchema } from "@app/schemas"
-import { createFileRoute } from "@tanstack/react-router"
+import { createFileRoute, useSearch } from "@tanstack/react-router"
 import { useState } from "react"
 import { toast } from "react-toastify"
+import { z } from "zod"
 import { Button } from "#/components/form/primitives/Button"
 import { Main } from "#/components/ui/Main"
 import { Section } from "#/components/ui/Section"
@@ -9,11 +10,17 @@ import { ForgotPassword } from "#/components/user/ForgotPassword"
 import { useAuthClient } from "#/hooks/auth-client"
 import { useAppForm } from "#/lib/form"
 
-export const Route = createFileRoute("/_public/signin")({
+const signinSearchSchema = z.object({
+  redirect: z.string().optional()
+})
+
+export const Route = createFileRoute("/_public/(auth)/signin")({
+  validateSearch: signinSearchSchema,
   component: SignIn
 })
 
 function SignIn() {
+  const { redirect } = useSearch({ from: "/_public/(auth)/signin" })
   const authClient = useAuthClient()
   const [loading, setLoading] = useState(false)
 
@@ -37,7 +44,7 @@ function SignIn() {
         setLoading(true)
         const { error } = await authClient.signIn.email({
           ...parsed.data,
-          callbackURL: "/dashboard"
+          callbackURL: redirect ?? "/dashboard"
         })
         if (error) {
           toast.error(error.message ?? error.statusText)

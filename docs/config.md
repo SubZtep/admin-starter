@@ -12,11 +12,11 @@ Default developer values:
 
 ### `/apps/web/.env.example` -> `/apps/web/.env`
 
-| Variable Name | Secret? | Value                 | Description                                                       |
-| ------------- | ------- | --------------------- | ----------------------------------------------------------------- |
-| API_URL       | no      | http://localhost:3001 | **Optional**, server-only (used by SSR / server functions)        |
-| VITE_API_URL  | no      | http://localhost:3001 | Client-exposed; baked into bundle at build time                   |
-| VITE_APP_URL  | no      | http://localhost:3000 | Client-exposed                                                    |
+| Variable Name | Secret? | Value                 | Description                                                |
+| ------------- | ------- | --------------------- | ---------------------------------------------------------- |
+| API_URL       | no      | http://localhost:3001 | **Optional**, server-only (used by SSR / server functions) |
+| VITE_API_URL  | no      | http://localhost:3001 | Client-exposed; baked into bundle at build time            |
+| VITE_APP_URL  | no      | http://localhost:3000 | Client-exposed                                             |
 
 
 ### `/apps/api/.env.example` -> `/apps/api/.env`
@@ -41,4 +41,4 @@ Default developer values:
 
 | Variable Name | Secret? | Value                 | Description |
 | ------------- | ------- | --------------------- | ----------- |
-| KAJA_API_URL  | no      | http://localhost:3001 | API URL     |
+| API_URL       | no      | http://localhost:3001 | API URL     |

@@ -6,6 +6,10 @@ declare module "bun" {
   interface Env {
     PORT: string
     CORS_ORIGIN: string
+    /** Public web URL for device-auth verification (defaults to CORS_ORIGIN) */
+    WEB_PUBLIC_URL?: string
+    /** Set base domain when apps live on subdomains (e.g. ondis.co) */
+    CROSS_PARENT_DOMAIN?: string
     DATABASE_URL: string
     BETTER_AUTH_URL: string
     BETTER_AUTH_SECRET: string

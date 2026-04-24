@@ -1,0 +1,165 @@
+name: Build CLI
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag (e.g. v1.0.0)
+        required: true
+        type: string
+
+env:
+  BINARY_NAME: kaja
+
+jobs:
+  build:
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            platform: linux-x64
+            artifact: kaja-linux-x64
+          - os: macos-latest
+            platform: macos-arm64
+            artifact: kaja-macos-arm64
+          - os: windows-latest
+            platform: windows-x64
+            artifact: kaja-windows-x64.exe
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v6
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Build CLI for ${{ matrix.platform }}
+        run: bun run --filter @app/cli build
+
+      - name: Rename artifact
+        shell: bash
+        run: |
+          # handle linux/macos/windows differences
+          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+            mv apps/cli/kaja*.exe "${{ matrix.artifact }}"
+          else
+            mv apps/cli/kaja "${{ matrix.artifact }}"
+            chmod +x "${{ matrix.artifact }}"
+          fi
+
+      - name: Generate SHA256 checksum
+        shell: bash
+        run: |
+          sha256sum "${{ matrix.artifact }}" | awk '{print $1}' > "${{ matrix.artifact }}.sha256"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: |
+            ${{ matrix.artifact }}
+            ${{ matrix.artifact }}.sha256
+          retention-days: 30
+
+  release:
+    needs: build
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v6
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Determine version
+        id: version
+        shell: bash
+        run: |
+          if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+            VERSION="${GITHUB_REF#refs/tags/}"
+          else
+            VERSION="${{ inputs.tag }}"
+          fi
+
+          if [[ -z "$VERSION" ]]; then
+            echo "❌ VERSION is empty"
+            exit 1
+          fi
+
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Create manifest.json
+        shell: bash
+        run: |
+          BASE_URL="${{ github.server_url }}/${{ github.repository }}/releases/download/${VERSION}"
+
+          cat > artifacts/manifest.json <<EOF
+          {
+            "version": "${VERSION}",
+            "base_url": "${BASE_URL}",
+            "platforms": {
+              "linux-x64": {
+                "artifact": "kaja-linux-x64",
+                "checksum": ""
+              },
+              "macos-arm64": {
+                "artifact": "kaja-macos-arm64",
+                "checksum": ""
+              },
+              "windows-x64": {
+                "artifact": "kaja-windows-x64.exe",
+                "checksum": ""
+              }
+            }
+          }
+          EOF
+
+          for artifact in artifacts/*/kaja-*; do
+            name=$(basename "$artifact")
+            checksum=$(cat "$artifact.sha256")
+
+            if [[ "$name" == *"linux"* ]]; then
+              jq --arg c "$checksum" '.platforms["linux-x64"].checksum=$c' artifacts/manifest.json > tmp.json && mv tmp.json artifacts/manifest.json
+            elif [[ "$name" == *"macos"* ]]; then
+              jq --arg c "$checksum" '.platforms["macos-arm64"].checksum=$c' artifacts/manifest.json > tmp.json && mv tmp.json artifacts/manifest.json
+            elif [[ "$name" == *"windows"* ]]; then
+              jq --arg c "$checksum" '.platforms["windows-x64"].checksum=$c' artifacts/manifest.json > tmp.json && mv tmp.json artifacts/manifest.json
+            fi
+          done
+
+          # sanity check
+          if jq -e '
+            .platforms["linux-x64"].checksum == "" or
+            .platforms["macos-arm64"].checksum == "" or
+            .platforms["windows-x64"].checksum == ""
+          ' artifacts/manifest.json > /dev/null; then
+            echo "❌ Missing checksum in manifest"
+            cat artifacts/manifest.json
+            exit 1
+          fi
+
+          cat artifacts/manifest.json
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.VERSION }}
+          draft: false
+          generate_release_notes: true
+          files: |
+            artifacts/*/kaja-*
+            artifacts/manifest.json
