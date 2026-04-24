@@ -1,5 +1,5 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router"
 
-export const Route = createFileRoute("/_public/device")({
+export const Route = createFileRoute("/_public/(auth)/device")({
   component: () => <Outlet />
 })

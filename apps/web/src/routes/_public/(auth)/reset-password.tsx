@@ -9,7 +9,7 @@ import { Section } from "#/components/ui/Section"
 import { useAuthClient } from "#/hooks/auth-client"
 import { useAppForm } from "#/lib/form"
 
-export const Route = createFileRoute("/_public/reset-password")({
+export const Route = createFileRoute("/_public/(auth)/reset-password")({
   component: ResetPasswordComponent,
   validateSearch: z.object({
     token: z.string().optional()

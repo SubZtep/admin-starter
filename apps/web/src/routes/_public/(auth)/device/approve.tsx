@@ -7,7 +7,7 @@ import { Main } from "#/components/ui/Main"
 import { Section } from "#/components/ui/Section"
 import { useAuthClient } from "#/hooks/auth-client"
 
-export const Route = createFileRoute("/_public/device/approve")({
+export const Route = createFileRoute("/_public/(auth)/device/approve")({
   validateSearch: z.object({
     user_code: z.string().min(1)
   }),
@@ -15,7 +15,7 @@ export const Route = createFileRoute("/_public/device/approve")({
 })
 
 function DeviceApprovePage() {
-  const { user_code } = useSearch({ from: "/_public/device/approve" })
+  const { user_code } = useSearch({ from: "/_public/(auth)/device/approve" })
   const { session } = useLoaderData({ from: "__root__" })
   const authClient = useAuthClient()
   const navigate = useNavigate()

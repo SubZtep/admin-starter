@@ -15,7 +15,7 @@ function formatUserCode(raw: string) {
   return raw.trim().replace(/-/g, "").toUpperCase()
 }
 
-export const Route = createFileRoute("/_public/device/")({
+export const Route = createFileRoute("/_public/(auth)/device/")({
   validateSearch: deviceCodeSearchSchema,
   beforeLoad: async ({ search }) => {
     const raw = search.user_code
@@ -24,10 +24,9 @@ export const Route = createFileRoute("/_public/device/")({
     if (formatted.length < 4) return
     const apiUrl = process.env.API_URL || process.env.VITE_API_URL
     if (!apiUrl) return
-    const res = await fetch(
-      `${apiUrl.replace(/\/$/, "")}/auth/device?user_code=${encodeURIComponent(formatted)}`,
-      { headers: { "Cache-Control": "no-store" } }
-    )
+    const res = await fetch(`${apiUrl.replace(/\/$/, "")}/auth/device?user_code=${encodeURIComponent(formatted)}`, {
+      headers: { "Cache-Control": "no-store" }
+    })
     if (!res.ok) return
     const body = (await res.json()) as { status?: string }
     if (body.status !== "pending") return
@@ -40,7 +39,7 @@ export const Route = createFileRoute("/_public/device/")({
 })
 
 function DeviceCodePage() {
-  const { user_code: userCodeParam } = useSearch({ from: "/_public/device/" })
+  const { user_code: userCodeParam } = useSearch({ from: "/_public/(auth)/device/" })
   const authClient = useAuthClient()
   const navigate = useNavigate()
   const [userCode, setUserCode] = useState(() => userCodeParam ?? "")

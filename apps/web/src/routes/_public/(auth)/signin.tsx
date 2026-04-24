@@ -14,13 +14,13 @@ const signinSearchSchema = z.object({
   redirect: z.string().optional()
 })
 
-export const Route = createFileRoute("/_public/signin")({
+export const Route = createFileRoute("/_public/(auth)/signin")({
   validateSearch: signinSearchSchema,
   component: SignIn
 })
 
 function SignIn() {
-  const { redirect } = useSearch({ from: "/_public/signin" })
+  const { redirect } = useSearch({ from: "/_public/(auth)/signin" })
   const authClient = useAuthClient()
   const [loading, setLoading] = useState(false)
 
