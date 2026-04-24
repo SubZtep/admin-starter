@@ -1,4 +1,4 @@
-import { createFileRoute, redirect, useNavigate, useSearch } from "@tanstack/react-router"
+import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router"
 import { useState } from "react"
 import { toast } from "react-toastify"
 import { z } from "zod"
@@ -11,24 +11,20 @@ const deviceCodeSearchSchema = z.object({
   user_code: z.string().optional()
 })
 
-function formatUserCode(raw: string) {
-  return raw.trim().replace(/-/g, "").toUpperCase()
+function formatUserCode(raw?: string) {
+  return raw?.trim()?.replace(/-/g, "")?.toUpperCase() ?? ""
 }
 
 export const Route = createFileRoute("/_public/(auth)/device/")({
   validateSearch: deviceCodeSearchSchema,
   beforeLoad: async ({ search }) => {
-    const raw = search.user_code
-    if (!raw) return
-    const formatted = formatUserCode(raw)
+    const formatted = formatUserCode(search.user_code)
     if (formatted.length < 4) return
-    const apiUrl = process.env.API_URL || process.env.VITE_API_URL
-    if (!apiUrl) return
-    const res = await fetch(`${apiUrl.replace(/\/$/, "")}/auth/device?user_code=${encodeURIComponent(formatted)}`, {
+    const res = await fetch(`${process.env.API_URL}/auth/device?user_code=${encodeURIComponent(formatted)}`, {
       headers: { "Cache-Control": "no-store" }
     })
     if (!res.ok) return
-    const body = (await res.json()) as { status?: string }
+    const body: { status?: string } = await res.json()
     if (body.status !== "pending") return
     throw redirect({
       to: "/device/approve",
@@ -39,10 +35,9 @@ export const Route = createFileRoute("/_public/(auth)/device/")({
 })
 
 function DeviceCodePage() {
-  const { user_code: userCodeParam } = useSearch({ from: "/_public/(auth)/device/" })
   const authClient = useAuthClient()
   const navigate = useNavigate()
-  const [userCode, setUserCode] = useState(() => userCodeParam ?? "")
+  const [userCode, setUserCode] = useState("")
   const [loading, setLoading] = useState(false)
 
   async function login(code: string) {
@@ -65,16 +60,11 @@ function DeviceCodePage() {
           search: { user_code: formatted }
         })
       }
-    } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Something went wrong")
+    } catch (err: any) {
+      toast.error(err?.message ?? "Something went wrong")
     } finally {
       setLoading(false)
     }
-  }
-
-  async function onSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    await login(userCode)
   }
 
   return (
@@ -82,11 +72,17 @@ function DeviceCodePage() {
       <Section className="max-w-lg">
         <h1 className="mb-4">Connect a device</h1>
         <p className="text-muted-foreground mb-4">Enter the code shown in your terminal.</p>
-        <form onSubmit={onSubmit} className="flex flex-col gap-2">
+        <form
+          onSubmit={async ev => {
+            ev.preventDefault()
+            await login(userCode)
+          }}
+          className="flex flex-col gap-2"
+        >
           <input
             className="border border-input rounded-md px-3 py-2 bg-background"
             value={userCode}
-            onChange={e => setUserCode(e.target.value)}
+            onChange={ev => setUserCode(ev.target.value)}
             placeholder="e.g. ABCD-1234"
             maxLength={16}
             autoComplete="one-time-code"

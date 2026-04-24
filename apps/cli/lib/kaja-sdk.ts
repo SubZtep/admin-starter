@@ -21,7 +21,7 @@ export class KajaClient {
   nodeId?: string
 
   constructor(options?: KajaClientOptions) {
-    this.baseURL = options?.baseURL ?? process.env.KAJA_API_URL ?? "https://kaja.io"
+    this.baseURL = options?.baseURL ?? process.env.API_URL
     this.nodeId = options?.nodeId
   }
 

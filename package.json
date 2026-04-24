@@ -7,9 +7,9 @@
     "dev": "bun run --filter '!@app/cli' dev",
     "dev:api": "bun run --filter @app/api dev",
     "dev:web": "bun run --filter @app/web dev",
-    "dev:cli": "bun run apps/cli/cli.ts",
+    "dev:cli": "bun run --env-file=apps/cli/.env apps/cli/cli.ts",
     "build": "bun run --filter @app/web build",
-    "build:cli": "bun run --filter @app/cli build",
+    "build:cli": "bun run --env-file=apps/cli/.env --filter @app/cli build",
     "lint": "biome check .",
     "lint:fix": "biome check . --write --unsafe",
     "test": "bun --env-file=apps/api/.env.example --env-file=apps/api/.env test"

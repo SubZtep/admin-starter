@@ -1,5 +1,4 @@
-const SERVICE_NAME = "io.kaja"
-const ACCESS_TOKEN_KEY = "access_token"
+import { ACCESS_TOKEN_KEY, SERVICE_NAME } from "./vars"
 
 export async function getAccessToken() {
   const token = await Bun.secrets.get({
@@ -14,5 +13,12 @@ export async function setAccessToken(value: string) {
     service: SERVICE_NAME,
     name: ACCESS_TOKEN_KEY,
     value
+  })
+}
+
+export async function deleteAccessToken() {
+  return await Bun.secrets.delete({
+    service: SERVICE_NAME,
+    name: ACCESS_TOKEN_KEY
   })
 }

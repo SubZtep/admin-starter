@@ -1,14 +1,18 @@
-import type { JobData, SubmitResultRequest } from "@app/schemas"
 import { intro, outro } from "@clack/prompts"
 import * as auth from "./lib/auth"
-import * as cli from "./lib/cli-flow"
-import { green, kaja, lime } from "./lib/vars"
+import { lime, purple } from "./lib/vars"
 
-intro(`${lime}Welcome Aboard! 🏴‍☠️`)
-// Bun.sleepSync(1200)
+if (process.argv[2]?.toLowerCase()?.includes("help")) {
+  console.log(`Usage:  kaja <command>
 
-// const email = await auth.resolveEmail()
-// console.log(`Using email: ${email}`)
+Commands:
+  logout   Logout from Kaja
+  help     Show help
+`)
+  process.exit()
+}
+
+intro(`${lime}Welcome to Kaja CLI 🚀`)
 
 await auth.authFlow()
 
@@ -45,5 +49,5 @@ await auth.authFlow()
 //   }
 // } while (job)
 
-outro(`${green}Farewell`)
-process.exit(0)
+outro(`${purple}Farewell 🫠`)
+process.exit()
