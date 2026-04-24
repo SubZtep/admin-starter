@@ -14,7 +14,6 @@ Bootstrap your local env files (committed `.env.example` is the source of truth,
 cp apps/api/.env.example apps/api/.env
 cp apps/web/.env.example apps/web/.env
 cp apps/cli/.env.example apps/cli/.env
-cp .env.example .env
 ```
 
 Generate local secrets (appends `BETTER_AUTH_SECRET` and `JWT_SECRET` to `apps/api/.env`):
@@ -64,6 +63,6 @@ Each app under `/apps/*/` ships two env files:
 | 1 | `.env.example` | yes | template / source of truth (no real values) |
 | 2 | `.env` | NO (`.gitignore`) | your local copy — real values + secrets |
 
-Same convention at the repo root for compose build args.
+Compose build args (`VITE_API_URL`, `VITE_APP_URL`) default to `localhost` in `compose.yaml`. To override, create a root `.env` (gitignored) with the desired values — `docker compose` auto-loads it for variable interpolation.
 
 Production: **no `.env*` files** — inject vars via the host / orchestrator (Disco, Docker `--env-file` outside the image, k8s secrets, etc.). See [Deploy](deploy.md).
