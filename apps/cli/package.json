@@ -9,6 +9,7 @@
     "build:release": "bun build ./cli.ts --compile --minify --sourcemap --bytecode --outfile kaja --env=API_*"
   },
   "dependencies": {
+    "@app/shared": "workspace:*",
     "@app/schemas": "workspace:*",
     "@clack/prompts": "^1.2.0",
     "better-auth": "^1.6.9",

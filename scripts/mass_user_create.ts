@@ -20,7 +20,7 @@ for (let i = 0; i < NUMBER_OF_USERS; i++) {
   })
 
   if (!res.ok) {
-    console.log("User add fail", await res.text())
+    // console.log("User add fail", await res.text())
     process.exit(1)
   }
 }

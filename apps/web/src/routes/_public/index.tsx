@@ -8,13 +8,14 @@ export const Route = createFileRoute("/_public/")({ component: App })
 
 function App() {
   return (
-    <Section className="max-w-full max-h-full m-4 w-96 group flex flex-col gap-4 opacity-80 transform-[perspective(900px)_rotateY(10deg)_rotateX(4deg)] hover:shadow-purple-800/69">
+    <Section className="m-4 max-w-xl group flex flex-col gap-4 opacity-80 transform-[perspective(900px)_rotateY(10deg)_rotateX(4deg)] hover:shadow-purple-800/69">
       <Menu className="opacity-40 group-hover:opacity-100 transition-opacity duration-300" />
       <h1 className="flex items-center gap-1 mt-3">
         <Logo />
         Hello, <GitHub />
         World!
       </h1>
+      <pre>curl -fsSL https://kaja.io/install.sh | bash</pre>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
         magna aliqua.

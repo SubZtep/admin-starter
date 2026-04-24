@@ -22,7 +22,7 @@ for (let i = 0; i < NUMBER_OF_JOBS; i++) {
   if (res.ok) {
     await Bun.write(Bun.stdout, ".")
   } else {
-    console.log("Job add fail", await res.text())
+    // console.log("Job add fail", await res.text())
     process.exit(1)
   }
 }

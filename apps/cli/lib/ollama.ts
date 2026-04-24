@@ -1,3 +1,4 @@
+import { getTimeAgo } from "@app/shared"
 import { cancel, isCancel, log, select, text } from "@clack/prompts"
 import ollama, { type ModelResponse, Ollama } from "ollama"
 
@@ -34,6 +35,9 @@ export async function configFlow() {
     }
   }
 
+  // @ts-ignore
+  models = models?.filter(m => !m?.remote_host)?.sort((a, b) => a.name.localeCompare(b.name))
+
   if (!models || models.length === 0) {
     cancel("No models found")
     process.exit(1)
@@ -44,8 +48,17 @@ export async function configFlow() {
     model = models[0]
   } else {
     model = (await select({
+      maxItems: 15,
       message: "Select your preferred model",
-      options: models.map(m => ({ value: m, label: m.name }))
+      options: models.map(model => ({
+        value: model,
+        label: model.name,
+        hint: [
+          model.details.parameter_size,
+          model.details.quantization_level,
+          getTimeAgo(new Date(model.modified_at))
+        ].join(" • ")
+      }))
     })) as ModelResponse
     if (isCancel(model)) {
       cancel("No model selected")
