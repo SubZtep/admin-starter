@@ -129,6 +129,7 @@ jobs:
           EOF
 
           for artifact in artifacts/*/kaja-*; do
+            [[ "$artifact" == *.sha256 ]] && continue
             name=$(basename "$artifact")
             checksum=$(cat "$artifact.sha256")
 
