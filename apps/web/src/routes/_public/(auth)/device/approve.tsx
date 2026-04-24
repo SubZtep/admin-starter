@@ -24,7 +24,7 @@ function DeviceApprovePage() {
   useEffect(() => {
     if (!session?.user) {
       const redirect = `/device/approve?user_code=${encodeURIComponent(user_code)}`
-      void navigate({
+      navigate({
         to: "/signin",
         search: { redirect }
       })
@@ -40,10 +40,11 @@ function DeviceApprovePage() {
     try {
       const { error } = await authClient.device.approve({ userCode: user_code })
       if (error) {
-        return void toast.error(error.statusText ?? "Failed to approve")
+        toast.error(error.statusText ?? "Failed to approve")
+        return
       }
       toast.success("Device approved — you can return to the CLI.")
-      await navigate({ to: "/" })
+      await navigate({ to: "/dashboard" })
     } finally {
       setLoading(false)
     }
@@ -54,10 +55,11 @@ function DeviceApprovePage() {
     try {
       const { error } = await authClient.device.deny({ userCode: user_code })
       if (error) {
-        return void toast.error(error.statusText ?? "Failed to deny")
+        toast.error(error.statusText ?? "Failed to deny")
+        return
       }
       toast.info("Request denied.")
-      await navigate({ to: "/" })
+      await navigate({ to: "/dashboard" })
     } finally {
       setLoading(false)
     }

@@ -18,6 +18,7 @@ Examples:
   REPO=myfork/admin-starter curl -fsSL https://kaja.io/install.sh | bash
   VERSION=v0.1.0 curl -fsSL https://kaja.io/install.sh | bash
 EOF
+  return
 }
 
 detect_platform() {
@@ -41,6 +42,7 @@ detect_platform() {
     *)      echo "Unsupported OS: $os" >&2; exit 1 ;;
   esac
   echo "$platform"
+  return
 }
 
 file_sha256() {
@@ -53,6 +55,7 @@ file_sha256() {
     echo "Missing sha256sum and shasum; cannot verify checksum" >&2
     exit 1
   fi
+  return
 }
 
 # Prints: version, base_url, artifact, checksum (one field per line).
@@ -84,13 +87,14 @@ print(p.get(\"checksum\") or \"\")
     echo "Need jq or python3 to read manifest.json" >&2
     exit 1
   fi
+  return
 }
 
 install() {
   local platform="${1:-$(detect_platform)}"
   local manifest_url manifest version base_url artifact checksum download_url tmp_file file_hash
 
-  if [ -n "${VERSION:-}" ]; then
+  if [[ -n "${VERSION:-}" ]]; then
     echo "Fetching manifest for ${VERSION}..."
     manifest_url="https://github.com/${REPO}/releases/download/${VERSION}/manifest.json"
   else
@@ -107,7 +111,7 @@ install() {
     read -r checksum
   } < <(parse_manifest "$manifest" "$platform")
 
-  if [ -z "$artifact" ] || [ "$artifact" = "null" ]; then
+  if [[ -z "$artifact" || "$artifact" == "null" ]]; then
     echo "No build for platform: $platform" >&2
     exit 1
   fi
@@ -120,10 +124,10 @@ install() {
   tmp_file=$(mktemp)
   curl -fSL --progress-bar -o "$tmp_file" "$download_url"
 
-  if [ -n "$checksum" ] && [ "$checksum" != "null" ]; then
+  if [[ -n "$checksum" && "$checksum" != "null" ]]; then
     echo "Verifying checksum..."
     file_hash=$(file_sha256 "$tmp_file")
-    if [ "$file_hash" != "$checksum" ]; then
+    if [[ "$file_hash" != "$checksum" ]]; then
       echo "Checksum mismatch! Expected: $checksum, Got: $file_hash" >&2
       rm -f "$tmp_file"
       exit 1
@@ -151,13 +155,15 @@ install() {
     echo ""
     echo "Then restart your shell or run: source ~/.bashrc (or ~/.zshrc)"
   fi
+  return
 }
 
 main() {
   echo "kaja autoinstall"
-  echo "================="
+  echo "|/|\|/|\|/|\|/|\|"
   echo ""
   install
+  return
 }
 
 main

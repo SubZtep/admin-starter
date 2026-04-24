@@ -12,7 +12,7 @@ const deviceCodeSearchSchema = z.object({
 })
 
 function formatUserCode(raw?: string) {
-  return raw?.trim()?.replace(/-/g, "")?.toUpperCase() ?? ""
+  return raw?.trim()?.replaceAll("-", "")?.toUpperCase() ?? ""
 }
 
 export const Route = createFileRoute("/_public/(auth)/device/")({
@@ -52,7 +52,8 @@ function DeviceCodePage() {
         query: { user_code: formatted }
       })
       if (error) {
-        return void toast.error(error.statusText ?? "Invalid or expired code")
+        toast.error(error.statusText ?? "Invalid or expired code")
+        return
       }
       if (data) {
         await navigate({

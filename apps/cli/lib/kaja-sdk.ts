@@ -86,7 +86,7 @@ export class KajaClient {
 
   async #apiRequest<T = unknown>(path: string, payload?: Record<string, any>, options?: RequestInit) {
     const { headers: initHeaders, ...rest } = options ?? {}
-    const headers = new Headers(initHeaders as HeadersInit | undefined)
+    const headers = new Headers(initHeaders)
     headers.set("Content-Type", "application/json")
     const token = await getAccessToken()
     if (token) {
