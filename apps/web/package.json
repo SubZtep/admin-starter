@@ -15,6 +15,7 @@
   "dependencies": {
     "@app/schemas": "workspace:*",
     "@app/shared": "workspace:*",
+    "@rsbuild/core": "^2.0.0",
     "@base-ui/react": "^1.4.1",
     "@fontsource-variable/inter": "^5.2.8",
     "@fontsource-variable/manrope": "^5.2.8",
