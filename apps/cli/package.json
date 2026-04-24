@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "bun run cli.ts",
-    "build": "bun build ./cli.ts --compile --minify --sourcemap --bytecode --outfile kaja"
+    "build": "bun build ./cli.ts --compile --minify --sourcemap --bytecode --outfile kaja",
+    "build:release": "bun build ./cli.ts --compile --minify --sourcemap --bytecode --outfile kaja --env=API_*"
   },
   "dependencies": {
     "@app/schemas": "workspace:*",

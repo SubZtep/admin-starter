@@ -44,7 +44,15 @@ jobs:
         run: bun install
 
       - name: Build CLI for ${{ matrix.platform }}
-        run: bun run --filter @app/cli build
+        shell: bash
+        env:
+          API_URL: ${{ vars.API_URL }}
+        run: |
+          if [ -z "${API_URL}" ]; then
+            echo "Set the API_URL repository variable (Settings → Secrets and variables → Actions → Variables)."
+            exit 1
+          fi
+          bun run --filter @app/cli build:release
 
       - name: Rename artifact
         shell: bash
