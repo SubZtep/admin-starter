@@ -1,10 +1,6 @@
 # Admin Starter
 
-![Bun](https://img.shields.io/badge/Runtime-Bun-black?style=flat-square)
-![Docker Compose](https://img.shields.io/badge/Docker-Compose-blue?style=flat-square)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/SubZtep/admin-starter/ci.yaml?style=flat-square)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/SubZtep/admin-starter?style=flat-square)
-![License](https://img.shields.io/github/license/SubZtep/admin-starter?style=flat-square)
+![Bun](https://img.shields.io/badge/Runtime-Bun-black)![Docker Compose](https://img.shields.io/badge/Docker-Compose-blue)![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/SubZtep/admin-starter/ci.yaml)![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/SubZtep/admin-starter)![License](https://img.shields.io/github/license/SubZtep/admin-starter)[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=SubZtep_admin-starter&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=SubZtep_admin-starter)
 
 A TypeScript monorepo is implementing pieces of **Better Auth** in a **Hono** [API](./apps/api/), with a **TanStack Start** [web app](./apps/web/) consuming it to demonstrate how they work together. 🎓
 

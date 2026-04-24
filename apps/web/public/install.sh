@@ -159,7 +159,8 @@ install() {
 }
 
 main() {
-  echo "▂▃▅▇█▓▒░ kaja autoinstall ░▒▓█▇▅▃▂"
+  echo "kaja autoinstall"
+  echo "░▒▓█▇▅▃▂▂▃▅▇█▓▒░"
   echo ""
   install
   return
