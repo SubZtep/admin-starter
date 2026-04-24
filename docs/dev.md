@@ -8,10 +8,19 @@ nav_order: 4
 
 ## Setup
 
-Generate local environment secrets (into `apps/api/.env.local`):
+Bootstrap your local env files (committed `.env.example` is the source of truth, `.env` is your gitignored copy):
 
 ```sh
-./create_local_secrets.sh
+cp apps/api/.env.example apps/api/.env
+cp apps/web/.env.example apps/web/.env
+cp apps/cli/.env.example apps/cli/.env
+cp .env.example .env
+```
+
+Generate local secrets (appends `BETTER_AUTH_SECRET` and `JWT_SECRET` to `apps/api/.env`):
+
+```sh
+./scripts/create_local_secrets.sh
 ```
 
 Start PostgreSQL and SMTP services:
@@ -48,9 +57,13 @@ Better-Auth OpenAPI in dev mode: [http://localhost:3001/auth/reference](http://l
 
 ## Environment Variables
 
-There are .env files at `/apps/*/`. Just clone and run! Split Configuration between shared defaults and local overrides.
+Each app under `/apps/*/` ships two env files:
 
-1. `.env` (Committed) -> Loads defaults
-2. `.env.local` (Ignored) -> Loads your secrets/overrides
-3. `.env.development` (Committed) -> Loads dev-specific defaults
-4. `.env.development.local` (Ignored) -> Loads dev-specific secrets
+| Order | File | Committed? | Purpose |
+| ----- | ---- | ---------- | ------- |
+| 1 | `.env.example` | yes | template / source of truth (no real values) |
+| 2 | `.env` | NO (`.gitignore`) | your local copy — real values + secrets |
+
+Same convention at the repo root for compose build args.
+
+Production: **no `.env*` files** — inject vars via the host / orchestrator (Disco, Docker `--env-file` outside the image, k8s secrets, etc.). See [Deploy](deploy.md).

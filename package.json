@@ -12,18 +12,15 @@
     "build:cli": "bun run --filter @app/cli build",
     "lint": "biome check .",
     "lint:fix": "biome check . --write --unsafe",
-    "test": "bun --env-file=apps/api/.env test"
+    "test": "bun --env-file=apps/api/.env.example --env-file=apps/api/.env test"
   },
   "workspaces": [
     "apps/*",
     "packages/*"
   ],
-  "dependencies": {
-    "admin-starter": "."
-  },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.12",
-    "nitro": "npm:nitro-nightly@latest"
+    "@biomejs/biome": "^2.4.13",
+    "nitro": "npm:nitro-nightly@^3.0.1-20260423-183501-f92fb7b7"
   },
   "optionalDependencies": {
     "@faker-js/faker": "^10.4.0"

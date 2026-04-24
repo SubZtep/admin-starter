@@ -3,7 +3,9 @@
 dist
 node_modules
 pgdata
-.env*.local
+.env
+.env.*
+!.env.example
 
 # ...
 .DS_Store

@@ -46,8 +46,10 @@ services:
       mail:
         condition: service_healthy
     env_file:
-      - apps/api/.env
-      - apps/api/.env.local
+      - path: apps/api/.env.example
+        required: true
+      - path: apps/api/.env
+        required: false
     environment:
       DATABASE_URL: postgresql://testuser:testpass@db:5432/test
       SMTP_HOST: mail
@@ -63,6 +65,10 @@ services:
       - "3000:3000"
     depends_on:
       - api
-    env_file: apps/web/.env
+    env_file:
+      - path: apps/web/.env.example
+        required: true
+      - path: apps/web/.env
+        required: false
     environment:
       API_URL: http://api:3001
