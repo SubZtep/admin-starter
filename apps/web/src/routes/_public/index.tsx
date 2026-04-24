@@ -15,7 +15,7 @@ function App() {
         Hello, <GitHub />
         World!
       </h1>
-      <pre className="text-base!">curl -fsSL https://kaja.io/setup.sh | sh</pre>
+      <pre className="text-base!">curl -fsSL https://kaja.io/setup.sh | bash</pre>
 
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore

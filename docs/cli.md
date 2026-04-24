@@ -8,9 +8,9 @@ nav_order: 4
 ```
 Usage:
 # Install (latest release)
-curl -sL https://raw.githubusercontent.com/subztep/admin-starter/main/setup.sh | sh
+curl -sL https://raw.githubusercontent.com/subztep/admin-starter/main/setup.sh | bash
 # Install specific version
-REPO=subztep/admin-starter VERSION=v0.0.1 curl -sL https://raw.githubusercontent.com/subztep/admin-starter/main/setup.sh | sh
+REPO=subztep/admin-starter VERSION=v0.0.1 curl -sL https://raw.githubusercontent.com/subztep/admin-starter/main/setup.sh | bash
 ```
 
 ---
