@@ -15,9 +15,12 @@ import { Route as PublicIndexRouteImport } from './routes/_public/index'
 import { Route as PublicSignupRouteImport } from './routes/_public/signup'
 import { Route as PublicSigninRouteImport } from './routes/_public/signin'
 import { Route as PublicResetPasswordRouteImport } from './routes/_public/reset-password'
+import { Route as PublicDeviceRouteImport } from './routes/_public/device'
 import { Route as AdminProfileRouteImport } from './routes/_admin/profile'
 import { Route as AdminDashboardRouteImport } from './routes/_admin/dashboard'
+import { Route as PublicDeviceIndexRouteImport } from './routes/_public/device/index'
 import { Route as AdminUsersIndexRouteImport } from './routes/_admin/users/index'
+import { Route as PublicDeviceApproveRouteImport } from './routes/_public/device/approve'
 import { Route as AdminUsersUserIdRouteImport } from './routes/_admin/users/$userId'
 
 const PublicRoute = PublicRouteImport.update({
@@ -48,6 +51,11 @@ const PublicResetPasswordRoute = PublicResetPasswordRouteImport.update({
   path: '/reset-password',
   getParentRoute: () => PublicRoute,
 } as any)
+const PublicDeviceRoute = PublicDeviceRouteImport.update({
+  id: '/device',
+  path: '/device',
+  getParentRoute: () => PublicRoute,
+} as any)
 const AdminProfileRoute = AdminProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
@@ -58,10 +66,20 @@ const AdminDashboardRoute = AdminDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AdminRoute,
 } as any)
+const PublicDeviceIndexRoute = PublicDeviceIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PublicDeviceRoute,
+} as any)
 const AdminUsersIndexRoute = AdminUsersIndexRouteImport.update({
   id: '/users/',
   path: '/users/',
   getParentRoute: () => AdminRoute,
+} as any)
+const PublicDeviceApproveRoute = PublicDeviceApproveRouteImport.update({
+  id: '/approve',
+  path: '/approve',
+  getParentRoute: () => PublicDeviceRoute,
 } as any)
 const AdminUsersUserIdRoute = AdminUsersUserIdRouteImport.update({
   id: '/users/$userId',
@@ -73,11 +91,14 @@ export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
   '/dashboard': typeof AdminDashboardRoute
   '/profile': typeof AdminProfileRoute
+  '/device': typeof PublicDeviceRouteWithChildren
   '/reset-password': typeof PublicResetPasswordRoute
   '/signin': typeof PublicSigninRoute
   '/signup': typeof PublicSignupRoute
   '/users/$userId': typeof AdminUsersUserIdRoute
+  '/device/approve': typeof PublicDeviceApproveRoute
   '/users/': typeof AdminUsersIndexRoute
+  '/device/': typeof PublicDeviceIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof PublicIndexRoute
@@ -87,7 +108,9 @@ export interface FileRoutesByTo {
   '/signin': typeof PublicSigninRoute
   '/signup': typeof PublicSignupRoute
   '/users/$userId': typeof AdminUsersUserIdRoute
+  '/device/approve': typeof PublicDeviceApproveRoute
   '/users': typeof AdminUsersIndexRoute
+  '/device': typeof PublicDeviceIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -95,12 +118,15 @@ export interface FileRoutesById {
   '/_public': typeof PublicRouteWithChildren
   '/_admin/dashboard': typeof AdminDashboardRoute
   '/_admin/profile': typeof AdminProfileRoute
+  '/_public/device': typeof PublicDeviceRouteWithChildren
   '/_public/reset-password': typeof PublicResetPasswordRoute
   '/_public/signin': typeof PublicSigninRoute
   '/_public/signup': typeof PublicSignupRoute
   '/_public/': typeof PublicIndexRoute
   '/_admin/users/$userId': typeof AdminUsersUserIdRoute
+  '/_public/device/approve': typeof PublicDeviceApproveRoute
   '/_admin/users/': typeof AdminUsersIndexRoute
+  '/_public/device/': typeof PublicDeviceIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -108,11 +134,14 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard'
     | '/profile'
+    | '/device'
     | '/reset-password'
     | '/signin'
     | '/signup'
     | '/users/$userId'
+    | '/device/approve'
     | '/users/'
+    | '/device/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -122,19 +151,24 @@ export interface FileRouteTypes {
     | '/signin'
     | '/signup'
     | '/users/$userId'
+    | '/device/approve'
     | '/users'
+    | '/device'
   id:
     | '__root__'
     | '/_admin'
     | '/_public'
     | '/_admin/dashboard'
     | '/_admin/profile'
+    | '/_public/device'
     | '/_public/reset-password'
     | '/_public/signin'
     | '/_public/signup'
     | '/_public/'
     | '/_admin/users/$userId'
+    | '/_public/device/approve'
     | '/_admin/users/'
+    | '/_public/device/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -186,6 +220,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicResetPasswordRouteImport
       parentRoute: typeof PublicRoute
     }
+    '/_public/device': {
+      id: '/_public/device'
+      path: '/device'
+      fullPath: '/device'
+      preLoaderRoute: typeof PublicDeviceRouteImport
+      parentRoute: typeof PublicRoute
+    }
     '/_admin/profile': {
       id: '/_admin/profile'
       path: '/profile'
@@ -200,12 +241,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminDashboardRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/_public/device/': {
+      id: '/_public/device/'
+      path: '/'
+      fullPath: '/device/'
+      preLoaderRoute: typeof PublicDeviceIndexRouteImport
+      parentRoute: typeof PublicDeviceRoute
+    }
     '/_admin/users/': {
       id: '/_admin/users/'
       path: '/users'
       fullPath: '/users/'
       preLoaderRoute: typeof AdminUsersIndexRouteImport
       parentRoute: typeof AdminRoute
+    }
+    '/_public/device/approve': {
+      id: '/_public/device/approve'
+      path: '/approve'
+      fullPath: '/device/approve'
+      preLoaderRoute: typeof PublicDeviceApproveRouteImport
+      parentRoute: typeof PublicDeviceRoute
     }
     '/_admin/users/$userId': {
       id: '/_admin/users/$userId'
@@ -233,7 +288,22 @@ const AdminRouteChildren: AdminRouteChildren = {
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
+interface PublicDeviceRouteChildren {
+  PublicDeviceApproveRoute: typeof PublicDeviceApproveRoute
+  PublicDeviceIndexRoute: typeof PublicDeviceIndexRoute
+}
+
+const PublicDeviceRouteChildren: PublicDeviceRouteChildren = {
+  PublicDeviceApproveRoute: PublicDeviceApproveRoute,
+  PublicDeviceIndexRoute: PublicDeviceIndexRoute,
+}
+
+const PublicDeviceRouteWithChildren = PublicDeviceRoute._addFileChildren(
+  PublicDeviceRouteChildren,
+)
+
 interface PublicRouteChildren {
+  PublicDeviceRoute: typeof PublicDeviceRouteWithChildren
   PublicResetPasswordRoute: typeof PublicResetPasswordRoute
   PublicSigninRoute: typeof PublicSigninRoute
   PublicSignupRoute: typeof PublicSignupRoute
@@ -241,6 +311,7 @@ interface PublicRouteChildren {
 }
 
 const PublicRouteChildren: PublicRouteChildren = {
+  PublicDeviceRoute: PublicDeviceRouteWithChildren,
   PublicResetPasswordRoute: PublicResetPasswordRoute,
   PublicSigninRoute: PublicSigninRoute,
   PublicSignupRoute: PublicSignupRoute,

@@ -1,11 +1,22 @@
 import { type BetterAuthPlugin, betterAuth } from "better-auth"
-import { admin, bearer, jwt, openAPI } from "better-auth/plugins"
+import { admin, bearer, deviceAuthorization, jwt, openAPI } from "better-auth/plugins"
 import { pool } from "#/core/db"
 import { logger } from "#/core/logger"
 import { sendEmail } from "#/emails"
 import type { EmailPayload } from "#/emails/template"
 
 const isDevMode = process.env.NODE_ENV === "development"
+
+const KAJA_CLI_CLIENT_ID = "kaja-cli"
+
+function deviceVerificationUrl() {
+  const fromEnv = [process.env.WEB_PUBLIC_URL, process.env.CORS_ORIGIN].map(s => s?.trim()).find(Boolean)
+  const base = (fromEnv ?? (process.env.NODE_ENV === "production" ? "" : "http://localhost:3000")).replace(/\/$/, "")
+  if (!base) {
+    throw new Error("CORS_ORIGIN or WEB_PUBLIC_URL must be set for device authorization")
+  }
+  return new URL("/device", base).toString()
+}
 
 function sendAuthEmail(args: Parameters<typeof sendEmail>[0]) {
   // FIXME: Avoid awaiting the email sending to prevent timing attacks. (from Better-Auth doc)
@@ -37,7 +48,14 @@ const plugins: BetterAuthPlugin[] = [
       expirationTime: "15min"
     }
   }),
-  admin()
+  admin(),
+  deviceAuthorization({
+    verificationUri: deviceVerificationUrl(),
+    validateClient: clientId => clientId === KAJA_CLI_CLIENT_ID,
+    onDeviceAuthRequest: (clientId, scope) => {
+      logger.debug({ clientId, scope }, "Device authorization requested")
+    }
+  })
 ]
 
 if (isDevMode) {

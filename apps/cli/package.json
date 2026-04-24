@@ -4,11 +4,13 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "bun run --hot cli.ts",
+    "dev": "bun run cli.ts",
     "build": "bun build ./cli.ts --compile --minify --sourcemap --bytecode --outfile mycli"
   },
   "dependencies": {
     "@app/schemas": "workspace:*",
-    "@clack/prompts": "^1.2.0"
+    "@clack/prompts": "^1.2.0",
+    "better-auth": "^1.6.8",
+    "open": "^10.1.0"
   }
 }

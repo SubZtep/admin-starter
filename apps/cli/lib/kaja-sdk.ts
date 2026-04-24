@@ -9,6 +9,7 @@ import type {
   RegisterNodeResponse,
   SubmitResultRequest
 } from "@app/schemas"
+import { getAccessToken } from "./token"
 
 export interface KajaClientOptions {
   baseURL?: string
@@ -84,11 +85,18 @@ export class KajaClient {
   }
 
   async #apiRequest<T = unknown>(path: string, payload?: Record<string, any>, options?: RequestInit) {
+    const { headers: initHeaders, ...rest } = options ?? {}
+    const headers = new Headers(initHeaders as HeadersInit | undefined)
+    headers.set("Content-Type", "application/json")
+    const token = await getAccessToken()
+    if (token) {
+      headers.set("Authorization", `Bearer ${token}`)
+    }
     const response = await fetch(join(this.baseURL, path), {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers,
       body: payload ? JSON.stringify(payload) : undefined,
-      ...options
+      ...rest
     })
 
     if (!response.ok) {

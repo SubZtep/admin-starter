@@ -7,7 +7,7 @@
     "dev": "bun run --filter '!@app/cli' dev",
     "dev:api": "bun run --filter @app/api dev",
     "dev:web": "bun run --filter @app/web dev",
-    "dev:cli": "bun run --filter @app/cli dev",
+    "dev:cli": "bun run apps/cli/cli.ts",
     "build": "bun run --filter @app/web build",
     "build:cli": "bun run --filter @app/cli build",
     "lint": "biome check .",
