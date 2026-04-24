@@ -1,6 +1,6 @@
 import type { JobData } from "@app/schemas"
 import { box, spinner, tasks } from "@clack/prompts"
-import { dimgrey, kaja, ollama, pink, red } from "./var"
+import { dimgrey, kaja, ollama, pink, red } from "./vars"
 
 export async function validateConnections() {
   await tasks([

@@ -1,7 +1,7 @@
 import type { JobData, SubmitResultRequest } from "@app/schemas"
 import { intro, outro } from "@clack/prompts"
 import * as cli from "./lib/cli-flow"
-import { green, kaja, lime } from "./lib/var"
+import { green, kaja, lime } from "./lib/vars"
 
 intro(`${lime}Welcome Aboard! 🏴‍☠️`)
 Bun.sleepSync(1200)
