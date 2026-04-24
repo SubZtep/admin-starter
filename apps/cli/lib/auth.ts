@@ -1,10 +1,11 @@
+import { KAJA_CLI_CLIENT_ID } from "@app/schemas"
 import { box, cancel, intro, isCancel, note, outro, select, spinner } from "@clack/prompts"
 import { createAuthClient } from "better-auth/client"
 import { deviceAuthorizationClient } from "better-auth/client/plugins"
 import clipboard from "clipboardy"
 import qrcode from "qrcode-terminal"
 import { deleteAccessToken, getAccessToken, setAccessToken } from "./token"
-import { DEVICE_CLIENT_ID, green, kaja, red } from "./vars"
+import { green, kaja, red } from "./vars"
 
 function createDeviceAuthClient() {
   return createAuthClient({
@@ -42,7 +43,7 @@ export async function authFlow() {
   }
 
   const { data, error } = await authClient.device.code({
-    client_id: DEVICE_CLIENT_ID
+    client_id: KAJA_CLI_CLIENT_ID
   })
   if (error || !data) {
     console.log(`\n${red}${error?.error_description ?? "Could not start device login"} 🤮`)
@@ -140,7 +141,7 @@ async function pollDeviceToken(
     const { data, error } = await authClient.device.token({
       grant_type,
       device_code: deviceCode,
-      client_id: DEVICE_CLIENT_ID
+      client_id: KAJA_CLI_CLIENT_ID
     })
     if (data?.access_token) {
       return data.access_token

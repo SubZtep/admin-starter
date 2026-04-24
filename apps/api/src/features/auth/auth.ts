@@ -1,3 +1,4 @@
+import { KAJA_CLI_CLIENT_ID } from "@app/schemas"
 import { type BetterAuthPlugin, betterAuth } from "better-auth"
 import { admin, bearer, deviceAuthorization, jwt, openAPI } from "better-auth/plugins"
 import { pool } from "#/core/db"
@@ -6,8 +7,6 @@ import { sendEmail } from "#/emails"
 import type { EmailPayload } from "#/emails/template"
 
 const isDevMode = process.env.NODE_ENV === "development"
-
-const KAJA_CLI_CLIENT_ID = "kaja-cli"
 
 function deviceVerificationUrl() {
   const fromEnv = [process.env.WEB_PUBLIC_URL, process.env.CORS_ORIGIN].map(s => s?.trim()).find(Boolean)
