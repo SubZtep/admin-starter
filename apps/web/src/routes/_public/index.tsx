@@ -16,7 +16,7 @@ function App() {
         World!
       </h1>
       <pre className="text-base!">curl -fsSL https://kaja.io/setup.sh | bash</pre>
-
+      <pre className="text-base!">irm https://kaja.io/setup.ps1 | iex</pre>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
         magna aliqua.

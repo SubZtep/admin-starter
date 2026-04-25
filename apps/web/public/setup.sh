@@ -14,9 +14,9 @@ Environment (optional):
   INSTALL_DIR=path         Install directory (default: $HOME/.local/bin)
   VERSION=v1.2.3           Pin to a specific release tag instead of latest
 
-Examples:
-  REPO=myfork/admin-starter curl -fsSL https://kaja.io/setup.sh | bash
-  VERSION=v0.1.0 curl -fsSL https://kaja.io/setup.sh | bash
+Examples (put REPO / VERSION to the right of the pipe so they apply to the shell):
+  curl -fsSL https://kaja.io/setup.sh | REPO=myfork/admin-starter bash
+  curl -fsSL https://kaja.io/setup.sh | REPO=owner/repo VERSION=v0.1.0 bash
 EOF
   return
 }
@@ -27,17 +27,19 @@ detect_platform() {
   arch="$(uname -m)"
 
   case "$os" in
-    linux)  platform="linux-x64" ;;
+    linux)
+      case "$arch" in
+        x86_64|amd64)   platform="linux-x64" ;;
+        aarch64|arm64)  platform="linux-arm64" ;;
+        *)              echo "Unsupported arch: $arch" >&2; exit 1 ;;
+      esac
+      ;;
     darwin)
       case "$arch" in
         arm64)  platform="macos-arm64" ;;
         x86_64) platform="macos-x64" ;;
         *)      echo "Unsupported arch: $arch" >&2; exit 1 ;;
       esac
-      ;;
-    msys*|mingw*|cygwin|windows)
-      os="windows"
-      platform="windows-x64"
       ;;
     *)      echo "Unsupported OS: $os" >&2; exit 1 ;;
   esac
@@ -146,11 +148,11 @@ install() {
     echo ""
     case "${SHELL:-}" in
       */zsh)
-        echo '  echo "export PATH=\$HOME/.local/bin:\$PATH" >> ~/.zshrc' ;;
+        echo "  echo 'export PATH=${INSTALL_DIR}:\$PATH' >> ~/.zshrc" ;;
       */bash)
-        echo '  echo "export PATH=\$HOME/.local/bin:\$PATH" >> ~/.bashrc' ;;
+        echo "  echo 'export PATH=${INSTALL_DIR}:\$PATH' >> ~/.bashrc" ;;
       *)
-        echo '  Add $HOME/.local/bin to your PATH' ;;
+        echo "  Add ${INSTALL_DIR} to your PATH" ;;
     esac
     echo ""
     echo "Then restart your shell or run: source ~/.bashrc (or ~/.zshrc)"

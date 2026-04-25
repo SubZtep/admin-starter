@@ -7,10 +7,14 @@ nav_order: 4
 
 ```
 Usage:
-# Install (latest release)
-curl -sL https://raw.githubusercontent.com/subztep/admin-starter/main/setup.sh | bash
-# Install specific version
-REPO=subztep/admin-starter VERSION=v0.0.1 curl -sL https://raw.githubusercontent.com/subztep/admin-starter/main/setup.sh | bash
+# macOS / Linux (latest release)
+curl -fsSL https://kaja.io/setup.sh | bash
+# Pin version or repo (put env after the pipe)
+curl -fsSL https://kaja.io/setup.sh | REPO=subztep/admin-starter VERSION=v0.0.1 bash
+
+# Windows (PowerShell)
+irm https://kaja.io/setup.ps1 | iex
+# e.g. fork:  $env:REPO = 'me/admin-starter'; irm https://kaja.io/setup.ps1 | iex
 ```
 
 ---

@@ -24,9 +24,19 @@ jobs:
         include:
           - os: ubuntu-latest
             platform: linux-x64
+            bun_target: bun-linux-x64
             artifact: kaja-linux-x64
+          - os: ubuntu-latest
+            platform: linux-arm64
+            bun_target: bun-linux-arm64
+            artifact: kaja-linux-arm64
+          - os: ubuntu-latest
+            platform: windows-x64
+            bun_target: bun-windows-x64
+            artifact: kaja-windows-x64.exe
           - os: macos-latest
             platform: macos-arm64
+            bun_target: bun-darwin-arm64
             artifact: kaja-macos-arm64
 
     runs-on: ${{ matrix.os }}
@@ -49,13 +59,23 @@ jobs:
             echo "Set the API_URL repository variable (Settings → Secrets and variables → Actions → Variables)."
             exit 1
           fi
-          bun run --filter @app/cli build:release
+          cd apps/cli
+          bun build ./cli.ts --compile --minify --sourcemap --bytecode --outfile kaja --env=API_* --target="${{ matrix.bun_target }}"
 
       - name: Rename artifact
         shell: bash
         run: |
-          mv apps/cli/kaja "${{ matrix.artifact }}"
-          chmod +x "${{ matrix.artifact }}"
+          out="${{ matrix.artifact }}"
+          if [[ -f "apps/cli/kaja.exe" ]]; then
+            mv "apps/cli/kaja.exe" "$out"
+          elif [[ -f "apps/cli/kaja" ]]; then
+            mv "apps/cli/kaja" "$out"
+          else
+            echo "Expected kaja or kaja.exe in apps/cli"
+            ls -la apps/cli/ || true
+            exit 1
+          fi
+          chmod +x "$out" || true
 
       - name: Generate SHA256 checksum
         shell: bash
@@ -118,30 +138,49 @@ jobs:
                 "artifact": "kaja-linux-x64",
                 "checksum": ""
               },
+              "linux-arm64": {
+                "artifact": "kaja-linux-arm64",
+                "checksum": ""
+              },
               "macos-arm64": {
                 "artifact": "kaja-macos-arm64",
+                "checksum": ""
+              },
+              "windows-x64": {
+                "artifact": "kaja-windows-x64.exe",
                 "checksum": ""
               }
             }
           }
           EOF
 
+          shopt -s nullglob
           for artifact in artifacts/*/kaja-*; do
+            [[ -f "$artifact" ]] || continue
             [[ "$artifact" == *.sha256 ]] && continue
             name=$(basename "$artifact")
-            checksum=$(cat "$artifact.sha256")
-
-            if [[ "$name" == *"linux"* ]]; then
-              jq --arg c "$checksum" '.platforms["linux-x64"].checksum=$c' artifacts/manifest.json > tmp.json && mv tmp.json artifacts/manifest.json
-            elif [[ "$name" == *"macos"* ]]; then
-              jq --arg c "$checksum" '.platforms["macos-arm64"].checksum=$c' artifacts/manifest.json > tmp.json && mv tmp.json artifacts/manifest.json
+            if [[ ! -f "${artifact}.sha256" ]]; then
+              echo "❌ Missing sidecar: ${artifact}.sha256"
+              exit 1
             fi
+            checksum=$(tr -d '\n' < "${artifact}.sha256")
+
+            case "$name" in
+              kaja-linux-x64)   key=linux-x64 ;;
+              kaja-linux-arm64) key=linux-arm64 ;;
+              kaja-macos-arm64) key=macos-arm64 ;;
+              kaja-windows-x64.exe) key=windows-x64 ;;
+              *) echo "❌ Unknown artifact basename: $name"; exit 1 ;;
+            esac
+
+            jq --arg c "$checksum" --arg k "$key" '.platforms[$k].checksum=$c' artifacts/manifest.json > tmp.json && mv tmp.json artifacts/manifest.json
           done
 
-          # sanity check
           if jq -e '
             .platforms["linux-x64"].checksum == "" or
-            .platforms["macos-arm64"].checksum == ""
+            .platforms["linux-arm64"].checksum == "" or
+            .platforms["macos-arm64"].checksum == "" or
+            .platforms["windows-x64"].checksum == ""
           ' artifacts/manifest.json > /dev/null; then
             echo "❌ Missing checksum in manifest"
             cat artifacts/manifest.json
