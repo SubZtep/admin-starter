@@ -165,6 +165,8 @@ main() {
   echo "░▒▓█▇▅▃▂▂▃▅▇█▓▒░"
   echo ""
   install
+  echo ""
+  echo "Run 'kaja' to get started!"
   return
 }
 

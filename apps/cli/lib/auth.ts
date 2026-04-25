@@ -1,5 +1,5 @@
 import { KAJA_CLI_CLIENT_ID } from "@app/schemas"
-import { box, cancel, isCancel, note, outro, select } from "@clack/prompts"
+import { cancel, isCancel, log, note, outro, select } from "@clack/prompts"
 import { createAuthClient } from "better-auth/client"
 import { deviceAuthorizationClient } from "better-auth/client/plugins"
 import clipboard from "clipboardy"
@@ -50,22 +50,24 @@ export async function authFlow() {
 
   // MARK: Authentication
 
-  const link = verification_uri_complete ?? verification_uri
-  if (!verification_uri_complete) {
-    box(user_code, "User Code", { width: "auto", rounded: true })
+  if (verification_uri_complete) {
+    log.message(`Login link: ${verification_uri_complete}`)
+  } else if (verification_uri) {
+    log.message(`Login link: ${verification_uri}`)
+    log.message(`User code: ${user_code}`)
+  } else {
+    cancel("No login link found")
+    process.exit(1)
   }
+
+  const link = verification_uri_complete ?? verification_uri
 
   const todo = await select({
     message: "Please sign in",
     options: [
       { value: "open", label: "Open default browser", hint: "Approve CLI login on the web" },
       { value: "qrcode", label: "Scan with your phone", hint: "Display QR code to view with your camera" },
-      { value: "copy", label: "Copy link to clipboard", hint: "Open the link manually in your browser" },
-      {
-        value: "display",
-        label: "Show user code",
-        hint: "Display URLs and the user code to enter manually"
-      }
+      { value: "copy", label: "Copy link to clipboard", hint: "Open the link manually in your browser" }
     ]
   })
 
@@ -80,26 +82,19 @@ export async function authFlow() {
         const { default: open } = await import("open")
         await open(link)
       } catch {
-        note(`Could not open a browser. Open this URL manually:\n${link}`, "Device login")
+        log.error("Could not open a browser. Please open the link manually.")
       }
       break
     case "qrcode":
       qrcode.generate(link, { small: true })
       break
-    case "copy": {
+    case "copy":
       try {
         await clipboard.write(link)
-        note(`Link copied to clipboard.\nOpen ${link} manually in your browser.`, "Device login")
+        log.success("Link copied to clipboard. Please paste it into your browser.")
       } catch {
-        note(`Could not copy to clipboard. Open this URL manually:\n${link}`, "Device login")
+        log.error("Could not copy to clipboard. Please paste the link manually into your browser.")
       }
-      break
-    }
-    case "display":
-      note(
-        `1. Open in a browser:\n${link}\n\n2. Open in a browser:\n${verification_uri}\nThen enter code: ${user_code}`,
-        "Device login"
-      )
       break
   }
 
@@ -109,9 +104,8 @@ export async function authFlow() {
     await setAccessToken(token)
   } catch (err) {
     setSessionAccessToken(token)
-    note(
-      `Could not save the token to the system secret store (${err instanceof Error ? err.message : String(err)}). You stay signed in for this CLI run only — next time, fix the store or sign in again.`,
-      "Session only"
+    log.error(
+      `Could not save the token to the system secret store (${err instanceof Error ? err.message : String(err)}). You stay signed in for this CLI run only — next time, fix the store or sign in again.`
     )
   }
 
@@ -143,24 +137,22 @@ async function pollDeviceToken(
     if (data?.access_token) {
       return data.access_token
     }
-    const code = error?.error
-    if (code === "authorization_pending") {
-      continue
+    switch (error?.error) {
+      case "authorization_pending":
+        continue
+      case "slow_down":
+        waitMs += 5000
+        continue
+      case "access_denied":
+        cancel("Access denied")
+        process.exit(1)
+      case "expired_token":
+        cancel("Device code expired — run again")
+        process.exit(1)
+      default:
+        cancel(error?.error ?? "Device token error")
+        process.exit(1)
     }
-    if (code === "slow_down") {
-      waitMs += 5000
-      continue
-    }
-    if (code === "access_denied") {
-      cancel("Access denied")
-      process.exit(1)
-    }
-    if (code === "expired_token") {
-      cancel("Device code expired — run again")
-      process.exit(1)
-    }
-    cancel(error?.error ?? code ?? "Device token error")
-    process.exit(1)
   }
 
   cancel("Device authorization timed out")

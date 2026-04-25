@@ -6,7 +6,8 @@
 $ErrorActionPreference = "Stop"
 $ProgressPreference = "SilentlyContinue"
 
-Write-Host "kaja autoinstall (Windows)"
+Write-Host "kaja autoinstall"
+Write-Host "░▒▓█▇▅▃▂▂▃▅▇█▓▒░"
 Write-Host ""
 
 $Repo = if ($env:REPO) { $env:REPO } else { "subztep/admin-starter" }
@@ -72,4 +73,5 @@ if (-not $already) {
   Write-Host "Example:"
   Write-Host "  $hint"
   Write-Host ""
+  Write-Host "Run 'kaja' to get started!"
 }
