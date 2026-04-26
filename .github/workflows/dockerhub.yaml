@@ -31,7 +31,7 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Release API
-        uses: SubZtep/dockerhub-action@v1
+        uses: SubZtep/dockerhub-action@3835f735f7a41c90e73ab8577e9254ae02f2b1cd
         with:
           dockerhub_repository: ${{ vars.DOCKER_IMAGE_API }}
           dockerhub_username: ${{ vars.DOCKERHUB_USERNAME }}
@@ -57,7 +57,7 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Release Web
-        uses: SubZtep/dockerhub-action@v1
+        uses: SubZtep/dockerhub-action@3835f735f7a41c90e73ab8577e9254ae02f2b1cd
         with:
           dockerhub_repository: ${{ vars.DOCKER_IMAGE_WEB }}
           dockerhub_username: ${{ vars.DOCKERHUB_USERNAME }}
