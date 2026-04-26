@@ -61,6 +61,7 @@ export async function authFlow() {
   }
 
   const link = verification_uri_complete ?? verification_uri
+  const tokenPromise = pollDeviceToken(authClient, device_code, interval, Date.now() + expires_in * 1000)
 
   const todo = await select({
     message: "Please sign in",
@@ -82,7 +83,7 @@ export async function authFlow() {
         const { default: open } = await import("open")
         await open(link)
       } catch {
-        log.error("Could not open a browser. Please open the link manually.")
+        log.error("Could not open a browser. Please open the link manually, then approve the login.")
       }
       break
     case "qrcode":
@@ -91,14 +92,16 @@ export async function authFlow() {
     case "copy":
       try {
         await clipboard.write(link)
-        log.success("Link copied to clipboard. Please paste it into your browser.")
+        log.success("Link copied to clipboard. Paste it into your browser, then approve the login.")
       } catch {
-        log.error("Could not copy to clipboard. Please paste the link manually into your browser.")
+        log.error(
+          "Could not copy to clipboard. Please paste the link manually into your browser, then approve the login."
+        )
       }
       break
   }
 
-  const token = await pollDeviceToken(authClient, device_code, interval, Date.now() + expires_in * 1000)
+  const token = await tokenPromise
 
   try {
     await setAccessToken(token)
