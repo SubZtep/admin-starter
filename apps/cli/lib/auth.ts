@@ -1,5 +1,5 @@
 import { KAJA_CLI_CLIENT_ID } from "@app/schemas"
-import { cancel, isCancel, log, note, outro, select } from "@clack/prompts"
+import { cancel, log, note, outro } from "@clack/prompts"
 import { createAuthClient } from "better-auth/client"
 import { deviceAuthorizationClient } from "better-auth/client/plugins"
 import clipboard from "clipboardy"
@@ -61,47 +61,14 @@ export async function authFlow() {
   }
 
   const link = verification_uri_complete ?? verification_uri
-  const tokenPromise = pollDeviceToken(authClient, device_code, interval, Date.now() + expires_in * 1000)
+  const cleanupLoginActions = listenForLoginActions(link)
+  let token: string
 
-  const todo = await select({
-    message: "Please sign in",
-    options: [
-      { value: "open", label: "Open default browser", hint: "Approve CLI login on the web" },
-      { value: "qrcode", label: "Scan with your phone", hint: "Display QR code to view with your camera" },
-      { value: "copy", label: "Copy link to clipboard", hint: "Open the link manually in your browser" }
-    ]
-  })
-
-  if (isCancel(todo)) {
-    cancel("Authentication cancelled")
-    process.exit()
+  try {
+    token = await pollDeviceToken(authClient, device_code, interval, Date.now() + expires_in * 1000)
+  } finally {
+    cleanupLoginActions()
   }
-
-  switch (todo) {
-    case "open":
-      try {
-        const { default: open } = await import("open")
-        await open(link)
-      } catch {
-        log.error("Could not open a browser. Please open the link manually, then approve the login.")
-      }
-      break
-    case "qrcode":
-      qrcode.generate(link, { small: true })
-      break
-    case "copy":
-      try {
-        await clipboard.write(link)
-        log.success("Link copied to clipboard. Paste it into your browser, then approve the login.")
-      } catch {
-        log.error(
-          "Could not copy to clipboard. Please paste the link manually into your browser, then approve the login."
-        )
-      }
-      break
-  }
-
-  const token = await tokenPromise
 
   try {
     await setAccessToken(token)
@@ -119,6 +86,81 @@ export async function authFlow() {
   })
 
   note(`${cyan}Welcome aboard, ${session?.user?.name ?? session?.user?.email ?? "user"}!`, "👋")
+}
+
+function listenForLoginActions(link: string) {
+  const stdin = process.stdin
+  const canReadKeys = stdin.isTTY && typeof stdin.setRawMode === "function"
+
+  if (!canReadKeys) {
+    log.message("Waiting for browser approval...")
+    return () => {}
+  }
+
+  const wasRaw = stdin.isRaw
+  const wasPaused = stdin.isPaused()
+  let cleanedUp = false
+
+  const cleanup = () => {
+    if (cleanedUp) {
+      return
+    }
+
+    cleanedUp = true
+    stdin.off("data", onData)
+    stdin.setRawMode(wasRaw)
+
+    if (wasPaused) {
+      stdin.pause()
+    }
+  }
+
+  const onData = (data: Buffer) => {
+    const input = data.toString("utf8").toLowerCase()
+
+    for (const key of input) {
+      switch (key) {
+        case "\u0003":
+          cleanup()
+          cancel("Authentication cancelled")
+          process.exit()
+        case "o":
+          openLoginLink(link)
+          break
+        case "q":
+          qrcode.generate(link, { small: true })
+          break
+        case "c":
+          copyLoginLink(link)
+          break
+      }
+    }
+  }
+
+  log.message("Waiting for approval... Press o to open, c to copy, q for QR, or Ctrl+C to cancel.")
+  stdin.setRawMode(true)
+  stdin.resume()
+  stdin.on("data", onData)
+
+  return cleanup
+}
+
+async function openLoginLink(link: string) {
+  try {
+    const { default: open } = await import("open")
+    await open(link)
+  } catch {
+    log.error("Could not open a browser. Please open the link manually, then approve the login.")
+  }
+}
+
+async function copyLoginLink(link: string) {
+  try {
+    await clipboard.write(link)
+    log.success("Link copied to clipboard. Paste it into your browser, then approve the login.")
+  } catch {
+    log.error("Could not copy to clipboard. Please paste the link manually into your browser, then approve the login.")
+  }
 }
 
 async function pollDeviceToken(
