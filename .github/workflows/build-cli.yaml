@@ -42,10 +42,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@0c366fd0d175c5768d3b3e42e90231f31001bb06
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+        uses: oven-sh/setup-bun@0c5077e
 
       - name: Install dependencies
         run: bun install
@@ -83,7 +83,7 @@ jobs:
           sha256sum "${{ matrix.artifact }}" | awk '{print $1}' > "${{ matrix.artifact }}.sha256"
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1ac180d0b913312a739759874e2e6e72
         with:
           name: ${{ matrix.artifact }}
           path: |
@@ -98,10 +98,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@0c366fd0d175c5768d3b3e42e90231f31001bb06
 
       - name: Download all artifacts
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@484a0b51e1c41d0df9c1f5441b5f3515e1bc8f2b
         with:
           path: artifacts
 
@@ -190,7 +190,7 @@ jobs:
           cat artifacts/manifest.json
 
       - name: Create Release
-        uses: softprops/action-gh-release@v3
+        uses: softprops/action-gh-release@b430933
         with:
           tag_name: ${{ env.VERSION }}
           draft: false

@@ -12,10 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@0c366fd0d175c5768d3b3e42e90231f31001bb06
 
       - name: Setup Biome Toolchain
-        uses: biomejs/setup-biome@v2
+        uses: biomejs/setup-biome@57a48b1052eba0af8e8abc393f21e212e579dade
 
       - name: Run linter and formatter
         run: biome ci .
@@ -43,10 +43,10 @@ jobs:
           --health-retries 5
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@0c366fd0d175c5768d3b3e42e90231f31001bb06
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+        uses: oven-sh/setup-bun@0c5077e
 
       - name: Install dependencies
         run: bun install

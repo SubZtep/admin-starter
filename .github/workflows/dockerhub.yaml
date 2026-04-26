@@ -22,7 +22,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@0c366fd0d175c5768d3b3e42e90231f31001bb06
 
       - name: Get API version
         id: version
@@ -48,7 +48,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@0c366fd0d175c5768d3b3e42e90231f31001bb06
 
       - name: Get Web version
         id: version
