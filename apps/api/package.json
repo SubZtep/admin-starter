@@ -1,5 +1,5 @@
 {
-  "name": "@app/api",
+  "name": "@kaja/api",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -8,18 +8,18 @@
     "start": "bun run dist/core/server.js"
   },
   "dependencies": {
-    "@app/schemas": "workspace:*",
-    "@app/shared": "workspace:*",
+    "@kaja/schemas": "workspace:*",
+    "@kaja/shared": "workspace:*",
     "@hono/zod-validator": "^0.7.6",
     "@react-email/components": "^1.0.12",
-    "@react-email/render": "^2.0.7",
+    "@react-email/render": "^2.0.8",
     "better-auth": "^1.6.9",
-    "hono": "^4.12.15",
-    "nodemailer": "^8.0.6",
+    "hono": "^4.12.16",
+    "nodemailer": "^8.0.7",
     "pg": "^8.20.0",
     "pino": "^10.3.1",
     "react": "^19.2.5",
-    "zod": "^4.3.6"
+    "zod": "^4.4.2"
   },
   "devDependencies": {
     "@types/nodemailer": "^8.0.0",

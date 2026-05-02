@@ -1,5 +1,5 @@
-import { KAJA_CLI_CLIENT_ID } from "@app/schemas"
 import { cancel, log, note, outro } from "@clack/prompts"
+import { KAJA_CLI_CLIENT_ID } from "@kaja/schemas"
 import { createAuthClient } from "better-auth/client"
 import { deviceAuthorizationClient } from "better-auth/client/plugins"
 import clipboard from "clipboardy"

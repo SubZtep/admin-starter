@@ -1,4 +1,4 @@
-import { loginSchema } from "@app/schemas"
+import { loginSchema } from "@kaja/schemas"
 import { CheckCircle, LoaderCircle } from "lucide-react"
 import { useState } from "react"
 import { toast } from "react-toastify"

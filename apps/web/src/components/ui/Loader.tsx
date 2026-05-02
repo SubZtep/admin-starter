@@ -1,4 +1,4 @@
-import { cn } from "@app/shared"
+import { cn } from "@kaja/shared"
 import { LoaderCircle } from "lucide-react"
 
 export function Loader({ slim = false }: Readonly<{ slim?: boolean }>) {

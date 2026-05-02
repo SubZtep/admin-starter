@@ -1,4 +1,4 @@
-import { getFirstName } from "@app/shared"
+import { getFirstName } from "@kaja/shared"
 import { Heading, Link, Text } from "@react-email/components"
 import { render } from "@react-email/render"
 import { EmailContainer, type EmailPayload } from "./template"

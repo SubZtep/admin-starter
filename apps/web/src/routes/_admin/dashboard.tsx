@@ -1,4 +1,4 @@
-import { getFirstName } from "@app/shared"
+import { getFirstName } from "@kaja/shared"
 import { createFileRoute } from "@tanstack/react-router"
 import { Activity, TrendingUp, UserCheck, Users } from "lucide-react"
 import { useUser } from "#/hooks/user"

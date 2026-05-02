@@ -1,5 +1,5 @@
-import { registerNodeRequestSchema, registerNodeResponseSchema } from "@app/schemas"
 import { zValidator } from "@hono/zod-validator"
+import { registerNodeRequestSchema, registerNodeResponseSchema } from "@kaja/schemas"
 import type { RouteRegProps } from "#/types"
 
 export function registerRegisterNode(app: RouteRegProps) {

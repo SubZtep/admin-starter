@@ -8,7 +8,7 @@ import type {
   RegisterNodeRequest,
   RegisterNodeResponse,
   SubmitResultRequest
-} from "@app/schemas"
+} from "@kaja/schemas"
 import { getAccessToken } from "./token"
 
 export interface KajaClientOptions {

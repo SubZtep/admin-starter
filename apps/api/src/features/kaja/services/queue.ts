@@ -1,4 +1,4 @@
-import type { Job } from "@app/schemas"
+import type { Job } from "@kaja/schemas"
 import type { Pool } from "pg"
 import { logger } from "#/core/logger"
 

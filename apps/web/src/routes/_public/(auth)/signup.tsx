@@ -1,4 +1,4 @@
-import { registerSchema } from "@app/schemas"
+import { registerSchema } from "@kaja/schemas"
 import { createFileRoute, useNavigate } from "@tanstack/react-router"
 import { useState } from "react"
 import { toast } from "react-toastify"

@@ -22,7 +22,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content: "width=device-width, initial-scale=1"
       },
       {
-        title: "Admin Starter"
+        title: "kaja.io🚧α"
       },
       {
         rel: "apple-touch-icon",
@@ -47,19 +47,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       {
         name: "og:title",
-        content: "Admin Starter"
+        content: "kaja.io🚧α"
       },
       {
         name: "twitter:title",
-        content: "Admin Starter"
+        content: "kaja.io🚧α"
       },
       {
         name: "og:url",
-        content: "https://subztep.github.io/admin-starter/"
+        content: "https://subztep.github.io/kaja/"
       },
       {
         name: "twitter:url",
-        content: "https://subztep.github.io/admin-starter/"
+        content: "https://subztep.github.io/kaja/"
       }
     ],
     links: [

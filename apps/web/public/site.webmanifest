@@ -1,6 +1,6 @@
 {
-	"name": "Admin Starter Template",
-	"short_name": "Admin Starter",
+	"name": "kaja.io",
+	"short_name": "kaja.io",
 	"display": "standalone",
 	"background_color": "#0f2027",
 	"theme_color": "#e2e8f0",

@@ -1,4 +1,4 @@
-import { isItTrue } from "@app/shared"
+import { isItTrue } from "@kaja/shared"
 import nodemailer from "nodemailer"
 import { logger } from "#/core/logger"
 import { getChangeEmailHtml } from "./ChangeEmail"
@@ -36,15 +36,15 @@ export async function sendEmail({ type, payload }: Readonly<SendEmailArgs>) {
   switch (type) {
     case "changeEmail":
       html = await getChangeEmailHtml(payload)
-      subject = `[Admin Starter] Change your email address`
+      subject = `[kaja.io] Change your email address`
       break
     case "verification":
       html = await getVerificationHtml(payload)
-      subject = `[Admin Starter] Verify your email address`
+      subject = `[kaja.io] Verify your email address`
       break
     case "resetPassword":
       html = await getResetPasswordHtml(payload)
-      subject = `[Admin Starter] Reset your password`
+      subject = `[kaja.io] Reset your password`
       break
   }
 

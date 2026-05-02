@@ -8,7 +8,7 @@ RUN bun install
 
 COPY apps/api ./apps/api
 COPY packages ./packages
-RUN bun run --filter @app/api build
+RUN bun run --filter @kaja/api build
 
 FROM oven/bun:1-alpine AS runner
 ENV NODE_ENV=production

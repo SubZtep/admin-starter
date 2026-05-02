@@ -1,4 +1,4 @@
-import { cn } from "@app/shared"
+import { cn } from "@kaja/shared"
 
 export function Main({
   full = false,

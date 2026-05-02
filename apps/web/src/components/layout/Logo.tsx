@@ -1,4 +1,4 @@
-import { cn } from "@app/shared"
+import { cn } from "@kaja/shared"
 import { Puzzle } from "lucide-react"
 
 export function Logo({ className }: Readonly<{ className?: string }>) {

@@ -26,31 +26,31 @@ Create two **Projects** and add additional **environment variables**:
 
 **No `.env*` files are baked into images** — all values must be injected by the host / orchestrator at the right phase (build vs runtime). Refer to [Configuration](config.md) for descriptions and dev defaults.
 
-### Web (`@app/web`)
+### Web (`@kaja/web`)
 
-| Variable        | Phase     | Notes                                                                |
-| --------------- | --------- | -------------------------------------------------------------------- |
-| `VITE_API_URL`  | build     | Inlined into client bundle by Vite — must be set at `docker build`.  |
-| `VITE_APP_URL`  | build     | Same as above.                                                       |
-| `API_URL`       | runtime   | Server-side fetch target (SSR / server functions). Defaults to `VITE_API_URL`. |
+| Variable       | Phase   | Notes                                                                          |
+| -------------- | ------- | ------------------------------------------------------------------------------ |
+| `VITE_API_URL` | build   | Inlined into client bundle by Vite — must be set at `docker build`.            |
+| `VITE_APP_URL` | build   | Same as above.                                                                 |
+| `API_URL`      | runtime | Server-side fetch target (SSR / server functions). Defaults to `VITE_API_URL`. |
 
-### API (`@app/api`)
+### API (`@kaja/api`)
 
 Required at runtime:
 
-| Variable             | Required | Notes                                                       |
-| -------------------- | -------- | ----------------------------------------------------------- |
-| `PORT`               | no       | Defaults to `3001`.                                         |
-| `CORS_ORIGIN`        | yes      | Public web URL.                                             |
-| `CROSS_PARENT_DOMAIN`| no       | Set when web + api live on subdomains.                      |
-| `DATABASE_URL`       | yes      | Postgres connection string.                                 |
-| `BETTER_AUTH_URL`    | yes      | Public api URL.                                             |
-| `BETTER_AUTH_SECRET` | yes      | ≥ 32 chars. `openssl rand -base64 32`.                      |
-| `JWT_SECRET`         | yes      | ≥ 32 chars.                                                 |
-| `EMAIL_FROM`         | yes      | e.g. `"Admin Starter <noreply@example.com>"`.               |
-| `SMTP_HOST`          | yes      |                                                             |
-| `SMTP_PORT`          | yes      |                                                             |
-| `SMTP_SECURE`        | no       | `true` for TLS.                                             |
-| `SMTP_USER`          | no       |                                                             |
-| `SMTP_PASS`          | no       |                                                             |
-| `NODE_ENV`           | no       | Defaults to `development`. Set `production` in prod images. |
+| Variable              | Required | Notes                                                       |
+| --------------------- | -------- | ----------------------------------------------------------- |
+| `PORT`                | no       | Defaults to `3001`.                                         |
+| `CORS_ORIGIN`         | yes      | Public web URL.                                             |
+| `CROSS_PARENT_DOMAIN` | no       | Set when web + api live on subdomains.                      |
+| `DATABASE_URL`        | yes      | Postgres connection string.                                 |
+| `BETTER_AUTH_URL`     | yes      | Public api URL.                                             |
+| `BETTER_AUTH_SECRET`  | yes      | ≥ 32 chars. `openssl rand -base64 32`.                      |
+| `JWT_SECRET`          | yes      | ≥ 32 chars.                                                 |
+| `EMAIL_FROM`          | yes      | e.g. `"Admin Starter <noreply@example.com>"`.               |
+| `SMTP_HOST`           | yes      |                                                             |
+| `SMTP_PORT`           | yes      |                                                             |
+| `SMTP_SECURE`         | no       | `true` for TLS.                                             |
+| `SMTP_USER`           | no       |                                                             |
+| `SMTP_PASS`           | no       |                                                             |
+| `NODE_ENV`            | no       | Defaults to `development`. Set `production` in prod images. |

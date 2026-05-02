@@ -1,5 +1,5 @@
-import type { JobData, SubmitResultRequest } from "@app/schemas"
 import { box, intro, outro } from "@clack/prompts"
+import type { JobData, SubmitResultRequest } from "@kaja/schemas"
 import * as auth from "./lib/auth"
 import * as cli from "./lib/cli-flow"
 import * as ollama from "./lib/ollama"

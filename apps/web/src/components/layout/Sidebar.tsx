@@ -1,4 +1,4 @@
-import { cn } from "@app/shared"
+import { cn } from "@kaja/shared"
 import { Link, useNavigate } from "@tanstack/react-router"
 import { LayoutDashboard, LogOut, Shield, Users } from "lucide-react"
 import { useState } from "react"

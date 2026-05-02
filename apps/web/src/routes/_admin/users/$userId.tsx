@@ -1,4 +1,4 @@
-import { getDateTime } from "@app/shared"
+import { getDateTime } from "@kaja/shared"
 import { createFileRoute, Link, useParams } from "@tanstack/react-router"
 import type { UserWithRole } from "better-auth/plugins"
 import { ArrowLeft, Calendar, CheckCircle2, Clock, Mail, Shield } from "lucide-react"

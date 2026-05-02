@@ -1,5 +1,5 @@
-import type { JobData } from "@app/schemas"
 import { box, spinner, tasks } from "@clack/prompts"
+import type { JobData } from "@kaja/schemas"
 import { dimgrey, kaja, ollama, pink, red } from "./vars"
 
 export async function validateConnections() {

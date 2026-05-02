@@ -1,5 +1,5 @@
-import { cn } from "@app/shared"
 import { AlertDialog } from "@base-ui/react/alert-dialog"
+import { cn } from "@kaja/shared"
 import { Button } from "../form/primitives/Button"
 
 interface Props {

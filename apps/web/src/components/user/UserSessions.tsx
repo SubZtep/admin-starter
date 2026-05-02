@@ -1,4 +1,4 @@
-import { getDateTime, getTimeAgo } from "@app/shared"
+import { getDateTime, getTimeAgo } from "@kaja/shared"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table"
 import type { SessionWithImpersonatedBy } from "better-auth/plugins"

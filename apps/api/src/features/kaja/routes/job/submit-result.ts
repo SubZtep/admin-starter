@@ -1,5 +1,5 @@
-import { submitResultRequestSchema, submitResultResponseSchema } from "@app/schemas"
 import { zValidator } from "@hono/zod-validator"
+import { submitResultRequestSchema, submitResultResponseSchema } from "@kaja/schemas"
 import type { RouteRegProps } from "#/types"
 
 export function registerSubmitResult(app: RouteRegProps) {

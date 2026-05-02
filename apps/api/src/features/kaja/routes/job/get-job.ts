@@ -1,5 +1,5 @@
-import { getJobRequestSchema, getJobResponseSchema } from "@app/schemas"
 import { zValidator } from "@hono/zod-validator"
+import { getJobRequestSchema, getJobResponseSchema } from "@kaja/schemas"
 import type { RouteRegProps } from "#/types"
 
 export function registerGetJob(app: RouteRegProps) {

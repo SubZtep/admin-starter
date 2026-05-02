@@ -1,4 +1,4 @@
-import { capitalized, cn } from "@app/shared"
+import { capitalized, cn } from "@kaja/shared"
 import {
   type Column,
   type ColumnFiltersState,

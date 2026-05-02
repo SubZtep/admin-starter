@@ -1,4 +1,4 @@
-import { cn } from "@app/shared"
+import { cn } from "@kaja/shared"
 import { Link, useNavigate } from "@tanstack/react-router"
 import { type CSSProperties, useState } from "react"
 import { toast } from "react-toastify"

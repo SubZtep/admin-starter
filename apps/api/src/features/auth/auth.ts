@@ -1,4 +1,4 @@
-import { KAJA_CLI_CLIENT_ID } from "@app/schemas"
+import { KAJA_CLI_CLIENT_ID } from "@kaja/schemas"
 import { type BetterAuthPlugin, betterAuth } from "better-auth"
 import { admin, bearer, deviceAuthorization, jwt, openAPI } from "better-auth/plugins"
 import { pool } from "#/core/db"

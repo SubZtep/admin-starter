@@ -1,4 +1,4 @@
-import type { JobData } from "@app/schemas"
+import type { JobData } from "@kaja/schemas"
 import { $ } from "bun"
 
 /** CLI only */

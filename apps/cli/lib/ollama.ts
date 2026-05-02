@@ -1,5 +1,5 @@
-import { getTimeAgo } from "@app/shared"
 import { cancel, isCancel, log, select, text } from "@clack/prompts"
+import { getTimeAgo } from "@kaja/shared"
 import ollama, { type ModelResponse, Ollama } from "ollama"
 
 export async function configFlow() {

@@ -1,5 +1,5 @@
-import { heartbeatRequestSchema, heartbeatResponseSchema } from "@app/schemas"
 import { zValidator } from "@hono/zod-validator"
+import { heartbeatRequestSchema, heartbeatResponseSchema } from "@kaja/schemas"
 import type { RouteRegProps } from "#/types"
 
 export function registerHeartbeat(app: RouteRegProps) {
