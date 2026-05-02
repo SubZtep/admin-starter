@@ -1,26 +1,34 @@
-import { box, intro, outro } from "@clack/prompts"
+import { intro, outro } from "@clack/prompts"
 import type { JobData, SubmitResultRequest } from "@kaja/schemas"
 import * as auth from "./lib/auth"
 import * as cli from "./lib/cli-flow"
 import * as ollama from "./lib/ollama"
 import { kaja, lime, purple } from "./lib/vars"
 
-if (process.argv[2]?.toLowerCase()?.includes("help")) {
+declare const CLI_VERSION: string
+
+const command = process.argv[2]?.toLowerCase()
+
+if (command?.includes("help")) {
   console.log(`Usage:  kaja <command>
 
 Commands:
+  version  Show version
   logout   Logout from Kaja
   help     Show help
 `)
   process.exit()
 }
 
+if (command === "version" || command === "--version" || command === "-v") {
+  console.log(CLI_VERSION)
+  process.exit()
+}
+
 void (async () => {
+  console.log(lime + ["▖▖   ▘  ▄▖▄▖", "▙▘▀▌ ▌▀▌▐ ▌▌", "▌▌█▌ ▌█▌▟▖▙▌", "    ▙▌"].join("\n"))
+
   intro()
-  box(lime + ["▖▖   ▘  ▄▖▄▖", "▙▘▀▌ ▌▀▌▐ ▌▌", "▌▌█▌ ▌█▌▟▖▙▌", "    ▙▌"].join("\n"), undefined, {
-    width: "auto",
-    contentPadding: 1
-  })
 
   await auth.authFlow()
   await ollama.configFlow()

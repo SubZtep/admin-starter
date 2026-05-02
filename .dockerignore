@@ -8,6 +8,5 @@ pgdata
 **/node_modules
 **/.env*
 **/Dockerfile
-**/README.md
-**/disco.api.json
-**/disco.web.json
+**/*.md
+**/disco.*.json

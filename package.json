@@ -5,8 +5,6 @@
   "private": true,
   "scripts": {
     "dev": "bun run --filter '!@kaja/cli' dev",
-    "dev:api": "bun run --filter @kaja/api dev",
-    "dev:web": "bun run --filter @kaja/web dev",
     "dev:cli": "bun run --env-file=apps/cli/.env apps/cli/cli.ts",
     "build": "bun run --filter @kaja/web build",
     "build:cli": "bun run --env-file=apps/cli/.env --filter @kaja/cli build:release",
