@@ -46,16 +46,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "/site.webmanifest"
       },
       {
-        name: "og:title",
-        content: "kaja.io🚧α"
+        name: "og:locale",
+        content: "en_GB"
       },
       {
-        name: "twitter:title",
-        content: "kaja.io🚧α"
+        name: "og:site_name",
+        content: "Kaja.io"
       },
       {
         name: "og:url",
         content: "https://kaja.io"
+      },
+      {
+        name: "twitter:title",
+        content: "Kaja.io"
       },
       {
         name: "twitter:url",
