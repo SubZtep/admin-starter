@@ -109,7 +109,7 @@ jobs:
         uses: actions/checkout@0c366fd0d175c5768d3b3e42e90231f31001bb06
 
       - name: Download all artifacts
-        uses: actions/download-artifact@484a0b51e1c41d0df9c1f5441b5f3515e1bc8f2b
+        uses: actions/download-artifact@a9bc5e6ef2cb54c177f32aa5726adaa15e7e2d59
         with:
           path: artifacts
 
