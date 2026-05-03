@@ -74,7 +74,7 @@ bun lint:fix     # Apply formatter and unsafe lint fixes
 
 - Web: [http://localhost:3000](http://localhost:3000)
 - API: [http://localhost:3001](http://localhost:3001)
-- Mail inbox: [http://localhost:1080](http://localhost:1080)
+- Email inbox: [http://localhost:1080](http://localhost:1080)
 - Better Auth reference: [http://localhost:3001/auth/reference](http://localhost:3001/auth/reference)
 
 ## Documentation
