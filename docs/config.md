@@ -35,7 +35,6 @@ Default developer values:
 | SMTP_USER           | yes     |                                                    |                                                                                                           |
 | SMTP_PASS           | yes     |                                                    |                                                                                                           |
 | BETTER_AUTH_SECRET  | yes     |                                                    | Generate: `openssl rand -base64 32`                                                                       |
-| JWT_SECRET          | yes     |                                                    | Generate: `bun -e "console.log(Buffer.from(crypto.getRandomValues(new Uint8Array(32))).toString('hex'))"` |
 
 ### `/apps/cli/.env.example` -> `/apps/cli/.env`
 

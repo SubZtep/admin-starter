@@ -4,6 +4,10 @@ create table "user" (
   "email" text not null unique,
   "emailVerified" boolean not null,
   "image" text,
+  "role" text,
+  "banned" boolean,
+  "banReason" text,
+  "banExpires" timestamptz,
   "createdAt" timestamptz default CURRENT_TIMESTAMP not null,
   "updatedAt" timestamptz default CURRENT_TIMESTAMP not null
 );
@@ -13,6 +17,7 @@ create table "session" (
   "token" text not null unique,
   "ipAddress" text,
   "userAgent" text,
+  "impersonatedBy" uuid,
   "userId" uuid not null references "user" ("id") on delete cascade,
   "createdAt" timestamptz default CURRENT_TIMESTAMP not null,
   "updatedAt" timestamptz default CURRENT_TIMESTAMP not null
@@ -40,6 +45,20 @@ create table "verification" (
   "createdAt" timestamptz default CURRENT_TIMESTAMP not null,
   "updatedAt" timestamptz default CURRENT_TIMESTAMP not null
 );
+create table "deviceCode" (
+  "id" uuid default uuidv7() not null primary key,
+  "deviceCode" text not null unique,
+  "userCode" text not null unique,
+  "userId" uuid references "user" ("id") on delete cascade,
+  "clientId" text,
+  "scope" text,
+  "status" text not null,
+  "expiresAt" timestamptz not null,
+  "lastPolledAt" timestamptz,
+  "pollingInterval" integer
+);
 create index "session_userId_idx" on "session" ("userId");
 create index "account_userId_idx" on "account" ("userId");
 create index "verification_identifier_idx" on "verification" ("identifier");
+create index "deviceCode_userId_idx" on "deviceCode" ("userId");
+create index "deviceCode_expiresAt_idx" on "deviceCode" ("expiresAt");

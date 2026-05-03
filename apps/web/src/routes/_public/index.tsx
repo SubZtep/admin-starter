@@ -7,12 +7,7 @@ export const Route = createFileRoute("/_public/")({ component: App })
 
 function App() {
   return (
-    <Section
-      className="m-4 max-w-md group flex flex-col gap-4 opacity-80 hover:opacity-100 transform-[perspective(900px)_rotateY(10deg)_rotateX(4deg)] hover:transform-none hover:shadow-purple-800/69"
-      style={{
-        transition: "transform 0.6s cubic-bezier(0.87,0,0.13,1)"
-      }}
-    >
+    <Section className="m-4 max-w-md group flex flex-col gap-4 opacity-80 hover:opacity-100 transform-[perspective(900px)_rotateY(10deg)_rotateX(4deg)] hover:transform-none hover:shadow-purple-800/69 transition-[transform, opacity] duration-600 ease-[cubic-bezier(0.87,0,0.13,1)]">
       <Menu className="pb-2 opacity-60 hover:opacity-100 transition-opacity ease-in-out duration-150" />
       <h1 className="flex items-center gap-1 mb-0">
         Hello, World!

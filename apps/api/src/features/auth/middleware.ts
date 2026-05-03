@@ -5,7 +5,7 @@ import { auth } from "./auth"
 export const authMiddleware = createMiddleware<{ Variables: RouteVariables }>(async (c, next) => {
   let user = null
 
-  // JWT token from Authorization header
+  // Bearer token from Authorization header
   const authHeader = c.req.header("authorization")
   if (authHeader?.startsWith("Bearer ")) {
     const token = authHeader.slice(7)

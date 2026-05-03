@@ -1,6 +1,6 @@
 import { KAJA_CLI_CLIENT_ID } from "@kaja/schemas"
 import { type BetterAuthPlugin, betterAuth } from "better-auth"
-import { admin, bearer, deviceAuthorization, jwt, openAPI } from "better-auth/plugins"
+import { admin, bearer, deviceAuthorization, openAPI } from "better-auth/plugins"
 import { pool } from "#/core/db"
 import { logger } from "#/core/logger"
 import { sendEmail } from "#/emails"
@@ -35,18 +35,6 @@ function sendAuthEmail(args: Parameters<typeof sendEmail>[0]) {
 
 const plugins: BetterAuthPlugin[] = [
   bearer(),
-  jwt({
-    jwks: {
-      disablePrivateKeyEncryption: isDevMode
-    },
-    jwt: {
-      definePayload: async ({ user }) => ({
-        sub: user.id,
-        email: user.email
-      }),
-      expirationTime: "15min"
-    }
-  }),
   admin(),
   deviceAuthorization({
     schema: {},

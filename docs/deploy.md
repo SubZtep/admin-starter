@@ -46,7 +46,6 @@ Required at runtime:
 | `DATABASE_URL`        | yes      | Postgres connection string.                                 |
 | `BETTER_AUTH_URL`     | yes      | Public api URL.                                             |
 | `BETTER_AUTH_SECRET`  | yes      | ≥ 32 chars. `openssl rand -base64 32`.                      |
-| `JWT_SECRET`          | yes      | ≥ 32 chars.                                                 |
 | `EMAIL_FROM`          | yes      | e.g. `"Admin Starter <noreply@example.com>"`.               |
 | `SMTP_HOST`           | yes      |                                                             |
 | `SMTP_PORT`           | yes      |                                                             |

@@ -16,7 +16,7 @@ cp apps/web/.env.example apps/web/.env
 cp apps/cli/.env.example apps/cli/.env
 ```
 
-Generate local secrets (appends `BETTER_AUTH_SECRET` and `JWT_SECRET` to `apps/api/.env`):
+Generate local secret (appends `BETTER_AUTH_SECRET` to `apps/api/.env`):
 
 ```sh
 ./scripts/create_local_secrets.sh
@@ -58,10 +58,10 @@ Better-Auth OpenAPI in dev mode: [http://localhost:3001/auth/reference](http://l
 
 Each app under `/apps/*/` ships two env files:
 
-| Order | File | Committed? | Purpose |
-| ----- | ---- | ---------- | ------- |
-| 1 | `.env.example` | yes | template / source of truth (no real values) |
-| 2 | `.env` | NO (`.gitignore`) | your local copy — real values + secrets |
+| Order | File           | Committed?        | Purpose                                     |
+| ----- | -------------- | ----------------- | ------------------------------------------- |
+| 1     | `.env.example` | yes               | template / source of truth (no real values) |
+| 2     | `.env`         | NO (`.gitignore`) | your local copy — real values + secrets     |
 
 Compose build args (`VITE_API_URL`, `VITE_APP_URL`) default to `localhost` in `compose.yaml`. To override, create a root `.env` (gitignored) with the desired values — `docker compose` auto-loads it for variable interpolation.
 
