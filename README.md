@@ -1,68 +1,36 @@
-# kaja.io
-
-![Bun](https://img.shields.io/badge/Runtime-Bun-black)
-![Docker Compose](https://img.shields.io/badge/Docker-Compose-blue)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/SubZtep/admin-starter/ci.yaml)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/SubZtep/admin-starter)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=SubZtep_kaja&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=SubZtep_kaja)
-
-A TypeScript monorepo is implementing pieces of **Better Auth** in a **Hono** [API](./apps/api/), with a **TanStack Start** [web app](./apps/web/) consuming it to demonstrate how they work together. 🎓
-
-It [started](https://github.com/SubZtep/admin-starter/releases/tag/v0.0.1) as a starter template with no business logic, an experiment in a monorepo, focusing on file structure and build setup. Over time, the project naturally evolved, and I introduced features as the need arose.
-
-The custom features are easily removable, so you can grab the files and use them to kick-start your own project.
+# 가자💦
 
 > [!NOTE]
-> This isn’t even the final form. Its exact purpose are still evolving.
+> This isn’t even the final form. Its exact purpose is still evolving.
 
-## Architecture
+![Continuous integration](https://github.com/SubZtep/kaja/actions/workflows/ci.yaml/badge.svg)
+![Build CLI](https://github.com/SubZtep/kaja/actions/workflows/build-cli.yaml/badge.svg)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/SubZtep/kaja)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=SubZtep_kaja&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=SubZtep_kaja)
 
-```mermaid
-flowchart LR
-  subgraph "monorepo"
-    A["📁 apps/api<br/>Hono API<br/>Better Auth"]
-    W["📁 apps/web<br/>TanStack Start<br/>React + SSR"]
-    P["📁 packages/*<br/>Zod schemas<br/>shared utilities"]
-    WW["📁 apps/cli<br/>CLI to drive Ollama"]
-  end
+A Bun TypeScript monorepo implementing pieces of **Better Auth** in a **Hono** [API](./apps/api/) and a **TanStack Start** [web app](./apps/web/).
 
-  U((User))
-  UW(((CLI)))
-  D[(PostgreSQL)]
-  E{{Emails}}
-  O{Ollama}
+## Apps
 
-  P -.-> A
-  P -.-> W
-  P -.-> WW
+### Web
 
-  U <-->|Web| W
-  U <-->|Mobile| A
-  UW <-->|HTTP| A
-  UW <==> O
-  WW -.-> UW
+Admin portal for authentication and managing user details.
 
-  W <-->|HTTP| A
-  A <==> D
-  A -->|SMTP| E
-```
+### CLI
 
-## Features
+Local CLI to orchestrate things.
 
-| User                                                                                                        | Admin                                         | Docker Compose                               |
-| ----------------------------------------------------------------------------------------------------------- | --------------------------------------------- | -------------------------------------------- |
-| 🔹 Register and verify your email <br>🔹 Update your profile<br>🔹 Log in with cookies<br>or bearer tokens<br> | 🔹 View users<br>🔹 Revoke sessions<br><br><br> | ▪️ `db`<br>▪️ `mail`<br>▪️ `api`<br>▪️ `web`<br> |
+### API
 
-## Demo
+Backend that serves the web and CLI apps from the PostgreSQL database.
 
-**[<big>Click Here</big>](https://kind-catmint-56983.ondis.co/) for the demo!**
+## Setup
 
-> It’s an ephemeral database. 🛡️\
-> Register, or use a [test credential](https://subztep.github.io/admin-starter/demo/) to sign in.
+Copy the contents of each `.env.example` file in the `apps` folder into a matching `.env` file, then update the appropriate values.
 
 ## Quick Start
 
-Working defaults in the [compose config](compose.yaml) and in `.env` files.
+Working defaults are provided in the [Docker Compose config](compose.yaml) and in `.env` files.
 
 Just run:
 
@@ -73,28 +41,10 @@ docker compose up -d
 Docker Compose mounts the **PostgreSQL** data in the `./pgdata` folder.\
 Open [http://localhost:3000](http://localhost:3000) to access the UI.
 
-More details on the [dev page](https://subztep.github.io/admin-starter/dev/).
+More details are on the [dev page](https://subztep.github.io/kaja/dev/).
 
 ## Documentation
 
-_A wise man once told me the source code is the best documentation._ Share it with your favourite _AI agent_ and ask for the details. :trollface: [That **Jekyll** page](https://subztep.github.io/admin-starter/) is anything but _RTFM_.
+_A wise man once told me the source code is the best documentation._ Share it with your favourite AI agent and ask for the details. :trollface:
 
-## Stack
-
-| Package                                               |  API  |  Web  |  CLI  | Description                                                          |
-| ----------------------------------------------------- | :---: | :---: | :---: | -------------------------------------------------------------------- |
-| [Better Auth](https://better-auth.com/)               |   ✓   |   ✓   |   ✓   | Authentication framework on [PostgreSQL](https://node-postgres.com/) |
-| [Biome](https://biomejs.dev/)                         |   ✓   |   ✓   |   ✓   | Code format and linter                                               |
-| [Bun](https://bun.sh/)                                |   ✓   |   ✓   |   ✓   | TypeScript runtime                                                   |
-| [Clack](https://bomb.sh/docs/clack/packages/prompts/) |       |       |   ✓   | CLI library                                                          |
-| [Hono](https://hono.dev/)                             |   ✓   |       |       | API framework                                                        |
-| [Lucide](https://lucide.dev/)                         |       |   ✓   |       | Icons                                                                |
-| [Nodemailer](https://nodemailer.com/)                 |   ✓   |       |       | Send emails                                                          |
-| [Pino](https://getpino.io/)                           |   ✓   |       |       | Logger                                                               |
-| [React](https://react.dev/)                           |   ✓   |   ✓   |       | Library for user intrfaces (emails in API)                           |
-| [Tailwind CSS](https://tailwindcss.com/)              |       |   ✓   |       | Utility-first CSS framework                                          |
-| [TanStack Form](https://tanstack.com/form/)           |       |   ✓   |       | Headless UI for type-safe forms                                      |
-| [TanStack Query](https://tanstack.com/table/)         |       |   ✓   |       | Data fetching                                                        |
-| [TanStack Start](https://tanstack.com/start/)         |       |   ✓   |       | Full-stack framework powered by [Vite](https://vite.dev/)            |
-| [TanStack Table](https://tanstack.com/table/)         |       |   ✓   |       | Headless UI for tables & datagrids                                   |
-| [Zod](https://zod.dev/)                               |   ✓   |   ✓   |       | Schema validation with static type inference                         |
+More documentation is available on [GitHub Pages](https://subztep.github.io/kaja/).

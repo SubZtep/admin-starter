@@ -1,13 +1,10 @@
-name: Build CLI
+name: Build and release CLI
 
 on:
   push:
     tags:
       - "v*"
   workflow_dispatch:
-
-env:
-  BINARY_NAME: kaja
 
 jobs:
   build:

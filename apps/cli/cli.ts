@@ -3,7 +3,7 @@ import type { JobData, SubmitResultRequest } from "@kaja/schemas"
 import * as auth from "./lib/auth"
 import * as cli from "./lib/cli-flow"
 import * as ollama from "./lib/ollama"
-import { kaja, lime, purple } from "./lib/vars"
+import { dimgrey, kaja, lime, purple } from "./lib/vars"
 import { version } from "./package.json"
 
 declare const CLI_VERSION: string
@@ -27,25 +27,36 @@ if (command === "version" || command === "--version" || command === "-v") {
 }
 
 void (async () => {
-  console.log(lime + ["▖▖   ▘  ▄▖▄▖", "▙▘▀▌ ▌▀▌▐ ▌▌", `▌▌█▌ ▌█▌▟▖▙▌ v${version}`, "    ▙▌"].join("\n"))
+  console.log(
+    [`\n${lime}▖▖   ▘  ▄▖▄▖`, "▙▘▀▌ ▌▀▌▐ ▌▌", `▌▌█▌ ▌█▌▟▖▙▌ ${dimgrey}v${version}${lime}`, "    ▙▌\n"].join("\n")
+  )
 
-  intro()
+  intro("Authentication... 🔑")
 
   await auth.authFlow()
+  outro("Authentication successful 🔑")
+  intro("Configuring Ollama... 🐒")
   await ollama.configFlow()
+  outro("Ollama configured 🐒")
 
   // await cli.validateConnections()
+  intro("Registering node... 🔗")
   await kaja.registerNode({ name: "no-name" })
+  outro("Node registered 🔗")
   if (!kaja.nodeId) {
     console.error("Node ID is required to submit results")
     process.exit(1)
   }
 
+  intro("Beating heart... 💓")
   await cli.beatingHeart()
+  outro("Heart beat successful 💓")
   let job: JobData | undefined
 
   do {
+    intro("Waiting for jobs... 🕒")
     job = await cli.waitingForJobs()
+    outro("Jobs found 🕒")
     if (job) {
       // @ts-expect-error status is required
       const result: SubmitResultRequest = {
@@ -54,7 +65,9 @@ void (async () => {
       }
 
       try {
+        intro("Working on job... 💻")
         const text = await cli.workingOnJob(job)
+        outro("Job completed 💻")
         result.status = "success"
         result.result = { text }
       } catch (error: any) {
