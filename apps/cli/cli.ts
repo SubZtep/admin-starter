@@ -4,6 +4,7 @@ import * as auth from "./lib/auth"
 import * as cli from "./lib/cli-flow"
 import * as ollama from "./lib/ollama"
 import { kaja, lime, purple } from "./lib/vars"
+import { version } from "./package.json"
 
 declare const CLI_VERSION: string
 
@@ -26,7 +27,7 @@ if (command === "version" || command === "--version" || command === "-v") {
 }
 
 void (async () => {
-  console.log(lime + ["▖▖   ▘  ▄▖▄▖", "▙▘▀▌ ▌▀▌▐ ▌▌", "▌▌█▌ ▌█▌▟▖▙▌", "    ▙▌"].join("\n"))
+  console.log(lime + ["▖▖   ▘  ▄▖▄▖", "▙▘▀▌ ▌▀▌▐ ▌▌", `▌▌█▌ ▌█▌▟▖▙▌ v${version}`, "    ▙▌"].join("\n"))
 
   intro()
 

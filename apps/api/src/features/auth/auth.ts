@@ -49,6 +49,7 @@ const plugins: BetterAuthPlugin[] = [
   }),
   admin(),
   deviceAuthorization({
+    schema: {},
     verificationUri: deviceVerificationUrl(),
     validateClient: clientId => clientId === KAJA_CLI_CLIENT_ID,
     onDeviceAuthRequest: (clientId, scope) => {
