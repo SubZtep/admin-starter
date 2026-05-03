@@ -3,7 +3,7 @@ set -euo pipefail
 
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 repo_root="$(cd -- "$script_dir/.." && pwd)"
-migrations_dir="$repo_root/apps/api/better-auth_migrations"
+migrations_dir="$repo_root/apps/api/migrations"
 
 if [[ -z "${DATABASE_URL:-}" ]]; then
   DATABASE_URL=$(grep '^DATABASE_URL=' "$repo_root/apps/api/.env" | cut -d '=' -f2-)
