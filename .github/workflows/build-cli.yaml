@@ -33,6 +33,10 @@ jobs:
             platform: macos-arm64
             bun_target: bun-darwin-arm64
             artifact: kaja-macos-arm64
+          - os: macos-latest
+            platform: macos-x64
+            bun_target: bun-darwin-x64
+            artifact: kaja-macos-x64
 
     runs-on: ${{ matrix.os }}
     steps:
@@ -49,12 +53,11 @@ jobs:
         id: version
         shell: bash
         run: |
-          PACKAGE_VERSION="$(bun -e 'const pkg = await Bun.file("apps/cli/package.json").json(); console.log(pkg.version)')"
-          if [[ -z "${PACKAGE_VERSION}" || "${PACKAGE_VERSION}" == "null" ]]; then
-            echo "apps/cli/package.json version is empty"
+          PACKAGE_VERSION="$(jq -r .version apps/cli/package.json)"
+          if [[ "${GITHUB_REF_TYPE}" == "tag" && "${GITHUB_REF_NAME}" != "v${PACKAGE_VERSION}" ]]; then
+            echo "Tag ${GITHUB_REF_NAME} does not match apps/cli/package.json version v${PACKAGE_VERSION}"
             exit 1
           fi
-
           echo "VERSION=v${PACKAGE_VERSION}" >> "$GITHUB_ENV"
           echo "version=v${PACKAGE_VERSION}" >> "$GITHUB_OUTPUT"
 
@@ -88,7 +91,11 @@ jobs:
       - name: Generate SHA256 checksum
         shell: bash
         run: |
-          sha256sum "${{ matrix.artifact }}" | awk '{print $1}' > "${{ matrix.artifact }}.sha256"
+          if command -v sha256sum >/dev/null 2>&1; then
+            sha256sum "${{ matrix.artifact }}" | awk '{print $1}' > "${{ matrix.artifact }}.sha256"
+          else
+            shasum -a 256 "${{ matrix.artifact }}" | awk '{print $1}' > "${{ matrix.artifact }}.sha256"
+          fi
 
       - name: Upload artifact
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
@@ -114,15 +121,16 @@ jobs:
           path: artifacts
 
       - name: Determine version
+        id: version
         shell: bash
         run: |
-          PACKAGE_VERSION="$(bun -e 'const pkg = await Bun.file("apps/cli/package.json").json(); console.log(pkg.version)')"
-          if [[ -z "${PACKAGE_VERSION}" || "${PACKAGE_VERSION}" == "null" ]]; then
-            echo "apps/cli/package.json version is empty"
+          PACKAGE_VERSION="$(jq -r .version apps/cli/package.json)"
+          if [[ "${GITHUB_REF_TYPE}" == "tag" && "${GITHUB_REF_NAME}" != "v${PACKAGE_VERSION}" ]]; then
+            echo "Tag ${GITHUB_REF_NAME} does not match apps/cli/package.json version v${PACKAGE_VERSION}"
             exit 1
           fi
-
           echo "VERSION=v${PACKAGE_VERSION}" >> "$GITHUB_ENV"
+          echo "version=v${PACKAGE_VERSION}" >> "$GITHUB_OUTPUT"
 
       - name: Create manifest.json
         shell: bash
@@ -144,6 +152,10 @@ jobs:
               },
               "macos-arm64": {
                 "artifact": "kaja-macos-arm64",
+                "checksum": ""
+              },
+              "macos-x64": {
+                "artifact": "kaja-macos-x64",
                 "checksum": ""
               },
               "windows-x64": {
@@ -169,6 +181,7 @@ jobs:
               kaja-linux-x64)   key=linux-x64 ;;
               kaja-linux-arm64) key=linux-arm64 ;;
               kaja-macos-arm64) key=macos-arm64 ;;
+              kaja-macos-x64)   key=macos-x64 ;;
               kaja-windows-x64.exe) key=windows-x64 ;;
               *) echo "❌ Unknown artifact basename: $name"; exit 1 ;;
             esac
@@ -180,6 +193,7 @@ jobs:
             .platforms["linux-x64"].checksum == "" or
             .platforms["linux-arm64"].checksum == "" or
             .platforms["macos-arm64"].checksum == "" or
+            .platforms["macos-x64"].checksum == "" or
             .platforms["windows-x64"].checksum == ""
           ' artifacts/manifest.json > /dev/null; then
             echo "❌ Missing checksum in manifest"
