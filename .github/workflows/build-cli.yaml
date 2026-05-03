@@ -40,7 +40,7 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@0c5077e3eef89233d216c72e51934c6ac0e77972
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
 
       - name: Install dependencies
         run: bun install
@@ -91,7 +91,7 @@ jobs:
           sha256sum "${{ matrix.artifact }}" | awk '{print $1}' > "${{ matrix.artifact }}.sha256"
 
       - name: Upload artifact
-        uses: actions/upload-artifact@043fb46d1ac180d0b913312a739759874e2e6e72
+        uses: actions/upload-artifact@0c5077e51419868618aeaa5fe8019c62421857d6
         with:
           name: ${{ matrix.artifact }}
           path: |
