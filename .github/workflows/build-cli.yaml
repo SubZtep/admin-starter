@@ -37,7 +37,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@0c366fd0d175c5768d3b3e42e90231f31001bb06
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@0c5077e3eef89233d216c72e51934c6ac0e77972
@@ -106,7 +106,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@0c366fd0d175c5768d3b3e42e90231f31001bb06
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
 
       - name: Download all artifacts
         uses: actions/download-artifact@a9bc5e6ef2cb54c177f32aa5726adaa15e7e2d59

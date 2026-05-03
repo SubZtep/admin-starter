@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@0c366fd0d175c5768d3b3e42e90231f31001bb06
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
 
       - name: Setup Biome Toolchain
         uses: biomejs/setup-biome@57a48b1052eba0af8e8abc393f21e212e579dade
@@ -43,7 +43,7 @@ jobs:
           --health-retries 5
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@0c366fd0d175c5768d3b3e42e90231f31001bb06
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@0c5077e3eef89233d216c72e51934c6ac0e77972
