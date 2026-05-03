@@ -11,7 +11,7 @@ All you need is:
 - PostgreSQL
 - SMTP
 
-> [Gmail’s SMTP](/admin-starter/deploy/) works, free, but for no/minimal traffic.
+> [Gmail’s SMTP](/kaja/deploy/) works, free, but for no/minimal traffic.
 
 ## [Disco](https://disco.cloud/docs/) Deploy
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO="${REPO:-subztep/admin-starter}"
+REPO="${REPO:-subztep/kaja}"
 INSTALL_DIR="${INSTALL_DIR:-$HOME/.local/bin}"
 
 usage() {
@@ -10,12 +10,12 @@ Usage:
   curl -fsSL https://kaja.io/setup.sh | bash
 
 Environment (optional):
-  REPO=owner/repo          GitHub repo hosting releases (default: subztep/admin-starter)
+  REPO=owner/repo          GitHub repo hosting releases (default: subztep/kaja)
   INSTALL_DIR=path         Install directory (default: $HOME/.local/bin)
   VERSION=v1.2.3           Pin to a specific release tag instead of latest
 
 Examples (put REPO / VERSION to the right of the pipe so they apply to the shell):
-  curl -fsSL https://kaja.io/setup.sh | REPO=myfork/admin-starter bash
+  curl -fsSL https://kaja.io/setup.sh | REPO=myfork/kaja bash
   curl -fsSL https://kaja.io/setup.sh | REPO=owner/repo VERSION=v0.1.0 bash
 EOF
   return

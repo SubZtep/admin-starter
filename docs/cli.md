@@ -10,11 +10,11 @@ Usage:
 # macOS / Linux (latest release)
 curl -fsSL https://kaja.io/setup.sh | bash
 # Pin version or repo (put env after the pipe)
-curl -fsSL https://kaja.io/setup.sh | REPO=subztep/admin-starter VERSION=v0.0.1 bash
+curl -fsSL https://kaja.io/setup.sh | REPO=subztep/kaja VERSION=v0.0.1 bash
 
 # Windows (PowerShell)
 irm https://kaja.io/setup.ps1 | iex
-# e.g. fork:  $env:REPO = 'me/admin-starter'; irm https://kaja.io/setup.ps1 | iex
+# e.g. fork:  $env:REPO = 'me/kaja'; irm https://kaja.io/setup.ps1 | iex
 ```
 
 ---

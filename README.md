@@ -79,4 +79,4 @@ bun lint:fix     # Apply formatter and unsafe lint fixes
 - [Development](./docs/dev.md)
 - [Configuration](./docs/config.md)
 - [Deployment](./docs/deploy.md)
-- [GitHub Pages](https://subztep.github.io/kaja/)
+- [**GitHub Pages**](https://subztep.github.io/kaja/)

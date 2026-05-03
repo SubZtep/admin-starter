@@ -1,12 +1,12 @@
-title: Admin Starter
-description: Starter boilerplate for projects with user authentication and admin features.
-repository: SubZtep/admin-starter
+title: Kaja.io Docs
+description: Kaja is a free account-based web service for AI agents.
+repository: SubZtep/kaja
 permalink: pretty
 heading_anchors: false
 
 aux_links:
   "Source on GitHub":
-    - "//github.com/SubZtep/admin-starter"
+    - "//github.com/SubZtep/kaja"
 aux_links_new_tab: true
 
 plugins:
@@ -15,6 +15,9 @@ plugins:
   - jekyll-github-metadata
 
 remote_theme: pmarsceill/just-the-docs
+
+mermaid:
+  version: "10.9.0"
 
 color_scheme: dark
 favicon_ico: /images/favicon.ico

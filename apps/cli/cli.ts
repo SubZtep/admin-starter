@@ -3,7 +3,7 @@ import type { JobData, SubmitResultRequest } from "@kaja/schemas"
 import * as auth from "./lib/auth"
 import * as cli from "./lib/cli-flow"
 import * as ollama from "./lib/ollama"
-import { dimgrey, kaja, lime, purple } from "./lib/vars"
+import { dimgrey, green, kaja, lime, purple } from "./lib/vars"
 import { version } from "./package.json"
 
 declare const CLI_VERSION: string
@@ -22,64 +22,68 @@ Commands:
 }
 
 if (command === "version" || command === "--version" || command === "-v") {
-  console.log(CLI_VERSION)
+  try {
+    console.log(`v${CLI_VERSION}`)
+  } catch {
+    console.log(`v${version}`)
+  }
   process.exit()
 }
 
 void (async () => {
   console.log(
-    [`\n${lime}▖▖   ▘  ▄▖▄▖`, "▙▘▀▌ ▌▀▌▐ ▌▌", `▌▌█▌ ▌█▌▟▖▙▌ ${dimgrey}v${version}${lime}`, "    ▙▌\n"].join("\n")
+    [`\n${lime}▖▖   ▘  ▄▖▄▖`, "▙▘▀▌ ▌▀▌▐ ▌▌", `▌▌█▌ ▌█▌▟▖▙▌ ${dimgrey}v${version}`, `${lime}    ▙▌\n`].join("\n")
   )
 
-  intro("Authentication... 🔑")
-
+  intro("Authentication")
   await auth.authFlow()
-  outro("Authentication successful 🔑")
-  intro("Configuring Ollama... 🐒")
-  await ollama.configFlow()
-  outro("Ollama configured 🐒")
+  outro(`${green}Authentication successful`)
 
-  // await cli.validateConnections()
-  intro("Registering node... 🔗")
-  await kaja.registerNode({ name: "no-name" })
-  outro("Node registered 🔗")
-  if (!kaja.nodeId) {
-    console.error("Node ID is required to submit results")
-    process.exit(1)
-  }
+  // intro("Configuring Ollama... 🐒")
+  // await ollama.configFlow()
+  // outro("Ollama configured 🐒")
 
-  intro("Beating heart... 💓")
-  await cli.beatingHeart()
-  outro("Heart beat successful 💓")
-  let job: JobData | undefined
+  // // await cli.validateConnections()
+  // intro("Registering node... 🔗")
+  // await kaja.registerNode({ name: "no-name" })
+  // outro("Node registered 🔗")
+  // if (!kaja.nodeId) {
+  //   console.error("Node ID is required to submit results")
+  //   process.exit(1)
+  // }
 
-  do {
-    intro("Waiting for jobs... 🕒")
-    job = await cli.waitingForJobs()
-    outro("Jobs found 🕒")
-    if (job) {
-      // @ts-expect-error status is required
-      const result: SubmitResultRequest = {
-        nodeId: kaja.nodeId,
-        jobId: job.id
-      }
+  // intro("Beating heart... 💓")
+  // await cli.beatingHeart()
+  // outro("Heart beat successful 💓")
+  // let job: JobData | undefined
 
-      try {
-        intro("Working on job... 💻")
-        const text = await cli.workingOnJob(job)
-        outro("Job completed 💻")
-        result.status = "success"
-        result.result = { text }
-      } catch (error: any) {
-        console.error(`Error working on job: ${error.message}`)
-        result.status = "error"
-        result.error = error.message
-      }
+  // do {
+  //   intro("Waiting for jobs... 🕒")
+  //   job = await cli.waitingForJobs()
+  //   outro("Jobs found 🕒")
+  //   if (job) {
+  //     // @ts-expect-error status is required
+  //     const result: SubmitResultRequest = {
+  //       nodeId: kaja.nodeId,
+  //       jobId: job.id
+  //     }
 
-      await kaja.submitResult(result)
-    }
-  } while (job)
+  //     try {
+  //       intro("Working on job... 💻")
+  //       const text = await cli.workingOnJob(job)
+  //       outro("Job completed 💻")
+  //       result.status = "success"
+  //       result.result = { text }
+  //     } catch (error: any) {
+  //       console.error(`Error working on job: ${error.message}`)
+  //       result.status = "error"
+  //       result.error = error.message
+  //     }
 
-  outro(`${purple}Farewell 🫠`)
+  //     await kaja.submitResult(result)
+  //   }
+  // } while (job)
+
+  // outro(`${purple}Farewell 🫠`)
   process.exit()
 })()

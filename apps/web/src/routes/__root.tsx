@@ -55,11 +55,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       {
         name: "og:url",
-        content: "https://subztep.github.io/kaja/"
+        content: "https://kaja.io"
       },
       {
         name: "twitter:url",
-        content: "https://subztep.github.io/kaja/"
+        content: "https://x.com/SubZtep"
       }
     ],
     links: [

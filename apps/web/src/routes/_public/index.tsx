@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router"
+import { createFileRoute, Link } from "@tanstack/react-router"
 import { Logo } from "#/components/layout/Logo"
 import { Menu } from "#/components/layout/Menu"
 import { Section } from "#/components/ui/Section"
@@ -9,9 +9,9 @@ function App() {
   return (
     <Section className="m-4 max-w-md group flex flex-col gap-4 opacity-80 hover:opacity-100 transform-[perspective(900px)_rotateY(10deg)_rotateX(4deg)] hover:transform-none hover:shadow-purple-800/69 transition-[transform, opacity] duration-600 ease-[cubic-bezier(0.87,0,0.13,1)]">
       <Menu className="pb-2 opacity-60 hover:opacity-100 transition-opacity ease-in-out duration-150" />
-      <h1 className="flex items-center gap-1 mb-0">
+      <h1 className="flex items-center gap-3 mb-0">
+        <Logo />
         Hello, World!
-        <Logo className="ml-1" />
       </h1>
 
       <p>
@@ -20,12 +20,16 @@ function App() {
       </p>
 
       <p>
-        <span className="text-blue-600 font-bold mr-1">🛈</span> Install{" "}
+        <span className="text-blue-500 mr-2 text-lg">🛈</span>
+        <Link to="/signup" className="text-neon hover:text-neon-hi underline">
+          Create
+        </Link>{" "}
+        an account, then install{" "}
         <a
           href="https://openclaw.ai/"
           target="_blank"
           rel="noreferrer"
-          className="text-neon hover:text-neon-hi underline font-bold"
+          className="text-neon hover:text-neon-hi underline"
         >
           OpenClaw
         </a>{" "}
@@ -34,7 +38,7 @@ function App() {
           href="https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/install-and-setup/installation/"
           target="_blank"
           rel="noreferrer"
-          className="text-neon hover:text-neon-hi underline font-bold"
+          className="text-neon hover:text-neon-hi underline"
         >
           Cloudflare Tunnel
         </a>{" "}
@@ -53,7 +57,17 @@ function App() {
         </li>
       </ul>
 
-      <div className="flex justify-end">
+      <div className="flex justify-end text-sm gap-1 items-center">
+        <span className="text-gray-8-00! underline">
+          <a href="https://subztep.github.io/kaja/privacy" target="_blank" rel="noreferrer">
+            Privacy Policy
+          </a>
+        </span>
+        <span className="mr-2 text-gray-8-00! underline">
+          <a href="https://subztep.github.io/kaja/terms" target="_blank" rel="noreferrer">
+            Terms of Service
+          </a>
+        </span>
         <GitHub />
       </div>
     </Section>
@@ -67,9 +81,9 @@ function GitHub() {
       target="_blank"
       rel="noreferrer"
       className="rounded-xl p-2 transition hover:bg-surface"
-      title="GitHub project"
+      title="Go to GitHub project"
     >
-      <span className="sr-only">Go to project GitHub</span>
+      <span className="sr-only">Go to GitHub project</span>
       <svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32">
         <path
           fill="currentColor"

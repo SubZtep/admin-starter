@@ -1,7 +1,7 @@
 # kaja autoinstall (Windows)
 # Usage:  irm https://kaja.io/setup.ps1 | iex
 # Optional: set $env:REPO, $env:VERSION, or $env:INSTALL_DIR in the same shell first, e.g.:
-#   $env:REPO = 'myfork/admin-starter'; irm https://kaja.io/setup.ps1 | iex
+#   $env:REPO = 'myfork/kaja'; irm https://kaja.io/setup.ps1 | iex
 #Requires -Version 5.1
 $ErrorActionPreference = "Stop"
 $ProgressPreference = "SilentlyContinue"
@@ -10,7 +10,7 @@ Write-Host "kaja autoinstall"
 Write-Host "░▒▓█▇▅▃▂▂▃▅▇█▓▒░"
 Write-Host ""
 
-$Repo = if ($env:REPO) { $env:REPO } else { "subztep/admin-starter" }
+$Repo = if ($env:REPO) { $env:REPO } else { "subztep/kaja" }
 $Version = $env:VERSION
 $InstallDir = if ($env:INSTALL_DIR) { $env:INSTALL_DIR } else { Join-Path $HOME ".local\bin" }
 
