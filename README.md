@@ -47,4 +47,6 @@ More details are on the [dev page](https://subztep.github.io/kaja/dev/).
 
 _A wise man once told me the source code is the best documentation._ Share it with your favourite AI agent and ask for the details. :trollface:
 
-More documentation is available on [GitHub Pages](https://subztep.github.io/kaja/).
+More information is available at [GitHub Pages](https://subztep.github.io/kaja/)[^1].
+
+[^1]: 🔗 [subztep.github.io/kaja](https://subztep.github.io/kaja/)

@@ -4,6 +4,7 @@ import { useState } from "react"
 import { toast } from "react-toastify"
 import { z } from "zod"
 import { Button } from "#/components/form/primitives/Button"
+import { Menu } from "#/components/layout/Menu"
 import { Main } from "#/components/ui/Main"
 import { Section } from "#/components/ui/Section"
 import { ForgotPassword } from "#/components/user/ForgotPassword"
@@ -60,6 +61,7 @@ function SignIn() {
   return (
     <Main>
       <Section className="max-w-lg">
+        <Menu className="pb-2 opacity-60 hover:opacity-100 transition-opacity ease-in-out duration-150 mb-2" />
         <h1 className="mb-4">Sign In</h1>
 
         <form

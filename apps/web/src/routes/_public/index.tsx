@@ -1,5 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router"
-import { Button } from "#/components/form/primitives/Button"
+import { createFileRoute } from "@tanstack/react-router"
 import { Logo } from "#/components/layout/Logo"
 import { Menu } from "#/components/layout/Menu"
 import { Section } from "#/components/ui/Section"
@@ -8,34 +7,60 @@ export const Route = createFileRoute("/_public/")({ component: App })
 
 function App() {
   return (
-    <Section className="m-4 max-w-md group flex flex-col gap-4 opacity-80 transform-[perspective(900px)_rotateY(10deg)_rotateX(4deg)] hover:shadow-purple-800/69">
-      <Menu className="opacity-40 group-hover:opacity-100 transition-opacity duration-300" />
-      <h1 className="flex items-center gap-1 mt-3">
-        <Logo />
-        Hello, <GitHub />
-        World!
+    <Section
+      className="m-4 max-w-md group flex flex-col gap-4 opacity-80 hover:opacity-100 transform-[perspective(900px)_rotateY(10deg)_rotateX(4deg)] hover:transform-none hover:shadow-purple-800/69"
+      style={{
+        transition: "transform 0.6s cubic-bezier(0.87,0,0.13,1)"
+      }}
+    >
+      <Menu className="pb-2 opacity-60 hover:opacity-100 transition-opacity ease-in-out duration-150" />
+      <h1 className="flex items-center gap-1 mb-0">
+        Hello, World!
+        <Logo className="ml-1" />
       </h1>
-      <pre className="text-base!">curl -fsSL https://kaja.io/setup.sh | bash</pre>
-      <pre className="text-base!">irm https://kaja.io/setup.ps1 | iex</pre>
+
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
         magna aliqua.
       </p>
-      <Link to="/signin">
-        <Button variant="primary" size="lg" className="w-full">
-          Sign In
-        </Button>
-      </Link>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-      <Link to="/signup">
-        <Button variant="primary" size="lg" className="w-full">
-          Sign Up
-        </Button>
-      </Link>
+
       <p>
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-        sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        <span className="text-blue-600 font-bold mr-1">🛈</span> Install{" "}
+        <a
+          href="https://openclaw.ai/"
+          target="_blank"
+          rel="noreferrer"
+          className="text-neon hover:text-neon-hi underline font-bold"
+        >
+          OpenClaw
+        </a>{" "}
+        and{" "}
+        <a
+          href="https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/install-and-setup/installation/"
+          target="_blank"
+          rel="noreferrer"
+          className="text-neon hover:text-neon-hi underline font-bold"
+        >
+          Cloudflare Tunnel
+        </a>{" "}
+        to get started.
       </p>
+
+      <h2>Installation</h2>
+
+      <ul>
+        <li className="mb-2">
+          Linux / macOS / Raspberry Pi (bash):{" "}
+          <pre className="text-base! mt-1 cursor-text">curl -fsSL https://kaja.io/setup.sh | bash</pre>
+        </li>
+        <li>
+          Windows (PowerShell): <pre className="text-base! mt-1 cursor-text">irm https://kaja.io/setup.ps1 | iex</pre>
+        </li>
+      </ul>
+
+      <div className="flex justify-end">
+        <GitHub />
+      </div>
     </Section>
   )
 }
@@ -43,10 +68,11 @@ function App() {
 function GitHub() {
   return (
     <a
-      href="https://github.com/SubZtep/admin-starter"
+      href="https://github.com/SubZtep/kaja"
       target="_blank"
       rel="noreferrer"
       className="rounded-xl p-2 transition hover:bg-surface"
+      title="GitHub project"
     >
       <span className="sr-only">Go to project GitHub</span>
       <svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32">

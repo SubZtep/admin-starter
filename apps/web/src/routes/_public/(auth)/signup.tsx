@@ -3,6 +3,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router"
 import { useState } from "react"
 import { toast } from "react-toastify"
 import { Button } from "#/components/form/primitives/Button"
+import { Menu } from "#/components/layout/Menu"
 import { Main } from "#/components/ui/Main"
 import { Section } from "#/components/ui/Section"
 import { useAuthClient } from "#/hooks/auth-client"
@@ -54,6 +55,7 @@ function SignUp() {
   return (
     <Main>
       <Section className="max-w-lg">
+        <Menu className="pb-2 opacity-60 hover:opacity-100 transition-opacity ease-in-out duration-150 mb-2" />
         <h1>Sign Up</h1>
         <p className="my-4">Enter your details:</p>
 

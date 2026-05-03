@@ -3,11 +3,11 @@ import { Link, useNavigate } from "@tanstack/react-router"
 import { type CSSProperties, useState } from "react"
 import { toast } from "react-toastify"
 import { useAuthClient } from "#/hooks/auth-client"
+import { useUser } from "#/hooks/user"
 import { Button } from "../form/primitives/Button"
 import { ConfirmDialog } from "../ui/ConfirmDialog"
 
 interface Props {
-  role?: string
   className?: string
 }
 
@@ -45,7 +45,9 @@ const menuItems: {
   }
 ] as const
 
-export function Menu({ role, className }: Readonly<Props>) {
+export function Menu({ className }: Readonly<Props>) {
+  const role = useUser()?.role
+
   return (
     <nav className={cn("flex items-center gap-x-4 text-sm font-semibold w-full", className)}>
       {menuItems
@@ -95,7 +97,7 @@ function LogoutButton() {
         })
 
         if (error) {
-          toast.error(error.message ?? error.statusText)
+          toast.error(error.message || error.statusText || "An unknown error occurred")
         }
 
         setLoading(false)
