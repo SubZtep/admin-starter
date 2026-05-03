@@ -14,7 +14,7 @@ function App() {
         Hello, World!
       </h1>
 
-      <p>
+      <p className="blur-xs">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
         magna aliqua.
       </p>
@@ -57,17 +57,12 @@ function App() {
         </li>
       </ul>
 
-      <div className="flex justify-end text-sm gap-1 items-center">
-        <span className="text-gray-8-00! underline">
-          <a href="https://subztep.github.io/kaja/privacy" target="_blank" rel="noreferrer">
-            Privacy Policy
-          </a>
-        </span>
-        <span className="mr-2 text-gray-8-00! underline">
-          <a href="https://subztep.github.io/kaja/terms" target="_blank" rel="noreferrer">
-            Terms of Service
-          </a>
-        </span>
+      <div className="flex justify-end text-sm gap-1 items-center text-gray-500">
+        <div>© 2026</div>
+        <div>•</div>
+        <a href="https://docs.kaja.io#legal" target="_blank" rel="noreferrer" className="text-gray-500 underline">
+          legal
+        </a>
         <GitHub />
       </div>
     </Section>
@@ -80,7 +75,7 @@ function GitHub() {
       href="https://github.com/SubZtep/kaja"
       target="_blank"
       rel="noreferrer"
-      className="rounded-xl p-2 transition hover:bg-surface"
+      className="rounded-xl p-2 text-inherit transition hover:bg-surface"
       title="Go to GitHub project"
     >
       <span className="sr-only">Go to GitHub project</span>

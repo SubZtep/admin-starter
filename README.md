@@ -1,6 +1,9 @@
 # 가자⛲
 
-> [!NOTE]
+⤕ [kaja.io](https://kaja.io)\
+⬺ [docs.kaja.io](https://docs.kaja.io)
+
+> [!IMPORTANT]
 > Kaja is still evolving, but the current focus is authentication, admin workflows, and local orchestration.
 
 ![Continuous integration](https://github.com/SubZtep/kaja/actions/workflows/ci.yaml/badge.svg)
@@ -12,9 +15,9 @@ Kaja is a Bun TypeScript monorepo implementing pieces of **Better Auth** in a **
 
 ## What is in here?
 
-- [`apps/api`](./apps/api/) - Hono API, Better Auth, PostgreSQL, and email delivery.
-- [`apps/web`](./apps/web/) - TanStack Start admin portal for authentication and user management.
-- [`apps/cli`](./apps/cli/) - Local CLI for orchestration tasks.
+- [`apps/api`](./apps/api/) - Rest API, authentication, database migrations, and email delivery.
+- [`apps/web`](./apps/web/) - Public web and admin portal.
+- [`apps/cli`](./apps/cli/) - Installable CLI app for orchestration tasks.
 - [`packages/*`](./packages/) - Shared schemas and utilities.
 
 ## Quick Start
@@ -48,7 +51,7 @@ Generate a local Better Auth secret:
 ./scripts/create_local_secrets.sh
 ```
 
-Start PostgreSQL and MailDev:
+Start the database and SMTP servers:
 
 ```sh
 docker compose up -d db mail
@@ -69,9 +72,9 @@ bun lint:fix     # Apply formatter and unsafe lint fixes
 
 ## Local URLs
 
-- Web Admin: [http://localhost:3000](http://localhost:3000)
+- Web: [http://localhost:3000](http://localhost:3000)
 - API: [http://localhost:3001](http://localhost:3001)
-- MailDev UI: [http://localhost:1080](http://localhost:1080)
+- Mail inbox: [http://localhost:1080](http://localhost:1080)
 - Better Auth reference: [http://localhost:3001/auth/reference](http://localhost:3001/auth/reference)
 
 ## Documentation
@@ -79,4 +82,4 @@ bun lint:fix     # Apply formatter and unsafe lint fixes
 - [Development](./docs/dev.md)
 - [Configuration](./docs/config.md)
 - [Deployment](./docs/deploy.md)
-- [**GitHub Pages**](https://subztep.github.io/kaja/)
+- [**GitHub Pages**](https://docs.kaja.io)

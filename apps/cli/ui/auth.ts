@@ -4,8 +4,8 @@ import { createAuthClient } from "better-auth/client"
 import { deviceAuthorizationClient } from "better-auth/client/plugins"
 import clipboard from "clipboardy"
 import qrcode from "qrcode-terminal"
-import { deleteAccessToken, getAccessToken, setAccessToken, setSessionAccessToken } from "./token"
-import { cyan, kaja, red } from "./vars"
+import { deleteAccessToken, getAccessToken, setAccessToken, setSessionAccessToken } from "../lib/token"
+import { cyan, kaja, red } from "../lib/vars"
 
 function createDeviceAuthClient() {
   return createAuthClient({

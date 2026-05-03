@@ -6,16 +6,16 @@ nav_order: 1
 
 # Welcome to our documentation 🦋
 
-_Work In Progress_ 🚧
+_Work In Progress 🚧_
 
 ## Architecture
 
 ```mermaid
 flowchart LR
-  subgraph "`**User PC**`"
+  subgraph "`**User Home**`"
     U((Browser))
     UW((Terminal))
-    O@{ shape: processes, label: "OpenClaw"}
+    O["🦞 OpenClaw"]
   end
 
   subgraph "`**Server**`"
@@ -34,23 +34,19 @@ flowchart LR
   P -.-> W
   P -.-> WW
 
-  U <-->|Web| W
-  UW <-->|HTTP| A
-  UW <==> O
+  U -- Web --- W
+  UW -- HTTP --- A
+  UW <--> O
   WW -.-> UW
 
-  W <-->|HTTP| A
-  A <==> D
-  A -->|SMTP| E
+  W -- HTTP --- A
+  A <--> D
+  A -- SMTP --> E
 ```
 
-## Start Your Project
+---
 
-1. [Config](./config/)
-2. ???
-3. Profit
+## [Kaja.io legal](#legal)
 
-## Legal
-
-- [Privacy Policy](./privacy/)
-- [Terms of Service](./terms/)
+- [Privacy Policy](/privacy)
+- [Terms of Service](/terms)

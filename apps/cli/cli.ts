@@ -1,39 +1,12 @@
 import { intro, outro } from "@clack/prompts"
-import type { JobData, SubmitResultRequest } from "@kaja/schemas"
-import * as auth from "./lib/auth"
-import * as cli from "./lib/cli-flow"
-import * as ollama from "./lib/ollama"
-import { dimgrey, green, kaja, lime, purple } from "./lib/vars"
-import { version } from "./package.json"
+import { helperCommands, printLogo } from "ui/init"
+import { green } from "./lib/vars"
+import * as auth from "./ui/auth"
 
-declare const CLI_VERSION: string
-
-const command = process.argv[2]?.toLowerCase()
-
-if (command?.includes("help")) {
-  console.log(`Usage:  kaja <command>
-
-Commands:
-  version  Show version
-  logout   Logout from Kaja
-  help     Show help
-`)
-  process.exit()
-}
-
-if (command === "version" || command === "--version" || command === "-v") {
-  try {
-    console.log(`v${CLI_VERSION}`)
-  } catch {
-    console.log(`v${version}`)
-  }
-  process.exit()
-}
+helperCommands()
 
 void (async () => {
-  console.log(
-    [`\n${lime}▖▖   ▘  ▄▖▄▖`, "▙▘▀▌ ▌▀▌▐ ▌▌", `▌▌█▌ ▌█▌▟▖▙▌ ${dimgrey}v${version}`, `${lime}    ▙▌\n`].join("\n")
-  )
+  printLogo()
 
   intro("Authentication")
   await auth.authFlow()

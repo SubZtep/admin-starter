@@ -17,7 +17,7 @@ plugins:
 remote_theme: pmarsceill/just-the-docs
 
 mermaid:
-  version: "10.9.0"
+  version: "11.14.0"
 
 color_scheme: dark
 favicon_ico: /images/favicon.ico
