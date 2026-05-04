@@ -1,16 +1,11 @@
-import { intro, outro } from "@clack/prompts"
-import { helperCommands, printLogo } from "ui/init"
-import { green } from "./lib/vars"
 import * as auth from "./ui/auth"
+import * as init from "./ui/init"
 
-helperCommands()
+init.helperCommands()
+init.printLogo()
 
 void (async () => {
-  printLogo()
-
-  intro("Authentication")
   await auth.authFlow()
-  outro(`${green}Authentication successful`)
 
   // intro("Configuring Ollama... 🐒")
   // await ollama.configFlow()

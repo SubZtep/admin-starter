@@ -108,7 +108,7 @@
   }
 
   h2 {
-    @apply text-lg font-bold my-1 font-headline first:mt-0;
+    @apply text-xl font-bold my-1 font-headline first:mt-0;
   }
 
   a {

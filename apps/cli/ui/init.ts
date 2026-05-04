@@ -1,4 +1,5 @@
 import { log } from "@clack/prompts"
+import { deleteAccessToken } from "lib/token"
 import { dimgrey, lime } from "../lib/vars"
 import { version } from "../package.json"
 
@@ -26,12 +27,21 @@ Commands:
     }
     process.exit()
   }
+
+  if (command === "logout") {
+    await deleteAccessToken()
+    console.log("Logged out successfully")
+    process.exit()
+  }
 }
 
 export async function printLogo() {
   log.message(
-    [`${lime}▖▖   ▘  ▄▖▄▖`, `${lime}▙▘▀▌ ▌▀▌▐ ▌▌`, `${lime}▌▌█▌ ▌█▌▟▖▙▌ ${dimgrey}v${version}`, `${lime}    ▙▌\n`].join(
+    [`${lime}▖▖   ▘  ▄▖▄▖`, `${lime}▙▘▀▌ ▌▀▌▐ ▌▌`, `${lime}▌▌█▌ ▌█▌▟▖▙▌`, `${lime}    ▙▌${dimgrey}v${version}\n`].join(
       "\n"
-    )
+    ),
+    {
+      withGuide: false
+    }
   )
 }

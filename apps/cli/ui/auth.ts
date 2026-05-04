@@ -1,11 +1,11 @@
-import { cancel, log, note, outro } from "@clack/prompts"
+import { cancel, intro, log, note, outro } from "@clack/prompts"
 import { KAJA_CLI_CLIENT_ID } from "@kaja/schemas"
 import { createAuthClient } from "better-auth/client"
 import { deviceAuthorizationClient } from "better-auth/client/plugins"
 import clipboard from "clipboardy"
 import qrcode from "qrcode-terminal"
-import { deleteAccessToken, getAccessToken, setAccessToken, setSessionAccessToken } from "../lib/token"
-import { cyan, kaja, red } from "../lib/vars"
+import { getAccessToken, setAccessToken, setSessionAccessToken } from "../lib/token"
+import { cyan, kaja } from "../lib/vars"
 
 function createDeviceAuthClient() {
   return createAuthClient({
@@ -16,19 +16,14 @@ function createDeviceAuthClient() {
 }
 
 export async function authFlow() {
-  if (process.argv[2] === "logout") {
-    await deleteAccessToken()
-    outro("Logged out successfully")
-    process.exit()
-  }
+  intro("Authentication")
 
   if (!(await kaja.ping())) {
-    cancel(`${red}No Home at ${kaja.host()} 🧟`)
+    cancel(`Unable to connect to ${kaja.host()}`)
     process.exit(1)
   }
 
   const authClient = createDeviceAuthClient()
-
   const storedToken = await getAccessToken()
   const { data: oldSession } = await authClient.getSession(
     storedToken ? { fetchOptions: { headers: { Authorization: `Bearer ${storedToken}` } } } : {}
@@ -42,7 +37,7 @@ export async function authFlow() {
     client_id: KAJA_CLI_CLIENT_ID
   })
   if (error || !data) {
-    cancel(error?.error_description ?? "Could not start device login")
+    cancel(error?.error_description ?? error?.statusText ?? "Could not start device login")
     process.exit(1)
   }
 
@@ -86,6 +81,7 @@ export async function authFlow() {
   })
 
   note(`${cyan}Welcome aboard, ${session?.user?.name ?? session?.user?.email ?? "user"}!`, "👋")
+  outro("Authentication successful")
 }
 
 function listenForLoginActions(link: string) {

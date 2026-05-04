@@ -48,7 +48,7 @@ function App() {
       <h2>Installation</h2>
 
       <ul>
-        <li className="mb-2">
+        <li className="mb-3">
           Linux / macOS / Raspberry Pi (bash):{" "}
           <pre className="text-base! mt-1 cursor-text">curl -fsSL https://kaja.io/setup.sh | bash</pre>
         </li>
