@@ -1,5 +1,8 @@
+import { apiBaseUrl } from "./lib/vars"
 import * as auth from "./ui/auth"
 import * as init from "./ui/init"
+
+process.env.API_URL = apiBaseUrl
 
 init.helperCommands()
 init.printLogo()

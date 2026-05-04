@@ -5,21 +5,19 @@ import { deviceAuthorizationClient } from "better-auth/client/plugins"
 import clipboard from "clipboardy"
 import qrcode from "qrcode-terminal"
 import { getAccessToken, setAccessToken, setSessionAccessToken } from "../lib/token"
-import { cyan, kaja } from "../lib/vars"
+import { apiBaseUrl, cyan, kaja } from "../lib/vars"
 
 function createDeviceAuthClient() {
   return createAuthClient({
-    baseURL: process.env.API_URL,
+    baseURL: apiBaseUrl,
     basePath: "/auth",
     plugins: [deviceAuthorizationClient()]
   })
 }
 
 export async function authFlow() {
-  intro("Authentication")
-
   if (!(await kaja.ping())) {
-    cancel(`Unable to connect to ${kaja.host()}`)
+    log.error(`Unable to connect to ${kaja.host()}`)
     process.exit(1)
   }
 
@@ -32,6 +30,8 @@ export async function authFlow() {
     // user is already logged in
     return
   }
+
+  intro("Authentication")
 
   const { data, error } = await authClient.device.code({
     client_id: KAJA_CLI_CLIENT_ID

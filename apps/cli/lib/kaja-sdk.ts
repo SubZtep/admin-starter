@@ -9,6 +9,7 @@ import type {
   RegisterNodeResponse,
   SubmitResultRequest
 } from "@kaja/schemas"
+import { resolveApiUrl } from "./config"
 import { getAccessToken } from "./token"
 
 export interface KajaClientOptions {
@@ -21,7 +22,7 @@ export class KajaClient {
   nodeId?: string
 
   constructor(options?: KajaClientOptions) {
-    this.baseURL = options?.baseURL ?? process.env.API_URL
+    this.baseURL = options?.baseURL ?? resolveApiUrl()
     this.nodeId = options?.nodeId
   }
 

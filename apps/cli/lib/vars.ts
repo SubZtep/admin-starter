@@ -1,3 +1,4 @@
+import { resolveApiUrl } from "./config"
 import { KajaClient } from "./kaja-sdk"
 import { OllamaClient } from "./ollama-sdk"
 
@@ -20,7 +21,8 @@ export const dimgrey = Bun.color("#6969", "ansi")
 export const DEVICE_CLIENT_ID = "kaja-cli"
 export const SERVICE_NAME = "io.kaja"
 export const ACCESS_TOKEN_KEY = "access_token"
+export const apiBaseUrl = resolveApiUrl()
 
 // singletons
-export const kaja = new KajaClient()
+export const kaja = new KajaClient({ baseURL: apiBaseUrl })
 export const ollama = new OllamaClient()

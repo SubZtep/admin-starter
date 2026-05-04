@@ -41,3 +41,10 @@ Default developer values:
 | Variable Name | Secret? | Value                 | Description |
 | ------------- | ------- | --------------------- | ----------- |
 | API_URL       | no      | http://localhost:3001 | API URL     |
+
+CLI also supports a non-secret local config file resolved by [`env-paths`](https://www.npmjs.com/package/env-paths).
+On Linux this is typically `~/.config/kaja-nodejs/config.json` with default options.
+
+- Used for local preferences (for example Ollama host/model).
+- Never store auth tokens here; tokens stay in the system secret store.
+- Precedence is: `--api-url` -> `API_URL` -> `config.json(apiUrl)` -> built-in default.
